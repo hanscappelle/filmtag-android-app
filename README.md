@@ -1,11 +1,13 @@
 
 # About
 
-Basic Android app for keeping track of photography settings while shooting analog film. As used by analog photographers who can't rely on exif information when using analog roll film while shooting.
+Basic Android app for keeping track of photography settings while shooting analog film. As used by
+analog photographers who can't rely on exif information when using analog roll film while shooting.
 
 # Goals
 
-Keep it dead simple and easy to use. The photographer shouldn't have to look into settings or any complex editing options while shooting. Keep distraction to an absolute minimum. 
+Keep it dead simple and easy to use. The photographer shouldn't have to look into settings or any
+complex editing options while shooting. Keep distraction to an absolute minimum.
 
 # Key features
 
@@ -25,6 +27,13 @@ Keep it dead simple and easy to use. The photographer shouldn't have to look int
 
 https://www.materialpalette.com/brown/grey
 
+# released
+
+## v 0.1.0
+
+* initial release, open source project
+* minimal requirements met (create film rolls and frames)
+
 # TODO
 
 ## Upcoming features
@@ -38,11 +47,11 @@ https://www.materialpalette.com/brown/grey
 
 * OK - fix back navigation on first fragment
 * OK - fix delete of frames when film is removed
+* restore last fragment instead of overview
 
 ## general
 
-* and an about page
+* add an about page
 * OK - update app icon - also added background
 * OK - complete and release v0.1.0 with minimal requirements
 * OK - opensource project (keeping release key hidden)
-* ...
