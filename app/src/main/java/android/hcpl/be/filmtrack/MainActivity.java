@@ -14,8 +14,6 @@ import android.view.MenuItem;
  */
 public class MainActivity extends AppCompatActivity {
 
-    // TODO fix icon, needs background
-
     private SharedPreferences prefs;
 
     @Override

@@ -31,6 +31,8 @@ https://www.materialpalette.com/brown/grey
 
 * import/export option (see http remote app for intent solution)
 * edit film and notes
+* implement in list editing options
+* add autocomplete based on already added content
 
 ## bugs
 
@@ -39,7 +41,7 @@ https://www.materialpalette.com/brown/grey
 
 ## general
 
-* OK - update app icon
+* OK - update app icon - also added background
 * complete and release v1.0.0 with minimal requirements
 * opensource project (keeping release key hidden)
 * ...
