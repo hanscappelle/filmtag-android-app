@@ -1,9 +1,7 @@
 package android.hcpl.be.filmtrack;
 
-import android.content.SharedPreferences;
 import android.hcpl.be.filmtrack.model.Roll;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,17 +10,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,8 +24,6 @@ import java.util.List;
 public class FilmRollListFragment extends Fragment {
 
     // TODO delete film from overview directly (swipe? long press, ...)
-
-    private SharedPreferences prefs;
 
     private ListView mListView;
 
@@ -58,8 +47,6 @@ public class FilmRollListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         setHasOptionsMenu(true);
     }
 
@@ -92,7 +79,7 @@ public class FilmRollListFragment extends Fragment {
 
     private void refreshData() {
 
-        List<Roll> rolls = StorageUtil.getAllRolls(prefs);
+        List<Roll> rolls = StorageUtil.getAllRolls((MainActivity) getActivity());
         // update adapter
         mAdapter.clear();
         mAdapter.addAll(rolls);

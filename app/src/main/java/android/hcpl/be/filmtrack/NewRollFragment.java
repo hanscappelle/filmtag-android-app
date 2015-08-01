@@ -28,8 +28,6 @@ public class NewRollFragment extends Fragment {
 
     private EditText editType, editSpeed, editFrames;
 
-    private SharedPreferences prefs;
-
     public static NewRollFragment newInstance() {
 
         Bundle args = new Bundle();
@@ -42,7 +40,6 @@ public class NewRollFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         setHasOptionsMenu(true);
     }
 
@@ -90,9 +87,9 @@ public class NewRollFragment extends Fragment {
         }
 
         // store new roll
-        List<Roll> rolls = StorageUtil.getAllRolls(prefs);
+        List<Roll> rolls = StorageUtil.getAllRolls((MainActivity)getActivity());
         rolls.add(roll);
-        StorageUtil.updateRolls(rolls);
+        StorageUtil.updateRolls((MainActivity)getActivity(), rolls);
 
         // navigate to overview
         ((MainActivity)getActivity()).switchContent(FilmRollListFragment.newInstance());

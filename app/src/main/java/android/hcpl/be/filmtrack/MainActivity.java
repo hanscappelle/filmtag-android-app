@@ -1,6 +1,8 @@
 package android.hcpl.be.filmtrack;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
 
     // TODO fix icon, needs background
 
+    private SharedPreferences prefs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
 
         // always starts with the same initial fragment
         getSupportFragmentManager().beginTransaction().replace(R.id.container, FilmRollListFragment.newInstance()).commit();
+
+        prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
     }
 
     public void switchContent(Fragment fragment){
@@ -33,4 +39,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
     }
 
+    public SharedPreferences getPrefs() {
+        return prefs;
+    }
 }

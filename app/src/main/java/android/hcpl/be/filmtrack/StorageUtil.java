@@ -24,15 +24,15 @@ public class StorageUtil {
 
     public static final String KEY_FILM_ROLLS = "rolls";
 
-    public static List<Roll> getAllRolls(SharedPreferences prefs) {
+    public static List<Roll> getAllRolls(MainActivity activity) {
         // get the items
-        String rollsData = prefs.getString(KEY_FILM_ROLLS, "[]");
+        String rollsData = activity.getPrefs().getString(KEY_FILM_ROLLS, "[]");
         // convert using gson
         List<Roll> rolls = gson.fromJson(rollsData, listOfRolls);
         return rolls;
     }
 
-    public static void updateRolls(SharedPreferences prefs, List<Roll> rolls) {
-        prefs.edit().putString(KEY_FILM_ROLLS, gson.toJson(rolls, listOfRolls)).commit();
+    public static void updateRolls(MainActivity activity, List<Roll> rolls) {
+        activity.getPrefs().edit().putString(KEY_FILM_ROLLS, gson.toJson(rolls, listOfRolls)).commit();
     }
 }

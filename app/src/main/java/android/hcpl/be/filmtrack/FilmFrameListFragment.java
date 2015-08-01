@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.List;
+
 /**
  * Created by jd41256 on 30/07/15.
  */
@@ -56,7 +58,7 @@ public class FilmFrameListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setHasOptionsMenu(true);
         Bundle args = getArguments();
         if (args != null) {
             filmRoll = (Roll) args.getSerializable(KEY_FILM_ROLL);
@@ -96,7 +98,12 @@ public class FilmFrameListFragment extends Fragment {
 
     private void deleteCurrentFilmRoll() {
         // TODO confirmation needed before delete here...
+        List<Roll> rolls = StorageUtil.getAllRolls((MainActivity)getActivity());
+        rolls.remove(filmRoll);
+        StorageUtil.updateRolls((MainActivity)getActivity(), rolls);
 
+        // navigate back
+        ((MainActivity)getActivity()).switchContent(FilmRollListFragment.newInstance());
     }
 
     //TODO allow for editing each frame
