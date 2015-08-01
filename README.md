@@ -36,7 +36,7 @@ https://www.materialpalette.com/brown/grey
 
 ## bugs
 
-* fix back navigation
+* OK - fix back navigation on first fragment
 * OK - fix delete of frames when film is removed
 
 ## general

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -113,7 +114,9 @@ public class FilmFrameListFragment extends Fragment {
 
         // show roll details on top
         if (filmRoll != null && detailTextView != null) {
-            detailTextView.setText(filmRoll.toString());
+            detailTextView.setText(Html.fromHtml(
+                    new StringBuilder(filmRoll.toString()).append("<p/>")
+                            .append(filmRoll.getNotes() != null ? filmRoll.getNotes() : getString(R.string.label_no_notes)).toString()));
         }
 
         // and populate list with frame data

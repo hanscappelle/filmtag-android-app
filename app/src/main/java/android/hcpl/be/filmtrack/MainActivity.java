@@ -40,4 +40,14 @@ public class MainActivity extends AppCompatActivity {
     public SharedPreferences getPrefs() {
         return prefs;
     }
+
+    @Override
+    public void onBackPressed() {
+        // finish if content is the film Roll overview fragment
+        if( getSupportFragmentManager().findFragmentById(R.id.container) instanceof FilmRollListFragment ){
+            finish();
+        } else {
+            super.onBackPressed();
+        }
+    }
 }
