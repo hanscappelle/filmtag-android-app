@@ -12,6 +12,8 @@ import android.view.MenuItem;
  */
 public class MainActivity extends AppCompatActivity {
 
+    // TODO fix icon, needs background
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,21 +27,6 @@ public class MainActivity extends AppCompatActivity {
         // always starts with the same initial fragment
         getSupportFragmentManager().beginTransaction().replace(R.id.container, FilmRollListFragment.newInstance()).commit();
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.main, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        int id = item.getItemId();
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
 
     public void switchContent(Fragment fragment){
         // TODO see if we need backstack history and so

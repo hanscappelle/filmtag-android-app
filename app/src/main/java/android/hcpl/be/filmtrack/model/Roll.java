@@ -48,4 +48,25 @@ public class Roll implements Serializable{
     public String toString() {
         return new StringBuilder(type).append(" @ ISO ").append(speed).append(" # ").append(String.valueOf(frames)).toString();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Roll)) return false;
+
+        Roll roll = (Roll) o;
+
+        if (getSpeed() != roll.getSpeed()) return false;
+        if (getFrames() != roll.getFrames()) return false;
+        return getType().equals(roll.getType());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getType().hashCode();
+        result = 31 * result + getSpeed();
+        result = 31 * result + getFrames();
+        return result;
+    }
 }

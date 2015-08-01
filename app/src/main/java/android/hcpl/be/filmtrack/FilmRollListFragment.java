@@ -32,15 +32,13 @@ import java.util.List;
  */
 public class FilmRollListFragment extends Fragment {
 
-    public static final String KEY_FILM_ROLLS = "rolls";
+    // TODO delete film from overview directly (swipe? long press, ...)
 
     private SharedPreferences prefs;
 
     private ListView mListView;
 
     private ArrayAdapter<Roll> mAdapter;
-
-    private final Gson gson = new Gson();
 
     public static FilmRollListFragment newInstance() {
 
@@ -92,18 +90,9 @@ public class FilmRollListFragment extends Fragment {
         refreshData();
     }
 
-//    Type listOfTestObject = new TypeToken<List<TestObject>>(){}.getType();
-//    String s = gson.toJson(list, listOfTestObject);
-//    List<TestObject> list2 = gson.fromJson(s, listOfTestObject);
-    public static final Type listOfRolls = new TypeToken<List<Roll>>(){}.getType();
-
     private void refreshData() {
 
-        // get the items
-        String rollsData = prefs.getString(KEY_FILM_ROLLS, "[]");
-        // convert using gson
-        List<Roll> rolls = gson.fromJson(rollsData, listOfRolls);
-
+        List<Roll> rolls = StorageUtil.getAllRolls(prefs);
         // update adapter
         mAdapter.clear();
         mAdapter.addAll(rolls);

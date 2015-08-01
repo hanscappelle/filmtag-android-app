@@ -30,9 +30,6 @@ public class NewRollFragment extends Fragment {
 
     private SharedPreferences prefs;
 
-    // TODO really only need one of these
-    private Gson gson = new Gson();
-
     public static NewRollFragment newInstance() {
 
         Bundle args = new Bundle();
@@ -93,10 +90,9 @@ public class NewRollFragment extends Fragment {
         }
 
         // store new roll
-        String currentRolls = prefs.getString(FilmRollListFragment.KEY_FILM_ROLLS, "[]");
-        List<Roll> rolls = gson.fromJson(currentRolls, FilmRollListFragment.listOfRolls);
+        List<Roll> rolls = StorageUtil.getAllRolls(prefs);
         rolls.add(roll);
-        prefs.edit().putString(FilmRollListFragment.KEY_FILM_ROLLS, gson.toJson(rolls, FilmRollListFragment.listOfRolls)).commit();
+        StorageUtil.updateRolls(rolls);
 
         // navigate to overview
         ((MainActivity)getActivity()).switchContent(FilmRollListFragment.newInstance());
