@@ -23,12 +23,10 @@ public class NewRollFragment extends Fragment {
 
     // TODO also implement an edit option, delete is done from overview
 
-    private EditText editType, editSpeed, editFrames;
+    private EditText editType, editSpeed, editFrames, editNotes;
 
     public static NewRollFragment newInstance() {
-
         Bundle args = new Bundle();
-
         NewRollFragment fragment = new NewRollFragment();
         fragment.setArguments(args);
         return fragment;
@@ -58,8 +56,7 @@ public class NewRollFragment extends Fragment {
         editType = (EditText)view.findViewById(R.id.edit_type);
         editSpeed = (EditText)view.findViewById(R.id.edit_exposed);
         editFrames = (EditText)view.findViewById(R.id.edit_frames);
-
-        // TODO films could have notes also...
+        editNotes = (EditText)view.findViewById(R.id.edit_notes);
     }
 
     @Override
@@ -76,6 +73,7 @@ public class NewRollFragment extends Fragment {
         // insert the new item
         Roll roll = new Roll();
         roll.setType(editType.getText().toString());
+        roll.setNotes(editNotes.getText().toString());
         try {
             roll.setSpeed(Integer.parseInt(editSpeed.getText().toString()));
             roll.setFrames(Integer.parseInt(editFrames.getText().toString()));

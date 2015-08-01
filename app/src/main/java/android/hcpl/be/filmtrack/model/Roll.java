@@ -14,7 +14,6 @@ public class Roll implements Serializable{
 
     private int speed, frames;
 
-    // TODO impl notes on film also
     private String notes;
 
     public Roll() {
@@ -56,6 +55,14 @@ public class Roll implements Serializable{
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
     @Override
