@@ -6,7 +6,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-
+/**
+ * main entry point of app
+ */
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -19,8 +21,9 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
         setSupportActionBar(toolbar);
 
+        // always starts with the same initial fragment
+        getSupportFragmentManager().beginTransaction().add(R.id.container, FilmRollListFragment.newInstance()).commit();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

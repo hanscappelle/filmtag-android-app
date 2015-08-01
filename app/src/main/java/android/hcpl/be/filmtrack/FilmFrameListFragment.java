@@ -24,4 +24,8 @@ public class FilmFrameListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_roll_overview, container);
     }
+
+    // TODO show roll details on top
+
+    //TODO allow for editing each frame
 }

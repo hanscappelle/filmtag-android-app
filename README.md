@@ -11,7 +11,7 @@ Keep it dead simple and easy to use. The photographer shouldn't have to look int
 
 * get a list of film rolls created
 * create a new film roll adding film type, nr of frames and ISO exposed at (!film ISO)
-* show details (frames) for each of these film rolls
+* show details (frames) for each of these film rolls (+ delete option on detail screen)
 * from details change the aperture, shutter and notes for each frame
 
 # Alternatives
@@ -27,6 +27,7 @@ https://www.materialpalette.com/brown/grey
 
 # TODO
 
-* update app icon
+* OK - update app icon
 * complete and release v1.0.0 with minimal requirements
+* opensource project (keeping release key hidden)
 * ...
