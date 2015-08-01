@@ -12,4 +12,7 @@
     <string name="label_confirm">Confirmation needed</string>
     <string name="label_no">No</string>
     <string name="label_yes">Yes</string>
+    <string name="label_frame_number">Frame Number</string>
+    <string name="label_frame_shutter">Shutterspeed</string>
+    <string name="label_film_aperture">Aperture</string>
 </resources>

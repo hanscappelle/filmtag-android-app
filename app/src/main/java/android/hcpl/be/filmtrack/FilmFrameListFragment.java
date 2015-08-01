@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,7 +33,10 @@ public class FilmFrameListFragment extends Fragment {
 
     private ListView framesListView;
 
-    private ArrayAdapter mAdapter;
+    private ArrayAdapter<Frame> mAdapter;
+
+    // TODO double
+    private List<Frame> frames;
 
     public static FilmFrameListFragment newInstance(Roll roll) {
         Bundle args = new Bundle();
@@ -81,7 +85,7 @@ public class FilmFrameListFragment extends Fragment {
     private void updateFramesForFilm() {
 
         if (filmRoll != null) {
-            List<Frame> frames = StorageUtil.getFramesForFilm(((MainActivity) getActivity()), filmRoll);
+            frames = StorageUtil.getFramesForFilm(((MainActivity) getActivity()), filmRoll);
             // if the film doesn't have frames yet add them based on the number specified
             if (frames.isEmpty()) {
                 for (int i = 0; i <= filmRoll.getFrames(); i++) {
@@ -115,6 +119,16 @@ public class FilmFrameListFragment extends Fragment {
         mAdapter = new ArrayAdapter(getActivity(),android.R.layout.simple_list_item_1);
         framesListView.setAdapter(mAdapter);
 
+        framesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                updateFrame(i);
+            }
+        });
+    }
+
+    private void updateFrame(int index) {
+        ((MainActivity)getActivity()).switchContent(EditFrameFragment.newInstance(filmRoll, frames, index));
     }
 
     @Override
@@ -138,17 +152,17 @@ public class FilmFrameListFragment extends Fragment {
                 .setTitle(R.string.label_confirm)
                 .setMessage(R.string.msg_delete_complete_film_roll)
                 .setPositiveButton(R.string.label_yes, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                List<Roll> rolls = StorageUtil.getAllRolls((MainActivity) getActivity());
-                rolls.remove(filmRoll);
-                StorageUtil.updateRolls((MainActivity) getActivity(), rolls);
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        List<Roll> rolls = StorageUtil.getAllRolls((MainActivity) getActivity());
+                        rolls.remove(filmRoll);
+                        StorageUtil.updateRolls((MainActivity) getActivity(), rolls);
 
-                // navigate back
-                dialogInterface.dismiss();
-                ((MainActivity) getActivity()).switchContent(FilmRollListFragment.newInstance());
-            }
-        }).setNegativeButton(R.string.label_no, new DialogInterface.OnClickListener() {
+                        // navigate back
+                        dialogInterface.dismiss();
+                        ((MainActivity) getActivity()).switchContent(FilmRollListFragment.newInstance());
+                    }
+                }).setNegativeButton(R.string.label_no, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();

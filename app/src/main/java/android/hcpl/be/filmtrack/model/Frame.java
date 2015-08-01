@@ -59,4 +59,30 @@ public class Frame implements Serializable {
     public String toString() {
         return new StringBuilder(String.valueOf(number)).append(" - (s) ").append(String.valueOf(shutter)).append(" - (a) f/").append(String.valueOf(aperture)).toString();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Frame)) return false;
+
+        Frame frame = (Frame) o;
+
+        if (getNumber() != frame.getNumber()) return false;
+        if (getShutter() != frame.getShutter()) return false;
+        if (Double.compare(frame.getAperture(), getAperture()) != 0) return false;
+        return getNotes().equals(frame.getNotes());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = getNotes().hashCode();
+        result = 31 * result + getNumber();
+        result = 31 * result + getShutter();
+        temp = Double.doubleToLongBits(getAperture());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
 }
