@@ -7,12 +7,15 @@ import java.io.Serializable;
  */
 public class Roll implements Serializable{
 
-    // TODO
-//    private long id;
+    // by adding an ID we can delete items by ID and change them
+    private long id;
 
     private String type;
 
     private int speed, frames;
+
+    // TODO impl notes on film also
+    private String notes;
 
     public Roll() {
     }
@@ -47,6 +50,14 @@ public class Roll implements Serializable{
         this.frames = frames;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return new StringBuilder(type).append(" @ ISO ").append(speed).append(" # ").append(String.valueOf(frames)).toString();
@@ -59,17 +70,12 @@ public class Roll implements Serializable{
 
         Roll roll = (Roll) o;
 
-        if (getSpeed() != roll.getSpeed()) return false;
-        if (getFrames() != roll.getFrames()) return false;
-        return getType().equals(roll.getType());
+        return getId() == roll.getId();
 
     }
 
     @Override
     public int hashCode() {
-        int result = getType().hashCode();
-        result = 31 * result + getSpeed();
-        result = 31 * result + getFrames();
-        return result;
+        return (int) (getId() ^ (getId() >>> 32));
     }
 }

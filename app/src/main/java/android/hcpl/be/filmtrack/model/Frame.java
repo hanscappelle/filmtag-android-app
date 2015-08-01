@@ -67,22 +67,12 @@ public class Frame implements Serializable {
 
         Frame frame = (Frame) o;
 
-        if (getNumber() != frame.getNumber()) return false;
-        if (getShutter() != frame.getShutter()) return false;
-        if (Double.compare(frame.getAperture(), getAperture()) != 0) return false;
-        return getNotes().equals(frame.getNotes());
+        return getNumber() == frame.getNumber();
 
     }
 
     @Override
     public int hashCode() {
-        int result;
-        long temp;
-        result = getNotes().hashCode();
-        result = 31 * result + getNumber();
-        result = 31 * result + getShutter();
-        temp = Double.doubleToLongBits(getAperture());
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        return result;
+        return getNumber();
     }
 }

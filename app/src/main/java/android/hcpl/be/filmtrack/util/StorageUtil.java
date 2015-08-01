@@ -1,5 +1,6 @@
-package android.hcpl.be.filmtrack;
+package android.hcpl.be.filmtrack.util;
 
+import android.hcpl.be.filmtrack.MainActivity;
 import android.hcpl.be.filmtrack.model.Frame;
 import android.hcpl.be.filmtrack.model.Roll;
 
@@ -35,24 +36,39 @@ public class StorageUtil {
         return rolls;
     }
 
-    public static void updateRolls(MainActivity activity, List<Roll> rolls) {
+    /**
+     * for internal use only
+     *
+     * @param activity
+     * @param rolls
+     */
+    private static void updateRolls(MainActivity activity, List<Roll> rolls) {
         activity.getPrefs().edit().putString(KEY_FILM_ROLLS, gson.toJson(rolls, listOfRollsType)).commit();
     }
 
+    public static void deleteRoll(MainActivity activity, Roll roll) {
+        List<Roll> rolls = StorageUtil.getAllRolls(activity);
+        rolls.remove(roll);
+        // also delete all frames for that roll at this point
+        deleteFramesForRoll(activity, roll);
+        updateRolls(activity, rolls);
+    }
+
+    private static void deleteFramesForRoll(MainActivity activity, Roll roll) {
+        activity.getPrefs().edit().remove(KEY_FILM_ROLLS + roll.getId()).commit();
+    }
+
     public static List<Frame> getFramesForFilm(MainActivity activity, Roll filmRoll) {
-        // TODO this will fail after renaming that film...
         // get the items
-        String framesData = activity.getPrefs().getString(KEY_FILM_ROLLS+filmRoll.toString(), "[]");
+        String framesData = activity.getPrefs().getString(KEY_FILM_ROLLS + filmRoll.getId(), "[]");
         // convert using gson
         return gson.fromJson(framesData, listOfFramesType);
     }
 
     public static void updateFrames(MainActivity activity, Roll filmRoll, List<Frame> frames) {
-        // TODO this will fail after renaming that film...
-        activity.getPrefs().edit().putString(KEY_FILM_ROLLS+filmRoll
-                .toString(), gson.toJson(frames, listOfFramesType)).commit();
+        activity.getPrefs().edit().putString(KEY_FILM_ROLLS + filmRoll
+                .getId(), gson.toJson(frames, listOfFramesType)).commit();
     }
-
 
 
 }

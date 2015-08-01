@@ -1,6 +1,7 @@
 package android.hcpl.be.filmtrack;
 
 import android.hcpl.be.filmtrack.model.Roll;
+import android.hcpl.be.filmtrack.util.StorageUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -30,9 +31,7 @@ public class FilmRollListFragment extends Fragment {
     private ArrayAdapter<Roll> mAdapter;
 
     public static FilmRollListFragment newInstance() {
-
         Bundle args = new Bundle();
-
         FilmRollListFragment fragment = new FilmRollListFragment();
         fragment.setArguments(args);
         return fragment;
@@ -97,7 +96,6 @@ public class FilmRollListFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.rolls, menu);
     }
 

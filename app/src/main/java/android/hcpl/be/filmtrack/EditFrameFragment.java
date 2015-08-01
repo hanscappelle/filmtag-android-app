@@ -2,6 +2,7 @@ package android.hcpl.be.filmtrack;
 
 import android.hcpl.be.filmtrack.model.Frame;
 import android.hcpl.be.filmtrack.model.Roll;
+import android.hcpl.be.filmtrack.util.StorageUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;

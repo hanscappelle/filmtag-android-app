@@ -3,6 +3,7 @@ package android.hcpl.be.filmtrack;
 import android.content.DialogInterface;
 import android.hcpl.be.filmtrack.model.Frame;
 import android.hcpl.be.filmtrack.model.Roll;
+import android.hcpl.be.filmtrack.util.StorageUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -154,10 +155,7 @@ public class FilmFrameListFragment extends Fragment {
                 .setPositiveButton(R.string.label_yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        List<Roll> rolls = StorageUtil.getAllRolls((MainActivity) getActivity());
-                        rolls.remove(filmRoll);
-                        StorageUtil.updateRolls((MainActivity) getActivity(), rolls);
-
+                        StorageUtil.deleteRoll((MainActivity) getActivity(), filmRoll);
                         // navigate back
                         dialogInterface.dismiss();
                         ((MainActivity) getActivity()).switchContent(FilmRollListFragment.newInstance());
@@ -171,6 +169,4 @@ public class FilmFrameListFragment extends Fragment {
 
 
     }
-
-    //TODO allow for editing each frame
 }
