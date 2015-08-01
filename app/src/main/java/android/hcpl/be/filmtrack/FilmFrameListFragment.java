@@ -10,11 +10,11 @@ import android.view.ViewGroup;
 /**
  * Created by jd41256 on 30/07/15.
  */
-public class FilmRollDetailFragment extends Fragment {
+public class FilmFrameListFragment extends Fragment {
 
-    public static FilmRollDetailFragment newInstance() {
+    public static FilmFrameListFragment newInstance() {
         Bundle args = new Bundle();
-        FilmRollDetailFragment fragment = new FilmRollDetailFragment();
+        FilmFrameListFragment fragment = new FilmFrameListFragment();
         fragment.setArguments(args);
         return fragment;
     }
