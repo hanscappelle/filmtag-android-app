@@ -86,7 +86,7 @@ public class EditFrameFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.new_film, menu);
+        inflater.inflate(R.menu.update_frame, menu);
     }
 
     @Override
