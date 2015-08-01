@@ -3,4 +3,9 @@
     <string name="action_settings">Settings</string>
     <string name="action_add">Add</string>
     <string name="action_delete">Delete</string>
+    <string name="label_film_type">Film Type</string>
+    <string name="label_film_exposed_at">Exposed at ISO</string>
+    <string name="label_film_frames">Number of Frames</string>
+    <string name="action_create">Create</string>
+    <string name="err_parsing_failed">Parsing numeric value failed</string>
 </resources>

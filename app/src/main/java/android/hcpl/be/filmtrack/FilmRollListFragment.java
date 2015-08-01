@@ -1,12 +1,29 @@
 package android.hcpl.be.filmtrack;
 
+import android.content.SharedPreferences;
+import android.hcpl.be.filmtrack.model.Roll;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * an overview of rolls created earlier + option to add new roll of film
@@ -15,7 +32,15 @@ import android.widget.ListView;
  */
 public class FilmRollListFragment extends Fragment {
 
+    public static final String KEY_FILM_ROLLS = "rolls";
+
+    private SharedPreferences prefs;
+
     private ListView mListView;
+
+    private ArrayAdapter<Roll> mAdapter;
+
+    private final Gson gson = new Gson();
 
     public static FilmRollListFragment newInstance() {
 
@@ -32,7 +57,13 @@ public class FilmRollListFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_roll_overview, container, false);
     }
 
-    // TODO populate list from settings
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        setHasOptionsMenu(true);
+    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -40,10 +71,72 @@ public class FilmRollListFragment extends Fragment {
 
         mListView = (ListView)view.findViewById(R.id.list_rolls);
 
+        // prepare the adapter for that list
+        mAdapter = new ArrayAdapter<Roll>(getActivity(), android.R.layout.simple_list_item_1);
+        mListView.setAdapter(mAdapter);
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                showRollDetails(mAdapter.getItem(i));
+            }
+        });
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // retrieve list of frames here
+        refreshData();
+    }
+
+//    Type listOfTestObject = new TypeToken<List<TestObject>>(){}.getType();
+//    String s = gson.toJson(list, listOfTestObject);
+//    List<TestObject> list2 = gson.fromJson(s, listOfTestObject);
+    public static final Type listOfRolls = new TypeToken<List<Roll>>(){}.getType();
+
+    private void refreshData() {
+
+        // get the items
+        String rollsData = prefs.getString(KEY_FILM_ROLLS, "[]");
+        // convert using gson
+        List<Roll> rolls = gson.fromJson(rollsData, listOfRolls);
+
+        // update adapter
+        mAdapter.clear();
+        mAdapter.addAll(rolls);
+        mAdapter.notifyDataSetChanged();
     }
 
 
-    // TODO create new roll option
+    private void showRollDetails(Roll roll) {
+        // show frames on selection
+        ((MainActivity)getActivity()).switchContent(FilmFrameListFragment.newInstance(roll));
+        // TODO provide proper up navigation and history for back...
+    }
 
-    // TODO show frames on selection
+    // create new roll option is in main activity
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.rolls, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_add) {
+            createNewRoll();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void createNewRoll() {
+        ((MainActivity)getActivity()).switchContent(NewRollFragment.newInstance());
+    }
+
 }

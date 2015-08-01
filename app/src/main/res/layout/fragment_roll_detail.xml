@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- header showing details of this roll -->
+    <TextView
+        android:id="@+id/text_roll_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/accent"
+        tools:text="Kodak NC film ISO 400 exposed @ ISO 800 with 36 frames"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-light"
+        android:padding="10dp"
+        />
+
+    <!-- list of all frames and their settings -->
+    <ListView
+        android:id="@+id/list_frames"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_roll_details"
+        ></ListView>
+
+
+</RelativeLayout>

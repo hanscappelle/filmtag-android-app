@@ -1,0 +1,62 @@
+package android.hcpl.be.filmtrack.model;
+
+import java.io.Serializable;
+
+/**
+ * Created by hcpl on 1/08/15.
+ */
+public class Frame implements Serializable {
+
+    private String notes;
+
+    private int number, shutter;
+
+    private double aperture;
+
+    public Frame() {
+    }
+
+    public Frame(String notes, int number, int shutter, double aperture) {
+        this.notes = notes;
+        this.number = number;
+        this.shutter = shutter;
+        this.aperture = aperture;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public int getShutter() {
+        return shutter;
+    }
+
+    public void setShutter(int shutter) {
+        this.shutter = shutter;
+    }
+
+    public double getAperture() {
+        return aperture;
+    }
+
+    public void setAperture(double aperture) {
+        this.aperture = aperture;
+    }
+
+    @Override
+    public String toString() {
+        return new StringBuilder(String.valueOf(number)).append(" - s ").append(String.valueOf(shutter)).append(" - a f/").append(String.valueOf(aperture)).toString();
+    }
+}
