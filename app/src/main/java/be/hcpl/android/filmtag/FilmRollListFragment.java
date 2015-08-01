@@ -1,7 +1,5 @@
-package android.hcpl.be.filmtag;
+package be.hcpl.android.filmtag;
 
-import android.hcpl.be.filmtag.model.Roll;
-import android.hcpl.be.filmtag.util.StorageUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +14,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.List;
+
+import be.hcpl.android.filmtag.model.Roll;
+import be.hcpl.android.filmtag.util.StorageUtil;
 
 /**
  * an overview of rolls created earlier + option to add new roll of film

@@ -1,7 +1,5 @@
-package android.hcpl.be.filmtag;
+package be.hcpl.android.filmtag;
 
-import android.hcpl.be.filmtag.model.Roll;
-import android.hcpl.be.filmtag.util.StorageUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import be.hcpl.android.filmtag.model.Roll;
+import be.hcpl.android.filmtag.util.StorageUtil;
 
 /**
  * Created by hcpl on 1/08/15.
@@ -51,15 +52,15 @@ public class NewRollFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        editType = (EditText)view.findViewById(R.id.edit_type);
-        editSpeed = (EditText)view.findViewById(R.id.edit_exposed);
-        editFrames = (EditText)view.findViewById(R.id.edit_frames);
-        editNotes = (EditText)view.findViewById(R.id.edit_notes);
+        editType = (EditText) view.findViewById(R.id.edit_type);
+        editSpeed = (EditText) view.findViewById(R.id.edit_exposed);
+        editFrames = (EditText) view.findViewById(R.id.edit_frames);
+        editNotes = (EditText) view.findViewById(R.id.edit_notes);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_create:
                 createNewItem();
                 return true;
@@ -71,7 +72,7 @@ public class NewRollFragment extends Fragment {
     }
 
     private void backToOverview() {
-        ((MainActivity)getActivity()).switchContent(FilmRollListFragment.newInstance());
+        ((MainActivity) getActivity()).switchContent(FilmRollListFragment.newInstance());
     }
 
     private void createNewItem() {
@@ -82,7 +83,7 @@ public class NewRollFragment extends Fragment {
         try {
             roll.setSpeed(Integer.parseInt(editSpeed.getText().toString()));
             roll.setFrames(Integer.parseInt(editFrames.getText().toString()));
-        }catch(NumberFormatException nfe){
+        } catch (NumberFormatException nfe) {
             Toast.makeText(getActivity(), R.string.err_parsing_failed, Toast.LENGTH_SHORT).show();
         }
 
@@ -96,6 +97,6 @@ public class NewRollFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((MainActivity)getActivity()).setHomeAsUp(true);
+        ((MainActivity) getActivity()).setHomeAsUp(true);
     }
 }

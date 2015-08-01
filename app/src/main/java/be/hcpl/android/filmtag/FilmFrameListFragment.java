@@ -1,9 +1,6 @@
-package android.hcpl.be.filmtag;
+package be.hcpl.android.filmtag;
 
 import android.content.DialogInterface;
-import android.hcpl.be.filmtag.model.Frame;
-import android.hcpl.be.filmtag.model.Roll;
-import android.hcpl.be.filmtag.util.StorageUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,6 +18,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.List;
+
+import be.hcpl.android.filmtag.model.Frame;
+import be.hcpl.android.filmtag.model.Roll;
+import be.hcpl.android.filmtag.util.StorageUtil;
 
 /**
  * Created by jd41256 on 30/07/15.

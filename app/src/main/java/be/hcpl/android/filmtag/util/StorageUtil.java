@@ -1,14 +1,14 @@
-package android.hcpl.be.filmtag.util;
-
-import android.hcpl.be.filmtag.MainActivity;
-import android.hcpl.be.filmtag.model.Frame;
-import android.hcpl.be.filmtag.model.Roll;
+package be.hcpl.android.filmtag.util;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.List;
+
+import be.hcpl.android.filmtag.MainActivity;
+import be.hcpl.android.filmtag.model.Frame;
+import be.hcpl.android.filmtag.model.Roll;
 
 /**
  * Created by hcpl on 1/08/15.

@@ -1,8 +1,5 @@
-package android.hcpl.be.filmtag;
+package be.hcpl.android.filmtag;
 
-import android.hcpl.be.filmtag.model.Frame;
-import android.hcpl.be.filmtag.model.Roll;
-import android.hcpl.be.filmtag.util.StorageUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,6 +14,10 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import be.hcpl.android.filmtag.model.Frame;
+import be.hcpl.android.filmtag.model.Roll;
+import be.hcpl.android.filmtag.util.StorageUtil;
 
 /**
  * Created by hcpl on 1/08/15.
@@ -39,7 +40,7 @@ public class EditFrameFragment extends Fragment {
 
     public static EditFrameFragment newInstance(Roll roll, List<Frame> frames, int frame) {
         Bundle args = new Bundle();
-        args.putSerializable(KEY_FRAMES, (ArrayList)frames);
+        args.putSerializable(KEY_FRAMES, (ArrayList) frames);
         args.putInt(KEY_FRAME_IDX, frame);
         args.putSerializable(KEY_ROLL, roll);
         EditFrameFragment fragment = new EditFrameFragment();
@@ -52,10 +53,10 @@ public class EditFrameFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         Bundle args = getArguments();
-        if( args != null ){
-            frames = (List<Frame>)args.getSerializable(KEY_FRAMES);
+        if (args != null) {
+            frames = (List<Frame>) args.getSerializable(KEY_FRAMES);
             selectedFrame = frames.get(args.getInt(KEY_FRAME_IDX));
-            roll = (Roll)args.getSerializable(KEY_ROLL);
+            roll = (Roll) args.getSerializable(KEY_ROLL);
         }
     }
 
@@ -70,10 +71,10 @@ public class EditFrameFragment extends Fragment {
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        if( savedInstanceState != null ){
-            frames = (List<Frame>)savedInstanceState.getSerializable(KEY_FRAMES);
+        if (savedInstanceState != null) {
+            frames = (List<Frame>) savedInstanceState.getSerializable(KEY_FRAMES);
             selectedFrame = frames.get(savedInstanceState.getInt(KEY_FRAME_IDX));
-            roll = (Roll)savedInstanceState.getSerializable(KEY_ROLL);
+            roll = (Roll) savedInstanceState.getSerializable(KEY_ROLL);
         }
     }
 
@@ -96,8 +97,8 @@ public class EditFrameFragment extends Fragment {
         editShutter = (EditText) view.findViewById(R.id.edit_shutter);
         editNotes = (EditText) view.findViewById(R.id.edit_notes);
 
-        if( selectedFrame != null ){
-            ((EditText)view.findViewById(R.id.edit_number)).setText(String.valueOf(selectedFrame.getNumber()));
+        if (selectedFrame != null) {
+            ((EditText) view.findViewById(R.id.edit_number)).setText(String.valueOf(selectedFrame.getNumber()));
             editAperture.setText(String.valueOf(selectedFrame.getAperture()));
             editShutter.setText(String.valueOf(selectedFrame.getShutter()));
             editNotes.setText(selectedFrame.getNotes());
@@ -143,6 +144,6 @@ public class EditFrameFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((MainActivity)getActivity()).setHomeAsUp(true);
+        ((MainActivity) getActivity()).setHomeAsUp(true);
     }
 }

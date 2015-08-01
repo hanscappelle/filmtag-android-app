@@ -1,4 +1,4 @@
-package android.hcpl.be.filmtag;
+package be.hcpl.android.filmtag;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
     }
 
-    public void switchContent(Fragment fragment){
+    public void switchContent(Fragment fragment) {
         // switch content with history
         getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).addToBackStack(fragment.getClass().getSimpleName()).commit();
         // false by default
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         // finish if content is the film Roll overview fragment
-        if( getSupportFragmentManager().findFragmentById(R.id.container) instanceof FilmRollListFragment ){
+        if (getSupportFragmentManager().findFragmentById(R.id.container) instanceof FilmRollListFragment) {
             finish();
         } else {
             super.onBackPressed();
