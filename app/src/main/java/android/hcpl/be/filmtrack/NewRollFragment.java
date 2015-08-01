@@ -84,9 +84,7 @@ public class NewRollFragment extends Fragment {
         }
 
         // store new roll
-        List<Roll> rolls = StorageUtil.getAllRolls((MainActivity) getActivity());
-        rolls.add(roll);
-        StorageUtil.updateRolls((MainActivity)getActivity(), rolls);
+        StorageUtil.addNewRoll((MainActivity)getActivity(), roll);
 
         // navigate to overview
         ((MainActivity)getActivity()).switchContent(FilmRollListFragment.newInstance());
