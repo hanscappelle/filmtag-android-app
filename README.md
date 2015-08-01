@@ -1,33 +1,32 @@
 
-# concept
+# About
 
-TODO
+Basic Android app for keeping track of photography settings while shooting analog film. As used by analog photographers who can't rely on exif information when using analog roll film while shooting.
 
-# examples
+# Goals
+
+Keep it dead simple and easy to use. The photographer shouldn't have to look into settings or any complex editing options while shooting. Keep distraction to an absolute minimum. 
+
+# Key features
+
+* get a list of film rolls created
+* create a new film roll adding film type, nr of frames and ISO exposed at (!film ISO)
+* show details (frames) for each of these film rolls
+* from details change the aperture, shutter and notes for each frame
+
+# Alternatives
 
 * http://petapixel.com/2012/07/30/exif4film-helps-analog-photographers-infuse-metadata-into-film-photos/
 * http://appcrawlr.com/ios/film-rolls
 
-# colors generated with materialpalette
+# Other Resources
+
+## colors generated with materialpalette
 
 https://www.materialpalette.com/brown/grey
 
 # TODO
 
 * update app icon
-* implement service calls using retrofit
+* complete and release v1.0.0 with minimal requirements
 * ...
-
-# original project info
-
-# android-toolbar-example
-
-Simple Android Studio project showing how to implement the Toolbar with a navigation drawer on android.
-
-# Resources
-
-the starting point, documentation by android developers: http://android-developers.blogspot.be/2014/10/appcompat-v21-material-design-for-pre.html
-
-a great article explaining some of the caveats of working with a toolbar and the compat lib: https://chris.banes.me/2015/04/22/support-libraries-v22-1-0/
-
-just in case someone wants the drawer to appear underneath the toolbar: http://stackoverflow.com/questions/26440879/how-do-i-use-drawerlayout-to-display-over-the-actionbar-toolbar-and-under-the-st
