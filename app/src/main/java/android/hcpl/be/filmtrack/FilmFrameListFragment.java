@@ -1,5 +1,6 @@
 package android.hcpl.be.filmtrack;
 
+import android.hcpl.be.filmtrack.model.Frame;
 import android.hcpl.be.filmtrack.model.Roll;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -27,6 +29,8 @@ public class FilmFrameListFragment extends Fragment {
     private TextView detailTextView;
 
     private ListView framesListView;
+
+    private ArrayAdapter mAdapter;
 
     public static FilmFrameListFragment newInstance(Roll roll) {
         Bundle args = new Bundle();
@@ -66,6 +70,34 @@ public class FilmFrameListFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        updateFramesForFilm();
+    }
+
+    private void updateFramesForFilm() {
+
+        if (filmRoll != null) {
+            List<Frame> frames = StorageUtil.getFramesForFilm(((MainActivity) getActivity()), filmRoll);
+            // if the film doesn't have frames yet add them based on the number specified
+            if (frames.isEmpty()) {
+                for (int i = 0; i <= filmRoll.getFrames(); i++) {
+                    Frame frame = new Frame();
+                    frame.setNumber(i);
+                    frames.add(frame);
+                }
+            }
+
+            // update list data
+            mAdapter.clear();
+            mAdapter.addAll(frames);
+            mAdapter.notifyDataSetChanged();
+        }
+
+    }
+
+    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -77,7 +109,9 @@ public class FilmFrameListFragment extends Fragment {
             detailTextView.setText(filmRoll.toString());
         }
 
-        // TODO and populate list with frame data
+        // and populate list with frame data
+        mAdapter = new ArrayAdapter(getActivity(),android.R.layout.simple_list_item_1);
+        framesListView.setAdapter(mAdapter);
 
     }
 
@@ -88,7 +122,7 @@ public class FilmFrameListFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_delete:
                 deleteCurrentFilmRoll();
                 return true;
@@ -98,12 +132,12 @@ public class FilmFrameListFragment extends Fragment {
 
     private void deleteCurrentFilmRoll() {
         // TODO confirmation needed before delete here...
-        List<Roll> rolls = StorageUtil.getAllRolls((MainActivity)getActivity());
+        List<Roll> rolls = StorageUtil.getAllRolls((MainActivity) getActivity());
         rolls.remove(filmRoll);
-        StorageUtil.updateRolls((MainActivity)getActivity(), rolls);
+        StorageUtil.updateRolls((MainActivity) getActivity(), rolls);
 
         // navigate back
-        ((MainActivity)getActivity()).switchContent(FilmRollListFragment.newInstance());
+        ((MainActivity) getActivity()).switchContent(FilmRollListFragment.newInstance());
     }
 
     //TODO allow for editing each frame

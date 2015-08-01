@@ -57,6 +57,6 @@ public class Frame implements Serializable {
 
     @Override
     public String toString() {
-        return new StringBuilder(String.valueOf(number)).append(" - s ").append(String.valueOf(shutter)).append(" - a f/").append(String.valueOf(aperture)).toString();
+        return new StringBuilder(String.valueOf(number)).append(" - (s) ").append(String.valueOf(shutter)).append(" - (a) f/").append(String.valueOf(aperture)).toString();
     }
 }

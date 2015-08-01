@@ -1,6 +1,6 @@
 package android.hcpl.be.filmtrack;
 
-import android.content.SharedPreferences;
+import android.hcpl.be.filmtrack.model.Frame;
 import android.hcpl.be.filmtrack.model.Roll;
 
 import com.google.gson.Gson;
@@ -17,7 +17,10 @@ public class StorageUtil {
     //    Type listOfTestObject = new TypeToken<List<TestObject>>(){}.getType();
 //    String s = gson.toJson(list, listOfTestObject);
 //    List<TestObject> list2 = gson.fromJson(s, listOfTestObject);
-    public static final Type listOfRolls = new TypeToken<List<Roll>>() {
+    public static final Type listOfRollsType = new TypeToken<List<Roll>>() {
+    }.getType();
+
+    public static final Type listOfFramesType = new TypeToken<List<Frame>>() {
     }.getType();
 
     public static final Gson gson = new Gson();
@@ -28,11 +31,28 @@ public class StorageUtil {
         // get the items
         String rollsData = activity.getPrefs().getString(KEY_FILM_ROLLS, "[]");
         // convert using gson
-        List<Roll> rolls = gson.fromJson(rollsData, listOfRolls);
+        List<Roll> rolls = gson.fromJson(rollsData, listOfRollsType);
         return rolls;
     }
 
     public static void updateRolls(MainActivity activity, List<Roll> rolls) {
-        activity.getPrefs().edit().putString(KEY_FILM_ROLLS, gson.toJson(rolls, listOfRolls)).commit();
+        activity.getPrefs().edit().putString(KEY_FILM_ROLLS, gson.toJson(rolls, listOfRollsType)).commit();
     }
+
+    public static List<Frame> getFramesForFilm(MainActivity activity, Roll filmRoll) {
+        // TODO this will fail after renaming that film...
+        // get the items
+        String framesData = activity.getPrefs().getString(KEY_FILM_ROLLS+filmRoll.toString(), "[]");
+        // convert using gson
+        return gson.fromJson(framesData, listOfFramesType);
+    }
+
+    public static void updateFrames(MainActivity activity, Roll filmRoll, List<Frame> frames) {
+        // TODO this will fail after renaming that film...
+        activity.getPrefs().edit().putString(KEY_FILM_ROLLS+filmRoll
+                .toString(), gson.toJson(frames, listOfFramesType)).commit();
+    }
+
+
+
 }

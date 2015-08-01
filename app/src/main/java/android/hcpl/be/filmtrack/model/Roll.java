@@ -7,6 +7,9 @@ import java.io.Serializable;
  */
 public class Roll implements Serializable{
 
+    // TODO
+//    private long id;
+
     private String type;
 
     private int speed, frames;
