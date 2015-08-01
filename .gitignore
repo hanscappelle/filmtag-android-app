@@ -26,7 +26,17 @@ proguard/
 # Log Files
 *.log
 
-#idea
+### for mac ###
+.DS_Store
+ 
+### for Android Studio (intelliJ) ###
+ 
+# Intellij project files
 *.iml
-.idea
+*.ipr
+*.iws
+.idea/
 
+# ignore all release files
+release.keystore
+release.properties
