@@ -27,6 +27,18 @@ https://www.materialpalette.com/brown/grey
 
 # TODO
 
+## Upcoming features
+
+* import/export option (see http remote app for intent solution)
+* edit film and notes
+
+## bugs
+
+* fix back navigation
+* OK - fix delete of frames when film is removed
+
+## general
+
 * OK - update app icon
 * complete and release v1.0.0 with minimal requirements
 * opensource project (keeping release key hidden)
