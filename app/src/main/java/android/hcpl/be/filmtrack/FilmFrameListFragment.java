@@ -1,10 +1,12 @@
 package android.hcpl.be.filmtrack;
 
+import android.content.DialogInterface;
 import android.hcpl.be.filmtrack.model.Frame;
 import android.hcpl.be.filmtrack.model.Roll;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -131,13 +133,29 @@ public class FilmFrameListFragment extends Fragment {
     }
 
     private void deleteCurrentFilmRoll() {
-        // TODO confirmation needed before delete here...
-        List<Roll> rolls = StorageUtil.getAllRolls((MainActivity) getActivity());
-        rolls.remove(filmRoll);
-        StorageUtil.updateRolls((MainActivity) getActivity(), rolls);
+        // confirmation needed before delete here...
+        new AlertDialog.Builder(getActivity())
+                .setTitle(R.string.label_confirm)
+                .setMessage(R.string.msg_delete_complete_film_roll)
+                .setPositiveButton(R.string.label_yes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                List<Roll> rolls = StorageUtil.getAllRolls((MainActivity) getActivity());
+                rolls.remove(filmRoll);
+                StorageUtil.updateRolls((MainActivity) getActivity(), rolls);
 
-        // navigate back
-        ((MainActivity) getActivity()).switchContent(FilmRollListFragment.newInstance());
+                // navigate back
+                dialogInterface.dismiss();
+                ((MainActivity) getActivity()).switchContent(FilmRollListFragment.newInstance());
+            }
+        }).setNegativeButton(R.string.label_no, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        }).show();
+
+
     }
 
     //TODO allow for editing each frame
