@@ -65,8 +65,15 @@ public class NewRollFragment extends Fragment {
             case R.id.action_create:
                 createNewItem();
                 return true;
+            case android.R.id.home:
+                backToOverview();
+                return true;
         }
         return false;
+    }
+
+    private void backToOverview() {
+        ((MainActivity)getActivity()).switchContent(FilmRollListFragment.newInstance());
     }
 
     private void createNewItem() {
@@ -82,9 +89,15 @@ public class NewRollFragment extends Fragment {
         }
 
         // store new roll
-        StorageUtil.addNewRoll((MainActivity)getActivity(), roll);
+        StorageUtil.addNewRoll((MainActivity) getActivity(), roll);
 
         // navigate to overview
-        ((MainActivity)getActivity()).switchContent(FilmRollListFragment.newInstance());
+        backToOverview();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity)getActivity()).setHomeAsUp(true);
     }
 }

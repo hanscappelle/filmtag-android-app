@@ -80,8 +80,8 @@ public class FilmFrameListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
         updateFramesForFilm();
+        ((MainActivity)getActivity()).setHomeAsUp(true);
     }
 
     private void updateFramesForFilm() {
@@ -146,8 +146,16 @@ public class FilmFrameListFragment extends Fragment {
             case R.id.action_delete:
                 deleteCurrentFilmRoll();
                 return true;
+            case android.R.id.home:
+                // back to overview without change
+                backToOverview();
+                return true;
         }
         return false;
+    }
+
+    private void backToOverview() {
+        ((MainActivity) getActivity()).switchContent(FilmRollListFragment.newInstance());
     }
 
     private void deleteCurrentFilmRoll() {
@@ -161,7 +169,7 @@ public class FilmFrameListFragment extends Fragment {
                         StorageUtil.deleteRoll((MainActivity) getActivity(), filmRoll);
                         // navigate back
                         dialogInterface.dismiss();
-                        ((MainActivity) getActivity()).switchContent(FilmRollListFragment.newInstance());
+                        backToOverview();
                     }
                 }).setNegativeButton(R.string.label_no, new DialogInterface.OnClickListener() {
             @Override

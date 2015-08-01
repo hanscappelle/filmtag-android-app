@@ -37,9 +37,7 @@ public class EditFrameFragment extends Fragment {
 
     private List<Frame> frames;
 
-
     public static EditFrameFragment newInstance(Roll roll, List<Frame> frames, int frame) {
-
         Bundle args = new Bundle();
         args.putSerializable(KEY_FRAMES, (ArrayList)frames);
         args.putInt(KEY_FRAME_IDX, frame);
@@ -114,6 +112,9 @@ public class EditFrameFragment extends Fragment {
             case R.id.action_update:
                 updateItem();
                 return true;
+            case android.R.id.home:
+                backToOverview();
+                return true;
         }
         return false;
     }
@@ -132,6 +133,16 @@ public class EditFrameFragment extends Fragment {
         StorageUtil.updateFrames((MainActivity) getActivity(), roll, frames);
 
         // navigate back to overview
+        backToOverview();
+    }
+
+    private void backToOverview() {
         ((MainActivity) getActivity()).switchContent(FilmFrameListFragment.newInstance(roll));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity)getActivity()).setHomeAsUp(true);
     }
 }

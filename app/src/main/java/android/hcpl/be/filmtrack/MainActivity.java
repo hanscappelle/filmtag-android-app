@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     public void switchContent(Fragment fragment){
         // switch content with history
         getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).addToBackStack(fragment.getClass().getSimpleName()).commit();
+        // false by default
+        setHomeAsUp(false);
     }
 
     public SharedPreferences getPrefs() {
@@ -48,6 +50,13 @@ public class MainActivity extends AppCompatActivity {
             finish();
         } else {
             super.onBackPressed();
+        }
+    }
+
+    public void setHomeAsUp(final boolean enable) {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(enable);
+            //getSupportActionBar().setHomeButtonEnabled(true);
         }
     }
 }
