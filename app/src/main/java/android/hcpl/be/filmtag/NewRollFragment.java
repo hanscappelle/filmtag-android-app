@@ -1,7 +1,7 @@
-package android.hcpl.be.filmtrack;
+package android.hcpl.be.filmtag;
 
-import android.hcpl.be.filmtrack.model.Roll;
-import android.hcpl.be.filmtrack.util.StorageUtil;
+import android.hcpl.be.filmtag.model.Roll;
+import android.hcpl.be.filmtag.util.StorageUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,8 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import java.util.List;
 
 /**
  * Created by hcpl on 1/08/15.

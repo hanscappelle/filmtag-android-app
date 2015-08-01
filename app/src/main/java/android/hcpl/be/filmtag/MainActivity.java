@@ -1,4 +1,4 @@
-package android.hcpl.be.filmtrack;
+package android.hcpl.be.filmtag;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -6,8 +6,6 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 
 /**
  * main entry point of app

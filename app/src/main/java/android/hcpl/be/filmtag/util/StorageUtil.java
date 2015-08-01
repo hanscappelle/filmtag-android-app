@@ -1,8 +1,8 @@
-package android.hcpl.be.filmtrack.util;
+package android.hcpl.be.filmtag.util;
 
-import android.hcpl.be.filmtrack.MainActivity;
-import android.hcpl.be.filmtrack.model.Frame;
-import android.hcpl.be.filmtrack.model.Roll;
+import android.hcpl.be.filmtag.MainActivity;
+import android.hcpl.be.filmtag.model.Frame;
+import android.hcpl.be.filmtag.model.Roll;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

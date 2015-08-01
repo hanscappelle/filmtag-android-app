@@ -1,4 +1,4 @@
-package android.hcpl.be.filmtrack.model;
+package android.hcpl.be.filmtag.model;
 
 import java.io.Serializable;
 

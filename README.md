@@ -41,7 +41,8 @@ https://www.materialpalette.com/brown/grey
 
 ## general
 
+* and an about page
 * OK - update app icon - also added background
-* complete and release v1.0.0 with minimal requirements
-* opensource project (keeping release key hidden)
+* OK - complete and release v0.1.0 with minimal requirements
+* OK - opensource project (keeping release key hidden)
 * ...
