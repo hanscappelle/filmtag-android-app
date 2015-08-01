@@ -35,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void switchContent(Fragment fragment){
-        // TODO see if we need backstack history and so
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
+        // switch content with history
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).addToBackStack(fragment.getClass().getSimpleName()).commit();
     }
 
     public SharedPreferences getPrefs() {
