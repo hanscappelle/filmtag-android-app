@@ -52,5 +52,25 @@
         android:inputType="numberDecimal"
         />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/label_frame_notes"
+        android:textSize="20sp"
+        android:padding="5dp"
+        android:fontFamily="sans-serif-light"
+        />
+
+    <EditText
+        android:id="@+id/edit_notes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Your notes for this frame"
+        android:singleLine="false"
+        android:lines="6"
+        android:gravity="top"
+        />
+
+
 
 </LinearLayout>

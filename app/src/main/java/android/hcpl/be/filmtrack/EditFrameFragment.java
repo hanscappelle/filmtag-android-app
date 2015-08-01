@@ -28,7 +28,7 @@ public class EditFrameFragment extends Fragment {
 
     // TODO this needs to be replaced by inline editing options for list instead
 
-    private EditText editShutter, editAperture;
+    private EditText editShutter, editAperture, editNotes;
 
     private Roll roll;
 
@@ -95,21 +95,22 @@ public class EditFrameFragment extends Fragment {
 
         editAperture = (EditText) view.findViewById(R.id.edit_aperture);
         editShutter = (EditText) view.findViewById(R.id.edit_shutter);
+        editNotes = (EditText) view.findViewById(R.id.edit_notes);
 
         if( selectedFrame != null ){
             ((EditText)view.findViewById(R.id.edit_number)).setText(String.valueOf(selectedFrame.getNumber()));
             editAperture.setText(String.valueOf(selectedFrame.getAperture()));
             editShutter.setText(String.valueOf(selectedFrame.getShutter()));
+            editNotes.setText(selectedFrame.getNotes());
         }
 
-        // TODO frames could have notes also...
         // TODO implement autocomplete
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_create:
+            case R.id.action_update:
                 updateItem();
                 return true;
         }
@@ -118,6 +119,7 @@ public class EditFrameFragment extends Fragment {
 
     private void updateItem() {
         // update values
+        selectedFrame.setNotes(editNotes.getText().toString());
         try {
             selectedFrame.setAperture(Double.parseDouble(editAperture.getText().toString()));
             selectedFrame.setShutter(Integer.parseInt(editShutter.getText().toString()));
