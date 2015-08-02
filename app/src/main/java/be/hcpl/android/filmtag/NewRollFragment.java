@@ -82,6 +82,10 @@ public class NewRollFragment extends Fragment {
         roll.setNotes(editNotes.getText().toString());
         try {
             roll.setSpeed(Integer.parseInt(editSpeed.getText().toString()));
+        } catch (NumberFormatException nfe) {
+            Toast.makeText(getActivity(), R.string.err_parsing_failed, Toast.LENGTH_SHORT).show();
+        }
+        try {
             roll.setFrames(Integer.parseInt(editFrames.getText().toString()));
         } catch (NumberFormatException nfe) {
             Toast.makeText(getActivity(), R.string.err_parsing_failed, Toast.LENGTH_SHORT).show();

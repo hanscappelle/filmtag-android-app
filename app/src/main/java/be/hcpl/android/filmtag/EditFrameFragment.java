@@ -127,6 +127,10 @@ public class EditFrameFragment extends Fragment {
         selectedFrame.setNotes(editNotes.getText().toString());
         try {
             selectedFrame.setAperture(Double.parseDouble(editAperture.getText().toString()));
+        } catch (NumberFormatException nfe) {
+            Toast.makeText(getActivity(), R.string.err_parsing_failed, Toast.LENGTH_SHORT).show();
+        }
+        try{
             selectedFrame.setShutter(Integer.parseInt(editShutter.getText().toString()));
         } catch (NumberFormatException nfe) {
             Toast.makeText(getActivity(), R.string.err_parsing_failed, Toast.LENGTH_SHORT).show();
