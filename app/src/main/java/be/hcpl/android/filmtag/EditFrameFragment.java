@@ -99,8 +99,10 @@ public class EditFrameFragment extends Fragment {
 
         if (selectedFrame != null) {
             ((EditText) view.findViewById(R.id.edit_number)).setText(String.valueOf(selectedFrame.getNumber()));
-            editAperture.setText(String.valueOf(selectedFrame.getAperture()));
-            editShutter.setText(String.valueOf(selectedFrame.getShutter()));
+            if( selectedFrame.getAperture() != 0)
+                editAperture.setText(String.valueOf(selectedFrame.getAperture()));
+            if( selectedFrame.getShutter() != 0)
+                editShutter.setText(String.valueOf(selectedFrame.getShutter()));
             editNotes.setText(selectedFrame.getNotes());
         }
 
