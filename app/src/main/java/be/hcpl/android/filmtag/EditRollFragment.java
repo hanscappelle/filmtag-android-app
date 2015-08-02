@@ -9,8 +9,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.util.List;
 
 import be.hcpl.android.filmtag.model.Roll;
 import be.hcpl.android.filmtag.util.StorageUtil;
@@ -21,7 +25,8 @@ import be.hcpl.android.filmtag.util.StorageUtil;
 public class EditRollFragment extends Fragment {
 
     private static final String KEY_EDIT_ROLL = "edit_roll";
-    private EditText editType, editSpeed, editFrames, editNotes;
+    private AutoCompleteTextView editType;
+    private EditText editSpeed, editFrames, editNotes;
 
     private Roll roll;
 
@@ -89,7 +94,7 @@ public class EditRollFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        editType = (EditText) view.findViewById(R.id.edit_type);
+        editType = (AutoCompleteTextView) view.findViewById(R.id.edit_type);
         editSpeed = (EditText) view.findViewById(R.id.edit_exposed);
         editFrames = (EditText) view.findViewById(R.id.edit_frames);
         editNotes = (EditText) view.findViewById(R.id.edit_notes);
@@ -103,6 +108,23 @@ public class EditRollFragment extends Fragment {
             if (roll.getFrames() != 0)
                 editFrames.setText(String.valueOf(roll.getFrames()));
         }
+
+        // autocomplete
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_dropdown_item_1line, getTypeSuggestions());
+        editType.setAdapter(adapter);
+    }
+
+    private String[] getTypeSuggestions() {
+        List<Roll> rolls = StorageUtil.getAllRolls(((MainActivity) getActivity()));
+        if (rolls == null)
+            return new String[]{};
+        String[] existingTypes = new String[rolls.size()];
+        for (int i = 0; i < rolls.size(); i++) {
+            existingTypes[i] = rolls.get(i).getType();
+        }
+        return existingTypes;
+
     }
 
     @Override

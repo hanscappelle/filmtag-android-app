@@ -39,6 +39,7 @@ Playstore link https://play.google.com/store/apps/details?id=be.hcpl.android.fil
 * import/export option using intent
 * bugfix for data input validation
 * edit film and notes
+* add autocomplete based on already added content
 
 ## v0.2.0
 
@@ -56,7 +57,6 @@ Playstore link https://play.google.com/store/apps/details?id=be.hcpl.android.fil
 ## Upcoming feature
 
 * implement in list editing options
-* add autocomplete based on already added content
 
 ## bugs
 
