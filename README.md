@@ -29,6 +29,12 @@ https://www.materialpalette.com/brown/grey
 
 # released
 
+## v0.2.0
+
+* bugfix for missing IDs
+* translated to dutch
+* minor GUI tweaks
+
 ## v 0.1.0
 
 * initial release, open source project

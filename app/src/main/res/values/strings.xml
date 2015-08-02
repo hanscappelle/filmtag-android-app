@@ -9,7 +9,6 @@
     <string name="action_create">Create</string>
     <string name="err_parsing_failed">Parsing numeric value failed</string>
     <string name="msg_delete_complete_film_roll">Delete complete film roll? All frames data will be lost.</string>
-    <string name="label_confirm">Confirmation needed</string>
     <string name="label_no">No</string>
     <string name="label_yes">Yes</string>
     <string name="label_frame_number">Frame Number</string>

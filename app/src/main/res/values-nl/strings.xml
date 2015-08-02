@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">FilmTag</string>
+    <!--<string name="action_settings">Settings</string>-->
+    <string name="action_add">Nieuw</string>
+    <string name="action_delete">Verwijderen</string>
+    <string name="label_film_type">Film Type</string>
+    <string name="label_film_exposed_at">Belicht op ISO</string>
+    <string name="label_film_frames">Aantal Beelden</string>
+    <string name="action_create">Aanmaken</string>
+    <string name="err_parsing_failed">Probleem bij omzetting getal</string>
+    <string name="msg_delete_complete_film_roll">Filmrol verwijderen? Alle beelden gaan verloren.</string>
+    <string name="label_no">Nee</string>
+    <string name="label_yes">Ja</string>
+    <string name="label_frame_number">Beeldnummer</string>
+    <string name="label_frame_shutter">Sluitertijd</string>
+    <string name="label_film_aperture">Diafragma</string>
+    <string name="label_frame_notes">Notities</string>
+    <string name="action_update">Aanpassen</string>
+    <string name="label_notes_for_film">Uw notities voor deze film</string>
+    <string name="label_notes_for_frame">Uw notities voor dit beeld</string>
+    <string name="label_no_notes">Geen notities</string>
+</resources>

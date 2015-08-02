@@ -17,9 +17,11 @@ public class Roll implements Serializable{
     private String notes;
 
     public Roll() {
+        setId(System.currentTimeMillis()); // generates unique ID for all objects created
     }
 
     public Roll(String type, int speed, int frames) {
+        this();
         this.type = type;
         this.speed = speed;
         this.frames = frames;

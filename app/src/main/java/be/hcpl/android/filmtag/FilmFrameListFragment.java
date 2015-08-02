@@ -162,7 +162,7 @@ public class FilmFrameListFragment extends Fragment {
     private void deleteCurrentFilmRoll() {
         // confirmation needed before delete here...
         new AlertDialog.Builder(getActivity())
-                .setTitle(R.string.label_confirm)
+                //.setTitle(R.string.label_confirm)
                 .setMessage(R.string.msg_delete_complete_film_roll)
                 .setPositiveButton(R.string.label_yes, new DialogInterface.OnClickListener() {
                     @Override
