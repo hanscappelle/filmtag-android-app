@@ -29,6 +29,12 @@ https://www.materialpalette.com/brown/grey
 
 # released
 
+## v0.3.0
+
+* dutch translation in store listing also
+* no longer prefilling value if value is O on frame editing
+* proper fragment resume if editing frames
+
 ## v0.2.0
 
 * bugfix for missing IDs
@@ -53,7 +59,7 @@ https://www.materialpalette.com/brown/grey
 
 * OK - fix back navigation on first fragment
 * OK - fix delete of frames when film is removed
-* restore last fragment instead of overview
+* OK - restore last fragment instead of overview
 
 ## general
 
