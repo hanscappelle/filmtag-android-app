@@ -29,6 +29,8 @@ https://www.materialpalette.com/brown/grey
 
 # released
 
+Playstore link https://play.google.com/store/apps/details?id=be.hcpl.android.filmtag
+
 ## v0.2.0
 
 * bugfix for missing IDs
@@ -42,8 +44,7 @@ https://www.materialpalette.com/brown/grey
 
 # TODO
 
-## Upcoming features
-
+## Upcoming feature
 * import/export option (see http remote app for intent solution)
 * edit film and notes
 * implement in list editing options
