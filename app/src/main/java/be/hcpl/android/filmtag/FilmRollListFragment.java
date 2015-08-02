@@ -1,5 +1,8 @@
 package be.hcpl.android.filmtag;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -106,12 +109,40 @@ public class FilmRollListFragment extends Fragment {
         if (id == R.id.action_add) {
             createNewRoll();
             return true;
+        } else if( id == R.id.action_export){
+            shareConfig();
+            return true;
+        } else if( id == R.id.action_import){
+            importConfig();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
     private void createNewRoll() {
-        ((MainActivity)getActivity()).switchContent(NewRollFragment.newInstance());
+        ((MainActivity)getActivity()).switchContent(EditRollFragment.newInstance());
+    }
+
+    private void importConfig() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(R.string.info_import_export)
+                .setCancelable(true)
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //do things
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    private void shareConfig() {
+        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "FilmTag data export");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, StorageUtil.getExportDataFormattedAsText((MainActivity) getActivity()));
+        startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.action_export)));
     }
 
 }

@@ -3,6 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/action_edit"
+        android:title="@string/action_edit"
+        app:showAsAction="withText|ifRoom" />
+
+    <item
         android:id="@+id/action_delete"
         android:title="@string/action_delete"
         app:showAsAction="withText|ifRoom" />

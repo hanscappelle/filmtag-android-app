@@ -19,4 +19,13 @@
     <string name="label_notes_for_film">Uw notities voor deze film</string>
     <string name="label_notes_for_frame">Uw notities voor dit beeld</string>
     <string name="label_no_notes">Geen notities</string>
+    <string name="err_missing_data">Gegevens ontbreken</string>
+    <string name="info_data_imported">Gegenvens aangemaakt</string>
+    <string name="err_import_failed">Importeren van gegevens mislukt</string>
+    <string name="info_import_export">Met de "Share" or "Send" optie kunt u vanuit andere apps de configuratie terug importeren in deze tool</string>
+    <string name="ok">OK</string>
+    <string name="action_export">Export</string>
+    <string name="action_import">Import</string>
+    <string name="action_save">Opslaan</string>
+    <string name="action_edit">Bewerken</string>
 </resources>

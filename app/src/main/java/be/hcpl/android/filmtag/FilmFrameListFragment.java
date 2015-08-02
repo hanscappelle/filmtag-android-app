@@ -147,12 +147,19 @@ public class FilmFrameListFragment extends Fragment {
             case R.id.action_delete:
                 deleteCurrentFilmRoll();
                 return true;
+            case R.id.action_edit:
+                editCurrentFilmRoll();
+                return true;
             case android.R.id.home:
                 // back to overview without change
                 backToOverview();
                 return true;
         }
         return false;
+    }
+
+    private void editCurrentFilmRoll() {
+        ((MainActivity) getActivity()).switchContent(EditRollFragment.newInstance(filmRoll));
     }
 
     private void backToOverview() {

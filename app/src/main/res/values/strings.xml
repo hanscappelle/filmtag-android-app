@@ -19,4 +19,13 @@
     <string name="label_notes_for_film">Your notes for this film</string>
     <string name="label_notes_for_frame">Your notes for this frame</string>
     <string name="label_no_notes">No notes</string>
+    <string name="err_missing_data">Data incomplete</string>
+    <string name="info_data_imported">Data imported</string>
+    <string name="err_import_failed">Data import failed</string>
+    <string name="info_import_export">Use the "Share" or "Send" option from other apps to import data back into this app</string>
+    <string name="ok">OK</string>
+    <string name="action_export">Export</string>
+    <string name="action_import">Import</string>
+    <string name="action_save">Save</string>
+    <string name="action_edit">Edit</string>
 </resources>
