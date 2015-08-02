@@ -18,23 +18,60 @@ import be.hcpl.android.filmtag.util.StorageUtil;
 /**
  * Created by hcpl on 1/08/15.
  */
-public class NewRollFragment extends Fragment {
+public class EditRollFragment extends Fragment {
 
-    // TODO also implement an edit option, delete is done from overview
-
+    private static final String KEY_EDIT_ROLL = "edit_roll";
     private EditText editType, editSpeed, editFrames, editNotes;
 
-    public static NewRollFragment newInstance() {
+    private Roll roll;
+
+    /**
+     * use for creating new rolls
+     *
+     * @return
+     */
+    public static EditRollFragment newInstance() {
         Bundle args = new Bundle();
-        NewRollFragment fragment = new NewRollFragment();
+        EditRollFragment fragment = new EditRollFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    /**
+     * use for editing existing rolls
+     *
+     * @return
+     */
+    public static EditRollFragment newInstance(Roll roll) {
+        Bundle args = new Bundle();
+        args.putSerializable(KEY_EDIT_ROLL, roll);
+        EditRollFragment fragment = new EditRollFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(KEY_EDIT_ROLL, roll);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if (savedInstanceState != null)
+            roll = (Roll) savedInstanceState.getSerializable(KEY_EDIT_ROLL);
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+        Bundle args = getArguments();
+        if (args != null) {
+            roll = (Roll) args.getSerializable(KEY_EDIT_ROLL);
+        }
     }
 
     @Nullable
@@ -56,6 +93,16 @@ public class NewRollFragment extends Fragment {
         editSpeed = (EditText) view.findViewById(R.id.edit_exposed);
         editFrames = (EditText) view.findViewById(R.id.edit_frames);
         editNotes = (EditText) view.findViewById(R.id.edit_notes);
+
+        // prefill data if possible
+        if (roll != null) {
+            editType.setText(roll.getType());
+            editNotes.setText(roll.getNotes());
+            if (roll.getSpeed() != 0)
+                editSpeed.setText(String.valueOf(roll.getSpeed()));
+            if (roll.getFrames() != 0)
+                editFrames.setText(String.valueOf(roll.getFrames()));
+        }
     }
 
     @Override
@@ -72,12 +119,20 @@ public class NewRollFragment extends Fragment {
     }
 
     private void backToOverview() {
-        ((MainActivity) getActivity()).switchContent(FilmRollListFragment.newInstance());
+        if (roll == null)
+            ((MainActivity) getActivity()).switchContent(FilmRollListFragment.newInstance());
+        else
+            ((MainActivity) getActivity()).switchContent(FilmFrameListFragment.newInstance(roll));
+
     }
 
     private void createNewItem() {
+        boolean newRoll = false;
         // insert the new item
-        Roll roll = new Roll();
+        if (roll == null) {
+            roll = new Roll();
+            newRoll = true;
+        }
         roll.setType(editType.getText().toString());
         roll.setNotes(editNotes.getText().toString());
         try {
@@ -92,7 +147,11 @@ public class NewRollFragment extends Fragment {
         }
 
         // store new roll
-        StorageUtil.addNewRoll((MainActivity) getActivity(), roll);
+        if (newRoll)
+            StorageUtil.addNewRoll((MainActivity) getActivity(), roll);
+        else
+            StorageUtil.updateRoll((MainActivity) getActivity(), roll);
+
 
         // navigate to overview
         backToOverview();

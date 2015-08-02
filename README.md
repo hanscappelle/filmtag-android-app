@@ -36,6 +36,9 @@ Playstore link https://play.google.com/store/apps/details?id=be.hcpl.android.fil
 * dutch translation in store listing also
 * no longer prefilling value if value is O on frame editing
 * proper fragment resume if editing frames
+* import/export option using intent
+* bugfix for data input validation
+* edit film and notes
 
 ## v0.2.0
 
@@ -51,8 +54,7 @@ Playstore link https://play.google.com/store/apps/details?id=be.hcpl.android.fil
 # TODO
 
 ## Upcoming feature
-* import/export option (see http remote app for intent solution)
-* edit film and notes
+
 * implement in list editing options
 * add autocomplete based on already added content
 

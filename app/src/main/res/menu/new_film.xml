@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/action_create"
-        android:title="@string/action_create"
+        android:title="@string/action_save"
         app:showAsAction="withText|ifRoom" />
 
 </menu>

@@ -78,6 +78,12 @@ public class StorageUtil {
         updateRolls(activity, rolls);
     }
 
+    public static void updateRoll(MainActivity activity, Roll roll) {
+        List<Roll> rolls = getAllRolls(activity);
+        rolls.set(rolls.indexOf(roll), roll);
+        updateRolls(activity, rolls);
+    }
+
     public static void addRolls(MainActivity activity, List<Roll> roll) {
         List<Roll> rolls = getAllRolls(activity);
         rolls.addAll(roll);

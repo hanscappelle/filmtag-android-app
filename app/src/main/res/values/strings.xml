@@ -26,4 +26,6 @@
     <string name="ok">OK</string>
     <string name="action_export">Export</string>
     <string name="action_import">Import</string>
+    <string name="action_save">Save</string>
+    <string name="action_edit">Edit</string>
 </resources>

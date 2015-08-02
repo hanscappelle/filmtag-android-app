@@ -120,7 +120,7 @@ public class FilmRollListFragment extends Fragment {
     }
 
     private void createNewRoll() {
-        ((MainActivity)getActivity()).switchContent(NewRollFragment.newInstance());
+        ((MainActivity)getActivity()).switchContent(EditRollFragment.newInstance());
     }
 
     private void importConfig() {
@@ -141,7 +141,7 @@ public class FilmRollListFragment extends Fragment {
         Intent sharingIntent = new Intent(Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
         sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "FilmTag data export");
-        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, StorageUtil.getExportDataFormattedAsText((MainActivity)getActivity()));
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, StorageUtil.getExportDataFormattedAsText((MainActivity) getActivity()));
         startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.action_export)));
     }
 
