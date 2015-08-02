@@ -4,9 +4,11 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.List;
 
 import be.hcpl.android.filmtag.MainActivity;
+import be.hcpl.android.filmtag.model.DataExportFormat;
 import be.hcpl.android.filmtag.model.Frame;
 import be.hcpl.android.filmtag.model.Roll;
 
@@ -70,10 +72,49 @@ public class StorageUtil {
                 .getId(), gson.toJson(frames, listOfFramesType)).commit();
     }
 
-
     public static void addNewRoll(MainActivity activity, Roll roll) {
         List<Roll> rolls = getAllRolls(activity);
         rolls.add(roll);
         updateRolls(activity, rolls);
+    }
+
+    public static void addRolls(MainActivity activity, List<Roll> roll) {
+        List<Roll> rolls = getAllRolls(activity);
+        rolls.addAll(roll);
+        updateRolls(activity, rolls);
+    }
+
+    public static DataExportFormat parseDataExportFormat(String sharedText) {
+        return gson.fromJson(sharedText, DataExportFormat.class);
+    }
+
+    public static void storeDataExportFormat(MainActivity mainActivity, DataExportFormat data) {
+        // check if something to import here
+        if( data.getRolls() == null )
+            return;
+        // store all new rolls
+        addRolls(mainActivity, data.getRolls());
+        // and for each roll store the new frames also (skip non existing rolls for datacleaning purpose)
+        for( Roll roll : data.getRolls()){
+            List<Frame> framesForRoll = data.getFrames().get(roll.getId());
+            if( framesForRoll != null ){
+                updateFrames(mainActivity, roll, framesForRoll);
+            }
+        }
+    }
+
+    public static String getExportDataFormattedAsText(MainActivity activity) {
+        // prepare data object
+        DataExportFormat data = new DataExportFormat();
+        // get all current rolls
+        data.setRolls(getAllRolls(activity));
+        data.setFrames(new HashMap<Long, List<Frame>>(36));
+        // and set frames for all rolls
+        if( data.getRolls() != null ){
+            for( Roll roll : data.getRolls()){
+                data.getFrames().put(roll.getId(), getFramesForFilm(activity, roll));
+            }
+        }
+        return gson.toJson(data);
     }
 }
