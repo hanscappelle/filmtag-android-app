@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         // As we're using a Toolbar, we should retrieve it and set it
         // to be our ActionBar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         // load the prefs here
