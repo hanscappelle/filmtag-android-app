@@ -115,6 +115,9 @@ public class FilmRollListFragment extends Fragment {
         } else if( id == R.id.action_import){
             importConfig();
             return true;
+        } else if( id == R.id.action_about){
+            ((MainActivity)getActivity()).switchContent(AboutFragment.newInstance());
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

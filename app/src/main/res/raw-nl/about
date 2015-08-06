@@ -1,0 +1,22 @@
+<h3>Over</h3>
+
+<p>Eenvoudige Android app om instellingen bij te houden voor de analoge fotograaf. Waar je bij digitale camera's exif kunt gebruiken moet je bij analoge film zelf aan de slag. Deze tool kan je daarbij helpen door per gemaakte foto de belichting en andere instellingen te noteren. Ideaal om achteraf uit te leren!</p>
+
+<h3>Doelstellingen</h3>
+
+<p>App moet vooral heel eenvoudig in gebruik blijven. Bedoeling is dat de fotograaf deze app kan gebruiken zonder dat dit aandacht of tijd wegneemt van het eigenlijke werk; fotograferen.</p>
+
+<h3>Voornaamste functies</h3>
+
+<p>
+* overzicht van film rolletjes weergeven<br/>
+* nieuwe film rolletjes toevoegen met type, aantal opnamen en ISO waarde voor die film<br/>
+* detail van een film rolletje weergeven, namelijk lijst van opnamen<br/>
+* per opname de nodige details rond diafragma, sluitertijd en meer kunnen bijhouden<br/>
+</$>
+
+<h3>Project</h3>
+
+<p>Alle code is beschikbaar op bitbucket, zie: <a href="https://bitbucket.org/cappelleh/filmtag/">https://bitbucket.org/cappelleh/filmtag/</a></p>
+<p>Voor beta testing zie: <a href="https://play.google.com/apps/testing/be.hcpl.android.filmtag">https://play.google.com/apps/testing/be.hcpl.android.filmtag</a></p>
+<p>Volg me op twitter: <a href="https://twitter.com/photools">https://twitter.com/photools</a>

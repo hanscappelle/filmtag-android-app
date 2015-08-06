@@ -1,0 +1,24 @@
+<h3>About</h3>
+
+<p>Basic Android app for keeping track of photography settings while shooting analog film. As used by
+analog photographers who can't rely on exif information when using analog roll film while shooting.</p>
+
+<h3>Goals</h3>
+
+<p>Keep it dead simple and easy to use. The photographer shouldn't have to look into settings or any
+complex editing options while shooting. Keep distraction to an absolute minimum.</p>
+
+<h3>Key features</h3>
+
+<p>
+* get a list of film rolls created<br/>
+* create a new film roll adding film type, nr of frames and ISO exposed at (!film ISO)<br/>
+* show details (frames) for each of these film rolls (+ delete option on detail screen)<br/>
+* from details change the aperture, shutter and notes for each frame<br/>
+</p>
+
+<h3>Project</h3>
+
+<p>Source code available on bitbucket, see: <a href="https://bitbucket.org/cappelleh/filmtag/">https://bitbucket.org/cappelleh/filmtag/</a></p>
+<p>For beta testing visit: <a href="https://play.google.com/apps/testing/be.hcpl.android.filmtag">https://play.google.com/apps/testing/be.hcpl.android.filmtag</a></p>
+<p>Follow me on twitter: <a href="https://twitter.com/photools">https://twitter.com/photools</a>

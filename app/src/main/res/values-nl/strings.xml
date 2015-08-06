@@ -28,4 +28,6 @@
     <string name="action_import">Import</string>
     <string name="action_save">Opslaan</string>
     <string name="action_edit">Bewerken</string>
+    <string name="about">Over informatie hier</string>
+    <string name="action_about">Over</string>
 </resources>

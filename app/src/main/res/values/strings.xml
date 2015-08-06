@@ -28,4 +28,6 @@
     <string name="action_import">Import</string>
     <string name="action_save">Save</string>
     <string name="action_edit">Edit</string>
+    <string name="about">about information goes here</string>
+    <string name="action_about">About</string>
 </resources>

@@ -35,6 +35,8 @@ Playstore link https://play.google.com/store/apps/details?id=be.hcpl.android.fil
 
 * add scrolling to forms to show all input behind keyboard
 * close keyboard during navigation
+* created about page
+* enabled beta testing program + added link to about page
 
 ## v0.3.0
 
@@ -71,7 +73,7 @@ Playstore link https://play.google.com/store/apps/details?id=be.hcpl.android.fil
 
 ## general
 
-* add an about page
+* OK - add an about page
 * OK - update app icon - also added background
 * OK - complete and release v0.1.0 with minimal requirements
 * OK - opensource project (keeping release key hidden)
