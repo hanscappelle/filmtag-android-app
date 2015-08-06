@@ -1,5 +1,6 @@
 package be.hcpl.android.filmtag;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -8,9 +9,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import be.hcpl.android.filmtag.model.DataExportFormat;
+import be.hcpl.android.filmtag.util.CommonUtil;
 import be.hcpl.android.filmtag.util.StorageUtil;
 
 /**
@@ -107,6 +111,8 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).addToBackStack(fragment.getClass().getSimpleName()).commit();
         // false by default
         setHomeAsUp(false);
+        // also hide keyboard here
+        CommonUtil.hideSoftKeyboard(this);
     }
 
     /**
@@ -119,6 +125,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        // hide keyboard here also
+        CommonUtil.hideSoftKeyboard(this);
         // finish if content is the film Roll overview fragment
         if (getSupportFragmentManager().findFragmentById(R.id.container) instanceof FilmRollListFragment) {
             finish();
