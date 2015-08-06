@@ -31,6 +31,11 @@ https://www.materialpalette.com/brown/grey
 
 Playstore link https://play.google.com/store/apps/details?id=be.hcpl.android.filmtag
 
+## v0.4.0
+
+* add scrolling to forms to show all input behind keyboard
+* close keyboard during navigation
+
 ## v0.3.0
 
 * dutch translation in store listing also

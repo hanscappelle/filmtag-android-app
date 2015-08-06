@@ -1,69 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-light"
-        android:padding="5dp"
-        android:text="@string/label_frame_number"
-        android:textSize="20sp" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/edit_number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:enabled="false" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:padding="5dp"
+            android:text="@string/label_frame_number"
+            android:textSize="20sp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-light"
-        android:padding="5dp"
-        android:text="@string/label_frame_shutter"
-        android:textSize="20sp" />
+        <EditText
+            android:id="@+id/edit_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false" />
 
-    <EditText
-        android:id="@+id/edit_shutter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="200"
-        android:inputType="number" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:padding="5dp"
+            android:text="@string/label_frame_shutter"
+            android:textSize="20sp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-light"
-        android:padding="5dp"
-        android:text="@string/label_film_aperture"
-        android:textSize="20sp" />
+        <EditText
+            android:id="@+id/edit_shutter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="200"
+            android:inputType="number" />
 
-    <EditText
-        android:id="@+id/edit_aperture"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="2.8"
-        android:inputType="numberDecimal" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:padding="5dp"
+            android:text="@string/label_film_aperture"
+            android:textSize="20sp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-light"
-        android:padding="5dp"
-        android:text="@string/label_frame_notes"
-        android:textSize="20sp" />
+        <EditText
+            android:id="@+id/edit_aperture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="2.8"
+            android:inputType="numberDecimal" />
 
-    <EditText
-        android:id="@+id/edit_notes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="top"
-        android:hint="@string/label_notes_for_frame"
-        android:lines="6"
-        android:singleLine="false" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:padding="5dp"
+            android:text="@string/label_frame_notes"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/edit_notes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:hint="@string/label_notes_for_frame"
+            android:lines="6"
+            android:singleLine="false" />
 
 
-</LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

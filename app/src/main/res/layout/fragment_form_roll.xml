@@ -1,69 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-light"
-        android:padding="5dp"
-        android:text="@string/label_film_type"
-        android:textSize="20sp" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <AutoCompleteTextView
-        android:id="@+id/edit_type"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Kodak NC 400" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:padding="5dp"
+            android:text="@string/label_film_type"
+            android:textSize="20sp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-light"
-        android:padding="5dp"
-        android:text="@string/label_film_exposed_at"
-        android:textSize="20sp" />
+        <AutoCompleteTextView
+            android:id="@+id/edit_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Kodak NC 400" />
 
-    <EditText
-        android:id="@+id/edit_exposed"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="200"
-        android:inputType="number" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:padding="5dp"
+            android:text="@string/label_film_exposed_at"
+            android:textSize="20sp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-light"
-        android:padding="5dp"
-        android:text="@string/label_film_frames"
-        android:textSize="20sp" />
+        <EditText
+            android:id="@+id/edit_exposed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="200"
+            android:inputType="number" />
 
-    <EditText
-        android:id="@+id/edit_frames"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="36"
-        android:inputType="number" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:padding="5dp"
+            android:text="@string/label_film_frames"
+            android:textSize="20sp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-light"
-        android:padding="5dp"
-        android:text="@string/label_frame_notes"
-        android:textSize="20sp" />
+        <EditText
+            android:id="@+id/edit_frames"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="36"
+            android:inputType="number" />
 
-    <EditText
-        android:id="@+id/edit_notes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="top"
-        android:hint="@string/label_notes_for_film"
-        android:lines="6"
-        android:singleLine="false" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:padding="5dp"
+            android:text="@string/label_frame_notes"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/edit_notes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:hint="@string/label_notes_for_film"
+            android:lines="6"
+            android:singleLine="false" />
 
 
-</LinearLayout>
+    </LinearLayout>
+
+</ScrollView>
