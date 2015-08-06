@@ -23,13 +23,19 @@ complex editing options while shooting. Keep distraction to an absolute minimum.
 
 # Other Resources
 
+## play store link
+
+https://play.google.com/store/apps/details?id=be.hcpl.android.filmtag
+
+## beta testing
+
+https://play.google.com/apps/testing/be.hcpl.android.filmtag
+
 ## colors generated with materialpalette
 
 https://www.materialpalette.com/brown/grey
 
-# released
 
-Playstore link https://play.google.com/store/apps/details?id=be.hcpl.android.filmtag
 
 ## v0.4.0
 
