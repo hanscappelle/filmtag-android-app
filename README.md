@@ -37,6 +37,11 @@ https://www.materialpalette.com/brown/grey
 
 # Version History
 
+## v0.5.0
+
+* search/filter option implemented
+* geo location for frames added
+
 ## v0.4.0
 
 * add scrolling to forms to show all input behind keyboard
