@@ -43,6 +43,8 @@ https://www.materialpalette.com/brown/grey
 * close keyboard during navigation
 * created about page
 * enabled beta testing program + added link to about page
+* format numbers to have leading zero
+* added film developed option as boolean + indication on overview
 
 ## v0.3.0
 

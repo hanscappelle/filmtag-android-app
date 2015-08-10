@@ -93,7 +93,6 @@ public class FilmRollListFragment extends Fragment {
     private void showRollDetails(Roll roll) {
         // show frames on selection
         ((MainActivity)getActivity()).switchContent(FilmFrameListFragment.newInstance(roll));
-        // TODO provide proper up navigation and history for back...
     }
 
     // create new roll option is in main activity
