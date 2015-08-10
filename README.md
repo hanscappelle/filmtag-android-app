@@ -37,10 +37,15 @@ https://www.materialpalette.com/brown/grey
 
 # Version History
 
-## v0.5.0
+## v0.6.0
 
 * search/filter option implemented
 * geo location for frames added
+
+## v0.5.0
+
+* format numbers to have leading zero on frames
+* added film developed option as boolean + indication on overview
 
 ## v0.4.0
 
@@ -48,8 +53,6 @@ https://www.materialpalette.com/brown/grey
 * close keyboard during navigation
 * created about page
 * enabled beta testing program + added link to about page
-* format numbers to have leading zero
-* added film developed option as boolean + indication on overview
 
 ## v0.3.0
 
