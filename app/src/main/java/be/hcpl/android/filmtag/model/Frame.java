@@ -8,10 +8,24 @@ import java.text.DecimalFormat;
  */
 public class Frame implements Serializable {
 
+    /**
+     * notes for this frame
+     */
     private String notes;
 
-    private int number, shutter;
+    /**
+     * the frame number, set by the system based on the number of frames of a film roll
+     */
+    private int number;
 
+    /**
+     * the shutter speed used for this frame
+     */
+    private int shutter;
+
+    /**
+     * the aperture value used for this frame
+     */
     private double aperture;
 
     // TODO shouldn't be part of model!!! move out but need to create an adapter before we can do so

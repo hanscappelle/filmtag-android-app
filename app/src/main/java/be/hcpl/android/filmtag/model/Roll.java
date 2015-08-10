@@ -7,14 +7,36 @@ import java.io.Serializable;
  */
 public class Roll implements Serializable{
 
-    // by adding an ID we can delete items by ID and change them
+    /**
+     * by adding an ID we can delete items by ID and change them
+     */
     private long id;
 
+    /**
+     * type indication of film roll, think of brand
+     */
     private String type;
 
-    private int speed, frames;
+    /**
+     * ISO speed of film roll
+     */
+    private int speed;
 
+    /**
+     * number of frames of film roll, note that this is used to get the number of frames available
+     * for recording settings
+     */
+    private int frames;
+
+    /**
+     * notes for this film roll
+     */
     private String notes;
+
+    /**
+     * if film was developed or not
+     */
+    private boolean developed;
 
     public Roll() {
         setId(System.currentTimeMillis()); // generates unique ID for all objects created

@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * Needed only to combine frame and roll data in a single format that can be exported
+ *
  * Created by hcpl on 2/08/15.
  */
 public class DataExportFormat {
