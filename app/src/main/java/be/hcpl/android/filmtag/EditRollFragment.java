@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ public class EditRollFragment extends Fragment {
     private static final String KEY_EDIT_ROLL = "edit_roll";
     private AutoCompleteTextView editType;
     private EditText editSpeed, editFrames, editNotes;
+    private CheckBox developed;
 
     private Roll roll;
 
@@ -72,7 +74,6 @@ public class EditRollFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
         Bundle args = getArguments();
         if (args != null) {
             roll = (Roll) args.getSerializable(KEY_EDIT_ROLL);
@@ -99,6 +100,8 @@ public class EditRollFragment extends Fragment {
         editFrames = (EditText) view.findViewById(R.id.edit_frames);
         editNotes = (EditText) view.findViewById(R.id.edit_notes);
 
+        developed = (CheckBox) view.findViewById(R.id.check_developed);
+
         // prefill data if possible
         if (roll != null) {
             editType.setText(roll.getType());
@@ -107,6 +110,7 @@ public class EditRollFragment extends Fragment {
                 editSpeed.setText(String.valueOf(roll.getSpeed()));
             if (roll.getFrames() != 0)
                 editFrames.setText(String.valueOf(roll.getFrames()));
+            developed.setChecked(roll.isDeveloped());
         }
 
         // autocomplete
@@ -157,6 +161,7 @@ public class EditRollFragment extends Fragment {
         }
         roll.setType(editType.getText().toString());
         roll.setNotes(editNotes.getText().toString());
+        roll.setDeveloped(developed.isChecked());
         try {
             roll.setSpeed(Integer.parseInt(editSpeed.getText().toString()));
         } catch (NumberFormatException nfe) {

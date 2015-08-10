@@ -89,6 +89,14 @@ public class Roll implements Serializable{
         this.notes = notes;
     }
 
+    public boolean isDeveloped() {
+        return developed;
+    }
+
+    public void setDeveloped(boolean developed) {
+        this.developed = developed;
+    }
+
     @Override
     public String toString() {
         return new StringBuilder(type).append(" @ ISO ").append(speed).append(" # ").append(String.valueOf(frames)).toString();

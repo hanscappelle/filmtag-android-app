@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import be.hcpl.android.filmtag.R;
 import be.hcpl.android.filmtag.model.Roll;
 
 /**
@@ -72,6 +73,12 @@ public class FilmRollAdapter extends BaseAdapter {
                 new StringBuilder(roll.getType()).append(" @ ISO ").append(roll.getSpeed())
                         .append(" # ").append(String.valueOf(roll.getFrames())).toString()
         );
+
+        // mark developed items with a lighter text color
+        if( roll.isDeveloped() )
+            holder.textView.setTextColor(mContext.getResources().getColor(R.color.secondary_text));
+        else
+            holder.textView.setTextColor(mContext.getResources().getColor(R.color.primary_text));
 
         return rowView;
     }

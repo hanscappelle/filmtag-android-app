@@ -61,6 +61,14 @@
             android:text="@string/label_frame_notes"
             android:textSize="20sp" />
 
+        <CheckBox
+            android:id="@+id/check_developed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_film_developed"
+            android:checked="false"
+            />
+
         <EditText
             android:id="@+id/edit_notes"
             android:layout_width="match_parent"
