@@ -28,9 +28,6 @@ public class Frame implements Serializable {
      */
     private double aperture;
 
-    // TODO shouldn't be part of model!!! move out but need to create an adapter before we can do so
-    private DecimalFormat format = new DecimalFormat("00");
-
     public Frame() {
     }
 
@@ -75,7 +72,7 @@ public class Frame implements Serializable {
 
     @Override
     public String toString() {
-        return new StringBuilder(format.format(number)).append(" - (s) ").append(String.valueOf(shutter)).append(" - (a) f/").append(String.valueOf(aperture)).toString();
+        return new StringBuilder(String.valueOf(number)).append(" - (s) ").append(String.valueOf(shutter)).append(" - (a) f/").append(String.valueOf(aperture)).toString();
     }
 
     @Override

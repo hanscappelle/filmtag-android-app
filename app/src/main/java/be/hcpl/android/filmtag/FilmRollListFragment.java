@@ -16,8 +16,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import be.hcpl.android.filmtag.adapter.FilmRollAdapter;
 import be.hcpl.android.filmtag.model.Roll;
 import be.hcpl.android.filmtag.util.StorageUtil;
 
@@ -32,7 +34,7 @@ public class FilmRollListFragment extends Fragment {
 
     private ListView mListView;
 
-    private ArrayAdapter<Roll> mAdapter;
+    private FilmRollAdapter mAdapter;
 
     public static FilmRollListFragment newInstance() {
         Bundle args = new Bundle();
@@ -60,7 +62,7 @@ public class FilmRollListFragment extends Fragment {
         mListView = (ListView)view.findViewById(R.id.list_rolls);
 
         // prepare the adapter for that list
-        mAdapter = new ArrayAdapter<Roll>(getActivity(), android.R.layout.simple_list_item_1);
+        mAdapter = new FilmRollAdapter(getActivity());
         mListView.setAdapter(mAdapter);
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

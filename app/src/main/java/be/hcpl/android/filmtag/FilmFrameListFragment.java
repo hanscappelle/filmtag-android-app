@@ -17,8 +17,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import be.hcpl.android.filmtag.adapter.FrameAdapter;
 import be.hcpl.android.filmtag.model.Frame;
 import be.hcpl.android.filmtag.model.Roll;
 import be.hcpl.android.filmtag.util.StorageUtil;
@@ -36,7 +38,7 @@ public class FilmFrameListFragment extends Fragment {
 
     private ListView framesListView;
 
-    private ArrayAdapter<Frame> mAdapter;
+    private FrameAdapter mAdapter;
 
     // TODO double
     private List<Frame> frames;
@@ -121,7 +123,7 @@ public class FilmFrameListFragment extends Fragment {
         }
 
         // and populate list with frame data
-        mAdapter = new ArrayAdapter(getActivity(),android.R.layout.simple_list_item_1);
+        mAdapter = new FrameAdapter(getActivity());
         framesListView.setAdapter(mAdapter);
 
         framesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
