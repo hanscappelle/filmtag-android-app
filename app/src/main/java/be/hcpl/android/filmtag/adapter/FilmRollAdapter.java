@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -16,9 +18,11 @@ import be.hcpl.android.filmtag.model.Roll;
 /**
  * Created by jd41256 on 10/08/15.
  */
-public class FilmRollAdapter extends BaseAdapter {
+public class FilmRollAdapter extends BaseAdapter implements Filterable {
 
     private List<Roll> items = new ArrayList();
+
+    private List<Roll> unFilteredList = new ArrayList();
 
     private Context mContext;
 
@@ -31,6 +35,8 @@ public class FilmRollAdapter extends BaseAdapter {
     public FilmRollAdapter(final Context context, final List<Roll> rollList) {
         mContext = context;
         items = rollList;
+        // backup all data first
+        unFilteredList = new ArrayList<>(items);
         mInflater = LayoutInflater.from(mContext);
     }
 
@@ -75,7 +81,7 @@ public class FilmRollAdapter extends BaseAdapter {
         );
 
         // mark developed items with a lighter text color
-        if( roll.isDeveloped() )
+        if (roll.isDeveloped())
             holder.textView.setTextColor(mContext.getResources().getColor(R.color.secondary_text));
         else
             holder.textView.setTextColor(mContext.getResources().getColor(R.color.primary_text));
@@ -85,10 +91,54 @@ public class FilmRollAdapter extends BaseAdapter {
 
     public void clear() {
         items.clear();
+        // backup all data first
+        unFilteredList = new ArrayList<>(items);
     }
 
     public void addAll(List<Roll> rolls) {
         items.addAll(rolls);
+        // backup all data first
+        unFilteredList = new ArrayList<>(items);
+    }
+
+    @Override
+    public Filter getFilter() {
+
+        return new Filter() {
+
+            @SuppressWarnings("unchecked")
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+
+                // then perform filtering on data
+                items = (List<Roll>) results.values;
+                FilmRollAdapter.this.notifyDataSetChanged();
+            }
+
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                List<Roll> filteredResults = getFilteredResults(constraint);
+                FilterResults results = new FilterResults();
+                results.values = filteredResults;
+                return results;
+            }
+
+            private List<Roll> getFilteredResults(CharSequence constraint) {
+                final List<Roll> results = new ArrayList<Roll>();
+                // only filter if data set
+                if (constraint != null) {
+                    for (Roll roll : unFilteredList)
+                        if (roll != null && roll.getType() != null && roll.getType().contains(constraint.toString()))
+                            results.add(roll);
+                }
+                // reset to unfiltered list of all data
+                else {
+                    results.addAll(unFilteredList);
+                }
+                return results;
+            }
+
+        };
     }
 
     class ViewHolder {

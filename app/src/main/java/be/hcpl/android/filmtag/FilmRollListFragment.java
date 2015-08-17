@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,10 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import be.hcpl.android.filmtag.adapter.FilmRollAdapter;
@@ -25,7 +24,7 @@ import be.hcpl.android.filmtag.util.StorageUtil;
 
 /**
  * an overview of rolls created earlier + option to add new roll of film
- *
+ * <p/>
  * Created by hcpl on 30/07/15.
  */
 public class FilmRollListFragment extends Fragment {
@@ -35,6 +34,8 @@ public class FilmRollListFragment extends Fragment {
     private ListView mListView;
 
     private FilmRollAdapter mAdapter;
+
+    private SearchView searchView;
 
     public static FilmRollListFragment newInstance() {
         Bundle args = new Bundle();
@@ -59,7 +60,7 @@ public class FilmRollListFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mListView = (ListView)view.findViewById(R.id.list_rolls);
+        mListView = (ListView) view.findViewById(R.id.list_rolls);
 
         // prepare the adapter for that list
         mAdapter = new FilmRollAdapter(getActivity());
@@ -94,7 +95,7 @@ public class FilmRollListFragment extends Fragment {
 
     private void showRollDetails(Roll roll) {
         // show frames on selection
-        ((MainActivity)getActivity()).switchContent(FilmFrameListFragment.newInstance(roll));
+        ((MainActivity) getActivity()).switchContent(FilmFrameListFragment.newInstance(roll));
     }
 
     // create new roll option is in main activity
@@ -102,6 +103,47 @@ public class FilmRollListFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.rolls, menu);
+
+        // parent activity
+        MainActivity activity = (MainActivity) getActivity();
+
+        // enable the view manually
+        searchView = new SearchView(activity.getSupportActionBar().getThemedContext());
+        searchView.setIconifiedByDefault(false);
+        activity.getSupportActionBar().setCustomView(searchView);
+        // not enabled by default
+        activity.getSupportActionBar().setDisplayShowCustomEnabled(searchViewEnabled);
+        // enable filter view on list
+//        mListView.setTextFilterEnabled(searchViewEnabled);
+        // text listeners
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // filter data
+                mAdapter.getFilter().filter(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if( "".equals(newText)){
+                    // clear results
+                    mAdapter.getFilter().filter(null);
+                    return true;
+                }
+                return false;
+            }
+        });
+        // not in use
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                // remove filter on data
+//                mListView.setTextFilterEnabled(false);
+                mAdapter.getFilter().filter(null);
+                return true;
+            }
+        });
     }
 
     @Override
@@ -110,21 +152,36 @@ public class FilmRollListFragment extends Fragment {
         if (id == R.id.action_add) {
             createNewRoll();
             return true;
-        } else if( id == R.id.action_export){
+        } else if (id == R.id.action_export) {
             shareConfig();
             return true;
-        } else if( id == R.id.action_import){
+        } else if (id == R.id.action_import) {
             importConfig();
             return true;
-        } else if( id == R.id.action_about){
-            ((MainActivity)getActivity()).switchContent(AboutFragment.newInstance());
+        } else if (id == R.id.action_about) {
+            ((MainActivity) getActivity()).switchContent(AboutFragment.newInstance());
             return true;
+        } else if (id == R.id.action_search) {
+            toggleSearchView();
         }
         return super.onOptionsItemSelected(item);
     }
 
+    private boolean searchViewEnabled = false;
+
+    private void toggleSearchView() {
+        // parent activity
+        MainActivity activity = (MainActivity) getActivity();
+        // toggle value
+        searchViewEnabled = !searchViewEnabled;
+        // and apply
+        activity.getSupportActionBar().setDisplayShowCustomEnabled(searchViewEnabled);
+        // enable filter view on list
+//        mListView.setTextFilterEnabled(searchViewEnabled);
+    }
+
     private void createNewRoll() {
-        ((MainActivity)getActivity()).switchContent(EditRollFragment.newInstance());
+        ((MainActivity) getActivity()).switchContent(EditRollFragment.newInstance());
     }
 
     private void importConfig() {

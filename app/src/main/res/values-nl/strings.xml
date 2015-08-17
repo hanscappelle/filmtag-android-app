@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">FilmTag</string>
-    <!--<string name="action_settings">Settings</string>-->
     <string name="action_add">Nieuw</string>
     <string name="action_delete">Verwijderen</string>
     <string name="label_film_type">Film Type</string>
@@ -31,4 +30,5 @@
     <string name="about">Over informatie hier</string>
     <string name="action_about">Over</string>
     <string name="label_film_developed">Film ontwikkeld</string>
+    <string name="action_search">Zoeken</string>
 </resources>
