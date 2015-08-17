@@ -37,12 +37,15 @@ https://www.materialpalette.com/brown/grey
 
 # Version History
 
-## v0.6.0 - upcoming
+## v0.7.0 - upcoming
 
-* search/filter option implemented
 * geo location for frames added
 
-## v0.5.0 - beta
+## v0.6.0 - upcoming
+
+* search/filter option implemented on overview of rolls
+
+## v0.5.0
 
 * format numbers to have leading zero on frames
 * added film developed option as boolean + indication on overview
