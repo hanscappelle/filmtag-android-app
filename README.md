@@ -37,11 +37,14 @@ https://www.materialpalette.com/brown/grey
 
 # Version History
 
-## v0.7.0 - upcoming
+## v0.8.0 - upcoming
 
 * geo location for frames added
+
+## v0.7.0 - alpha
+
 * optimized back handling and search navigation
-*
+* linkified about information
 
 ## v0.6.0 - beta
 
