@@ -40,8 +40,10 @@ https://www.materialpalette.com/brown/grey
 ## v0.7.0 - upcoming
 
 * geo location for frames added
+* optimized back handling and search navigation
+*
 
-## v0.6.0 - upcoming
+## v0.6.0 - beta
 
 * search/filter option implemented on overview of rolls
 
@@ -80,7 +82,7 @@ https://www.materialpalette.com/brown/grey
 
 # TODO
 
-## Upcoming feature
+## features
 
 * implement in list editing options
 
