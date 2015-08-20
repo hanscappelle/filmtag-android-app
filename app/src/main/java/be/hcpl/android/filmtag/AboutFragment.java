@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Html;
+import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,8 +40,14 @@ public class AboutFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        ((TextView)view.findViewById(R.id.text_about)).setText(Html.fromHtml(readFile(getResources().openRawResource(R.raw.about))));
+        String aboutText = readFile(getResources().openRawResource(R.raw.about));
+        // add version
+        aboutText = aboutText.replace("{version}", BuildConfig.VERSION_NAME);
+        // set text
+        TextView textView = ((TextView)view.findViewById(R.id.text_about));
+        textView.setText(Html.fromHtml(aboutText));
+        // and make clickable
+        Linkify.addLinks(textView, Linkify.ALL);
     }
 
     // TODO move to utils instead
