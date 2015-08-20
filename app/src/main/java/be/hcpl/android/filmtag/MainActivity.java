@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import be.hcpl.android.filmtag.model.DataExportFormat;
+import be.hcpl.android.filmtag.template.TemplateFragment;
 import be.hcpl.android.filmtag.util.CommonUtil;
 import be.hcpl.android.filmtag.util.StorageUtil;
 
@@ -125,6 +126,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        if( mContent != null && mContent instanceof TemplateFragment){
+            if( ((TemplateFragment)mContent).onBackPressed() )
+                return;
+        }
         // hide keyboard here also
         CommonUtil.hideSoftKeyboard(this);
         // finish if content is the film Roll overview fragment

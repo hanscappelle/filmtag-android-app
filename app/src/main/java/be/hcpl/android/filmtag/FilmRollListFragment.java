@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,6 +19,7 @@ import java.util.List;
 
 import be.hcpl.android.filmtag.adapter.FilmRollAdapter;
 import be.hcpl.android.filmtag.model.Roll;
+import be.hcpl.android.filmtag.template.TemplateFragment;
 import be.hcpl.android.filmtag.util.StorageUtil;
 
 /**
@@ -27,7 +27,7 @@ import be.hcpl.android.filmtag.util.StorageUtil;
  * <p/>
  * Created by hcpl on 30/07/15.
  */
-public class FilmRollListFragment extends Fragment {
+public class FilmRollListFragment extends TemplateFragment {
 
     // TODO delete film from overview directly (swipe? long press, ...)
 
@@ -73,37 +73,6 @@ public class FilmRollListFragment extends Fragment {
             }
         });
 
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        // retrieve list of frames here
-        refreshData();
-    }
-
-    private void refreshData() {
-
-        List<Roll> rolls = StorageUtil.getAllRolls((MainActivity) getActivity());
-        // update adapter
-        mAdapter.clear();
-        mAdapter.addAll(rolls);
-        mAdapter.notifyDataSetChanged();
-    }
-
-
-    private void showRollDetails(Roll roll) {
-        // show frames on selection
-        ((MainActivity) getActivity()).switchContent(FilmFrameListFragment.newInstance(roll));
-    }
-
-    // create new roll option is in main activity
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.rolls, menu);
-
         // parent activity
         MainActivity activity = (MainActivity) getActivity();
 
@@ -126,7 +95,7 @@ public class FilmRollListFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if( "".equals(newText)){
+                if ("".equals(newText)) {
                     // clear results
                     mAdapter.getFilter().filter(null);
                     return true;
@@ -144,6 +113,53 @@ public class FilmRollListFragment extends Fragment {
                 return true;
             }
         });
+        // when editing and back used fiest focus goes away
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (!b) {
+                    CharSequence query = searchView.getQuery();
+                    if (query != null && query.length() > 0) {
+                        mAdapter.getFilter().filter(query);
+                    } else {
+                        mAdapter.getFilter().filter(null);
+                        toggleSearchView();
+                    }
+                }
+            }
+        });
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // retrieve list of frames here
+        refreshData();
+    }
+
+    private void refreshData() {
+        List<Roll> rolls = StorageUtil.getAllRolls((MainActivity) getActivity());
+        // update adapter
+        mAdapter.clear();
+        mAdapter.addAll(rolls);
+        mAdapter.notifyDataSetChanged();
+    }
+
+
+    private void showRollDetails(Roll roll) {
+        // show frames on selection
+        ((MainActivity) getActivity()).switchContent(FilmFrameListFragment.newInstance(roll));
+    }
+
+    // create new roll option is in main activity
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // update options based on search enabled or not
+        if (!searchViewEnabled)
+            inflater.inflate(R.menu.rolls, menu);
     }
 
     @Override
@@ -169,6 +185,9 @@ public class FilmRollListFragment extends Fragment {
 
     private boolean searchViewEnabled = false;
 
+    /**
+     * helper for showing/hiding the searchview in the toolbar
+     */
     private void toggleSearchView() {
         // parent activity
         MainActivity activity = (MainActivity) getActivity();
@@ -176,8 +195,11 @@ public class FilmRollListFragment extends Fragment {
         searchViewEnabled = !searchViewEnabled;
         // and apply
         activity.getSupportActionBar().setDisplayShowCustomEnabled(searchViewEnabled);
+        activity.getSupportActionBar().setDisplayShowTitleEnabled(!searchViewEnabled);
         // enable filter view on list
 //        mListView.setTextFilterEnabled(searchViewEnabled);
+        // when showing hide the other menu options + override back handling
+        getActivity().invalidateOptionsMenu();
     }
 
     private void createNewRoll() {
@@ -206,4 +228,13 @@ public class FilmRollListFragment extends Fragment {
         startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.action_export)));
     }
 
+    @Override
+    public boolean onBackPressed() {
+        if (searchViewEnabled) {
+            mAdapter.getFilter().filter(null);
+            toggleSearchView();
+            return true;
+        }
+        return false;
+    }
 }
