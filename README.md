@@ -41,18 +41,18 @@ https://www.materialpalette.com/brown/grey
 
 * visualisation of locations on map
 
-## v0.8.0 - upcoming
+## v0.8.0 - alpha
 
 * example shot for frames added
 * geo location for frames added
 * improved action icons
 
-## v0.7.0 - alpha
+## v0.7.0 - beta
 
 * optimized back handling and search navigation
 * linkified about information
 
-## v0.6.0 - beta
+## v0.6.0
 
 * search/filter option implemented on overview of rolls
 
