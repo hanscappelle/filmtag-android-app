@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -107,7 +108,7 @@ public class EditFrameFragment extends TemplateFragment {
         imagePreview = (ImageView) view.findViewById(R.id.image_preview);
 
         if (selectedFrame != null) {
-            ((EditText) view.findViewById(R.id.edit_number)).setText(String.valueOf(selectedFrame.getNumber()));
+            ((TextView) view.findViewById(R.id.edit_number)).setText(String.valueOf(selectedFrame.getNumber()));
             if (selectedFrame.getAperture() != 0)
                 editAperture.setText(String.valueOf(selectedFrame.getAperture()));
             if (selectedFrame.getShutter() != 0)

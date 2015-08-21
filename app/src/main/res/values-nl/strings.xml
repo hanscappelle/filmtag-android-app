@@ -31,4 +31,6 @@
     <string name="action_about">Over</string>
     <string name="label_film_developed">Film ontwikkeld</string>
     <string name="action_search">Zoeken</string>
+    <string name="action_camera">Camera</string>
+    <string name="label_preview">Voorbeeld</string>
 </resources>
