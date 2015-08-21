@@ -37,10 +37,15 @@ https://www.materialpalette.com/brown/grey
 
 # Version History
 
+## v0.9.0 - upcoming
+
+* visualisation of locations on map
+
 ## v0.8.0 - upcoming
 
 * example shot for frames added
 * geo location for frames added
+* improved action icons
 
 ## v0.7.0 - alpha
 
