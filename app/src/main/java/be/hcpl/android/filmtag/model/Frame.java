@@ -28,6 +28,11 @@ public class Frame implements Serializable {
      */
     private double aperture;
 
+    /**
+     * path to selected preview image
+     */
+    private String pathToImage;
+
     public Frame() {
     }
 
@@ -89,5 +94,13 @@ public class Frame implements Serializable {
     @Override
     public int hashCode() {
         return getNumber();
+    }
+
+    public String getPathToImage() {
+        return pathToImage;
+    }
+
+    public void setPathToImage(String pathToImage) {
+        this.pathToImage = pathToImage;
     }
 }

@@ -101,12 +101,21 @@
             />
 
         <ImageView
-            android:id="@+id/image_preview"
+            android:id="@+id/image_preview_indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_notes"
             android:layout_toRightOf="@+id/text_preview"
             android:src="@drawable/ic_action_image_photo_camera_silver"
+            />
+
+        <ImageView
+            android:id="@+id/image_preview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_preview"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="16dp"
             />
 
     </RelativeLayout>
