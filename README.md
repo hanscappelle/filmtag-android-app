@@ -84,6 +84,12 @@ https://www.materialpalette.com/brown/grey
 * initial release, open source project
 * minimal requirements met (create film rolls and frames)
 
+# Resources
+
+getting images: http://developer.android.com/training/camera/photobasics.html
+
+reading exif info from jpeg files: http://developer.android.com/reference/android/media/ExifInterface.html
+
 # TODO
 
 ## features

@@ -109,14 +109,36 @@
             android:src="@drawable/ic_action_image_photo_camera_silver"
             />
 
+        <TextView
+            android:id="@+id/text_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_preview"
+            android:fontFamily="sans-serif-light"
+            android:padding="5dp"
+            android:text="@string/label_location"
+            android:textSize="20sp"
+            />
+
+        <ImageView
+            android:id="@+id/image_location_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_preview"
+            android:layout_toRightOf="@+id/text_location"
+            android:src="@drawable/ic_action_device_gps_silver"
+            />
+
         <ImageView
             android:id="@+id/image_preview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/text_preview"
+            android:layout_below="@+id/text_location"
             android:layout_centerHorizontal="true"
             android:layout_margin="16dp"
             />
+
+
 
     </RelativeLayout>
 

@@ -1,7 +1,6 @@
 package be.hcpl.android.filmtag.model;
 
 import java.io.Serializable;
-import java.text.DecimalFormat;
 
 /**
  * Created by hcpl on 1/08/15.
@@ -33,6 +32,11 @@ public class Frame implements Serializable {
      */
     private String pathToImage;
 
+    /**
+     * where the picture was taken
+     */
+    private Location location;
+
     public Frame() {
     }
 
@@ -41,6 +45,14 @@ public class Frame implements Serializable {
         this.number = number;
         this.shutter = shutter;
         this.aperture = aperture;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public String getNotes() {

@@ -34,4 +34,7 @@
     <string name="action_camera">Camera</string>
     <string name="label_preview">Voorbeeld</string>
     <string name="error_creating_image">Aanmaken fotobestand mislukt</string>
+    <string name="label_location">Locatie</string>
+    <string name="action_location">Locatie</string>
+    <string name="err_location_disabled">Locatie niet beschikbaar</string>
 </resources>

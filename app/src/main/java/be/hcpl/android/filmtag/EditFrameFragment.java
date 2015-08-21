@@ -1,9 +1,13 @@
 package be.hcpl.android.filmtag;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -55,7 +59,9 @@ public class EditFrameFragment extends TemplateFragment {
 
     private List<Frame> frames;
 
-    private ImageView imagePreview, imagePreviewIndicator;
+    private ImageView imagePreview, imagePreviewIndicator, imageLocationIndicator;
+
+    private TextView locationView;
 
     public static EditFrameFragment newInstance(Roll roll, List<Frame> frames, int frame) {
         Bundle args = new Bundle();
@@ -117,6 +123,8 @@ public class EditFrameFragment extends TemplateFragment {
         editNotes = (EditText) view.findViewById(R.id.edit_notes);
         imagePreview = (ImageView) view.findViewById(R.id.image_preview);
         imagePreviewIndicator = (ImageView) view.findViewById(R.id.image_preview_indicator);
+        imageLocationIndicator = (ImageView) view.findViewById(R.id.image_location_indicator);
+        locationView = (TextView) view.findViewById(R.id.text_location);
 
         if (selectedFrame != null) {
             ((TextView) view.findViewById(R.id.edit_number)).setText(String.valueOf(selectedFrame.getNumber()));
@@ -125,8 +133,8 @@ public class EditFrameFragment extends TemplateFragment {
             if (selectedFrame.getShutter() != 0)
                 editShutter.setText(String.valueOf(selectedFrame.getShutter()));
             editNotes.setText(selectedFrame.getNotes());
-            loadImagePreview(selectedFrame);
-            markImageAvailable();
+            loadImagePreview();
+            showLocation();
         }
 
         // TODO implement autocomplete
@@ -138,7 +146,13 @@ public class EditFrameFragment extends TemplateFragment {
                 ContextCompat.getDrawable(getActivity(), R.drawable.ic_action_image_photo_camera_silver));
     }
 
-    private void loadImagePreview(Frame selectedFrame) {
+    private void markLocationAvailable() {
+        imageLocationIndicator.setImageDrawable(selectedFrame.getLocation() != null ?
+                ContextCompat.getDrawable(getActivity(), R.drawable.ic_action_device_gps_primary) :
+                ContextCompat.getDrawable(getActivity(), R.drawable.ic_action_device_gps_silver));
+    }
+
+    private void loadImagePreview() {
         if (selectedFrame.getPathToImage() != null) {
             try {
                 BitmapFactory.Options options = new BitmapFactory.Options();
@@ -146,12 +160,15 @@ public class EditFrameFragment extends TemplateFragment {
                 options.inJustDecodeBounds = false;
                 Bitmap bm = BitmapFactory.decodeFile(selectedFrame.getPathToImage(), options);
                 imagePreview.setImageBitmap(bm);
+                // and try updating location
+//                extractLocationFromFile();
             } catch (Exception e) {
                 // ignore any exceptions here
                 Log.e(getTag(), "failed to load image from configured path", e);
 
             }
         }
+        markImageAvailable();
     }
 
     @Override
@@ -165,6 +182,9 @@ public class EditFrameFragment extends TemplateFragment {
                 return true;
             case R.id.action_camera:
                 dispatchTakePictureIntent();
+                return true;
+            case R.id.action_location:
+                getLocation();
                 return true;
         }
         return false;
@@ -200,8 +220,7 @@ public class EditFrameFragment extends TemplateFragment {
 //            Bitmap imageBitmap = (Bitmap) extras.get("data");
             // show the image
 //            imagePreview.setImageBitmap(imageBitmap);
-            loadImagePreview(selectedFrame);
-            markImageAvailable();
+            loadImagePreview();
         }
     }
 
@@ -220,6 +239,106 @@ public class EditFrameFragment extends TemplateFragment {
         // Save a file: path for use with ACTION_VIEW intents
         selectedFrame.setPathToImage(image.getAbsolutePath());
         return image;
+    }
+
+//    private void extractLocationFromFile() throws IOException {
+//        ExifInterface exif = new ExifInterface(selectedFrame.getPathToImage());
+//        String lat = exif.getAttribute(ExifInterface.TAG_GPS_LATITUDE);
+//        String lon = exif.getAttribute(ExifInterface.TAG_GPS_LONGITUDE);
+//        if (lat != null && lon != null) {
+//            locationView.setText(getString(R.string.label_location) + " " + lat + " " + lon);
+//        }
+//    }
+
+    private void getLocation() {
+        registerLocationListener(LocationManager.GPS_PROVIDER);
+    }
+
+    /**
+     * register location listeners
+     *
+     * @param provider
+     */
+    private void registerLocationListener(final String provider) {
+        // remove previous listener first
+        unregisterListener();
+        // get current location to provide as defaults into
+        // field
+        LocationManager locationManager = (LocationManager) getActivity()
+                .getSystemService(Context.LOCATION_SERVICE);
+        // begin by getting the last known location
+        Location fetchedLocationDetails = locationManager.getLastKnownLocation(provider);
+        if (fetchedLocationDetails != null) {
+            // update current location
+            if( selectedFrame != null ) {
+                selectedFrame.setLocation(new be.hcpl.android.filmtag.model.Location(fetchedLocationDetails.getLatitude(), fetchedLocationDetails.getLongitude()));
+                showLocation();
+            }
+        }
+        // and start listening in order to update the location when more
+        // information is retrieved
+        // Register the listener with the Location Manager to receive location
+        // updates
+        locationManager
+                .requestLocationUpdates(provider, 0, 0, locationListener);
+    }
+
+    /**
+     * unregister location listeners
+     */
+    private void unregisterListener() {
+        // get current location to provide as defaults into
+        // field
+        LocationManager locationManager = (LocationManager) getActivity()
+                .getSystemService(Context.LOCATION_SERVICE);
+        // remove previous listener first
+        locationManager.removeUpdates(locationListener);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        unregisterListener();
+    }
+
+    /**
+     * listener for updating location when more data is found
+     */
+    private LocationListener locationListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(final Location location) {
+            // Called when a new location is found by the selected location
+            // provider.
+            if( selectedFrame != null ) {
+                selectedFrame.setLocation(new be.hcpl.android.filmtag.model.Location(location.getLatitude(), location.getLongitude()));
+                // set on screen
+                showLocation();
+            }
+        }
+
+        @Override
+        public void onStatusChanged(final String provider, final int status,
+                                    final Bundle extras) {
+            // nothing so far
+        }
+
+        @Override
+        public void onProviderEnabled(final String provider) {
+            // nothing so far
+        }
+
+        @Override
+        public void onProviderDisabled(final String provider) {
+            Toast.makeText(getActivity(), R.string.err_location_disabled, Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    private void showLocation() {
+        if (selectedFrame != null && selectedFrame.getLocation() != null) {
+            be.hcpl.android.filmtag.model.Location location = selectedFrame.getLocation();
+            locationView.setText(getString(R.string.label_location) + " " + location.getLatitude() + " " + location.getLongitude());
+        }
+        markLocationAvailable();
     }
 
     private void updateItem() {

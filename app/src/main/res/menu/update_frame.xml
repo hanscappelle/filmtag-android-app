@@ -9,6 +9,12 @@
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/action_location"
+        android:title="@string/action_location"
+        android:icon="@drawable/ic_action_device_gps"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/action_update"
         android:title="@string/action_update"
         android:icon="@drawable/ic_action_navigation_check"

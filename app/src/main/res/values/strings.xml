@@ -34,4 +34,7 @@
     <string name="action_camera">Camera</string>
     <string name="label_preview">Preview</string>
     <string name="error_creating_image">Failed to create image</string>
+    <string name="label_location">Location</string>
+    <string name="action_location">Location</string>
+    <string name="err_location_disabled">Location provider not available</string>
 </resources>
