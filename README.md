@@ -39,6 +39,7 @@ https://www.materialpalette.com/brown/grey
 
 ## v0.8.0 - upcoming
 
+* example shot for frames added
 * geo location for frames added
 
 ## v0.7.0 - alpha

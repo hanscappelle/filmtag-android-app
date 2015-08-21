@@ -140,6 +140,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        // check firs for fragments to handle this content
+//        if( mContent != null && mContent instanceof TemplateFragment){
+//            if( ((TemplateFragment)mContent).onActivityResult(requestCode, resultCode, data) )
+//                return;
+//        }
+//        // default handling
+//        super.onActivityResult(requestCode, resultCode, data);
+//    }
+
     public void setHomeAsUp(final boolean enable) {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(enable);

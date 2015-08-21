@@ -1,6 +1,10 @@
 package be.hcpl.android.filmtag;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -17,12 +22,13 @@ import java.util.List;
 
 import be.hcpl.android.filmtag.model.Frame;
 import be.hcpl.android.filmtag.model.Roll;
+import be.hcpl.android.filmtag.template.TemplateFragment;
 import be.hcpl.android.filmtag.util.StorageUtil;
 
 /**
  * Created by hcpl on 1/08/15.
  */
-public class EditFrameFragment extends Fragment {
+public class EditFrameFragment extends TemplateFragment {
 
     private static final String KEY_FRAME_IDX = "frame_index";
     private static final String KEY_FRAMES = "frames";
@@ -37,6 +43,8 @@ public class EditFrameFragment extends Fragment {
     private Frame selectedFrame;
 
     private List<Frame> frames;
+
+    private ImageView imagePreview;
 
     public static EditFrameFragment newInstance(Roll roll, List<Frame> frames, int frame) {
         Bundle args = new Bundle();
@@ -96,12 +104,13 @@ public class EditFrameFragment extends Fragment {
         editAperture = (EditText) view.findViewById(R.id.edit_aperture);
         editShutter = (EditText) view.findViewById(R.id.edit_shutter);
         editNotes = (EditText) view.findViewById(R.id.edit_notes);
+        imagePreview = (ImageView) view.findViewById(R.id.image_preview);
 
         if (selectedFrame != null) {
             ((EditText) view.findViewById(R.id.edit_number)).setText(String.valueOf(selectedFrame.getNumber()));
-            if( selectedFrame.getAperture() != 0)
+            if (selectedFrame.getAperture() != 0)
                 editAperture.setText(String.valueOf(selectedFrame.getAperture()));
-            if( selectedFrame.getShutter() != 0)
+            if (selectedFrame.getShutter() != 0)
                 editShutter.setText(String.valueOf(selectedFrame.getShutter()));
             editNotes.setText(selectedFrame.getNotes());
         }
@@ -118,8 +127,29 @@ public class EditFrameFragment extends Fragment {
             case android.R.id.home:
                 backToOverview();
                 return true;
+            case R.id.action_camera:
+                dispatchTakePictureIntent();
+                return true;
         }
         return false;
+    }
+
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            // show the image somewhere
+            imagePreview.setImageBitmap(imageBitmap);
+        }
     }
 
     private void updateItem() {
@@ -130,7 +160,7 @@ public class EditFrameFragment extends Fragment {
         } catch (NumberFormatException nfe) {
             Toast.makeText(getActivity(), R.string.err_parsing_failed, Toast.LENGTH_SHORT).show();
         }
-        try{
+        try {
             selectedFrame.setShutter(Integer.parseInt(editShutter.getText().toString()));
         } catch (NumberFormatException nfe) {
             Toast.makeText(getActivity(), R.string.err_parsing_failed, Toast.LENGTH_SHORT).show();
