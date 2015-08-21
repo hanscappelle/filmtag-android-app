@@ -150,6 +150,26 @@ public class EditFrameFragment extends TemplateFragment {
         imageLocationIndicator.setImageDrawable(selectedFrame.getLocation() != null ?
                 ContextCompat.getDrawable(getActivity(), R.drawable.ic_action_device_gps_primary) :
                 ContextCompat.getDrawable(getActivity(), R.drawable.ic_action_device_gps_silver));
+        if (selectedFrame.getLocation() != null) {
+            View.OnClickListener onClickListener = new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showMap(Uri.parse("geo:" + selectedFrame.getLocation().getLatitude() + "," + selectedFrame.getLocation().getLongitude()));
+                }
+            };
+            imageLocationIndicator.setOnClickListener(onClickListener);
+            locationView.setOnClickListener(onClickListener);
+        }
+    }
+
+    private void showMap(Uri geoLocation) {
+        if (geoLocation == null)
+            return;
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(geoLocation);
+        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
 
     private void loadImagePreview() {
@@ -270,7 +290,7 @@ public class EditFrameFragment extends TemplateFragment {
         Location fetchedLocationDetails = locationManager.getLastKnownLocation(provider);
         if (fetchedLocationDetails != null) {
             // update current location
-            if( selectedFrame != null ) {
+            if (selectedFrame != null) {
                 selectedFrame.setLocation(new be.hcpl.android.filmtag.model.Location(fetchedLocationDetails.getLatitude(), fetchedLocationDetails.getLongitude()));
                 showLocation();
             }
@@ -309,7 +329,7 @@ public class EditFrameFragment extends TemplateFragment {
         public void onLocationChanged(final Location location) {
             // Called when a new location is found by the selected location
             // provider.
-            if( selectedFrame != null ) {
+            if (selectedFrame != null) {
                 selectedFrame.setLocation(new be.hcpl.android.filmtag.model.Location(location.getLatitude(), location.getLongitude()));
                 // set on screen
                 showLocation();
