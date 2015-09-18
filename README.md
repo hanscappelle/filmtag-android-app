@@ -40,11 +40,11 @@ https://www.materialpalette.com/brown/grey
 ## v1.0.0 - upcoming
 
 * visualisation of locations on map
+* TODO - added faster input of aperture and shutter speed values
 
 ## v0.9.0 - upcoming
 
 * implemented proper adapter for listviews
-* TODO - added faster input of aperture and shutter speed values
 
 ## v0.8.0
 
