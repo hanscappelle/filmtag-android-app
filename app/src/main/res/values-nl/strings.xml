@@ -37,4 +37,6 @@
     <string name="label_location">Locatie</string>
     <string name="action_location">Locatie</string>
     <string name="err_location_disabled">Locatie niet beschikbaar</string>
+    <string name="label_roll_speed">Belicht op ISO</string>
+    <string name="label_roll_frames">#Beelden</string>
 </resources>

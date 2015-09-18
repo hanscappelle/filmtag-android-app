@@ -14,6 +14,7 @@ import java.util.List;
 
 import be.hcpl.android.filmtag.R;
 import be.hcpl.android.filmtag.model.Roll;
+import be.hcpl.android.filmtag.util.TextUtil;
 
 /**
  * Created by jd41256 on 10/08/15.
@@ -66,25 +67,32 @@ public class FilmRollAdapter extends BaseAdapter implements Filterable {
 
         View rowView = convertView;
         if (rowView == null) {
-            rowView = mInflater.inflate(android.R.layout.simple_list_item_1, viewGroup, false);
+            rowView = mInflater.inflate(R.layout.list_item_roll, viewGroup, false);
 
             final ViewHolder holder = new ViewHolder();
-            holder.textView = (TextView) rowView.findViewById(android.R.id.text1);
+            holder.textType = (TextView) rowView.findViewById(R.id.text_type);
+            holder.textSpeed = (TextView) rowView.findViewById(R.id.text_speed);
+            holder.textFrames = (TextView) rowView.findViewById(R.id.text_frames);
             rowView.setTag(holder);
         }
         final ViewHolder holder = (ViewHolder) rowView.getTag();
 
         // format data, still on single line for now
-        holder.textView.setText(
-                new StringBuilder(roll.getType()).append(" @ ISO ").append(roll.getSpeed())
-                        .append(" # ").append(String.valueOf(roll.getFrames())).toString()
-        );
+        holder.textType.setText(roll.getType());
+        holder.textSpeed.setText(new StringBuilder(mContext.getResources()
+                .getString(R.string.label_roll_speed)).append(TextUtil.SPACE)
+                .append(roll.getSpeed()));
+        holder.textFrames.setText(new StringBuilder(mContext.getResources()
+                .getString(R.string.label_roll_frames)).append(TextUtil.SPACE)
+                .append(TextUtil.frameFormat.format(roll.getFrames())));
+//                new StringBuilder(roll.getType()).append(" @ ISO ").append(roll.getSpeed())
+//                        .append(" # ").append(String.valueOf(roll.getFrames())).toString()
 
         // mark developed items with a lighter text color
         if (roll.isDeveloped())
-            holder.textView.setTextColor(mContext.getResources().getColor(R.color.secondary_text));
+            holder.textType.setTextColor(mContext.getResources().getColor(R.color.secondary_text));
         else
-            holder.textView.setTextColor(mContext.getResources().getColor(R.color.primary_text));
+            holder.textType.setTextColor(mContext.getResources().getColor(R.color.primary_text));
 
         return rowView;
     }
@@ -142,6 +150,6 @@ public class FilmRollAdapter extends BaseAdapter implements Filterable {
     }
 
     class ViewHolder {
-        TextView textView;
+        TextView textFrames, textSpeed, textType;
     }
 }

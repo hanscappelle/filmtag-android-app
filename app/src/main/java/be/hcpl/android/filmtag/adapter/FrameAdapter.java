@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import be.hcpl.android.filmtag.model.Frame;
+import be.hcpl.android.filmtag.util.TextUtil;
 
 /**
  * Created by jd41256 on 10/08/15.
@@ -23,8 +24,6 @@ public class FrameAdapter extends BaseAdapter {
     private Context mContext;
 
     private LayoutInflater mInflater;
-
-    private DecimalFormat format = new DecimalFormat("00");
 
     public FrameAdapter(final Context context) {
         this(context, new ArrayList<Frame>());
@@ -72,7 +71,7 @@ public class FrameAdapter extends BaseAdapter {
 
         // format data, still on single line for now
         holder.textView.setText(
-                new StringBuilder(format.format(frame.getNumber())).append(" - (s) ")
+                new StringBuilder(TextUtil.frameFormat.format(frame.getNumber())).append(" - (s) ")
                         .append(String.valueOf(frame.getShutter())).append(" - (a) f/")
                         .append(String.valueOf(frame.getAperture())).toString()
         );

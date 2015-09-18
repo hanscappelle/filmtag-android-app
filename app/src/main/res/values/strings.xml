@@ -37,4 +37,6 @@
     <string name="label_location">Location</string>
     <string name="action_location">Location</string>
     <string name="err_location_disabled">Location provider not available</string>
+    <string name="label_roll_speed">Exposed at ISO</string>
+    <string name="label_roll_frames">#Frames</string>
 </resources>
