@@ -10,8 +10,8 @@ android {
         applicationId "be.hcpl.android.filmtag"
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 8
-        versionName "0.8.0"
+        versionCode 9
+        versionName "0.9.0"
     }
 
     signingConfigs {
