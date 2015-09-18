@@ -37,17 +37,22 @@ https://www.materialpalette.com/brown/grey
 
 # Version History
 
-## v0.9.0 - upcoming
+## v1.0.0 - upcoming
 
 * visualisation of locations on map
 
-## v0.8.0 - alpha
+## v0.9.0 - upcoming
+
+* implemented proper adapter for listviews
+* TODO - added faster input of aperture and shutter speed values
+
+## v0.8.0
 
 * example shot for frames added
 * geo location for frames added
 * improved action icons
 
-## v0.7.0 - beta
+## v0.7.0
 
 * optimized back handling and search navigation
 * linkified about information
@@ -94,6 +99,8 @@ https://www.materialpalette.com/brown/grey
 getting images: http://developer.android.com/training/camera/photobasics.html
 
 reading exif info from jpeg files: http://developer.android.com/reference/android/media/ExifInterface.html
+
+Android design guidelines see: https://www.google.com/design/spec/layout/metrics-keylines.html#metrics-keylines-ratio-keylines
 
 # TODO
 
