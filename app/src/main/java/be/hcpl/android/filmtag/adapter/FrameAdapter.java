@@ -68,6 +68,7 @@ public class FrameAdapter extends BaseAdapter {
             holder.textFrame= (TextView) rowView.findViewById(R.id.text_frame);
             holder.textShutter= (TextView) rowView.findViewById(R.id.text_shutter);
             holder.textAperture= (TextView) rowView.findViewById(R.id.text_aperture);
+            holder.textNotes= (TextView) rowView.findViewById(R.id.text_notes);
             rowView.setTag(holder);
         }
         final ViewHolder holder = (ViewHolder) rowView.getTag();
@@ -77,6 +78,7 @@ public class FrameAdapter extends BaseAdapter {
                 mContext.getResources().getString(R.string.label_frame))
                 .append(TextUtil.SPACE).append("#")
                 .append(TextUtil.frameFormat.format(frame.getNumber())));
+        holder.textNotes.setText(frame.getNotes());
         holder.textAperture.setText(new StringBuilder(
             mContext.getResources().getString(R.string.label_aperture))
                 .append(TextUtil.SPACE).append("f/").append(frame.getAperture()
@@ -101,6 +103,6 @@ public class FrameAdapter extends BaseAdapter {
     }
 
     class ViewHolder {
-        TextView textShutter, textAperture, textFrame;
+        TextView textShutter, textAperture, textFrame, textNotes;
     }
 }
