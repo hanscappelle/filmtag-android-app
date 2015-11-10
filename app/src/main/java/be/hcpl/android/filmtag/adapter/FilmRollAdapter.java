@@ -135,9 +135,15 @@ public class FilmRollAdapter extends BaseAdapter implements Filterable {
                 final List<Roll> results = new ArrayList<Roll>();
                 // only filter if data set
                 if (constraint != null) {
-                    for (Roll roll : unFilteredList)
+                    for (Roll roll : unFilteredList) {
+                        // search on film types
                         if (roll != null && roll.getType() != null && roll.getType().contains(constraint.toString()))
                             results.add(roll);
+                        // and on tags
+                        else if (roll != null && roll.getTags() != null && roll.getTags().contains(constraint.toString()))
+                            results.add(roll);
+                        // skip description, too much text to search on
+                    }
                 }
                 // reset to unfiltered list of all data
                 else {

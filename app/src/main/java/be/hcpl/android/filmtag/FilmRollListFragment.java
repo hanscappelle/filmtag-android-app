@@ -7,12 +7,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.widget.SearchView;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -179,7 +177,7 @@ public class FilmRollListFragment extends TemplateFragment {
             return true;
         } else if (id == R.id.action_search) {
             toggleSearchView();
-        } else if( id == R.id.action_settings){
+        } else if (id == R.id.action_settings) {
             ((MainActivity) getActivity()).switchContent(new PrefsFragment());
         }
         return super.onOptionsItemSelected(item);
