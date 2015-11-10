@@ -16,6 +16,7 @@ import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -32,6 +33,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -67,6 +69,9 @@ public class EditFrameFragment extends TemplateFragment {
     ImageView imagePreviewIndicator;
     @Bind(R.id.image_location_indicator)
     ImageView imageLocationIndicator;
+
+    @Bind(R.id.edit_tags)
+    EditText editTags;
 
     @Bind(R.id.text_location)
     TextView locationView;
@@ -139,6 +144,9 @@ public class EditFrameFragment extends TemplateFragment {
             if (selectedFrame.getShutter() != 0)
                 editShutter.setText(String.valueOf(selectedFrame.getShutter()));
             editNotes.setText(selectedFrame.getNotes());
+            // populate the tags here
+            if( selectedFrame.getTags() != null && !selectedFrame.getTags().isEmpty())
+                editTags.setText(TextUtils.join(" ", selectedFrame.getTags()));
             loadImagePreview();
             showLocation();
         }
@@ -386,6 +394,7 @@ public class EditFrameFragment extends TemplateFragment {
         } catch (NumberFormatException nfe) {
             Toast.makeText(getActivity(), R.string.err_parsing_failed, Toast.LENGTH_SHORT).show();
         }
+        selectedFrame.setTags(Arrays.asList(TextUtils.split(editTags.getText().toString(), " ")));
 
         // store
         StorageUtil.updateFrames((MainActivity) getActivity(), roll, frames);

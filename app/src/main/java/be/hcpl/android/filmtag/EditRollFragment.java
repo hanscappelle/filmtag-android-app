@@ -124,7 +124,7 @@ public class EditRollFragment extends TemplateFragment {
             developed.setChecked(roll.isDeveloped());
             // populate the tags here
             if( roll.getTags() != null && !roll.getTags().isEmpty())
-            editTags.setText(TextUtils.join(" ", roll.getTags()));
+                editTags.setText(TextUtils.join(" ", roll.getTags()));
         }
         // populate with defaults here
         else {

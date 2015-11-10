@@ -1,6 +1,8 @@
 package be.hcpl.android.filmtag.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by hcpl on 1/08/15.
@@ -36,6 +38,11 @@ public class Frame implements Serializable {
      * where the picture was taken
      */
     private Location location;
+
+    /**
+     * tags for frame
+     */
+    private List<String> tags = new ArrayList();
 
     public Frame() {
     }
@@ -85,6 +92,14 @@ public class Frame implements Serializable {
 
     public void setAperture(double aperture) {
         this.aperture = aperture;
+    }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
     }
 
     @Override
