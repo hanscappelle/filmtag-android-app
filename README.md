@@ -40,14 +40,14 @@ https://www.materialpalette.com/brown/grey
 ## v1.0.0 - upcoming
 
 * visualisation of locations on map
-* TODO - added faster input of aperture and shutter speed values
+* support for tags
 
 ## v0.10.0
 
 * implemented defaults for required fields
 * (technical improvement) added butterknife for view binding using annotations
 
-## v0.9.0 - upcoming
+## v0.9.0
 
 * implemented proper adapter for listviews
 
