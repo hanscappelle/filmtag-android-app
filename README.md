@@ -43,6 +43,7 @@ https://www.materialpalette.com/brown/grey
 
 ## v0.11.0 - alpha
 
+* android 6.0 runtime permissions support
 * improved back stack handling for editing rolls
 * support for custom tags
 
