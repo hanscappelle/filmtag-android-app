@@ -1,6 +1,8 @@
 package be.hcpl.android.filmtag.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by hcpl on 1/08/15.
@@ -37,6 +39,11 @@ public class Roll implements Serializable{
      * if film was developed or not
      */
     private boolean developed;
+
+    /**
+     * a collection of tags for this item
+     */
+    private List<String> tags = new ArrayList<>();
 
     public Roll() {
         setId(System.currentTimeMillis()); // generates unique ID for all objects created
@@ -95,6 +102,14 @@ public class Roll implements Serializable{
 
     public void setDeveloped(boolean developed) {
         this.developed = developed;
+    }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
     }
 
     @Override
