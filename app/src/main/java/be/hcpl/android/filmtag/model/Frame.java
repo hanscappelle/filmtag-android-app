@@ -20,12 +20,12 @@ public class Frame implements Serializable {
     /**
      * the shutter speed used for this frame
      */
-    private int shutter;
+    private int shutter = 60;
 
     /**
      * the aperture value used for this frame
      */
-    private double aperture;
+    private double aperture = 4;
 
     /**
      * path to selected preview image

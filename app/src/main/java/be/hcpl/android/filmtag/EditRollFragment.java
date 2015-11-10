@@ -112,6 +112,12 @@ public class EditRollFragment extends Fragment {
                 editFrames.setText(String.valueOf(roll.getFrames()));
             developed.setChecked(roll.isDeveloped());
         }
+        // populate with defaults here
+        else {
+            // TODO have preferences for this
+            editSpeed.setText(String.valueOf(200));
+            editFrames.setText(String.valueOf(36));
+        }
 
         // autocomplete
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),

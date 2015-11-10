@@ -20,13 +20,13 @@ public class Roll implements Serializable{
     /**
      * ISO speed of film roll
      */
-    private int speed;
+    private int speed = 200;
 
     /**
      * number of frames of film roll, note that this is used to get the number of frames available
      * for recording settings
      */
-    private int frames;
+    private int frames = 36;
 
     /**
      * notes for this film roll

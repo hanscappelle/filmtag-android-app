@@ -136,6 +136,10 @@ public class EditFrameFragment extends TemplateFragment {
             loadImagePreview();
             showLocation();
         }
+        // TODO have configurable defaults here
+        else {
+
+        }
 
         // TODO implement autocomplete
     }
