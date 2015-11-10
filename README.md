@@ -42,6 +42,11 @@ https://www.materialpalette.com/brown/grey
 * visualisation of locations on map
 * TODO - added faster input of aperture and shutter speed values
 
+## v0.10.0
+
+* implemented defaults for required fields
+* (technical improvement) added butterknife for view binding using annotations
+
 ## v0.9.0 - upcoming
 
 * implemented proper adapter for listviews
