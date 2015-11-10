@@ -3,6 +3,7 @@ package be.hcpl.android.filmtag;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
@@ -11,6 +12,7 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -140,9 +142,11 @@ public class EditFrameFragment extends TemplateFragment {
             loadImagePreview();
             showLocation();
         }
-        // TODO have configurable defaults here
+        // have configurable defaults here
         else {
-
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+            editShutter.setText(prefs.getString("key_default_shutter", String.valueOf(60)));
+            editAperture.setText(prefs.getString("key_default_apertures", String.valueOf(4)));
         }
 
         // TODO implement autocomplete

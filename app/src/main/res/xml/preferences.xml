@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:key="key_default_values"
+        android:title="@string/pref_title_default_values">
+        <EditTextPreference
+            android:key="key_default_iso"
+            android:summary="@string/pref_summary_default_iso"
+            android:title="@string/pref_title_default_iso"
+            android:numeric="integer"
+            android:defaultValue="200"
+            />
+        <EditTextPreference
+            android:key="key_default_frames"
+            android:summary="@string/pref_summary_default_frames"
+            android:title="@string/pref_title_default_frames"
+            android:numeric="integer"
+            android:defaultValue="36"
+            />
+        <EditTextPreference
+            android:key="key_default_shutter"
+            android:summary="@string/pref_summary_default_shutter"
+            android:title="@string/pref_title_default_shutter"
+            android:numeric="decimal"
+            android:defaultValue="60"
+            />
+        <EditTextPreference
+            android:key="key_default_aperture"
+            android:summary="@string/pref_summary_default_aperture"
+            android:title="@string/pref_title_default_aperture"
+            android:numeric="decimal"
+            android:defaultValue="4.0"
+            />
+    </PreferenceCategory>
+</PreferenceScreen>

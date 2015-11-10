@@ -1,6 +1,8 @@
 package be.hcpl.android.filmtag;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -118,9 +120,10 @@ public class EditRollFragment extends TemplateFragment {
         }
         // populate with defaults here
         else {
-            // TODO have preferences for this
-            editSpeed.setText(String.valueOf(200));
-            editFrames.setText(String.valueOf(36));
+            // have preferences for this
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+            editSpeed.setText(prefs.getString("key_default_iso", String.valueOf(200)));
+            editFrames.setText(prefs.getString("key_default_frames", String.valueOf(36)));
         }
 
         // autocomplete

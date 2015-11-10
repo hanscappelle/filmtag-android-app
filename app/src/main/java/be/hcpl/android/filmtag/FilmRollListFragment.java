@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -178,8 +179,25 @@ public class FilmRollListFragment extends TemplateFragment {
             return true;
         } else if (id == R.id.action_search) {
             toggleSearchView();
+        } else if( id == R.id.action_settings){
+            ((MainActivity) getActivity()).switchContent(new PrefsFragment());
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public static class PrefsFragment extends PreferenceFragmentCompat {
+
+//        @Override
+//        public void onCreate(Bundle savedInstanceState) {
+//            super.onCreate(savedInstanceState);
+//
+//        }
+
+        @Override
+        public void onCreatePreferences(Bundle bundle, String s) {
+            // Load the preferences from an XML resource
+            addPreferencesFromResource(R.xml.preferences);
+        }
     }
 
     private boolean searchViewEnabled = false;

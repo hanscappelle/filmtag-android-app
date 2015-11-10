@@ -42,4 +42,17 @@
     <string name="label_frame">Frame</string>
     <string name="label_aperture">Aperture</string>
     <string name="label_shutter">Shutterspeed</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="pref_title_default_values">Preferred default values</string>
+    <string name="pref_summary_default_iso">The default prefilled value for film speed when creating new film entries</string>
+    <string name="pref_title_default_iso">Default Film Speed</string>
+    <string name="pref_summary_default_frames">The default prefilled value for the number of frames when creating new film entries</string>
+    <string name="pref_title_default_frames">Default # Frames</string>
+    <string name="pref_summary_default_shutter">The default prefilled value for the shutter speed when editing frames</string>
+    <string name="pref_title_default_shutter">Default Shutterspeed</string>
+    <string name="pref_summary_default_aperture">The default prefilled value for aperture when editing frames</string>
+    <string name="pref_title_default_aperture">Default Aperture</string>
+
+
 </resources>

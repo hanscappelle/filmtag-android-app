@@ -42,4 +42,15 @@
     <string name="label_frame">Beeld</string>
     <string name="label_aperture">Diafragma</string>
     <string name="label_shutter">Sluitertijd</string>
+    <string name="action_settings">Instellingen</string>
+
+    <string name="pref_title_default_values">Voorkeur voor standaardwaarden</string>
+    <string name="pref_summary_default_iso">Default ISO waarde</string>
+    <string name="pref_title_default_iso">De standaard waarde ingevuld voor ISO bij het aanmaken van nieuwe films</string>
+    <string name="pref_summary_default_frames">Default # Frames</string>
+    <string name="pref_title_default_frames">De standaard waarde ingevuld voor aantal frames bij het aanmaken van nieuwe films</string>
+    <string name="pref_summary_default_shutter">Default sluitersnelheid</string>
+    <string name="pref_title_default_shutter">De standaard waarde ingevuld voor sluitersnelheid bij het bewerken van beelden</string>
+    <string name="pref_summary_default_aperture">Default diafragma</string>
+    <string name="pref_title_default_aperture">De standaard waarde ingevuld voor diafragmawaarde bij het bewerken van beelden</string>
 </resources>
