@@ -40,9 +40,12 @@ https://www.materialpalette.com/brown/grey
 ## v1.0.0 - upcoming
 
 * visualisation of locations on map
-* support for tags
 
-## v0.10.0
+## v0.11.0 - alpha
+
+* support for custom tags
+
+## v0.10.0 - beta
 
 * implemented defaults for required fields
 * (technical improvement) added butterknife for view binding using annotations

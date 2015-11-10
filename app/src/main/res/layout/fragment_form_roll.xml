@@ -58,16 +58,31 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
             android:padding="5dp"
-            android:text="@string/label_frame_notes"
+            android:text="@string/label_frame_tags"
             android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/edit_tags"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/label_tags_for_film"
+            android:lines="1"
+            android:singleLine="false" />
 
         <CheckBox
             android:id="@+id/check_developed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/label_film_developed"
             android:checked="false"
-            />
+            android:text="@string/label_film_developed" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:padding="5dp"
+            android:text="@string/label_frame_notes"
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/edit_notes"

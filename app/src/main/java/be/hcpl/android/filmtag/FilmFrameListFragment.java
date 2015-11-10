@@ -3,21 +3,17 @@ package be.hcpl.android.filmtag;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import be.hcpl.android.filmtag.adapter.FrameAdapter;
@@ -41,9 +37,12 @@ public class FilmFrameListFragment extends TemplateFragment {
     @Bind(R.id.list_frames)
     ListView framesListView;
 
+    @Bind(R.id.wrapper_tags)
+    LinearLayout wrapperTagsView;
+
     private FrameAdapter mAdapter;
 
-    // TODO double
+    // TODO double reference?
     private List<Frame> frames;
 
     public static FilmFrameListFragment newInstance(Roll roll) {
@@ -86,7 +85,7 @@ public class FilmFrameListFragment extends TemplateFragment {
     public void onResume() {
         super.onResume();
         updateFramesForFilm();
-        ((MainActivity)getActivity()).setHomeAsUp(true);
+        ((MainActivity) getActivity()).setHomeAsUp(true);
     }
 
     private void updateFramesForFilm() {
@@ -119,6 +118,20 @@ public class FilmFrameListFragment extends TemplateFragment {
             detailTextView.setText(Html.fromHtml(
                     new StringBuilder(filmRoll.toString()).append("<p/>")
                             .append(filmRoll.getNotes() != null ? filmRoll.getNotes() : getString(R.string.label_no_notes)).toString()));
+            // also load tags here
+            if (filmRoll.getTags() != null && !filmRoll.getTags().isEmpty()) {
+                wrapperTagsView.setVisibility(View.VISIBLE);
+                for (String tag : filmRoll.getTags()) {
+                    TextView tv = new TextView(getContext());
+                    tv.setText(tag);
+                    tv.setAllCaps(true);
+                    tv.setPadding(10, 0, 10, 0); // TODO proper units needed here?
+                    tv.setTextSize(14); // TODO proper units needed here?
+                    wrapperTagsView.addView(tv);
+                }
+            } else {
+                wrapperTagsView.setVisibility(View.GONE);
+            }
         }
 
         // and populate list with frame data
@@ -134,7 +147,7 @@ public class FilmFrameListFragment extends TemplateFragment {
     }
 
     private void updateFrame(int index) {
-        ((MainActivity)getActivity()).switchContent(EditFrameFragment.newInstance(filmRoll, frames, index));
+        ((MainActivity) getActivity()).switchContent(EditFrameFragment.newInstance(filmRoll, frames, index));
     }
 
     @Override

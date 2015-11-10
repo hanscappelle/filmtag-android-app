@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,6 +15,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.Arrays;
 import java.util.List;
 
 import be.hcpl.android.filmtag.model.Roll;
@@ -37,6 +39,8 @@ public class EditRollFragment extends TemplateFragment {
     EditText editFrames;
     @Bind(R.id.edit_notes)
     EditText editNotes;
+    @Bind(R.id.edit_tags)
+    EditText editTags;
 
     @Bind(R.id.check_developed)
     CheckBox developed;
@@ -114,6 +118,9 @@ public class EditRollFragment extends TemplateFragment {
             if (roll.getFrames() != 0)
                 editFrames.setText(String.valueOf(roll.getFrames()));
             developed.setChecked(roll.isDeveloped());
+            // populate the tags here
+            if (roll.getTags() != null && !roll.getTags().isEmpty())
+                editTags.setText(TextUtils.join(" ", roll.getTags()));
         }
         // populate with defaults here
         else {
@@ -176,6 +183,7 @@ public class EditRollFragment extends TemplateFragment {
         roll.setType(editType.getText().toString());
         roll.setNotes(editNotes.getText().toString());
         roll.setDeveloped(developed.isChecked());
+        roll.setTags(Arrays.asList(TextUtils.split(editTags.getText().toString(), " ")));
         try {
             roll.setSpeed(Integer.parseInt(editSpeed.getText().toString()));
         } catch (NumberFormatException nfe) {
