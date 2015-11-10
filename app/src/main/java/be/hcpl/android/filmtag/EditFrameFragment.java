@@ -1,9 +1,11 @@
 package be.hcpl.android.filmtag;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
@@ -15,6 +17,7 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
@@ -53,6 +56,7 @@ public class EditFrameFragment extends TemplateFragment {
     private static final String KEY_FRAME_IDX = "frame_index";
     private static final String KEY_FRAMES = "frames";
     private static final String KEY_ROLL = "roll";
+    private static final int MY_PERMISSIONS_REQUEST_LOCATION = 100;
 
     // TODO this needs to be replaced by inline editing options for list instead
 
@@ -82,6 +86,9 @@ public class EditFrameFragment extends TemplateFragment {
     private Frame selectedFrame;
 
     private List<Frame> frames;
+
+    private static boolean locationPermissionRequested = false;
+    private static boolean cameraPermissionRequested = false;
 
     public static EditFrameFragment newInstance(Roll roll, List<Frame> frames, int frame) {
         Bundle args = new Bundle();
@@ -224,7 +231,7 @@ public class EditFrameFragment extends TemplateFragment {
                 dispatchTakePictureIntent();
                 return true;
             case R.id.action_location:
-                getLocation();
+                getLocationWithPermissionCheck();
                 return true;
         }
         return false;
@@ -290,7 +297,29 @@ public class EditFrameFragment extends TemplateFragment {
 //        }
 //    }
 
-    private void getLocation() {
+    private void getLocationWithPermissionCheck() {
+        // check for permission here first
+        if (ContextCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            // TODO ignore rationale for now
+//            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+//                    Manifest.permission.ACCESS_FINE_LOCATION)) { //... } else {
+
+                // No explanation needed, we can request the permission.
+                locationPermissionRequested = true;
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_LOCATION);
+//            }
+        }
+        // we already had the permission so we can go ahead with location acquirements
+        else {
+            getLocation();
+        }
+    }
+
+    private void getLocation(){
         registerLocationListener(LocationManager.GPS_PROVIDER);
     }
 
@@ -300,6 +329,10 @@ public class EditFrameFragment extends TemplateFragment {
      * @param provider
      */
     private void registerLocationListener(final String provider) {
+        if (ContextCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
         // remove previous listener first
         unregisterListener();
         // get current location to provide as defaults into
@@ -327,6 +360,10 @@ public class EditFrameFragment extends TemplateFragment {
      * unregister location listeners
      */
     private void unregisterListener() {
+        if (ContextCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
         // get current location to provide as defaults into
         // field
         LocationManager locationManager = (LocationManager) getActivity()
@@ -411,5 +448,9 @@ public class EditFrameFragment extends TemplateFragment {
     public void onResume() {
         super.onResume();
         ((MainActivity) getActivity()).setHomeAsUp(true);
+        if( locationPermissionRequested ) {
+            locationPermissionRequested = false;
+            getLocation();
+        }
     }
 }
