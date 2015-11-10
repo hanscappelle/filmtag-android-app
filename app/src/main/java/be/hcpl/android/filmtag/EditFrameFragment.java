@@ -240,17 +240,18 @@ public class EditFrameFragment extends TemplateFragment {
                 backToOverview();
                 return true;
             case R.id.action_camera:
-                dispatchTakePictureIntentWithPermissionCheck();
+                dispatchTakePictureIntent();
                 return true;
             case R.id.action_location:
-                getLocationWithPermissionCheck();
+                getLocation();
                 return true;
         }
         return false;
     }
 
 
-    private void dispatchTakePictureIntentWithPermissionCheck() {
+    private void dispatchTakePictureIntent() {
+        // check permissions first
         if (ContextCompat.checkSelfPermission(getActivity(),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 
@@ -259,22 +260,14 @@ public class EditFrameFragment extends TemplateFragment {
 //                    Manifest.permission.ACCESS_FINE_LOCATION)) { //... } else {
 
             // No explanation needed, we can request the permission.
-            storagePermissionRequested = true;
-            ActivityCompat.requestPermissions(getActivity(),
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    MY_PERMISSIONS_REQUEST_STORAGE);
-//            }
-
-        } else {
-            dispatchTakePictureIntent();
-        }
-    }
-
-    private void dispatchTakePictureIntent() {
-        // check permission first
-        if (ContextCompat.checkSelfPermission(getActivity(),
-                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if( !storagePermissionRequested ) {
+                storagePermissionRequested = true;
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        MY_PERMISSIONS_REQUEST_STORAGE);
+            }
             return;
+
         }
 
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -334,8 +327,7 @@ public class EditFrameFragment extends TemplateFragment {
 //        }
 //    }
 
-    private void getLocationWithPermissionCheck() {
-        // check for permission here first
+    private void getLocation() {
         if (ContextCompat.checkSelfPermission(getActivity(),
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
@@ -344,19 +336,14 @@ public class EditFrameFragment extends TemplateFragment {
 //                    Manifest.permission.ACCESS_FINE_LOCATION)) { //... } else {
 
             // No explanation needed, we can request the permission.
+            if( !locationPermissionRequested ){
             locationPermissionRequested = true;
             ActivityCompat.requestPermissions(getActivity(),
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     MY_PERMISSIONS_REQUEST_LOCATION);
-//            }
+            }
+            return;
         }
-        // we already had the permission so we can go ahead with location acquirements
-        else {
-            getLocation();
-        }
-    }
-
-    private void getLocation() {
         registerLocationListener(LocationManager.GPS_PROVIDER);
     }
 
@@ -486,12 +473,12 @@ public class EditFrameFragment extends TemplateFragment {
         super.onResume();
         ((MainActivity) getActivity()).setHomeAsUp(true);
         if (locationPermissionRequested) {
-            locationPermissionRequested = false;
             getLocation();
+            locationPermissionRequested = false;
         }
         if (storagePermissionRequested) {
-            storagePermissionRequested = false;
             dispatchTakePictureIntent();
+            storagePermissionRequested = false;
         }
         if( storagePermissionRequestedForPreview){
             loadImagePreview();
