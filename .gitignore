@@ -40,3 +40,4 @@ proguard/
 # ignore all release files
 release.keystore
 release.properties
+*.keystore
