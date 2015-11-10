@@ -21,12 +21,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -57,8 +55,8 @@ public class EditFrameFragment extends TemplateFragment {
     private static final String KEY_FRAMES = "frames";
     private static final String KEY_ROLL = "roll";
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 100;
-
-    // TODO this needs to be replaced by inline editing options for list instead
+    private static final int MY_PERMISSIONS_REQUEST_STORAGE = 200;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
 
     @Bind(R.id.edit_shutter)
     EditText editShutter;
@@ -88,7 +86,8 @@ public class EditFrameFragment extends TemplateFragment {
     private List<Frame> frames;
 
     private static boolean locationPermissionRequested = false;
-    private static boolean cameraPermissionRequested = false;
+    private static boolean storagePermissionRequested = false;
+    private static boolean storagePermissionRequestedForPreview = false;
 
     public static EditFrameFragment newInstance(Roll roll, List<Frame> frames, int frame) {
         Bundle args = new Bundle();
@@ -152,7 +151,7 @@ public class EditFrameFragment extends TemplateFragment {
                 editShutter.setText(String.valueOf(selectedFrame.getShutter()));
             editNotes.setText(selectedFrame.getNotes());
             // populate the tags here
-            if( selectedFrame.getTags() != null && !selectedFrame.getTags().isEmpty())
+            if (selectedFrame.getTags() != null && !selectedFrame.getTags().isEmpty())
                 editTags.setText(TextUtils.join(" ", selectedFrame.getTags()));
             loadImagePreview();
             showLocation();
@@ -200,7 +199,21 @@ public class EditFrameFragment extends TemplateFragment {
     }
 
     private void loadImagePreview() {
+        // mark image available first so that if we don't have permission it's still marked
+        markImageAvailable();
+        // and if path set try loading after permission check
         if (selectedFrame.getPathToImage() != null) {
+            // for this storage permission also required
+            if (ContextCompat.checkSelfPermission(getActivity(),
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                if( !storagePermissionRequestedForPreview ) {
+                    storagePermissionRequestedForPreview = true;
+                    ActivityCompat.requestPermissions(getActivity(),
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                            MY_PERMISSIONS_REQUEST_STORAGE);
+                }
+                return;
+            }
             try {
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inSampleSize = 4;
@@ -215,7 +228,6 @@ public class EditFrameFragment extends TemplateFragment {
 
             }
         }
-        markImageAvailable();
     }
 
     @Override
@@ -228,7 +240,7 @@ public class EditFrameFragment extends TemplateFragment {
                 backToOverview();
                 return true;
             case R.id.action_camera:
-                dispatchTakePictureIntent();
+                dispatchTakePictureIntentWithPermissionCheck();
                 return true;
             case R.id.action_location:
                 getLocationWithPermissionCheck();
@@ -237,9 +249,34 @@ public class EditFrameFragment extends TemplateFragment {
         return false;
     }
 
-    static final int REQUEST_IMAGE_CAPTURE = 1;
+
+    private void dispatchTakePictureIntentWithPermissionCheck() {
+        if (ContextCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+
+            // TODO ignore rationale for now
+//            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+//                    Manifest.permission.ACCESS_FINE_LOCATION)) { //... } else {
+
+            // No explanation needed, we can request the permission.
+            storagePermissionRequested = true;
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    MY_PERMISSIONS_REQUEST_STORAGE);
+//            }
+
+        } else {
+            dispatchTakePictureIntent();
+        }
+    }
 
     private void dispatchTakePictureIntent() {
+        // check permission first
+        if (ContextCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
@@ -306,11 +343,11 @@ public class EditFrameFragment extends TemplateFragment {
 //            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
 //                    Manifest.permission.ACCESS_FINE_LOCATION)) { //... } else {
 
-                // No explanation needed, we can request the permission.
-                locationPermissionRequested = true;
-                ActivityCompat.requestPermissions(getActivity(),
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_LOCATION);
+            // No explanation needed, we can request the permission.
+            locationPermissionRequested = true;
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    MY_PERMISSIONS_REQUEST_LOCATION);
 //            }
         }
         // we already had the permission so we can go ahead with location acquirements
@@ -319,7 +356,7 @@ public class EditFrameFragment extends TemplateFragment {
         }
     }
 
-    private void getLocation(){
+    private void getLocation() {
         registerLocationListener(LocationManager.GPS_PROVIDER);
     }
 
@@ -448,9 +485,17 @@ public class EditFrameFragment extends TemplateFragment {
     public void onResume() {
         super.onResume();
         ((MainActivity) getActivity()).setHomeAsUp(true);
-        if( locationPermissionRequested ) {
+        if (locationPermissionRequested) {
             locationPermissionRequested = false;
             getLocation();
+        }
+        if (storagePermissionRequested) {
+            storagePermissionRequested = false;
+            dispatchTakePictureIntent();
+        }
+        if( storagePermissionRequestedForPreview){
+            loadImagePreview();
+            storagePermissionRequestedForPreview = false;
         }
     }
 }
