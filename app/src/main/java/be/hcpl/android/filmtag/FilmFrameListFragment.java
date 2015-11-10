@@ -23,20 +23,23 @@ import java.util.List;
 import be.hcpl.android.filmtag.adapter.FrameAdapter;
 import be.hcpl.android.filmtag.model.Frame;
 import be.hcpl.android.filmtag.model.Roll;
+import be.hcpl.android.filmtag.template.TemplateFragment;
 import be.hcpl.android.filmtag.util.StorageUtil;
+import butterknife.Bind;
 
 /**
  * Created by jd41256 on 30/07/15.
  */
-public class FilmFrameListFragment extends Fragment {
+public class FilmFrameListFragment extends TemplateFragment {
 
     public static final String KEY_FILM_ROLL = "roll";
 
     private Roll filmRoll;
 
-    private TextView detailTextView;
-
-    private ListView framesListView;
+    @Bind(R.id.text_roll_details)
+    TextView detailTextView;
+    @Bind(R.id.list_frames)
+    ListView framesListView;
 
     private FrameAdapter mAdapter;
 
@@ -64,10 +67,9 @@ public class FilmFrameListFragment extends Fragment {
             filmRoll = (Roll) savedInstanceState.getSerializable(KEY_FILM_ROLL);
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_roll_detail, container, false);
+    protected int getLayoutResourceId() {
+        return R.layout.fragment_roll_detail;
     }
 
     @Override
@@ -111,9 +113,6 @@ public class FilmFrameListFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        detailTextView = (TextView) view.findViewById(R.id.text_roll_details);
-        framesListView = (ListView) view.findViewById(R.id.list_frames);
 
         // show roll details on top
         if (filmRoll != null && detailTextView != null) {

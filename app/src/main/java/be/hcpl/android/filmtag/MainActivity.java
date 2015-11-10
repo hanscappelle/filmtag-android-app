@@ -17,6 +17,7 @@ import be.hcpl.android.filmtag.model.DataExportFormat;
 import be.hcpl.android.filmtag.template.TemplateFragment;
 import be.hcpl.android.filmtag.util.CommonUtil;
 import be.hcpl.android.filmtag.util.StorageUtil;
+import butterknife.ButterKnife;
 
 /**
  * main entry point of app
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ButterKnife.bind(this);
 
         // As we're using a Toolbar, we should retrieve it and set it
         // to be our ActionBar

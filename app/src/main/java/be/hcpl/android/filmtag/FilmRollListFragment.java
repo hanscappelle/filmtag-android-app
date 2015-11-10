@@ -21,6 +21,7 @@ import be.hcpl.android.filmtag.adapter.FilmRollAdapter;
 import be.hcpl.android.filmtag.model.Roll;
 import be.hcpl.android.filmtag.template.TemplateFragment;
 import be.hcpl.android.filmtag.util.StorageUtil;
+import butterknife.Bind;
 
 /**
  * an overview of rolls created earlier + option to add new roll of film
@@ -31,7 +32,8 @@ public class FilmRollListFragment extends TemplateFragment {
 
     // TODO delete film from overview directly (swipe? long press, ...)
 
-    private ListView mListView;
+    @Bind(R.id.list_rolls)
+    ListView mListView;
 
     private FilmRollAdapter mAdapter;
 
@@ -44,10 +46,9 @@ public class FilmRollListFragment extends TemplateFragment {
         return fragment;
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_roll_overview, container, false);
+    protected int getLayoutResourceId() {
+        return R.layout.fragment_roll_overview;
     }
 
     @Override
@@ -59,8 +60,6 @@ public class FilmRollListFragment extends TemplateFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        mListView = (ListView) view.findViewById(R.id.list_rolls);
 
         // prepare the adapter for that list
         mAdapter = new FilmRollAdapter(getActivity());

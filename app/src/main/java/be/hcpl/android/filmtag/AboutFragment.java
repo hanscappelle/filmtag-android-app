@@ -17,10 +17,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import be.hcpl.android.filmtag.template.TemplateFragment;
+
 /**
  * Created by hcpl on 6/08/15.
  */
-public class AboutFragment extends Fragment {
+public class AboutFragment extends TemplateFragment {
 
     private static final String SYSTEM_LINE_SEPARATOR = System.getProperty("line.separator");
 
@@ -31,10 +33,9 @@ public class AboutFragment extends Fragment {
         return fragment;
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_about, container, false);
+    protected int getLayoutResourceId() {
+        return R.layout.fragment_about;
     }
 
     @Override

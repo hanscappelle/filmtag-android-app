@@ -37,6 +37,7 @@ import be.hcpl.android.filmtag.model.Frame;
 import be.hcpl.android.filmtag.model.Roll;
 import be.hcpl.android.filmtag.template.TemplateFragment;
 import be.hcpl.android.filmtag.util.StorageUtil;
+import butterknife.Bind;
 
 /**
  * Created by hcpl on 1/08/15.
@@ -51,17 +52,29 @@ public class EditFrameFragment extends TemplateFragment {
 
     // TODO this needs to be replaced by inline editing options for list instead
 
-    private EditText editShutter, editAperture, editNotes;
+    @Bind(R.id.edit_shutter)
+    EditText editShutter;
+    @Bind(R.id.edit_aperture)
+    EditText editAperture;
+    @Bind(R.id.edit_notes)
+    EditText editNotes;
 
+    @Bind(R.id.image_preview)
+    ImageView imagePreview;
+    @Bind(R.id.image_preview_indicator)
+    ImageView imagePreviewIndicator;
+    @Bind(R.id.image_location_indicator)
+    ImageView imageLocationIndicator;
+
+    @Bind(R.id.text_location)
+    TextView locationView;
+
+    // model object of a film or roll with a number of frames exposed at a given value
     private Roll roll;
 
     private Frame selectedFrame;
 
     private List<Frame> frames;
-
-    private ImageView imagePreview, imagePreviewIndicator, imageLocationIndicator;
-
-    private TextView locationView;
 
     public static EditFrameFragment newInstance(Roll roll, List<Frame> frames, int frame) {
         Bundle args = new Bundle();
@@ -71,6 +84,11 @@ public class EditFrameFragment extends TemplateFragment {
         EditFrameFragment fragment = new EditFrameFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    protected int getLayoutResourceId() {
+        return R.layout.fragment_form_frame;
     }
 
     @Override
@@ -103,12 +121,6 @@ public class EditFrameFragment extends TemplateFragment {
         }
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_form_frame, container, false);
-    }
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.update_frame, menu);
@@ -117,14 +129,6 @@ public class EditFrameFragment extends TemplateFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        editAperture = (EditText) view.findViewById(R.id.edit_aperture);
-        editShutter = (EditText) view.findViewById(R.id.edit_shutter);
-        editNotes = (EditText) view.findViewById(R.id.edit_notes);
-        imagePreview = (ImageView) view.findViewById(R.id.image_preview);
-        imagePreviewIndicator = (ImageView) view.findViewById(R.id.image_preview_indicator);
-        imageLocationIndicator = (ImageView) view.findViewById(R.id.image_location_indicator);
-        locationView = (TextView) view.findViewById(R.id.text_location);
 
         if (selectedFrame != null) {
             ((TextView) view.findViewById(R.id.edit_number)).setText(String.valueOf(selectedFrame.getNumber()));

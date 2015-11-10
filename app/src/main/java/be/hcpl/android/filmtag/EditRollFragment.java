@@ -18,17 +18,29 @@ import android.widget.Toast;
 import java.util.List;
 
 import be.hcpl.android.filmtag.model.Roll;
+import be.hcpl.android.filmtag.template.TemplateFragment;
 import be.hcpl.android.filmtag.util.StorageUtil;
+import butterknife.Bind;
 
 /**
  * Created by hcpl on 1/08/15.
  */
-public class EditRollFragment extends Fragment {
+public class EditRollFragment extends TemplateFragment {
 
     private static final String KEY_EDIT_ROLL = "edit_roll";
-    private AutoCompleteTextView editType;
-    private EditText editSpeed, editFrames, editNotes;
-    private CheckBox developed;
+
+    @Bind(R.id.edit_type)
+    AutoCompleteTextView editType;
+
+    @Bind(R.id.edit_exposed)
+    EditText editSpeed;
+    @Bind(R.id.edit_frames)
+    EditText editFrames;
+    @Bind(R.id.edit_notes)
+    EditText editNotes;
+
+    @Bind(R.id.check_developed)
+    CheckBox developed;
 
     private Roll roll;
 
@@ -58,6 +70,11 @@ public class EditRollFragment extends Fragment {
     }
 
     @Override
+    protected int getLayoutResourceId() {
+        return R.layout.fragment_form_roll;
+    }
+
+    @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable(KEY_EDIT_ROLL, roll);
@@ -80,12 +97,6 @@ public class EditRollFragment extends Fragment {
         }
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_form_roll, container, false);
-    }
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.new_film, menu);
@@ -94,13 +105,6 @@ public class EditRollFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        editType = (AutoCompleteTextView) view.findViewById(R.id.edit_type);
-        editSpeed = (EditText) view.findViewById(R.id.edit_exposed);
-        editFrames = (EditText) view.findViewById(R.id.edit_frames);
-        editNotes = (EditText) view.findViewById(R.id.edit_notes);
-
-        developed = (CheckBox) view.findViewById(R.id.check_developed);
 
         // prefill data if possible
         if (roll != null) {
