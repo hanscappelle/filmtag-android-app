@@ -17,7 +17,6 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
@@ -208,8 +207,7 @@ public class EditFrameFragment extends TemplateFragment {
                     Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 if( !storagePermissionRequestedForPreview ) {
                     storagePermissionRequestedForPreview = true;
-                    ActivityCompat.requestPermissions(getActivity(),
-                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                             MY_PERMISSIONS_REQUEST_STORAGE);
                 }
                 return;
@@ -262,7 +260,7 @@ public class EditFrameFragment extends TemplateFragment {
             // No explanation needed, we can request the permission.
             if( !storagePermissionRequested ) {
                 storagePermissionRequested = true;
-                ActivityCompat.requestPermissions(getActivity(),
+                requestPermissions(
                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         MY_PERMISSIONS_REQUEST_STORAGE);
             }
@@ -338,7 +336,7 @@ public class EditFrameFragment extends TemplateFragment {
             // No explanation needed, we can request the permission.
             if( !locationPermissionRequested ){
             locationPermissionRequested = true;
-            ActivityCompat.requestPermissions(getActivity(),
+            requestPermissions(
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     MY_PERMISSIONS_REQUEST_LOCATION);
             }
