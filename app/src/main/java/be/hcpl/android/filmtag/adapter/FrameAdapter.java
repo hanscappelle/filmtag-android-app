@@ -79,9 +79,6 @@ public class FrameAdapter extends BaseAdapter {
         holder.textNotes.setText(frame.getNotes());
         holder.textAperture.setText(new StringBuilder("f/").append(frame.getAperture()));
         holder.textShutter.setText(new StringBuilder("1/").append(frame.getShutter()));
-//                new StringBuilder(TextUtil.frameFormat.format(frame.getNumber())).append(" - (s) ")
-//                        .append(String.valueOf(frame.getShutter())).append(" - (a) f/")
-//                        .append(String.valueOf(frame.getAperture())).toString()
 
         return rowView;
     }
