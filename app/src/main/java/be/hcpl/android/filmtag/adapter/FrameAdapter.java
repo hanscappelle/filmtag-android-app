@@ -71,7 +71,7 @@ public class FrameAdapter extends BaseAdapter {
         }
         final ViewHolder holder = (ViewHolder) rowView.getTag();
 
-        // format data, still on single line for now
+        // First line: frame number, aperture, shutter speed
         holder.textFrame.setText(new StringBuilder("#")
                 .append(TextUtil.frameFormat.format(frame.getNumber())));
         holder.textApertureAndShutter.setText(new StringBuilder("")
@@ -79,6 +79,7 @@ public class FrameAdapter extends BaseAdapter {
                 .append("     ")
                 .append("1/").append(frame.getShutter()).append(" sec")
         );
+        // Second line: notes
         holder.textNotes.setText(frame.getNotes());
 
         return rowView;
