@@ -13,7 +13,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:layout_toLeftOf="@+id/text_shutter"
+        android:layout_toLeftOf="@+id/text_aperture_and_shutter"
         android:gravity="center_vertical"
         android:singleLine="true"
         android:textColor="@color/primary_text"
@@ -36,7 +36,7 @@
         />
 
     <TextView
-        android:id="@+id/text_shutter"
+        android:id="@+id/text_aperture_and_shutter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -45,18 +45,6 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:textSize="20sp"
-        tools:text="1/200" />
-
-    <TextView
-        android:id="@+id/text_aperture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/text_shutter"
-        android:layout_marginBottom="8dp"
-        android:layout_marginRight="8dp"
-        android:textSize="20sp"
-        tools:text="f/1.8" />
+        tools:text="f/1.8     1/200" />
 
 </RelativeLayout>
