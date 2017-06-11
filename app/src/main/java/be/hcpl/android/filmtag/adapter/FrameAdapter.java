@@ -74,9 +74,7 @@ public class FrameAdapter extends BaseAdapter {
         final ViewHolder holder = (ViewHolder) rowView.getTag();
 
         // format data, still on single line for now
-        holder.textFrame.setText(new StringBuilder(
-                mContext.getResources().getString(R.string.label_frame))
-                .append(TextUtil.SPACE).append("#")
+        holder.textFrame.setText(new StringBuilder("#")
                 .append(TextUtil.frameFormat.format(frame.getNumber())));
         holder.textNotes.setText(frame.getNotes());
         holder.textAperture.setText(new StringBuilder(

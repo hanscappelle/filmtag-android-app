@@ -8,18 +8,17 @@
         android:id="@+id/text_frame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/text_shutter"
-        tools:text="Frame #12"
-        android:textSize="20sp"
-        android:singleLine="true"
-        android:layout_marginTop="8dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_toLeftOf="@+id/text_shutter"
         android:gravity="center_vertical"
+        android:singleLine="true"
         android:textColor="@color/primary_text"
-        />
+        android:textSize="20sp"
+        tools:text="#12" />
 
     <TextView
         android:id="@+id/text_notes"
