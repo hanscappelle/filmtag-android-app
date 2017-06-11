@@ -75,7 +75,7 @@ public class FrameAdapter extends BaseAdapter {
         holder.textFrame.setText(new StringBuilder("#")
                 .append(TextUtil.frameFormat.format(frame.getNumber())));
         holder.textApertureAndShutter.setText(new StringBuilder("")
-                .append("f/").append(frame.getAperture())
+                .append("f/").append(TextUtil.apertureFormat.format(frame.getAperture()))
                 .append("     ")
                 .append("1/").append(frame.getShutter()).append(" sec")
         );
