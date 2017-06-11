@@ -77,14 +77,8 @@ public class FrameAdapter extends BaseAdapter {
         holder.textFrame.setText(new StringBuilder("#")
                 .append(TextUtil.frameFormat.format(frame.getNumber())));
         holder.textNotes.setText(frame.getNotes());
-        holder.textAperture.setText(new StringBuilder(
-            mContext.getResources().getString(R.string.label_aperture))
-                .append(TextUtil.SPACE).append("f/").append(frame.getAperture()
-        ));
-        holder.textShutter.setText(new StringBuilder(
-            mContext.getResources().getString(R.string.label_shutter))
-                .append(TextUtil.SPACE).append("1/").append(frame.getShutter()
-        ));
+        holder.textAperture.setText(new StringBuilder("f/").append(frame.getAperture()));
+        holder.textShutter.setText(new StringBuilder("1/").append(frame.getShutter()));
 //                new StringBuilder(TextUtil.frameFormat.format(frame.getNumber())).append(" - (s) ")
 //                        .append(String.valueOf(frame.getShutter())).append(" - (a) f/")
 //                        .append(String.valueOf(frame.getAperture())).toString()

@@ -39,26 +39,24 @@
         android:id="@+id/text_shutter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:textSize="20sp"
-        tools:text="Shutterspeed 1/200"
-        android:layout_marginTop="8dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
         android:layout_marginRight="8dp"
-        />
+        android:layout_marginTop="8dp"
+        android:textSize="20sp"
+        tools:text="1/200" />
 
     <TextView
         android:id="@+id/text_aperture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/text_shutter"
-        android:textSize="20sp"
-        tools:text="Aperture f/1.8"
-        android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        />
+        android:layout_marginRight="8dp"
+        android:textSize="20sp"
+        tools:text="f/1.8" />
 
 </RelativeLayout>
