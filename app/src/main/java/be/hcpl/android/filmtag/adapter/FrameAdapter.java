@@ -14,9 +14,6 @@ import be.hcpl.android.filmtag.R;
 import be.hcpl.android.filmtag.model.Frame;
 import be.hcpl.android.filmtag.util.TextUtil;
 
-/**
- * Created by jd41256 on 10/08/15.
- */
 public class FrameAdapter extends BaseAdapter {
 
     private List<Frame> items = new ArrayList();
@@ -76,8 +73,8 @@ public class FrameAdapter extends BaseAdapter {
                 .append(TextUtil.frameFormat.format(frame.getNumber())));
         holder.textApertureAndShutter.setText(new StringBuilder("")
                 .append("f/").append(TextUtil.apertureFormat.format(frame.getAperture()))
-                .append("     ")
-                .append("1/").append(frame.getShutter()).append(" sec")
+                .append("\t")
+                .append("1/").append(frame.getShutter()).append(TextUtil.SPACE).append("s")
         );
         // Second line: notes
         holder.textNotes.setText(frame.getNotes());
