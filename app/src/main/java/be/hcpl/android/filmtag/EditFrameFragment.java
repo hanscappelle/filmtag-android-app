@@ -159,12 +159,10 @@ public class EditFrameFragment extends TemplateFragment {
             loadImagePreview();
             showLocation();
         }
-        // have configurable defaults here
-        else {
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-            editShutter.setText(prefs.getString("key_default_shutter", String.valueOf(60)));
-            editAperture.setText(prefs.getString("key_default_apertures", String.valueOf(4)));
-        }
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        editShutter.setHint(prefs.getString("key_default_shutter", String.valueOf(60)));
+        editAperture.setHint(prefs.getString("key_default_apertures", String.valueOf(4)));
 
         // TODO implement autocomplete
     }
