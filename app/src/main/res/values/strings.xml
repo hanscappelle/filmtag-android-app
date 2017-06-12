@@ -39,6 +39,7 @@
     <string name="err_location_disabled">Location provider not available</string>
     <string name="label_roll_speed">Exposed at ISO</string>
     <string name="label_roll_frames">#Frames</string>
+    <string name="label_frame">Frame</string>
     <string name="label_aperture">Aperture</string>
     <string name="label_shutter">Shutterspeed</string>
     <string name="action_settings">Settings</string>
