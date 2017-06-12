@@ -14,9 +14,6 @@ import be.hcpl.android.filmtag.R;
 import be.hcpl.android.filmtag.model.Frame;
 import be.hcpl.android.filmtag.util.TextUtil;
 
-/**
- * Created by jd41256 on 10/08/15.
- */
 public class FrameAdapter extends BaseAdapter {
 
     private List<Frame> items = new ArrayList();
@@ -29,7 +26,9 @@ public class FrameAdapter extends BaseAdapter {
         this(context, new ArrayList<Frame>());
     }
 
-    public FrameAdapter(final Context context, final List<Frame> list) {
+    public FrameAdapter(
+            final Context context,
+            final List<Frame> list) {
         mContext = context;
         items = list;
         mInflater = LayoutInflater.from(mContext);
@@ -51,34 +50,45 @@ public class FrameAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View convertView, ViewGroup viewGroup) {
+    public View getView(
+            int i,
+            View convertView,
+            ViewGroup viewGroup) {
 
         final Frame frame = items.get(i);
 
         // no need to continue if we have no data
-        if( frame == null )
+        if (frame == null) {
             return convertView;
+        }
 
         View rowView = convertView;
         if (rowView == null) {
             rowView = mInflater.inflate(R.layout.list_item_frame, viewGroup, false);
 
             final ViewHolder holder = new ViewHolder();
-            holder.textFrame= (TextView) rowView.findViewById(R.id.text_frame);
-            holder.textApertureAndShutter= (TextView) rowView.findViewById(R.id.text_aperture_and_shutter);
-            holder.textNotes= (TextView) rowView.findViewById(R.id.text_notes);
+            holder.textFrame = (TextView) rowView.findViewById(R.id.text_frame);
+            holder.textApertureAndShutter = (TextView) rowView.findViewById(R.id.text_aperture_and_shutter);
+            holder.textNotes = (TextView) rowView.findViewById(R.id.text_notes);
             rowView.setTag(holder);
         }
         final ViewHolder holder = (ViewHolder) rowView.getTag();
 
         // First line: frame number, aperture, shutter speed
         holder.textFrame.setText(new StringBuilder("#")
-                .append(TextUtil.frameFormat.format(frame.getNumber())));
-        holder.textApertureAndShutter.setText(new StringBuilder("")
-                .append("f/").append(TextUtil.apertureFormat.format(frame.getAperture()))
-                .append("     ")
-                .append("1/").append(frame.getShutter()).append(" sec")
-        );
+                                         .append(TextUtil.frameFormat.format(frame.getNumber())));
+        if (frame.getAperture() == Frame.DEFAULT_VALUE && frame.getShutter() == Frame.DEFAULT_VALUE) {
+            holder.textApertureAndShutter.setText("");
+        } else {
+            final StringBuilder stringBuilder = new StringBuilder("f/")
+                    .append(TextUtil.apertureFormat.format(frame.getAperture()))
+                    .append(" - ");
+            if (!frame.isLongExposure()) {
+                stringBuilder.append("1/");
+            }
+            stringBuilder.append(frame.getShutter()).append(TextUtil.SPACE).append("s");
+            holder.textApertureAndShutter.setText(stringBuilder.toString());
+        }
         // Second line: notes
         holder.textNotes.setText(frame.getNotes());
 
@@ -94,6 +104,7 @@ public class FrameAdapter extends BaseAdapter {
     }
 
     class ViewHolder {
+
         TextView textApertureAndShutter, textFrame, textNotes;
     }
 }

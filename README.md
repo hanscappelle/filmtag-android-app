@@ -40,14 +40,23 @@ https://www.materialpalette.com/brown/grey
 ## v1.0.0 - upcoming
 
 * visualisation of locations on map
+* collapse top notes on film view on scroll up (list of frames)
 
-## v0.11.0 - alpha
+## v0.12.0
+
+* update formatting of exposed frames (thanks to Rene Saarsoo or bitbucket user renku)
+* update on default values for non exposed frames (thanks to Rene Saarsoo or bitbucket user renku)
+* added support for long exposures
+* introduced kotlin (technical change only)
+* chopped film notes on top of exposures (frames) view (will be animated in the future)
+
+## v0.11.0
 
 * android 6.0 runtime permissions support
 * improved back stack handling for editing rolls
 * support for custom tags
 
-## v0.10.0 - beta
+## v0.10.0
 
 * implemented defaults for required fields
 * (technical improvement) added butterknife for view binding using annotations
