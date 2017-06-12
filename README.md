@@ -41,13 +41,20 @@ https://www.materialpalette.com/brown/grey
 
 * visualisation of locations on map
 
-## v0.11.0 - alpha
+## v0.12.0
+
+* update formatting of exposed frames (thanks to Rene Saarsoo or bitbucket user renku)
+* update on default values for non exposed frames (thanks to Rene Saarsoo or bitbucket user renku)
+* added support for long exposures
+* introduced kotlin (technical change only)
+
+## v0.11.0
 
 * android 6.0 runtime permissions support
 * improved back stack handling for editing rolls
 * support for custom tags
 
-## v0.10.0 - beta
+## v0.10.0
 
 * implemented defaults for required fields
 * (technical improvement) added butterknife for view binding using annotations
