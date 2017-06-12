@@ -4,10 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by hcpl on 1/08/15.
- */
 public class Frame implements Serializable {
+
+    public static final int DEFAULT_VALUE = 0;
 
     /**
      * notes for this frame
@@ -22,12 +21,12 @@ public class Frame implements Serializable {
     /**
      * the shutter speed used for this frame
      */
-    private int shutter = 60;
+    private int shutter = DEFAULT_VALUE;
 
     /**
      * the aperture value used for this frame
      */
-    private double aperture = 4;
+    private double aperture = DEFAULT_VALUE;
 
     /**
      * path to selected preview image
