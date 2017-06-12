@@ -6,14 +6,31 @@
 
     <!-- header showing details of this roll -->
     <TextView
-        android:id="@+id/text_roll_details"
+        android:id="@+id/text_roll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/accent"
         android:fontFamily="sans-serif-light"
         android:padding="10dp"
         android:textSize="20sp"
+        android:textColor="@color/primary_text"
+        android:maxLines="2"
+        android:ellipsize="end"
         tools:text="Kodak NC film ISO 400 exposed @ ISO 800 with 36 frames" />
+
+    <TextView
+        android:id="@+id/text_roll_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_roll"
+        android:background="@color/divider"
+        android:fontFamily="sans-serif-light"
+        android:padding="10dp"
+        android:textSize="20sp"
+        android:textColor="@color/primary_text"
+        android:maxLines="2"
+        android:ellipsize="end"
+        tools:text="Specific notes for this film that can go in more detail than you'd really want to see on this kind of overview" />
 
     <!-- a horizontally scrolling view of tags here -->
     <HorizontalScrollView

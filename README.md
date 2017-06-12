@@ -40,6 +40,7 @@ https://www.materialpalette.com/brown/grey
 ## v1.0.0 - upcoming
 
 * visualisation of locations on map
+* collapse top notes on film view on scroll up (list of frames)
 
 ## v0.12.0
 
@@ -47,6 +48,7 @@ https://www.materialpalette.com/brown/grey
 * update on default values for non exposed frames (thanks to Rene Saarsoo or bitbucket user renku)
 * added support for long exposures
 * introduced kotlin (technical change only)
+* chopped film notes on top of exposures (frames) view (will be animated in the future)
 
 ## v0.11.0
 

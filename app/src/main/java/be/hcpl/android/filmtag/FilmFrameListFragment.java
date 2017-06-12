@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,15 +24,14 @@ import be.hcpl.android.filmtag.template.TemplateFragment;
 import be.hcpl.android.filmtag.util.StorageUtil;
 import butterknife.Bind;
 
-/**
- * Created by jd41256 on 30/07/15.
- */
 public class FilmFrameListFragment extends TemplateFragment {
 
     public static final String KEY_FILM_ROLL = "roll";
 
     private Roll filmRoll;
 
+    @Bind(R.id.text_roll)
+    TextView filmTextView;
     @Bind(R.id.text_roll_details)
     TextView detailTextView;
     @Bind(R.id.list_frames)
@@ -62,8 +62,9 @@ public class FilmFrameListFragment extends TemplateFragment {
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        if (savedInstanceState != null)
+        if (savedInstanceState != null) {
             filmRoll = (Roll) savedInstanceState.getSerializable(KEY_FILM_ROLL);
+        }
     }
 
     @Override
@@ -110,14 +111,20 @@ public class FilmFrameListFragment extends TemplateFragment {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(
+            View view,
+            @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         // show roll details on top
-        if (filmRoll != null && detailTextView != null) {
-            detailTextView.setText(Html.fromHtml(
-                    new StringBuilder(filmRoll.toString()).append("<p/>")
-                            .append(filmRoll.getNotes() != null ? filmRoll.getNotes() : getString(R.string.label_no_notes)).toString()));
+        if (filmRoll != null && detailTextView != null && detailTextView != null) {
+            filmTextView.setText(filmRoll.toString());
+            if(TextUtils.isEmpty(filmRoll.getNotes())){
+                detailTextView.setVisibility(View.GONE);
+            } else {
+                detailTextView.setText(filmRoll.getNotes());
+                detailTextView.setVisibility(View.VISIBLE);
+            }
             // also load tags here
             if (filmRoll.getTags() != null && !filmRoll.getTags().isEmpty()) {
                 wrapperTagsView.setVisibility(View.VISIBLE);
@@ -140,7 +147,11 @@ public class FilmFrameListFragment extends TemplateFragment {
 
         framesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(
+                    AdapterView<?> adapterView,
+                    View view,
+                    int i,
+                    long l) {
                 updateFrame(i);
             }
         });
@@ -151,7 +162,9 @@ public class FilmFrameListFragment extends TemplateFragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(
+            Menu menu,
+            MenuInflater inflater) {
         inflater.inflate(R.menu.frames, menu);
     }
 
@@ -187,7 +200,9 @@ public class FilmFrameListFragment extends TemplateFragment {
                 .setMessage(R.string.msg_delete_complete_film_roll)
                 .setPositiveButton(R.string.label_yes, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                    public void onClick(
+                            DialogInterface dialogInterface,
+                            int i) {
                         StorageUtil.deleteRoll((MainActivity) getActivity(), filmRoll);
                         // navigate back
                         dialogInterface.dismiss();
@@ -195,11 +210,12 @@ public class FilmFrameListFragment extends TemplateFragment {
                     }
                 }).setNegativeButton(R.string.label_no, new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+            public void onClick(
+                    DialogInterface dialogInterface,
+                    int i) {
                 dialogInterface.dismiss();
             }
         }).show();
-
 
     }
 }
