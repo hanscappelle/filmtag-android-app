@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,30 +65,22 @@ public class FrameAdapter extends BaseAdapter {
 
             final ViewHolder holder = new ViewHolder();
             holder.textFrame= (TextView) rowView.findViewById(R.id.text_frame);
-            holder.textShutter= (TextView) rowView.findViewById(R.id.text_shutter);
-            holder.textAperture= (TextView) rowView.findViewById(R.id.text_aperture);
+            holder.textApertureAndShutter= (TextView) rowView.findViewById(R.id.text_aperture_and_shutter);
             holder.textNotes= (TextView) rowView.findViewById(R.id.text_notes);
             rowView.setTag(holder);
         }
         final ViewHolder holder = (ViewHolder) rowView.getTag();
 
-        // format data, still on single line for now
-        holder.textFrame.setText(new StringBuilder(
-                mContext.getResources().getString(R.string.label_frame))
-                .append(TextUtil.SPACE).append("#")
+        // First line: frame number, aperture, shutter speed
+        holder.textFrame.setText(new StringBuilder("#")
                 .append(TextUtil.frameFormat.format(frame.getNumber())));
+        holder.textApertureAndShutter.setText(new StringBuilder("")
+                .append("f/").append(TextUtil.apertureFormat.format(frame.getAperture()))
+                .append("     ")
+                .append("1/").append(frame.getShutter()).append(" sec")
+        );
+        // Second line: notes
         holder.textNotes.setText(frame.getNotes());
-        holder.textAperture.setText(new StringBuilder(
-            mContext.getResources().getString(R.string.label_aperture))
-                .append(TextUtil.SPACE).append("f/").append(frame.getAperture()
-        ));
-        holder.textShutter.setText(new StringBuilder(
-            mContext.getResources().getString(R.string.label_shutter))
-                .append(TextUtil.SPACE).append("1/").append(frame.getShutter()
-        ));
-//                new StringBuilder(TextUtil.frameFormat.format(frame.getNumber())).append(" - (s) ")
-//                        .append(String.valueOf(frame.getShutter())).append(" - (a) f/")
-//                        .append(String.valueOf(frame.getAperture())).toString()
 
         return rowView;
     }
@@ -103,6 +94,6 @@ public class FrameAdapter extends BaseAdapter {
     }
 
     class ViewHolder {
-        TextView textShutter, textAperture, textFrame, textNotes;
+        TextView textApertureAndShutter, textFrame, textNotes;
     }
 }
