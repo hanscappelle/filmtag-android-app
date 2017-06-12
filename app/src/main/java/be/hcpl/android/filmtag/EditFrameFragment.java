@@ -24,6 +24,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -63,6 +64,8 @@ public class EditFrameFragment extends TemplateFragment {
     EditText editAperture;
     @Bind(R.id.edit_notes)
     EditText editNotes;
+    @Bind(R.id.long_exposure)
+    CheckBox checkLongExposure;
 
     @Bind(R.id.image_preview)
     ImageView imagePreview;
@@ -148,6 +151,7 @@ public class EditFrameFragment extends TemplateFragment {
                 editAperture.setText(String.valueOf(selectedFrame.getAperture()));
             if (selectedFrame.getShutter() != 0)
                 editShutter.setText(String.valueOf(selectedFrame.getShutter()));
+            checkLongExposure.setChecked(selectedFrame.isLongExposure());
             editNotes.setText(selectedFrame.getNotes());
             // populate the tags here
             if (selectedFrame.getTags() != null && !selectedFrame.getTags().isEmpty())
@@ -453,6 +457,7 @@ public class EditFrameFragment extends TemplateFragment {
         } catch (NumberFormatException nfe) {
             Toast.makeText(getActivity(), R.string.err_parsing_failed, Toast.LENGTH_SHORT).show();
         }
+        selectedFrame.setLongExposure(checkLongExposure.isChecked());
         selectedFrame.setTags(Arrays.asList(TextUtils.split(editTags.getText().toString(), " ")));
 
         // store

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
             android:fontFamily="sans-serif-light"
             android:padding="5dp"
             android:text="@string/label_frame_number"
-            android:textSize="20sp" />
+            android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/edit_number"
@@ -34,13 +34,23 @@
 
         <TextView
             android:id="@+id/label_shutter"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
             android:layout_below="@+id/header_frame"
+            android:layout_toLeftOf="@+id/long_exposure"
             android:fontFamily="sans-serif-light"
             android:padding="5dp"
             android:text="@string/label_frame_shutter"
-            android:textSize="20sp" />
+            android:textSize="20sp"/>
+
+        <CheckBox
+            android:id="@+id/long_exposure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/header_frame"
+            android:text="@string/long_exposure"/>
 
         <EditText
             android:id="@+id/edit_shutter"
@@ -48,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/label_shutter"
             android:hint="200"
-            android:inputType="number" />
+            android:inputType="number"/>
 
         <TextView
             android:id="@+id/label_aperture"
@@ -58,7 +68,7 @@
             android:fontFamily="sans-serif-light"
             android:padding="5dp"
             android:text="@string/label_film_aperture"
-            android:textSize="20sp" />
+            android:textSize="20sp"/>
 
         <EditText
             android:id="@+id/edit_aperture"
@@ -66,7 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/label_aperture"
             android:hint="2.8"
-            android:inputType="numberDecimal" />
+            android:inputType="numberDecimal"/>
 
         <TextView
             android:id="@+id/label_tags"
@@ -76,7 +86,7 @@
             android:fontFamily="sans-serif-light"
             android:padding="5dp"
             android:text="@string/label_frame_tags"
-            android:textSize="20sp" />
+            android:textSize="20sp"/>
 
         <EditText
             android:id="@+id/edit_tags"
@@ -85,7 +95,7 @@
             android:layout_below="@id/label_tags"
             android:hint="@string/label_tags_for_film"
             android:lines="1"
-            android:singleLine="false" />
+            android:singleLine="false"/>
 
         <TextView
             android:id="@+id/label_notes"
@@ -95,7 +105,7 @@
             android:fontFamily="sans-serif-light"
             android:padding="5dp"
             android:text="@string/label_frame_notes"
-            android:textSize="20sp" />
+            android:textSize="20sp"/>
 
         <EditText
             android:id="@+id/edit_notes"
@@ -156,7 +166,6 @@
             android:layout_centerHorizontal="true"
             android:layout_margin="16dp"
             />
-
 
 
     </RelativeLayout>

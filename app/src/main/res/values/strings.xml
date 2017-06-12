@@ -54,6 +54,7 @@
     <string name="pref_title_default_aperture">Default Aperture</string>
     <string name="label_frame_tags">Tags</string>
     <string name="label_tags_for_film">landscape sunset</string>
+    <string name="long_exposure">long exposure</string>
 
 
 </resources>

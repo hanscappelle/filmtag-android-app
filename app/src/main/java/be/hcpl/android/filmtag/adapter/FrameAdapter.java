@@ -80,11 +80,14 @@ public class FrameAdapter extends BaseAdapter {
         if (frame.getAperture() == Frame.DEFAULT_VALUE && frame.getShutter() == Frame.DEFAULT_VALUE) {
             holder.textApertureAndShutter.setText("");
         } else {
-            holder.textApertureAndShutter.setText(
-                    new StringBuilder("f/").append(TextUtil.apertureFormat.format(frame.getAperture()))
-                            .append(" - ")
-                            .append("1/").append(frame.getShutter()).append(TextUtil.SPACE).append("s")
-            );
+            final StringBuilder stringBuilder = new StringBuilder("f/")
+                    .append(TextUtil.apertureFormat.format(frame.getAperture()))
+                    .append(" - ");
+            if (!frame.isLongExposure()) {
+                stringBuilder.append("1/");
+            }
+            stringBuilder.append(frame.getShutter()).append(TextUtil.SPACE).append("s");
+            holder.textApertureAndShutter.setText(stringBuilder.toString());
         }
         // Second line: notes
         holder.textNotes.setText(frame.getNotes());

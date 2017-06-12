@@ -6,7 +6,15 @@ import java.util.List;
 
 public class Frame implements Serializable {
 
+    /**
+     * default values used
+     */
     public static final int DEFAULT_VALUE = 0;
+
+    /**
+     * check for long exposures so we can show full seconds
+     */
+    private boolean longExposure = false;
 
     /**
      * notes for this frame
@@ -128,5 +136,13 @@ public class Frame implements Serializable {
 
     public void setPathToImage(String pathToImage) {
         this.pathToImage = pathToImage;
+    }
+
+    public boolean isLongExposure() {
+        return longExposure;
+    }
+
+    public void setLongExposure(final boolean longExposure) {
+        this.longExposure = longExposure;
     }
 }
