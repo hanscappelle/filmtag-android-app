@@ -7,9 +7,9 @@ import java.util.List;
 public class Frame implements Serializable {
 
     /**
-     * default values used
+     * The value that signifies unspecified aperture or shutter value
      */
-    public static final int DEFAULT_VALUE = 0;
+    public static final int EMPTY_VALUE = 0;
 
     /**
      * check for long exposures so we can show full seconds
@@ -29,12 +29,12 @@ public class Frame implements Serializable {
     /**
      * the shutter speed used for this frame
      */
-    private int shutter = DEFAULT_VALUE;
+    private int shutter = EMPTY_VALUE;
 
     /**
      * the aperture value used for this frame
      */
-    private double aperture = DEFAULT_VALUE;
+    private double aperture = EMPTY_VALUE;
 
     /**
      * path to selected preview image

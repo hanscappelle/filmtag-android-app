@@ -89,13 +89,13 @@ public class FrameAdapter extends BaseAdapter {
 
     private String formatApertureAndShutter(double aperture, int shutter, boolean longExposure) {
         String str = "";
-        if (aperture != Frame.DEFAULT_VALUE) {
+        if (aperture != Frame.EMPTY_VALUE) {
             str += "f/" + TextUtil.apertureFormat.format(aperture);
         }
-        if (aperture != Frame.DEFAULT_VALUE && shutter != Frame.DEFAULT_VALUE) {
+        if (aperture != Frame.EMPTY_VALUE && shutter != Frame.EMPTY_VALUE) {
             str += " - ";
         }
-        if (shutter != Frame.DEFAULT_VALUE) {
+        if (shutter != Frame.EMPTY_VALUE) {
             str += (longExposure ? "" : "1/") + shutter + " s";
         }
         return str;
