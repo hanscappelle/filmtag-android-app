@@ -14,7 +14,6 @@ import java.util.List;
 
 import be.hcpl.android.filmtag.R;
 import be.hcpl.android.filmtag.model.Roll;
-import be.hcpl.android.filmtag.util.TextUtil;
 
 /**
  * Created by jd41256 on 10/08/15.
@@ -79,9 +78,8 @@ public class FilmRollAdapter extends BaseAdapter implements Filterable {
 
         // format data, still on single line for now
         holder.textType.setText(roll.getType());
-        holder.textSpeed.setText(new StringBuilder(mContext.getResources()
-                .getString(R.string.label_roll_speed)).append(TextUtil.SPACE)
-                .append(roll.getSpeed()));
+        holder.textSpeed.setText(mContext.getResources().getString(R.string.label_roll_speed) +
+                " " + roll.getSpeed());
         holder.textFrames.setText(roll.getFrames() + " " +
                 mContext.getResources().getString(R.string.label_roll_frames));
 

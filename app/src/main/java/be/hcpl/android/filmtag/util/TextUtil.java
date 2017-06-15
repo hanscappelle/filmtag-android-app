@@ -7,8 +7,6 @@ public class TextUtil {
     private static DecimalFormat frameFormat = new DecimalFormat("00");
     private static DecimalFormat apertureFormat = new DecimalFormat("0.#");
 
-    public static final String SPACE = " ";
-
     public static String formatFrameNumber(int frameNumber) {
         return "#" + frameFormat.format(frameNumber);
     }
