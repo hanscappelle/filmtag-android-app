@@ -77,22 +77,28 @@ public class FrameAdapter extends BaseAdapter {
         // First line: frame number, aperture, shutter speed
         holder.textFrame.setText(new StringBuilder("#")
                                          .append(TextUtil.frameFormat.format(frame.getNumber())));
-        if (frame.getAperture() == Frame.DEFAULT_VALUE && frame.getShutter() == Frame.DEFAULT_VALUE) {
-            holder.textApertureAndShutter.setText("");
-        } else {
-            final StringBuilder stringBuilder = new StringBuilder("f/")
-                    .append(TextUtil.apertureFormat.format(frame.getAperture()))
-                    .append(" - ");
-            if (!frame.isLongExposure()) {
-                stringBuilder.append("1/");
-            }
-            stringBuilder.append(frame.getShutter()).append(TextUtil.SPACE).append("s");
-            holder.textApertureAndShutter.setText(stringBuilder.toString());
-        }
+        holder.textApertureAndShutter.setText(formatApertureAndShutter(
+                frame.getAperture(),
+                frame.getShutter(),
+                frame.isLongExposure()));
         // Second line: notes
         holder.textNotes.setText(frame.getNotes());
 
         return rowView;
+    }
+
+    private String formatApertureAndShutter(double aperture, int shutter, boolean longExposure) {
+        String str = "";
+        if (aperture != Frame.DEFAULT_VALUE) {
+            str += "f/" + TextUtil.apertureFormat.format(aperture);
+        }
+        if (aperture != Frame.DEFAULT_VALUE && shutter != Frame.DEFAULT_VALUE) {
+            str += " - ";
+        }
+        if (shutter != Frame.DEFAULT_VALUE) {
+            str += (longExposure ? "" : "1/") + shutter + " s";
+        }
+        return str;
     }
 
     public void clear() {
