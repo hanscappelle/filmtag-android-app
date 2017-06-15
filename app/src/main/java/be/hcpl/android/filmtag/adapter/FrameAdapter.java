@@ -75,8 +75,7 @@ public class FrameAdapter extends BaseAdapter {
         final ViewHolder holder = (ViewHolder) rowView.getTag();
 
         // First line: frame number, aperture, shutter speed
-        holder.textFrame.setText(new StringBuilder("#")
-                                         .append(TextUtil.frameFormat.format(frame.getNumber())));
+        holder.textFrame.setText(TextUtil.formatFrameNumber(frame.getNumber()));
         holder.textApertureAndShutter.setText(formatApertureAndShutter(
                 frame.getAperture(),
                 frame.getShutter(),
@@ -90,13 +89,13 @@ public class FrameAdapter extends BaseAdapter {
     private String formatApertureAndShutter(double aperture, int shutter, boolean longExposure) {
         String str = "";
         if (aperture != Frame.EMPTY_VALUE) {
-            str += "f/" + TextUtil.apertureFormat.format(aperture);
+            str += TextUtil.formatAperture(aperture);
         }
         if (aperture != Frame.EMPTY_VALUE && shutter != Frame.EMPTY_VALUE) {
             str += " - ";
         }
         if (shutter != Frame.EMPTY_VALUE) {
-            str += (longExposure ? "" : "1/") + shutter + " s";
+            str += TextUtil.formatShutter(shutter, longExposure);
         }
         return str;
     }
