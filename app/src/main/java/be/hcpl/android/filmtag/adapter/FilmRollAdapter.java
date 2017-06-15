@@ -82,11 +82,8 @@ public class FilmRollAdapter extends BaseAdapter implements Filterable {
         holder.textSpeed.setText(new StringBuilder(mContext.getResources()
                 .getString(R.string.label_roll_speed)).append(TextUtil.SPACE)
                 .append(roll.getSpeed()));
-        holder.textFrames.setText(new StringBuilder(mContext.getResources()
-                .getString(R.string.label_roll_frames)).append(TextUtil.SPACE)
-                .append(TextUtil.frameFormat.format(roll.getFrames())));
-//                new StringBuilder(roll.getType()).append(" @ ISO ").append(roll.getSpeed())
-//                        .append(" # ").append(String.valueOf(roll.getFrames())).toString()
+        holder.textFrames.setText(roll.getFrames() + " " +
+                mContext.getResources().getString(R.string.label_roll_frames));
 
         // mark developed items with a lighter text color
         if (roll.isDeveloped())

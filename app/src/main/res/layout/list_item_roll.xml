@@ -40,7 +40,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:textSize="16sp"
-        tools:text="#Frames: 36"
+        tools:text="36 frames"
         android:layout_marginRight="8dp"
         />
 
