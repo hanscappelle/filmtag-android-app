@@ -1,0 +1,24 @@
+<h3>FilmTag {version} info</h3>
+
+<p>Lihtne Androidi äpp pildistamise ajal kaamera seadete jäädvustamiseks.
+Abiks analoog-fotograafidele, kelle filmirullile ei jäädvustu EXIF info.</p>
+
+<h3>Eesmärgid</h3>
+
+<p>Prioriteediks on kasutuslihtsus. Fotograaf ei peaks pildistamise ajal
+programmi seadetes tuhnima.</p>
+
+<h3>Põhiomadused</h3>
+
+<p>
+* nimekiri filmirullidest<br/>
+* kaadrite arv ja säritatud ISO (erinevalt filmi enda ISOst) iga filmi kohta<br/>
+* nimekiri kaadritest iga filmirulli peal<br/>
+* ava, säriaeg ja märkmed iga kaadri kohta<br/>
+</p>
+
+<h3>Arendus</h3>
+
+<p>Lähtekood bitbucketis: <a href="https://bitbucket.org/cappelleh/filmtag/">https://bitbucket.org/cappelleh/filmtag/</a></p>
+<p>Beta testimiseks: <a href="https://play.google.com/apps/testing/be.hcpl.android.filmtag">https://play.google.com/apps/testing/be.hcpl.android.filmtag</a></p>
+<p>Twitteris: <a href="https://twitter.com/photools">https://twitter.com/photools</a>
