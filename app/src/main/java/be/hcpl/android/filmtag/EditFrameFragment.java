@@ -473,7 +473,7 @@ public class EditFrameFragment extends TemplateFragment {
 
     private String getFieldTextOrDefault(EditText field, String defaultKey, String hardDefault) {
         String text = field.getText().toString();
-        if (text.equals("")) {
+        if (TextUtils.isEmpty(text)) {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
             return prefs.getString(defaultKey, hardDefault);
         }
