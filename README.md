@@ -42,6 +42,11 @@ https://www.materialpalette.com/brown/grey
 * visualisation of locations on map
 * collapse top notes on film view on scroll up (list of frames)
 
+## v0.13.0
+
+* use of default shutterspeed and aperture from settings on frame update (thanks to Rene Saarsoo or bitbucket user renku)
+* some internal and formatting changes (thanks to Rene Saarsoo or bitbucket user renku)
+
 ## v0.12.0
 
 * update formatting of exposed frames (thanks to Rene Saarsoo or bitbucket user renku)
