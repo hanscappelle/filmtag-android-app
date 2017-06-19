@@ -38,7 +38,7 @@
     <string name="action_location">Locatie</string>
     <string name="err_location_disabled">Locatie niet beschikbaar</string>
     <string name="label_roll_speed">Belicht op ISO</string>
-    <string name="label_roll_frames">#Beelden</string>
+    <string name="label_roll_frames">beelden</string>
     <string name="label_frame">Beeld</string>
     <string name="label_aperture">Diafragma</string>
     <string name="label_shutter">Sluitertijd</string>

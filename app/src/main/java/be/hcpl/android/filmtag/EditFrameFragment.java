@@ -159,12 +159,10 @@ public class EditFrameFragment extends TemplateFragment {
             loadImagePreview();
             showLocation();
         }
-        // have configurable defaults here
-        else {
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-            editShutter.setText(prefs.getString("key_default_shutter", String.valueOf(60)));
-            editAperture.setText(prefs.getString("key_default_apertures", String.valueOf(4)));
-        }
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        editShutter.setHint(prefs.getString("key_default_shutter", String.valueOf(60)));
+        editAperture.setHint(prefs.getString("key_default_apertures", String.valueOf(4)));
 
         // TODO implement autocomplete
     }
@@ -447,13 +445,19 @@ public class EditFrameFragment extends TemplateFragment {
     private void updateItem() {
         // update values
         selectedFrame.setNotes(editNotes.getText().toString());
+
         try {
-            selectedFrame.setAperture(Double.parseDouble(editAperture.getText().toString()));
+            selectedFrame.setAperture(Double.parseDouble(
+                    getFieldTextOrDefault(editAperture, "key_default_apertures", String.valueOf(4))
+            ));
         } catch (NumberFormatException nfe) {
             Toast.makeText(getActivity(), R.string.err_parsing_failed, Toast.LENGTH_SHORT).show();
         }
+
         try {
-            selectedFrame.setShutter(Integer.parseInt(editShutter.getText().toString()));
+            selectedFrame.setShutter(Integer.parseInt(
+                    getFieldTextOrDefault(editShutter, "key_default_shutter", String.valueOf(60))
+            ));
         } catch (NumberFormatException nfe) {
             Toast.makeText(getActivity(), R.string.err_parsing_failed, Toast.LENGTH_SHORT).show();
         }
@@ -465,6 +469,17 @@ public class EditFrameFragment extends TemplateFragment {
 
         // navigate back to overview
         backToOverview();
+    }
+
+    private String getFieldTextOrDefault(EditText field, String defaultKey, String hardDefault) {
+        String text = field.getText().toString();
+        if (TextUtils.isEmpty(text)) {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+            return prefs.getString(defaultKey, hardDefault);
+        }
+        else {
+            return text;
+        }
     }
 
     private void backToOverview() {
