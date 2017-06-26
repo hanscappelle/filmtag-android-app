@@ -467,17 +467,13 @@ public class EditFrameFragment extends TemplateFragment {
         selectedFrame.setNotes(editNotes.getText().toString());
 
         try {
-            selectedFrame.setAperture(Double.parseDouble(
-                    getFieldTextOrDefault(editAperture, "key_default_apertures", String.valueOf(4))
-            ));
+            selectedFrame.setAperture(Double.parseDouble(getFieldTextOrHint(editAperture)));
         } catch (NumberFormatException nfe) {
             Toast.makeText(getActivity(), R.string.err_parsing_failed, Toast.LENGTH_SHORT).show();
         }
 
         try {
-            selectedFrame.setShutter(Integer.parseInt(
-                    getFieldTextOrDefault(editShutter, "key_default_shutter", String.valueOf(60))
-            ));
+            selectedFrame.setShutter(Integer.parseInt(getFieldTextOrHint(editShutter)));
         } catch (NumberFormatException nfe) {
             Toast.makeText(getActivity(), R.string.err_parsing_failed, Toast.LENGTH_SHORT).show();
         }
@@ -491,11 +487,10 @@ public class EditFrameFragment extends TemplateFragment {
         backToOverview();
     }
 
-    private String getFieldTextOrDefault(EditText field, String defaultKey, String hardDefault) {
+    private String getFieldTextOrHint(EditText field) {
         String text = field.getText().toString();
         if (TextUtils.isEmpty(text)) {
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-            return prefs.getString(defaultKey, hardDefault);
+            return field.getHint().toString();
         }
         else {
             return text;
