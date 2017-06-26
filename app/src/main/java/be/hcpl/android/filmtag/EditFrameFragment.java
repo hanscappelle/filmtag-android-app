@@ -110,12 +110,7 @@ public class EditFrameFragment extends TemplateFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        Bundle args = getArguments();
-        if (args != null) {
-            frames = (List<Frame>) args.getSerializable(KEY_FRAMES);
-            selectedFrame = frames.get(args.getInt(KEY_FRAME_IDX));
-            roll = (Roll) args.getSerializable(KEY_ROLL);
-        }
+        restoreState(getArguments());
     }
 
     @Override
@@ -129,10 +124,14 @@ public class EditFrameFragment extends TemplateFragment {
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        if (savedInstanceState != null) {
-            frames = (List<Frame>) savedInstanceState.getSerializable(KEY_FRAMES);
-            selectedFrame = frames.get(savedInstanceState.getInt(KEY_FRAME_IDX));
-            roll = (Roll) savedInstanceState.getSerializable(KEY_ROLL);
+        restoreState(savedInstanceState);
+    }
+
+    private void restoreState(Bundle state) {
+        if (state != null) {
+            frames = (List<Frame>) state.getSerializable(KEY_FRAMES);
+            selectedFrame = frames.get(state.getInt(KEY_FRAME_IDX));
+            roll = (Roll) state.getSerializable(KEY_ROLL);
         }
     }
 
