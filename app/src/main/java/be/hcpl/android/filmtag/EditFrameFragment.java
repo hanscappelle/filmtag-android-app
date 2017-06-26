@@ -169,6 +169,7 @@ public class EditFrameFragment extends TemplateFragment {
 
     // Uses previous frame values for aperture & shutter as hints if available
     // Otherwise uses default aperture & shutter from settings
+    // Also, when previous frame has long-exposure checked, check it automatically
     private void updateHints() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 
@@ -184,6 +185,10 @@ public class EditFrameFragment extends TemplateFragment {
         }
         else {
             editShutter.setHint(prefs.getString("key_default_shutter", String.valueOf(60)));
+        }
+
+        if (previousFrame != null && previousFrame.isLongExposure()) {
+            checkLongExposure.setChecked(true);
         }
     }
 
