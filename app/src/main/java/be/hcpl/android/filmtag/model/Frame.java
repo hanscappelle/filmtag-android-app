@@ -54,13 +54,6 @@ public class Frame implements Serializable {
     public Frame() {
     }
 
-    public Frame(String notes, int number, int shutter, double aperture) {
-        this.notes = notes;
-        this.number = number;
-        this.shutter = shutter;
-        this.aperture = aperture;
-    }
-
     public Location getLocation() {
         return location;
     }
