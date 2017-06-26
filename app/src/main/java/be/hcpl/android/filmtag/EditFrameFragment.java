@@ -167,10 +167,24 @@ public class EditFrameFragment extends TemplateFragment {
         // TODO implement autocomplete
     }
 
+    // Uses previous frame values for aperture & shutter as hints if available
+    // Otherwise uses default aperture & shutter from settings
     private void updateHints() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-        editShutter.setHint(prefs.getString("key_default_shutter", String.valueOf(60)));
-        editAperture.setHint(prefs.getString("key_default_apertures", String.valueOf(4)));
+
+        if (previousFrame != null && previousFrame.getAperture() != Frame.EMPTY_VALUE) {
+            editAperture.setHint(String.valueOf(previousFrame.getAperture()));
+        }
+        else {
+            editAperture.setHint(prefs.getString("key_default_apertures", String.valueOf(4)));
+        }
+
+        if (previousFrame != null && previousFrame.getShutter() != Frame.EMPTY_VALUE) {
+            editShutter.setHint(String.valueOf(previousFrame.getShutter()));
+        }
+        else {
+            editShutter.setHint(prefs.getString("key_default_shutter", String.valueOf(60)));
+        }
     }
 
     private void markImageAvailable() {
