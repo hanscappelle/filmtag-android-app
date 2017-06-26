@@ -162,11 +162,15 @@ public class EditFrameFragment extends TemplateFragment {
             showLocation();
         }
 
+        updateHints();
+
+        // TODO implement autocomplete
+    }
+
+    private void updateHints() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         editShutter.setHint(prefs.getString("key_default_shutter", String.valueOf(60)));
         editAperture.setHint(prefs.getString("key_default_apertures", String.valueOf(4)));
-
-        // TODO implement autocomplete
     }
 
     private void markImageAvailable() {
