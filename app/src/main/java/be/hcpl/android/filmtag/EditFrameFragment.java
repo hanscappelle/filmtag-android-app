@@ -84,6 +84,7 @@ public class EditFrameFragment extends TemplateFragment {
     private Roll roll;
 
     private Frame selectedFrame;
+    private Frame previousFrame;
 
     private List<Frame> frames;
 
@@ -130,7 +131,9 @@ public class EditFrameFragment extends TemplateFragment {
     private void restoreState(Bundle state) {
         if (state != null) {
             frames = (List<Frame>) state.getSerializable(KEY_FRAMES);
-            selectedFrame = frames.get(state.getInt(KEY_FRAME_IDX));
+            int selectedFrameIndex = state.getInt(KEY_FRAME_IDX);
+            selectedFrame = frames.get(selectedFrameIndex);
+            previousFrame = selectedFrameIndex > 0 ? frames.get(selectedFrameIndex - 1) : null;
             roll = (Roll) state.getSerializable(KEY_ROLL);
         }
     }
