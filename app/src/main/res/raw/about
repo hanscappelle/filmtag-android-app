@@ -1,7 +1,7 @@
 <h3>About FilmTag {version}</h3>
 
 <p>Basic Android app for keeping track of photography settings while shooting analog film. As used by
-analog photographers who can't rely on exif information when using analog roll film while shooting.</p>
+analog photographers who can't rely on EXIF information when using analog roll film while shooting.</p>
 
 <h3>Goals</h3>
 
@@ -19,6 +19,10 @@ complex editing options while shooting. Keep distraction to an absolute minimum.
 
 <h3>Project</h3>
 
-<p>Source code available on bitbucket, see: <a href="https://bitbucket.org/cappelleh/filmtag/">https://bitbucket.org/cappelleh/filmtag/</a></p>
+<p>This is an open source project so all source code is available on bitbucket @ <a href="https://bitbucket
+.org/cappelleh/filmtag/">https://bitbucket.org/cappelleh/filmtag/</a>. This means you can review and contribute as much as you want.</p>
+
+<p>Special thanks to <a href="https://bitbucket.org/renku/">Rene Saarsoo</a> for several contributions to this project.</p>
+
 <p>For beta testing visit: <a href="https://play.google.com/apps/testing/be.hcpl.android.filmtag">https://play.google.com/apps/testing/be.hcpl.android.filmtag</a></p>
 <p>Follow me on twitter: <a href="https://twitter.com/photools">https://twitter.com/photools</a>

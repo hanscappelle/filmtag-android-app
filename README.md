@@ -42,6 +42,12 @@ https://www.materialpalette.com/brown/grey
 * visualisation of locations on map
 * collapse top notes on film view on scroll up (list of frames)
 
+## v0.14.0
+
+* properly restore last fragment on resume (thanks to Rene Saarsoo or bitbucket user renku)
+* Estonian translation added (thanks to Rene Saarsoo or bitbucket user renku)
+* update default values to match previous frame (thanks to Rene Saarsoo or bitbucket user renku)
+
 ## v0.13.0
 
 * use of default shutterspeed and aperture from settings on frame update (thanks to Rene Saarsoo or bitbucket user renku)
