@@ -47,15 +47,12 @@ class MainActivity : AppCompatActivity() {
         // load the prefs here
         prefs = PreferenceManager.getDefaultSharedPreferences(applicationContext)
 
-        val fm = supportFragmentManager
-        // always starts with the same initial fragment
-        //        fm.beginTransaction().replace(R.id.container, FilmRollListFragment.newInstance()).commit();
         // restore last fragment state if possible
         if (savedInstanceState != null) {
-            content = fm.getFragment(savedInstanceState, KEY_CURRENT_CONTENT)
+            content = supportFragmentManager.getFragment(savedInstanceState, KEY_CURRENT_CONTENT)
+        } else {
+            switchContent(initialFragment)
         }
-
-        switchContent(initialFragment)
 
         // check for intent data here
         // Get intent, action and MIME typegit checkout simplified-frame-list
