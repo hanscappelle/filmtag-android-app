@@ -84,6 +84,7 @@ public class EditFrameFragment extends TemplateFragment {
     private Roll roll;
 
     private Frame selectedFrame;
+    private Frame previousFrame;
 
     private List<Frame> frames;
 
@@ -110,12 +111,7 @@ public class EditFrameFragment extends TemplateFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        Bundle args = getArguments();
-        if (args != null) {
-            frames = (List<Frame>) args.getSerializable(KEY_FRAMES);
-            selectedFrame = frames.get(args.getInt(KEY_FRAME_IDX));
-            roll = (Roll) args.getSerializable(KEY_ROLL);
-        }
+        restoreState(getArguments());
     }
 
     @Override
@@ -129,10 +125,16 @@ public class EditFrameFragment extends TemplateFragment {
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        if (savedInstanceState != null) {
-            frames = (List<Frame>) savedInstanceState.getSerializable(KEY_FRAMES);
-            selectedFrame = frames.get(savedInstanceState.getInt(KEY_FRAME_IDX));
-            roll = (Roll) savedInstanceState.getSerializable(KEY_ROLL);
+        restoreState(savedInstanceState);
+    }
+
+    private void restoreState(Bundle state) {
+        if (state != null) {
+            frames = (List<Frame>) state.getSerializable(KEY_FRAMES);
+            int selectedFrameIndex = state.getInt(KEY_FRAME_IDX);
+            selectedFrame = frames.get(selectedFrameIndex);
+            previousFrame = selectedFrameIndex > 0 ? frames.get(selectedFrameIndex - 1) : null;
+            roll = (Roll) state.getSerializable(KEY_ROLL);
         }
     }
 
@@ -160,11 +162,34 @@ public class EditFrameFragment extends TemplateFragment {
             showLocation();
         }
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-        editShutter.setHint(prefs.getString("key_default_shutter", String.valueOf(60)));
-        editAperture.setHint(prefs.getString("key_default_apertures", String.valueOf(4)));
+        updateHints();
 
         // TODO implement autocomplete
+    }
+
+    // Uses previous frame values for aperture & shutter as hints if available
+    // Otherwise uses default aperture & shutter from settings
+    // Also, when previous frame has long-exposure checked, check it automatically
+    private void updateHints() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+        if (previousFrame != null && previousFrame.getAperture() != Frame.EMPTY_VALUE) {
+            editAperture.setHint(String.valueOf(previousFrame.getAperture()));
+        }
+        else {
+            editAperture.setHint(prefs.getString("key_default_apertures", String.valueOf(4)));
+        }
+
+        if (previousFrame != null && previousFrame.getShutter() != Frame.EMPTY_VALUE) {
+            editShutter.setHint(String.valueOf(previousFrame.getShutter()));
+        }
+        else {
+            editShutter.setHint(prefs.getString("key_default_shutter", String.valueOf(60)));
+        }
+
+        if (previousFrame != null && previousFrame.isLongExposure()) {
+            checkLongExposure.setChecked(true);
+        }
     }
 
     private void markImageAvailable() {
@@ -447,17 +472,13 @@ public class EditFrameFragment extends TemplateFragment {
         selectedFrame.setNotes(editNotes.getText().toString());
 
         try {
-            selectedFrame.setAperture(Double.parseDouble(
-                    getFieldTextOrDefault(editAperture, "key_default_apertures", String.valueOf(4))
-            ));
+            selectedFrame.setAperture(Double.parseDouble(getFieldTextOrHint(editAperture)));
         } catch (NumberFormatException nfe) {
             Toast.makeText(getActivity(), R.string.err_parsing_failed, Toast.LENGTH_SHORT).show();
         }
 
         try {
-            selectedFrame.setShutter(Integer.parseInt(
-                    getFieldTextOrDefault(editShutter, "key_default_shutter", String.valueOf(60))
-            ));
+            selectedFrame.setShutter(Integer.parseInt(getFieldTextOrHint(editShutter)));
         } catch (NumberFormatException nfe) {
             Toast.makeText(getActivity(), R.string.err_parsing_failed, Toast.LENGTH_SHORT).show();
         }
@@ -471,11 +492,10 @@ public class EditFrameFragment extends TemplateFragment {
         backToOverview();
     }
 
-    private String getFieldTextOrDefault(EditText field, String defaultKey, String hardDefault) {
+    private String getFieldTextOrHint(EditText field) {
         String text = field.getText().toString();
         if (TextUtils.isEmpty(text)) {
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-            return prefs.getString(defaultKey, hardDefault);
+            return field.getHint().toString();
         }
         else {
             return text;
