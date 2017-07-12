@@ -16,18 +16,11 @@ import be.hcpl.android.filmtag.util.TextUtil;
 
 public class FrameAdapter extends BaseAdapter {
 
-    private List<Frame> items = new ArrayList();
+    private List<Frame> items = new ArrayList<>();
 
     private LayoutInflater mInflater;
 
     public FrameAdapter(final Context context) {
-        this(context, new ArrayList<Frame>());
-    }
-
-    public FrameAdapter(
-            final Context context,
-            final List<Frame> list) {
-        items = list;
         mInflater = LayoutInflater.from(context);
     }
 
