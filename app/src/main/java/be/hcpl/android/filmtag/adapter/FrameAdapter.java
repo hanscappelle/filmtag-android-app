@@ -18,8 +18,6 @@ public class FrameAdapter extends BaseAdapter {
 
     private List<Frame> items = new ArrayList();
 
-    private Context mContext;
-
     private LayoutInflater mInflater;
 
     public FrameAdapter(final Context context) {
@@ -29,9 +27,8 @@ public class FrameAdapter extends BaseAdapter {
     public FrameAdapter(
             final Context context,
             final List<Frame> list) {
-        mContext = context;
         items = list;
-        mInflater = LayoutInflater.from(mContext);
+        mInflater = LayoutInflater.from(context);
     }
 
     @Override
