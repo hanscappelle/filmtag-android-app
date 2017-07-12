@@ -7,8 +7,8 @@ import java.io.Serializable
  */
 class Location : Serializable {
 
-    var latitude: Double = 0.0
-    var longitude: Double = 0.0
+    val latitude: Double
+    val longitude: Double
 
     constructor(latitude: Double, longitude: Double) {
         this.latitude = latitude
