@@ -37,8 +37,8 @@ class FrameAdapter(context: Context) : BaseAdapter() {
 
     override fun getView(
             i: Int,
-            convertView: View,
-            viewGroup: ViewGroup): View {
+            convertView: View?,
+            viewGroup: ViewGroup): View? {
 
         val frame = items[i] ?: return convertView
 

@@ -41,7 +41,7 @@ class FilmRollAdapter(private val mContext: Context) : BaseAdapter(), Filterable
         return i.toLong()
     }
 
-    override fun getView(i: Int, convertView: View, viewGroup: ViewGroup): View {
+    override fun getView(i: Int, convertView: View?, viewGroup: ViewGroup): View? {
 
         val roll = items[i] ?: return convertView
 
