@@ -48,12 +48,6 @@ class Roll() : Serializable {
         id = System.currentTimeMillis() // generates unique ID for all objects created
     }
 
-    constructor(type: String, speed: Int, frames: Int) : this() {
-        this.type = type
-        this.speed = speed
-        this.frames = frames
-    }
-
     override fun toString(): String {
         return StringBuilder(type).append(" @ ISO ").append(speed).append(" # ").append(frames.toString()).toString()
     }
