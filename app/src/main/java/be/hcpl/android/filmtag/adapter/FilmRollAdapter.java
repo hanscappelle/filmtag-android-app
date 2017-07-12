@@ -20,23 +20,16 @@ import be.hcpl.android.filmtag.model.Roll;
  */
 public class FilmRollAdapter extends BaseAdapter implements Filterable {
 
-    private List<Roll> items = new ArrayList();
+    private List<Roll> items = new ArrayList<>();
 
-    private List<Roll> unFilteredList = new ArrayList();
+    private List<Roll> unFilteredList = new ArrayList<>();
 
     private Context mContext;
 
     private LayoutInflater mInflater;
 
     public FilmRollAdapter(final Context context) {
-        this(context, new ArrayList<Roll>());
-    }
-
-    public FilmRollAdapter(final Context context, final List<Roll> rollList) {
         mContext = context;
-        items = rollList;
-        // backup all data first
-        unFilteredList = new ArrayList<>(items);
         mInflater = LayoutInflater.from(mContext);
     }
 
