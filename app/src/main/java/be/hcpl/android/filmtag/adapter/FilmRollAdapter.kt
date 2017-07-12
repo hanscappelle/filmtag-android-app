@@ -19,9 +19,9 @@ import be.hcpl.android.filmtag.model.Roll
  */
 class FilmRollAdapter(private val mContext: Context) : BaseAdapter(), Filterable {
 
-    private var items: MutableList<Roll> = ArrayList()
+    private var items = ArrayList<Roll>()
 
-    private var unFilteredList: List<Roll> = ArrayList()
+    private var unFilteredList = ArrayList<Roll>()
 
     private val mInflater: LayoutInflater
 
@@ -94,7 +94,7 @@ class FilmRollAdapter(private val mContext: Context) : BaseAdapter(), Filterable
             override fun publishResults(constraint: CharSequence, results: Filter.FilterResults) {
 
                 // then perform filtering on data
-                items = results.values as MutableList<Roll>
+                items = results.values as ArrayList<Roll>
                 this@FilmRollAdapter.notifyDataSetChanged()
             }
 
