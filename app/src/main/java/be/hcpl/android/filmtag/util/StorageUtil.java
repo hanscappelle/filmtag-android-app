@@ -17,15 +17,15 @@ import be.hcpl.android.filmtag.model.Roll;
  */
 public class StorageUtil {
 
-    public static final Type listOfRollsType = new TypeToken<List<Roll>>() {
+    private static final Type listOfRollsType = new TypeToken<List<Roll>>() {
     }.getType();
 
-    public static final Type listOfFramesType = new TypeToken<List<Frame>>() {
+    private static final Type listOfFramesType = new TypeToken<List<Frame>>() {
     }.getType();
 
-    public static final Gson gson = new Gson();
+    private static final Gson gson = new Gson();
 
-    public static final String KEY_FILM_ROLLS = "rolls";
+    private static final String KEY_FILM_ROLLS = "rolls";
 
     public static List<Roll> getAllRolls(MainActivity activity) {
         // get the items
@@ -81,7 +81,7 @@ public class StorageUtil {
         updateRolls(activity, rolls);
     }
 
-    public static void addRolls(MainActivity activity, List<Roll> roll) {
+    private static void addRolls(MainActivity activity, List<Roll> roll) {
         List<Roll> rolls = getAllRolls(activity);
         rolls.addAll(roll);
         updateRolls(activity, rolls);
