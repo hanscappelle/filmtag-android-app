@@ -64,8 +64,7 @@ public class AboutFragment extends TemplateFragment {
                 buffer.append(e).append(SYSTEM_LINE_SEPARATOR);
             }
 
-            StringBuilder var5 = buffer;
-            return var5.toString();
+            return buffer.toString();
         } catch (IOException var8) {
             ;
         } finally {
