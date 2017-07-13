@@ -1,0 +1,118 @@
+package be.hcpl.android.filmtag.util
+
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+
+import java.lang.reflect.Type
+import java.util.HashMap
+
+import be.hcpl.android.filmtag.MainActivity
+import be.hcpl.android.filmtag.model.DataExportFormat
+import be.hcpl.android.filmtag.model.Frame
+import be.hcpl.android.filmtag.model.Roll
+
+/**
+ * Created by hcpl on 1/08/15.
+ */
+object StorageUtil {
+
+    private val listOfRollsType = object : TypeToken<List<Roll>>() {
+
+    }.type
+
+    private val listOfFramesType = object : TypeToken<List<Frame>>() {
+
+    }.type
+
+    private val gson = Gson()
+
+    private val KEY_FILM_ROLLS = "rolls"
+
+    fun getAllRolls(activity: MainActivity): MutableList<Roll> {
+        // get the items
+        val rollsData = activity.prefs!!.getString(KEY_FILM_ROLLS, "[]")
+        // convert using gson
+        return gson.fromJson<List<Roll>>(rollsData, listOfRollsType)
+    }
+
+    // for internal use only
+    private fun updateRolls(activity: MainActivity, rolls: List<Roll>) {
+        activity.prefs!!.edit().putString(KEY_FILM_ROLLS, gson.toJson(rolls, listOfRollsType)).commit()
+    }
+
+    fun deleteRoll(activity: MainActivity, roll: Roll) {
+        val rolls = StorageUtil.getAllRolls(activity)
+        rolls.remove(roll)
+        // also delete all frames for that roll at this point
+        deleteFramesForRoll(activity, roll)
+        updateRolls(activity, rolls)
+    }
+
+    private fun deleteFramesForRoll(activity: MainActivity, roll: Roll) {
+        activity.prefs!!.edit().remove(KEY_FILM_ROLLS + roll.id).commit()
+    }
+
+    fun getFramesForFilm(activity: MainActivity, filmRoll: Roll): List<Frame> {
+        // get the items
+        val framesData = activity.prefs!!.getString(KEY_FILM_ROLLS + filmRoll.id, "[]")
+        // convert using gson
+        return gson.fromJson<List<Frame>>(framesData, listOfFramesType)
+    }
+
+    fun updateFrames(activity: MainActivity, filmRoll: Roll, frames: List<Frame>) {
+        activity.prefs!!.edit().putString(KEY_FILM_ROLLS + filmRoll
+                .id, gson.toJson(frames, listOfFramesType)).commit()
+    }
+
+    fun addNewRoll(activity: MainActivity, roll: Roll) {
+        val rolls = getAllRolls(activity)
+        rolls.add(roll)
+        updateRolls(activity, rolls)
+    }
+
+    fun updateRoll(activity: MainActivity, roll: Roll) {
+        val rolls = getAllRolls(activity)
+        rolls[rolls.indexOf(roll)] = roll
+        updateRolls(activity, rolls)
+    }
+
+    private fun addRolls(activity: MainActivity, roll: List<Roll>) {
+        val rolls = getAllRolls(activity)
+        rolls.addAll(roll)
+        updateRolls(activity, rolls)
+    }
+
+    fun parseDataExportFormat(sharedText: String): DataExportFormat {
+        return gson.fromJson(sharedText, DataExportFormat::class.java)
+    }
+
+    fun storeDataExportFormat(mainActivity: MainActivity, data: DataExportFormat) {
+        // check if something to import here
+        if (data.rolls == null)
+            return
+        // store all new rolls
+        addRolls(mainActivity, data.rolls)
+        // and for each roll store the new frames also (skip non existing rolls for datacleaning purpose)
+        for (roll in data.rolls!!) {
+            val framesForRoll = data.frames!![roll.id]
+            if (framesForRoll != null) {
+                updateFrames(mainActivity, roll, framesForRoll)
+            }
+        }
+    }
+
+    fun getExportDataFormattedAsText(activity: MainActivity): String {
+        // prepare data object
+        val data = DataExportFormat()
+        // get all current rolls
+        data.rolls = getAllRolls(activity)
+        data.frames = HashMap<Long, List<Frame>>(36)
+        // and set frames for all rolls
+        if (data.rolls != null) {
+            for (roll in data.rolls!!) {
+                data.frames!!.put(roll.id, getFramesForFilm(activity, roll))
+            }
+        }
+        return gson.toJson(data)
+    }
+}
