@@ -169,7 +169,7 @@ public class EditRollFragment extends TemplateFragment {
         if (roll == null)
             activity.switchContent(FilmRollListFragment.Companion.newInstance());
         else {
-            activity.switchContent(FilmFrameListFragment.newInstance(roll));
+            activity.switchContent(FilmFrameListFragment.Companion.newInstance(roll));
         }
     }
 

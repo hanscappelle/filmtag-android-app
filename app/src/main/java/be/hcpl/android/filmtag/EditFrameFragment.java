@@ -503,7 +503,7 @@ public class EditFrameFragment extends TemplateFragment {
     }
 
     private void backToOverview() {
-        ((MainActivity) getActivity()).switchContent(FilmFrameListFragment.newInstance(roll));
+        ((MainActivity) getActivity()).switchContent(FilmFrameListFragment.Companion.newInstance(roll));
     }
 
     @Override
