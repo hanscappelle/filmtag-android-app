@@ -18,13 +18,12 @@ import be.hcpl.android.filmtag.model.Roll
 import be.hcpl.android.filmtag.template.TemplateFragment
 import be.hcpl.android.filmtag.util.StorageUtil
 import butterknife.Bind
+import kotlinx.android.synthetic.main.fragment_roll_detail.*
 
 class FilmFrameListFragment : TemplateFragment() {
 
     private var filmRoll: Roll? = null
 
-    @Bind(R.id.text_roll)
-    internal var filmTextView: TextView? = null
     @Bind(R.id.text_roll_details)
     internal var detailTextView: TextView? = null
     @Bind(R.id.list_frames)
@@ -96,7 +95,7 @@ class FilmFrameListFragment : TemplateFragment() {
 
         // show roll details on top
         if (filmRoll != null && detailTextView != null) {
-            filmTextView!!.text = filmRoll!!.toString()
+            text_roll.text = filmRoll!!.toString()
             if (TextUtils.isEmpty(filmRoll!!.notes)) {
                 detailTextView!!.visibility = View.GONE
             } else {
