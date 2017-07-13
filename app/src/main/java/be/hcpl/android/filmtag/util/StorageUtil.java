@@ -35,12 +35,7 @@ public class StorageUtil {
         return rolls;
     }
 
-    /**
-     * for internal use only
-     *
-     * @param activity
-     * @param rolls
-     */
+    // for internal use only
     private static void updateRolls(MainActivity activity, List<Roll> rolls) {
         activity.getPrefs().edit().putString(KEY_FILM_ROLLS, gson.toJson(rolls, listOfRollsType)).commit();
     }
