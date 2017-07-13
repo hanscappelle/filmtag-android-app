@@ -173,7 +173,7 @@ public class FilmRollListFragment extends TemplateFragment {
             importConfig();
             return true;
         } else if (id == R.id.action_about) {
-            ((MainActivity) getActivity()).switchContent(AboutFragment.newInstance());
+            ((MainActivity) getActivity()).switchContent(AboutFragment.Companion.newInstance());
             return true;
         } else if (id == R.id.action_search) {
             toggleSearchView();
