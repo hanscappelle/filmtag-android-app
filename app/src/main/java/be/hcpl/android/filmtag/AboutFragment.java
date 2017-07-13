@@ -65,7 +65,7 @@ public class AboutFragment extends TemplateFragment {
             }
 
             return buffer.toString();
-        } catch (IOException var8) {
+        } catch (IOException e) {
             ;
         } finally {
             closeStream(in);
@@ -78,7 +78,7 @@ public class AboutFragment extends TemplateFragment {
         if(stream != null) {
             try {
                 stream.close();
-            } catch (IOException var2) {
+            } catch (IOException e) {
                 ;
             }
         }
