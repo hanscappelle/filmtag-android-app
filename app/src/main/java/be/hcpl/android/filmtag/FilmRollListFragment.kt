@@ -1,7 +1,6 @@
 package be.hcpl.android.filmtag
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.preference.PreferenceFragmentCompat
@@ -11,13 +10,13 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
-import android.widget.ListView
 
 import be.hcpl.android.filmtag.adapter.FilmRollAdapter
 import be.hcpl.android.filmtag.model.Roll
 import be.hcpl.android.filmtag.template.TemplateFragment
 import be.hcpl.android.filmtag.util.StorageUtil
-import butterknife.Bind
+import kotlinx.android.synthetic.main.fragment_roll_overview.*
+
 
 /**
  * an overview of rolls created earlier + option to add new roll of film
@@ -28,9 +27,6 @@ import butterknife.Bind
 class FilmRollListFragment : TemplateFragment() {
 
     // TODO delete film from overview directly (swipe? long press, ...)
-
-    @Bind(R.id.list_rolls)
-    internal var mListView: ListView? = null
 
     private var mAdapter: FilmRollAdapter? = null
 
@@ -49,9 +45,9 @@ class FilmRollListFragment : TemplateFragment() {
 
         // prepare the adapter for that list
         mAdapter = FilmRollAdapter(activity)
-        mListView!!.adapter = mAdapter
+        list_rolls.adapter = mAdapter
 
-        mListView!!.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, i, l -> showRollDetails(mAdapter!!.getItem(i)) }
+        list_rolls.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, i, l -> showRollDetails(mAdapter!!.getItem(i)) }
 
         // parent activity
         val mainActivity = activity as MainActivity
