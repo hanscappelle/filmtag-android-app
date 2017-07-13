@@ -101,17 +101,18 @@ object StorageUtil {
     }
 
     fun getExportDataFormattedAsText(activity: MainActivity): String {
+        // get all current rolls
+        val rolls = getAllRolls(activity)
+        val frames = HashMap<Long, List<Frame>>(36)
+        // and set frames for all rolls
+        for (roll in rolls) {
+            frames.put(roll.id, getFramesForFilm(activity, roll))
+        }
+
         // prepare data object
         val data = DataExportFormat()
-        // get all current rolls
-        data.rolls = getAllRolls(activity)
-        data.frames = HashMap<Long, List<Frame>>(36)
-        // and set frames for all rolls
-        if (data.rolls != null) {
-            for (roll in data.rolls!!) {
-                data.frames!!.put(roll.id, getFramesForFilm(activity, roll))
-            }
-        }
+        data.rolls = rolls
+        data.frames = frames
         return gson.toJson(data)
     }
 }
