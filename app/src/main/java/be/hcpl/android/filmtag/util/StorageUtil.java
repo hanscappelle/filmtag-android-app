@@ -31,8 +31,7 @@ public class StorageUtil {
         // get the items
         String rollsData = activity.getPrefs().getString(KEY_FILM_ROLLS, "[]");
         // convert using gson
-        List<Roll> rolls = gson.fromJson(rollsData, listOfRollsType);
-        return rolls;
+        return gson.fromJson(rollsData, listOfRollsType);
     }
 
     // for internal use only
