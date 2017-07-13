@@ -9,10 +9,9 @@ import android.view.inputmethod.InputMethodManager
 object CommonUtil {
 
     fun hideSoftKeyboard(activity: Activity?) {
-        // avoid nullpointers here
-        if (activity == null || activity.currentFocus == null || activity.currentFocus!!.windowToken == null)
-            return
+        val currentWindow = activity?.currentFocus?.windowToken ?: return
+
         val inputMethodManager = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(activity.currentFocus!!.windowToken, 0)
+        inputMethodManager.hideSoftInputFromWindow(currentWindow, 0)
     }
 }
