@@ -46,9 +46,10 @@ class AboutFragment : TemplateFragment() {
             `in` = BufferedReader(InputStreamReader(stream))
             val buffer = StringBuilder()
 
-            var e: String
-            while ((e = `in`.readLine()) != null) {
+            var e: String? = `in`.readLine()
+            while (e != null) {
                 buffer.append(e).append(SYSTEM_LINE_SEPARATOR)
+                e = `in`.readLine()
             }
 
             return buffer.toString()
