@@ -117,7 +117,7 @@ public class FilmFrameListFragment extends TemplateFragment {
         super.onViewCreated(view, savedInstanceState);
 
         // show roll details on top
-        if (filmRoll != null && detailTextView != null && detailTextView != null) {
+        if (filmRoll != null && detailTextView != null) {
             filmTextView.setText(filmRoll.toString());
             if(TextUtils.isEmpty(filmRoll.getNotes())){
                 detailTextView.setVisibility(View.GONE);
@@ -126,7 +126,7 @@ public class FilmFrameListFragment extends TemplateFragment {
                 detailTextView.setVisibility(View.VISIBLE);
             }
             // also load tags here
-            if (filmRoll.getTags() != null && !filmRoll.getTags().isEmpty()) {
+            if (!filmRoll.getTags().isEmpty()) {
                 wrapperTagsView.setVisibility(View.VISIBLE);
                 for (String tag : filmRoll.getTags()) {
                     TextView tv = new TextView(getContext());
