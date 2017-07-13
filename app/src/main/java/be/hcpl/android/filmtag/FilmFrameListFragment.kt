@@ -9,7 +9,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.LinearLayout
-import android.widget.ListView
 import android.widget.TextView
 
 import be.hcpl.android.filmtag.adapter.FrameAdapter
@@ -23,9 +22,6 @@ import kotlinx.android.synthetic.main.fragment_roll_detail.*
 class FilmFrameListFragment : TemplateFragment() {
 
     private var filmRoll: Roll? = null
-
-    @Bind(R.id.list_frames)
-    internal var framesListView: ListView? = null
 
     @Bind(R.id.wrapper_tags)
     internal var wrapperTagsView: LinearLayout? = null
@@ -118,9 +114,9 @@ class FilmFrameListFragment : TemplateFragment() {
 
         // and populate list with frame data
         mAdapter = FrameAdapter(activity)
-        framesListView!!.adapter = mAdapter
+        list_frames.adapter = mAdapter
 
-        framesListView!!.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, i, l -> updateFrame(i) }
+        list_frames.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, i, l -> updateFrame(i) }
     }
 
     private fun updateFrame(index: Int) {
