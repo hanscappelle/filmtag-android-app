@@ -80,8 +80,6 @@ public class FilmRollListFragment extends TemplateFragment {
         activity.getSupportActionBar().setCustomView(searchView);
         // not enabled by default
         activity.getSupportActionBar().setDisplayShowCustomEnabled(searchViewEnabled);
-        // enable filter view on list
-//        mListView.setTextFilterEnabled(searchViewEnabled);
         // text listeners
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -105,8 +103,6 @@ public class FilmRollListFragment extends TemplateFragment {
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
-                // remove filter on data
-//                mListView.setTextFilterEnabled(false);
                 mAdapter.getFilter().filter(null);
                 return true;
             }
@@ -184,13 +180,6 @@ public class FilmRollListFragment extends TemplateFragment {
     }
 
     public static class PrefsFragment extends PreferenceFragmentCompat {
-
-//        @Override
-//        public void onCreate(Bundle savedInstanceState) {
-//            super.onCreate(savedInstanceState);
-//
-//        }
-
         @Override
         public void onCreatePreferences(Bundle bundle, String s) {
             // Load the preferences from an XML resource
@@ -211,8 +200,6 @@ public class FilmRollListFragment extends TemplateFragment {
         // and apply
         activity.getSupportActionBar().setDisplayShowCustomEnabled(searchViewEnabled);
         activity.getSupportActionBar().setDisplayShowTitleEnabled(!searchViewEnabled);
-        // enable filter view on list
-//        mListView.setTextFilterEnabled(searchViewEnabled);
         // when showing hide the other menu options + override back handling
         getActivity().invalidateOptionsMenu();
     }
