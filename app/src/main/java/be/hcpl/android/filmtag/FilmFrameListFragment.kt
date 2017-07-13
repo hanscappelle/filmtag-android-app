@@ -8,7 +8,6 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
-import android.widget.LinearLayout
 import android.widget.TextView
 
 import be.hcpl.android.filmtag.adapter.FrameAdapter
@@ -16,15 +15,11 @@ import be.hcpl.android.filmtag.model.Frame
 import be.hcpl.android.filmtag.model.Roll
 import be.hcpl.android.filmtag.template.TemplateFragment
 import be.hcpl.android.filmtag.util.StorageUtil
-import butterknife.Bind
 import kotlinx.android.synthetic.main.fragment_roll_detail.*
 
 class FilmFrameListFragment : TemplateFragment() {
 
     private var filmRoll: Roll? = null
-
-    @Bind(R.id.wrapper_tags)
-    internal var wrapperTagsView: LinearLayout? = null
 
     private var mAdapter: FrameAdapter? = null
 
@@ -98,17 +93,17 @@ class FilmFrameListFragment : TemplateFragment() {
             }
             // also load tags here
             if (!filmRoll!!.tags.isEmpty()) {
-                wrapperTagsView!!.visibility = View.VISIBLE
+                wrapper_tags.visibility = View.VISIBLE
                 for (tag in filmRoll!!.tags) {
                     val tv = TextView(context)
                     tv.text = tag
                     tv.setAllCaps(true)
                     tv.setPadding(10, 0, 10, 0) // TODO proper units needed here?
                     tv.textSize = 14f // TODO proper units needed here?
-                    wrapperTagsView!!.addView(tv)
+                    wrapper_tags.addView(tv)
                 }
             } else {
-                wrapperTagsView!!.visibility = View.GONE
+                wrapper_tags.visibility = View.GONE
             }
         }
 
