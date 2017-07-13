@@ -54,14 +54,14 @@ class FilmRollListFragment : TemplateFragment() {
         mListView!!.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, i, l -> showRollDetails(mAdapter!!.getItem(i)) }
 
         // parent activity
-        val activity = activity as MainActivity
+        val mainActivity = activity as MainActivity
 
         // enable the view manually
-        searchView = SearchView(activity.supportActionBar!!.themedContext)
+        searchView = SearchView(mainActivity.supportActionBar!!.themedContext)
         searchView!!.setIconifiedByDefault(false)
-        activity.supportActionBar!!.customView = searchView
+        mainActivity.supportActionBar!!.customView = searchView
         // not enabled by default
-        activity.supportActionBar!!.setDisplayShowCustomEnabled(searchViewEnabled)
+        mainActivity.supportActionBar!!.setDisplayShowCustomEnabled(searchViewEnabled)
         // text listeners
         searchView!!.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
