@@ -17,9 +17,6 @@ import be.hcpl.android.filmtag.model.Roll;
  */
 public class StorageUtil {
 
-    //    Type listOfTestObject = new TypeToken<List<TestObject>>(){}.getType();
-//    String s = gson.toJson(list, listOfTestObject);
-//    List<TestObject> list2 = gson.fromJson(s, listOfTestObject);
     public static final Type listOfRollsType = new TypeToken<List<Roll>>() {
     }.getType();
 
