@@ -32,7 +32,7 @@ object StorageUtil {
         // get the items
         val rollsData = activity.prefs!!.getString(KEY_FILM_ROLLS, "[]")
         // convert using gson
-        return gson.fromJson<List<Roll>>(rollsData, listOfRollsType)
+        return gson.fromJson<MutableList<Roll>>(rollsData, listOfRollsType)
     }
 
     // for internal use only
