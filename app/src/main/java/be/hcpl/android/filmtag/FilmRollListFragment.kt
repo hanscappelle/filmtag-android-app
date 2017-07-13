@@ -47,7 +47,9 @@ class FilmRollListFragment : TemplateFragment() {
         mAdapter = FilmRollAdapter(activity)
         list_rolls.adapter = mAdapter
 
-        list_rolls.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, i, l -> showRollDetails(mAdapter!!.getItem(i)) }
+        list_rolls.onItemClickListener = AdapterView.OnItemClickListener { _, _, i, _ ->
+            showRollDetails(mAdapter!!.getItem(i))
+        }
 
         // parent activity
         val mainActivity = activity as MainActivity
@@ -81,7 +83,7 @@ class FilmRollListFragment : TemplateFragment() {
             true
         }
         // when editing and back used fiest focus goes away
-        searchView!!.setOnQueryTextFocusChangeListener { view, b ->
+        searchView!!.setOnQueryTextFocusChangeListener { _, b ->
             if (!b) {
                 val query = searchView!!.query
                 if (query != null && query.length > 0) {
