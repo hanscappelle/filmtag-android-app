@@ -190,7 +190,7 @@ public class FilmFrameListFragment extends TemplateFragment {
     }
 
     private void backToOverview() {
-        ((MainActivity) getActivity()).switchContent(FilmRollListFragment.newInstance());
+        ((MainActivity) getActivity()).switchContent(FilmRollListFragment.Companion.newInstance());
     }
 
     private void deleteCurrentFilmRoll() {

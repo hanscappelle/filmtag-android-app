@@ -167,7 +167,7 @@ public class EditRollFragment extends TemplateFragment {
         activity.getSupportFragmentManager().popBackStackImmediate();
         activity.getSupportFragmentManager().popBackStackImmediate();
         if (roll == null)
-            activity.switchContent(FilmRollListFragment.newInstance());
+            activity.switchContent(FilmRollListFragment.Companion.newInstance());
         else {
             activity.switchContent(FilmFrameListFragment.newInstance(roll));
         }
