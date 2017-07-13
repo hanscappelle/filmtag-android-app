@@ -111,7 +111,7 @@ class FilmFrameListFragment : TemplateFragment() {
         mAdapter = FrameAdapter(activity)
         list_frames.adapter = mAdapter
 
-        list_frames.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, i, l -> updateFrame(i) }
+        list_frames.onItemClickListener = AdapterView.OnItemClickListener { _, _, i, _ -> updateFrame(i) }
     }
 
     private fun updateFrame(index: Int) {
@@ -156,12 +156,12 @@ class FilmFrameListFragment : TemplateFragment() {
         AlertDialog.Builder(activity)
                 //.setTitle(R.string.label_confirm)
                 .setMessage(R.string.msg_delete_complete_film_roll)
-                .setPositiveButton(R.string.label_yes) { dialogInterface, i ->
+                .setPositiveButton(R.string.label_yes) { dialogInterface, _ ->
                     StorageUtil.deleteRoll(activity as MainActivity, filmRoll!!)
                     // navigate back
                     dialogInterface.dismiss()
                     backToOverview()
-                }.setNegativeButton(R.string.label_no) { dialogInterface, i -> dialogInterface.dismiss() }.show()
+                }.setNegativeButton(R.string.label_no) { dialogInterface, _ -> dialogInterface.dismiss() }.show()
 
     }
 
