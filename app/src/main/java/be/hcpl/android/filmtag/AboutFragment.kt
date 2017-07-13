@@ -40,22 +40,22 @@ class AboutFragment : TemplateFragment() {
 
     // TODO move to utils instead
     private fun readFile(stream: InputStream): String {
-        var `in`: BufferedReader? = null
+        var input: BufferedReader? = null
 
         try {
-            `in` = BufferedReader(InputStreamReader(stream))
+            input = BufferedReader(InputStreamReader(stream))
             val buffer = StringBuilder()
 
-            var e: String? = `in`.readLine()
+            var e: String? = input.readLine()
             while (e != null) {
                 buffer.append(e).append(SYSTEM_LINE_SEPARATOR)
-                e = `in`.readLine()
+                e = input.readLine()
             }
 
             return buffer.toString()
         } catch (e: IOException) {
         } finally {
-            closeStream(`in`)
+            closeStream(input)
         }
 
         return ""
