@@ -24,8 +24,6 @@ class FilmFrameListFragment : TemplateFragment() {
 
     private var filmRoll: Roll? = null
 
-    @Bind(R.id.text_roll_details)
-    internal var detailTextView: TextView? = null
     @Bind(R.id.list_frames)
     internal var framesListView: ListView? = null
 
@@ -94,13 +92,13 @@ class FilmFrameListFragment : TemplateFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // show roll details on top
-        if (filmRoll != null && detailTextView != null) {
+        if (filmRoll != null) {
             text_roll.text = filmRoll!!.toString()
             if (TextUtils.isEmpty(filmRoll!!.notes)) {
-                detailTextView!!.visibility = View.GONE
+                text_roll_details.visibility = View.GONE
             } else {
-                detailTextView!!.text = filmRoll!!.notes
-                detailTextView!!.visibility = View.VISIBLE
+                text_roll_details.text = filmRoll!!.notes
+                text_roll_details.visibility = View.VISIBLE
             }
             // also load tags here
             if (!filmRoll!!.tags.isEmpty()) {
