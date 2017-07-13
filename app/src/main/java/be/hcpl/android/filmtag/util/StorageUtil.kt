@@ -88,10 +88,9 @@ object StorageUtil {
 
     fun storeDataExportFormat(mainActivity: MainActivity, data: DataExportFormat) {
         // check if something to import here
-        if (data.rolls == null)
-            return
+        val rolls = data.rolls ?: return
         // store all new rolls
-        addRolls(mainActivity, data.rolls)
+        addRolls(mainActivity, rolls)
         // and for each roll store the new frames also (skip non existing rolls for datacleaning purpose)
         for (roll in data.rolls!!) {
             val framesForRoll = data.frames!![roll.id]
