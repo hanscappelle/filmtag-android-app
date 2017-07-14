@@ -4,9 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.location.Location
 import android.location.LocationListener
@@ -41,14 +39,13 @@ import be.hcpl.android.filmtag.model.Roll
 import be.hcpl.android.filmtag.template.TemplateFragment
 import be.hcpl.android.filmtag.util.StorageUtil
 import butterknife.Bind
+import kotlinx.android.synthetic.main.fragment_form_frame.*
 
 /**
  * Created by hcpl on 1/08/15.
  */
 class EditFrameFragment : TemplateFragment() {
 
-    @Bind(R.id.edit_shutter)
-    internal var editShutter: EditText? = null
     @Bind(R.id.edit_aperture)
     internal var editAperture: EditText? = null
     @Bind(R.id.edit_notes)
@@ -120,7 +117,7 @@ class EditFrameFragment : TemplateFragment() {
             if (selectedFrame!!.aperture != 0.0)
                 editAperture!!.setText(selectedFrame!!.aperture.toString())
             if (selectedFrame!!.shutter != 0)
-                editShutter!!.setText(selectedFrame!!.shutter.toString())
+                edit_shutter.setText(selectedFrame!!.shutter.toString())
             checkLongExposure!!.isChecked = selectedFrame!!.isLongExposure
             editNotes!!.setText(selectedFrame!!.notes)
             // populate the tags here
@@ -148,9 +145,9 @@ class EditFrameFragment : TemplateFragment() {
         }
 
         if (previousFrame != null && previousFrame!!.shutter != Frame.EMPTY_VALUE) {
-            editShutter!!.hint = previousFrame!!.shutter.toString()
+            edit_shutter.hint = previousFrame!!.shutter.toString()
         } else {
-            editShutter!!.hint = prefs.getString("key_default_shutter", 60.toString())
+            edit_shutter.hint = prefs.getString("key_default_shutter", 60.toString())
         }
 
         if (previousFrame != null && previousFrame!!.isLongExposure) {
@@ -411,7 +408,7 @@ class EditFrameFragment : TemplateFragment() {
         }
 
         try {
-            selectedFrame!!.shutter = Integer.parseInt(getFieldTextOrHint(editShutter))
+            selectedFrame!!.shutter = Integer.parseInt(getFieldTextOrHint(edit_shutter))
         } catch (nfe: NumberFormatException) {
             Toast.makeText(activity, R.string.err_parsing_failed, Toast.LENGTH_SHORT).show()
         }
