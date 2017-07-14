@@ -36,16 +36,12 @@ import be.hcpl.android.filmtag.model.Frame
 import be.hcpl.android.filmtag.model.Roll
 import be.hcpl.android.filmtag.template.TemplateFragment
 import be.hcpl.android.filmtag.util.StorageUtil
-import butterknife.Bind
 import kotlinx.android.synthetic.main.fragment_form_frame.*
 
 /**
  * Created by hcpl on 1/08/15.
  */
 class EditFrameFragment : TemplateFragment() {
-
-    @Bind(R.id.text_location)
-    internal var locationView: TextView? = null
 
     // model object of a film or roll with a number of frames exposed at a given value
     private var roll: Roll? = null
@@ -151,7 +147,7 @@ class EditFrameFragment : TemplateFragment() {
         if (selectedFrame!!.location != null) {
             val onClickListener = View.OnClickListener { showMap(Uri.parse("geo:" + selectedFrame!!.location!!.latitude + "," + selectedFrame!!.location!!.longitude)) }
             image_location_indicator.setOnClickListener(onClickListener)
-            locationView!!.setOnClickListener(onClickListener)
+            text_location.setOnClickListener(onClickListener)
         }
     }
 
@@ -373,7 +369,7 @@ class EditFrameFragment : TemplateFragment() {
     private fun showLocation() {
         if (selectedFrame != null && selectedFrame!!.location != null) {
             val location = selectedFrame!!.location
-            locationView!!.text = getString(R.string.label_location) + " " + location!!.latitude + " " + location.longitude
+            text_location.text = getString(R.string.label_location) + " " + location!!.latitude + " " + location.longitude
         }
         markLocationAvailable()
     }
