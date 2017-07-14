@@ -45,9 +45,6 @@ import kotlinx.android.synthetic.main.fragment_form_frame.*
  */
 class EditFrameFragment : TemplateFragment() {
 
-    @Bind(R.id.image_location_indicator)
-    internal var imageLocationIndicator: ImageView? = null
-
     @Bind(R.id.edit_tags)
     internal var editTags: EditText? = null
 
@@ -151,13 +148,13 @@ class EditFrameFragment : TemplateFragment() {
     }
 
     private fun markLocationAvailable() {
-        imageLocationIndicator!!.setImageDrawable(if (selectedFrame!!.location != null)
+        image_location_indicator.setImageDrawable(if (selectedFrame!!.location != null)
             ContextCompat.getDrawable(activity, R.drawable.ic_action_device_gps_primary)
         else
             ContextCompat.getDrawable(activity, R.drawable.ic_action_device_gps_silver))
         if (selectedFrame!!.location != null) {
             val onClickListener = View.OnClickListener { showMap(Uri.parse("geo:" + selectedFrame!!.location!!.latitude + "," + selectedFrame!!.location!!.longitude)) }
-            imageLocationIndicator!!.setOnClickListener(onClickListener)
+            image_location_indicator.setOnClickListener(onClickListener)
             locationView!!.setOnClickListener(onClickListener)
         }
     }
