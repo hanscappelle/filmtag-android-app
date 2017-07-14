@@ -156,7 +156,7 @@ public class EditFrameFragment extends TemplateFragment {
             checkLongExposure.setChecked(selectedFrame.isLongExposure());
             editNotes.setText(selectedFrame.getNotes());
             // populate the tags here
-            if (selectedFrame.getTags() != null && !selectedFrame.getTags().isEmpty())
+            if (!selectedFrame.getTags().isEmpty())
                 editTags.setText(TextUtils.join(" ", selectedFrame.getTags()));
             loadImagePreview();
             showLocation();
