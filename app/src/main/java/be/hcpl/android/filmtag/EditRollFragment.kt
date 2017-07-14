@@ -1,6 +1,5 @@
 package be.hcpl.android.filmtag
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.text.TextUtils
@@ -20,14 +19,12 @@ import be.hcpl.android.filmtag.model.Roll
 import be.hcpl.android.filmtag.template.TemplateFragment
 import be.hcpl.android.filmtag.util.StorageUtil
 import butterknife.Bind
+import kotlinx.android.synthetic.main.fragment_form_roll.*
 
 /**
  * Created by hcpl on 1/08/15.
  */
 class EditRollFragment : TemplateFragment() {
-
-    @Bind(R.id.edit_type)
-    internal var editType: AutoCompleteTextView? = null
 
     @Bind(R.id.edit_exposed)
     internal var editSpeed: EditText? = null
@@ -75,7 +72,7 @@ class EditRollFragment : TemplateFragment() {
 
         // prefill data if possible
         if (roll != null) {
-            editType!!.setText(roll!!.type)
+            edit_type.setText(roll!!.type)
             editNotes!!.setText(roll!!.notes)
             if (roll!!.speed != 0)
                 editSpeed!!.setText(roll!!.speed.toString())
@@ -95,7 +92,7 @@ class EditRollFragment : TemplateFragment() {
         // autocomplete
         val adapter = ArrayAdapter(activity,
                 android.R.layout.simple_dropdown_item_1line, typeSuggestions)
-        editType!!.setAdapter(adapter)
+        edit_type.setAdapter(adapter)
     }
 
     private val typeSuggestions: Array<String>
@@ -141,7 +138,7 @@ class EditRollFragment : TemplateFragment() {
             roll = Roll()
             newRoll = true
         }
-        roll!!.type = editType!!.text.toString()
+        roll!!.type = edit_type.text.toString()
         roll!!.notes = editNotes!!.text.toString()
         roll!!.isDeveloped = developed!!.isChecked
         roll!!.tags = Arrays.asList(*TextUtils.split(editTags!!.text.toString(), " "))
