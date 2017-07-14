@@ -45,8 +45,6 @@ import kotlinx.android.synthetic.main.fragment_form_frame.*
  */
 class EditFrameFragment : TemplateFragment() {
 
-    @Bind(R.id.image_preview_indicator)
-    internal var imagePreviewIndicator: ImageView? = null
     @Bind(R.id.image_location_indicator)
     internal var imageLocationIndicator: ImageView? = null
 
@@ -146,7 +144,7 @@ class EditFrameFragment : TemplateFragment() {
     }
 
     private fun markImageAvailable() {
-        imagePreviewIndicator!!.setImageDrawable(if (selectedFrame!!.pathToImage != null)
+        image_preview_indicator.setImageDrawable(if (selectedFrame!!.pathToImage != null)
             ContextCompat.getDrawable(activity, R.drawable.ic_action_image_photo_camera_primary)
         else
             ContextCompat.getDrawable(activity, R.drawable.ic_action_image_photo_camera_silver))
