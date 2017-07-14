@@ -11,7 +11,6 @@ import android.widget.Toast
 import be.hcpl.android.filmtag.template.TemplateFragment
 import be.hcpl.android.filmtag.util.CommonUtil
 import be.hcpl.android.filmtag.util.StorageUtil
-import butterknife.ButterKnife
 
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -35,8 +34,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        ButterKnife.bind(this)
 
         // As we're using a Toolbar, we should retrieve it and set it
         // to be our ActionBar
