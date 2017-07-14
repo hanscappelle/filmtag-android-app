@@ -46,8 +46,6 @@ import kotlinx.android.synthetic.main.fragment_form_frame.*
  */
 class EditFrameFragment : TemplateFragment() {
 
-    @Bind(R.id.edit_aperture)
-    internal var editAperture: EditText? = null
     @Bind(R.id.edit_notes)
     internal var editNotes: EditText? = null
     @Bind(R.id.long_exposure)
@@ -115,7 +113,7 @@ class EditFrameFragment : TemplateFragment() {
         if (selectedFrame != null) {
             (view!!.findViewById(R.id.edit_number) as TextView).text = selectedFrame!!.number.toString()
             if (selectedFrame!!.aperture != 0.0)
-                editAperture!!.setText(selectedFrame!!.aperture.toString())
+                edit_aperture.setText(selectedFrame!!.aperture.toString())
             if (selectedFrame!!.shutter != 0)
                 edit_shutter.setText(selectedFrame!!.shutter.toString())
             checkLongExposure!!.isChecked = selectedFrame!!.isLongExposure
@@ -139,9 +137,9 @@ class EditFrameFragment : TemplateFragment() {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
 
         if (previousFrame != null && previousFrame!!.aperture != Frame.EMPTY_VALUE.toDouble()) {
-            editAperture!!.hint = previousFrame!!.aperture.toString()
+            edit_aperture.hint = previousFrame!!.aperture.toString()
         } else {
-            editAperture!!.hint = prefs.getString("key_default_apertures", 4.toString())
+            edit_aperture.hint = prefs.getString("key_default_apertures", 4.toString())
         }
 
         if (previousFrame != null && previousFrame!!.shutter != Frame.EMPTY_VALUE) {
@@ -402,7 +400,7 @@ class EditFrameFragment : TemplateFragment() {
         selectedFrame!!.notes = editNotes!!.text.toString()
 
         try {
-            selectedFrame!!.aperture = java.lang.Double.parseDouble(getFieldTextOrHint(editAperture))
+            selectedFrame!!.aperture = java.lang.Double.parseDouble(getFieldTextOrHint(edit_aperture))
         } catch (nfe: NumberFormatException) {
             Toast.makeText(activity, R.string.err_parsing_failed, Toast.LENGTH_SHORT).show()
         }
