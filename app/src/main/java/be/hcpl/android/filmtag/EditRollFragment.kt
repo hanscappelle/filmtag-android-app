@@ -1,0 +1,207 @@
+package be.hcpl.android.filmtag
+
+import android.content.SharedPreferences
+import android.os.Bundle
+import android.preference.PreferenceManager
+import android.text.TextUtils
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.CheckBox
+import android.widget.EditText
+import android.widget.Toast
+
+import java.util.Arrays
+
+import be.hcpl.android.filmtag.model.Roll
+import be.hcpl.android.filmtag.template.TemplateFragment
+import be.hcpl.android.filmtag.util.StorageUtil
+import butterknife.Bind
+
+/**
+ * Created by hcpl on 1/08/15.
+ */
+class EditRollFragment : TemplateFragment() {
+
+    @Bind(R.id.edit_type)
+    internal var editType: AutoCompleteTextView? = null
+
+    @Bind(R.id.edit_exposed)
+    internal var editSpeed: EditText? = null
+    @Bind(R.id.edit_frames)
+    internal var editFrames: EditText? = null
+    @Bind(R.id.edit_notes)
+    internal var editNotes: EditText? = null
+    @Bind(R.id.edit_tags)
+    internal var editTags: EditText? = null
+
+    @Bind(R.id.check_developed)
+    internal var developed: CheckBox? = null
+
+    private var roll: Roll? = null
+
+    override val layoutResourceId: Int
+        get() = R.layout.fragment_form_roll
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        outState!!.putSerializable(KEY_EDIT_ROLL, roll)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        if (savedInstanceState != null)
+            roll = savedInstanceState.getSerializable(KEY_EDIT_ROLL) as Roll
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+        val args = arguments
+        if (args != null) {
+            roll = args.getSerializable(KEY_EDIT_ROLL) as Roll
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        inflater!!.inflate(R.menu.new_film, menu)
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // prefill data if possible
+        if (roll != null) {
+            editType!!.setText(roll!!.type)
+            editNotes!!.setText(roll!!.notes)
+            if (roll!!.speed != 0)
+                editSpeed!!.setText(roll!!.speed.toString())
+            if (roll!!.frames != 0)
+                editFrames!!.setText(roll!!.frames.toString())
+            developed!!.isChecked = roll!!.isDeveloped
+            // populate the tags here
+            if (roll!!.tags != null && !roll!!.tags.isEmpty())
+                editTags!!.setText(TextUtils.join(" ", roll!!.tags))
+        } else {
+            // have preferences for this
+            val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+            editSpeed!!.setText(prefs.getString("key_default_iso", 200.toString()))
+            editFrames!!.setText(prefs.getString("key_default_frames", 36.toString()))
+        }// populate with defaults here
+
+        // autocomplete
+        val adapter = ArrayAdapter(activity,
+                android.R.layout.simple_dropdown_item_1line, typeSuggestions)
+        editType!!.setAdapter(adapter)
+    }
+
+    private val typeSuggestions: Array<String>
+        get() {
+            val rolls = StorageUtil.getAllRolls(activity as MainActivity) ?: return arrayOf()
+            val existingTypes = arrayOfNulls<String>(rolls.size)
+            for (i in rolls.indices) {
+                existingTypes[i] = rolls[i].type
+            }
+            return existingTypes
+
+        }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item!!.itemId) {
+            R.id.action_create -> {
+                createNewItem()
+                return true
+            }
+            android.R.id.home -> {
+                backToOverview()
+                return true
+            }
+        }
+        return false
+    }
+
+    private fun backToOverview() {
+        // popping first is one option, going back in stack is better
+        val activity = activity as MainActivity
+        activity.supportFragmentManager.popBackStackImmediate()
+        activity.supportFragmentManager.popBackStackImmediate()
+        if (roll == null)
+            activity.switchContent(FilmRollListFragment.newInstance())
+        else {
+            activity.switchContent(FilmFrameListFragment.newInstance(roll!!))
+        }
+    }
+
+    private fun createNewItem() {
+        var newRoll = false
+        // insert the new item
+        if (roll == null) {
+            roll = Roll()
+            newRoll = true
+        }
+        roll!!.type = editType!!.text.toString()
+        roll!!.notes = editNotes!!.text.toString()
+        roll!!.isDeveloped = developed!!.isChecked
+        roll!!.tags = Arrays.asList(*TextUtils.split(editTags!!.text.toString(), " "))
+        try {
+            roll!!.speed = Integer.parseInt(editSpeed!!.text.toString())
+        } catch (nfe: NumberFormatException) {
+            Toast.makeText(activity, R.string.err_parsing_failed, Toast.LENGTH_SHORT).show()
+        }
+
+        try {
+            roll!!.frames = Integer.parseInt(editFrames!!.text.toString())
+        } catch (nfe: NumberFormatException) {
+            Toast.makeText(activity, R.string.err_parsing_failed, Toast.LENGTH_SHORT).show()
+        }
+
+        // store new roll
+        if (newRoll)
+            StorageUtil.addNewRoll(activity as MainActivity, roll!!)
+        else
+            StorageUtil.updateRoll(activity as MainActivity, roll!!)
+
+
+        // navigate to overview
+        backToOverview()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).setHomeAsUp(true)
+    }
+
+    companion object {
+
+        private val KEY_EDIT_ROLL = "edit_roll"
+
+        /**
+         * use for creating new rolls
+
+         * @return
+         */
+        fun newInstance(): EditRollFragment {
+            val args = Bundle()
+            val fragment = EditRollFragment()
+            fragment.arguments = args
+            return fragment
+        }
+
+        /**
+         * use for editing existing rolls
+
+         * @return
+         */
+        fun newInstance(roll: Roll): EditRollFragment {
+            val args = Bundle()
+            args.putSerializable(KEY_EDIT_ROLL, roll)
+            val fragment = EditRollFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
+}
