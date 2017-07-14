@@ -471,7 +471,7 @@ class EditFrameFragment : TemplateFragment() {
         private var storagePermissionRequested = false
         private var storagePermissionRequestedForPreview = false
 
-        fun newInstance(roll: Roll, frames: List<Frame>, frame: Int): EditFrameFragment {
+        fun newInstance(roll: Roll?, frames: List<Frame>?, frame: Int): EditFrameFragment {
             val args = Bundle()
             args.putSerializable(KEY_FRAMES, frames as ArrayList<*>)
             args.putInt(KEY_FRAME_IDX, frame)
