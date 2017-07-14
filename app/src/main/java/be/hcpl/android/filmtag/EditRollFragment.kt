@@ -8,7 +8,6 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
@@ -26,8 +25,6 @@ import kotlinx.android.synthetic.main.fragment_form_roll.*
  */
 class EditRollFragment : TemplateFragment() {
 
-    @Bind(R.id.edit_exposed)
-    internal var editSpeed: EditText? = null
     @Bind(R.id.edit_frames)
     internal var editFrames: EditText? = null
     @Bind(R.id.edit_notes)
@@ -75,7 +72,7 @@ class EditRollFragment : TemplateFragment() {
             edit_type.setText(roll!!.type)
             editNotes!!.setText(roll!!.notes)
             if (roll!!.speed != 0)
-                editSpeed!!.setText(roll!!.speed.toString())
+                edit_exposed.setText(roll!!.speed.toString())
             if (roll!!.frames != 0)
                 editFrames!!.setText(roll!!.frames.toString())
             developed!!.isChecked = roll!!.isDeveloped
@@ -85,7 +82,7 @@ class EditRollFragment : TemplateFragment() {
         } else {
             // have preferences for this
             val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-            editSpeed!!.setText(prefs.getString("key_default_iso", 200.toString()))
+            edit_exposed.setText(prefs.getString("key_default_iso", 200.toString()))
             editFrames!!.setText(prefs.getString("key_default_frames", 36.toString()))
         }// populate with defaults here
 
@@ -143,7 +140,7 @@ class EditRollFragment : TemplateFragment() {
         roll!!.isDeveloped = developed!!.isChecked
         roll!!.tags = Arrays.asList(*TextUtils.split(editTags!!.text.toString(), " "))
         try {
-            roll!!.speed = Integer.parseInt(editSpeed!!.text.toString())
+            roll!!.speed = Integer.parseInt(edit_exposed.text.toString())
         } catch (nfe: NumberFormatException) {
             Toast.makeText(activity, R.string.err_parsing_failed, Toast.LENGTH_SHORT).show()
         }
