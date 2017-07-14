@@ -22,7 +22,6 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 
@@ -44,9 +43,6 @@ import kotlinx.android.synthetic.main.fragment_form_frame.*
  * Created by hcpl on 1/08/15.
  */
 class EditFrameFragment : TemplateFragment() {
-
-    @Bind(R.id.edit_tags)
-    internal var editTags: EditText? = null
 
     @Bind(R.id.text_location)
     internal var locationView: TextView? = null
@@ -107,7 +103,7 @@ class EditFrameFragment : TemplateFragment() {
             edit_notes.setText(selectedFrame!!.notes)
             // populate the tags here
             if (!selectedFrame!!.tags.isEmpty())
-                editTags!!.setText(TextUtils.join(" ", selectedFrame!!.tags))
+                edit_tags.setText(TextUtils.join(" ", selectedFrame!!.tags))
             loadImagePreview()
             showLocation()
         }
@@ -399,7 +395,7 @@ class EditFrameFragment : TemplateFragment() {
         }
 
         selectedFrame!!.isLongExposure = long_exposure.isChecked
-        selectedFrame!!.tags = Arrays.asList(*TextUtils.split(editTags!!.text.toString(), " "))
+        selectedFrame!!.tags = Arrays.asList(*TextUtils.split(edit_tags.text.toString(), " "))
 
         // store
         StorageUtil.updateFrames(activity as MainActivity, roll!!, frames!!)
