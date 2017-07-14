@@ -64,7 +64,7 @@ class EditRollFragment : TemplateFragment() {
                 edit_frames.setText(roll!!.frames.toString())
             check_developed.isChecked = roll!!.isDeveloped
             // populate the tags here
-            if (roll!!.tags != null && !roll!!.tags.isEmpty())
+            if (!roll!!.tags.isEmpty())
                 edit_tags.setText(TextUtils.join(" ", roll!!.tags))
         } else {
             // have preferences for this
