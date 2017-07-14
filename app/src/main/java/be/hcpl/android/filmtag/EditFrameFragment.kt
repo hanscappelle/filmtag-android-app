@@ -21,7 +21,6 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -46,8 +45,6 @@ import kotlinx.android.synthetic.main.fragment_form_frame.*
  */
 class EditFrameFragment : TemplateFragment() {
 
-    @Bind(R.id.image_preview)
-    internal var imagePreview: ImageView? = null
     @Bind(R.id.image_preview_indicator)
     internal var imagePreviewIndicator: ImageView? = null
     @Bind(R.id.image_location_indicator)
@@ -197,7 +194,7 @@ class EditFrameFragment : TemplateFragment() {
                 options.inSampleSize = 4
                 options.inJustDecodeBounds = false
                 val bm = BitmapFactory.decodeFile(selectedFrame!!.pathToImage, options)
-                imagePreview!!.setImageBitmap(bm)
+                image_preview.setImageBitmap(bm)
             } catch (e: Exception) {
                 // ignore any exceptions here
                 Log.e(tag, "failed to load image from configured path", e)
