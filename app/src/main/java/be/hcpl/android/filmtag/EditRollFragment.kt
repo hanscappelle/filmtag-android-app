@@ -81,7 +81,7 @@ class EditRollFragment : TemplateFragment() {
 
     private val typeSuggestions: Array<String>
         get() {
-            val rolls = StorageUtil.getAllRolls(activity as MainActivity) ?: return arrayOf()
+            val rolls = StorageUtil.getAllRolls(activity as MainActivity)
             val existingTypes = arrayOfNulls<String>(rolls.size)
             for (i in rolls.indices) {
                 existingTypes[i] = rolls[i].type
