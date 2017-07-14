@@ -245,8 +245,6 @@ public class EditFrameFragment extends TemplateFragment {
                 options.inJustDecodeBounds = false;
                 Bitmap bm = BitmapFactory.decodeFile(selectedFrame.getPathToImage(), options);
                 imagePreview.setImageBitmap(bm);
-                // and try updating location
-//                extractLocationFromFile();
             } catch (Exception e) {
                 // ignore any exceptions here
                 Log.e(getTag(), "failed to load image from configured path", e);
@@ -279,10 +277,6 @@ public class EditFrameFragment extends TemplateFragment {
         // check permissions first
         if (ContextCompat.checkSelfPermission(getActivity(),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-
-            // TODO ignore rationale for now
-//            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-//                    Manifest.permission.ACCESS_FINE_LOCATION)) { //... } else {
 
             // No explanation needed, we can request the permission.
             if( !storagePermissionRequested ) {
@@ -318,10 +312,6 @@ public class EditFrameFragment extends TemplateFragment {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
-//            Bundle extras = data.getExtras();
-//            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            // show the image
-//            imagePreview.setImageBitmap(imageBitmap);
             loadImagePreview();
         }
     }
@@ -343,22 +333,9 @@ public class EditFrameFragment extends TemplateFragment {
         return image;
     }
 
-//    private void extractLocationFromFile() throws IOException {
-//        ExifInterface exif = new ExifInterface(selectedFrame.getPathToImage());
-//        String lat = exif.getAttribute(ExifInterface.TAG_GPS_LATITUDE);
-//        String lon = exif.getAttribute(ExifInterface.TAG_GPS_LONGITUDE);
-//        if (lat != null && lon != null) {
-//            locationView.setText(getString(R.string.label_location) + " " + lat + " " + lon);
-//        }
-//    }
-
     private void getLocation() {
         if (ContextCompat.checkSelfPermission(getActivity(),
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-            // TODO ignore rationale for now
-//            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-//                    Manifest.permission.ACCESS_FINE_LOCATION)) { //... } else {
 
             // No explanation needed, we can request the permission.
             if( !locationPermissionRequested ){
