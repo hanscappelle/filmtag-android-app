@@ -25,8 +25,6 @@ import kotlinx.android.synthetic.main.fragment_form_roll.*
  */
 class EditRollFragment : TemplateFragment() {
 
-    @Bind(R.id.edit_frames)
-    internal var editFrames: EditText? = null
     @Bind(R.id.edit_notes)
     internal var editNotes: EditText? = null
     @Bind(R.id.edit_tags)
@@ -74,7 +72,7 @@ class EditRollFragment : TemplateFragment() {
             if (roll!!.speed != 0)
                 edit_exposed.setText(roll!!.speed.toString())
             if (roll!!.frames != 0)
-                editFrames!!.setText(roll!!.frames.toString())
+                edit_frames.setText(roll!!.frames.toString())
             developed!!.isChecked = roll!!.isDeveloped
             // populate the tags here
             if (roll!!.tags != null && !roll!!.tags.isEmpty())
@@ -83,7 +81,7 @@ class EditRollFragment : TemplateFragment() {
             // have preferences for this
             val prefs = PreferenceManager.getDefaultSharedPreferences(context)
             edit_exposed.setText(prefs.getString("key_default_iso", 200.toString()))
-            editFrames!!.setText(prefs.getString("key_default_frames", 36.toString()))
+            edit_frames.setText(prefs.getString("key_default_frames", 36.toString()))
         }// populate with defaults here
 
         // autocomplete
@@ -146,7 +144,7 @@ class EditRollFragment : TemplateFragment() {
         }
 
         try {
-            roll!!.frames = Integer.parseInt(editFrames!!.text.toString())
+            roll!!.frames = Integer.parseInt(edit_frames.text.toString())
         } catch (nfe: NumberFormatException) {
             Toast.makeText(activity, R.string.err_parsing_failed, Toast.LENGTH_SHORT).show()
         }
