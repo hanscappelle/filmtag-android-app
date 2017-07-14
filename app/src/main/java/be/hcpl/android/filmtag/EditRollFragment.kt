@@ -105,8 +105,7 @@ class EditRollFragment : TemplateFragment() {
             for (i in rolls.indices) {
                 existingTypes[i] = rolls[i].type
             }
-            return existingTypes
-
+            return existingTypes as Array<String>
         }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
