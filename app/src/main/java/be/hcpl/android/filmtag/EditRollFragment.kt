@@ -160,8 +160,6 @@ class EditRollFragment : TemplateFragment() {
 
         /**
          * use for creating new rolls
-
-         * @return
          */
         fun newInstance(): EditRollFragment {
             val args = Bundle()
@@ -172,8 +170,6 @@ class EditRollFragment : TemplateFragment() {
 
         /**
          * use for editing existing rolls
-
-         * @return
          */
         fun newInstance(roll: Roll?): EditRollFragment {
             val args = Bundle()
