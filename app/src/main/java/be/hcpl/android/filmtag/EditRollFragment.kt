@@ -35,7 +35,7 @@ class EditRollFragment : TemplateFragment() {
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
         if (savedInstanceState != null)
-            roll = savedInstanceState.getSerializable(KEY_EDIT_ROLL) as Roll
+            roll = savedInstanceState.getSerializable(KEY_EDIT_ROLL) as Roll?
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +43,7 @@ class EditRollFragment : TemplateFragment() {
         setHasOptionsMenu(true)
         val args = arguments
         if (args != null) {
-            roll = args.getSerializable(KEY_EDIT_ROLL) as Roll
+            roll = args.getSerializable(KEY_EDIT_ROLL) as Roll?
         }
     }
 
@@ -175,7 +175,7 @@ class EditRollFragment : TemplateFragment() {
 
          * @return
          */
-        fun newInstance(roll: Roll): EditRollFragment {
+        fun newInstance(roll: Roll?): EditRollFragment {
             val args = Bundle()
             args.putSerializable(KEY_EDIT_ROLL, roll)
             val fragment = EditRollFragment()
