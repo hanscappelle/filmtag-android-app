@@ -349,11 +349,6 @@ public class EditFrameFragment extends TemplateFragment {
         registerLocationListener(LocationManager.GPS_PROVIDER);
     }
 
-    /**
-     * register location listeners
-     *
-     * @param provider
-     */
     private void registerLocationListener(final String provider) {
         if (ContextCompat.checkSelfPermission(getActivity(),
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -382,9 +377,6 @@ public class EditFrameFragment extends TemplateFragment {
                 .requestLocationUpdates(provider, 0, 0, locationListener);
     }
 
-    /**
-     * unregister location listeners
-     */
     private void unregisterListener() {
         if (ContextCompat.checkSelfPermission(getActivity(),
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
