@@ -8,8 +8,6 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.CheckBox
-import android.widget.EditText
 import android.widget.Toast
 
 import java.util.Arrays
@@ -17,16 +15,12 @@ import java.util.Arrays
 import be.hcpl.android.filmtag.model.Roll
 import be.hcpl.android.filmtag.template.TemplateFragment
 import be.hcpl.android.filmtag.util.StorageUtil
-import butterknife.Bind
 import kotlinx.android.synthetic.main.fragment_form_roll.*
 
 /**
  * Created by hcpl on 1/08/15.
  */
 class EditRollFragment : TemplateFragment() {
-
-    @Bind(R.id.check_developed)
-    internal var developed: CheckBox? = null
 
     private var roll: Roll? = null
 
@@ -68,7 +62,7 @@ class EditRollFragment : TemplateFragment() {
                 edit_exposed.setText(roll!!.speed.toString())
             if (roll!!.frames != 0)
                 edit_frames.setText(roll!!.frames.toString())
-            developed!!.isChecked = roll!!.isDeveloped
+            check_developed.isChecked = roll!!.isDeveloped
             // populate the tags here
             if (roll!!.tags != null && !roll!!.tags.isEmpty())
                 edit_tags.setText(TextUtils.join(" ", roll!!.tags))
@@ -130,7 +124,7 @@ class EditRollFragment : TemplateFragment() {
         }
         roll!!.type = edit_type.text.toString()
         roll!!.notes = edit_notes.text.toString()
-        roll!!.isDeveloped = developed!!.isChecked
+        roll!!.isDeveloped = check_developed.isChecked
         roll!!.tags = Arrays.asList(*TextUtils.split(edit_tags.text.toString(), " "))
         try {
             roll!!.speed = Integer.parseInt(edit_exposed.text.toString())
