@@ -46,9 +46,6 @@ import kotlinx.android.synthetic.main.fragment_form_frame.*
  */
 class EditFrameFragment : TemplateFragment() {
 
-    @Bind(R.id.long_exposure)
-    internal var checkLongExposure: CheckBox? = null
-
     @Bind(R.id.image_preview)
     internal var imagePreview: ImageView? = null
     @Bind(R.id.image_preview_indicator)
@@ -114,7 +111,7 @@ class EditFrameFragment : TemplateFragment() {
                 edit_aperture.setText(selectedFrame!!.aperture.toString())
             if (selectedFrame!!.shutter != 0)
                 edit_shutter.setText(selectedFrame!!.shutter.toString())
-            checkLongExposure!!.isChecked = selectedFrame!!.isLongExposure
+            long_exposure.isChecked = selectedFrame!!.isLongExposure
             edit_notes.setText(selectedFrame!!.notes)
             // populate the tags here
             if (!selectedFrame!!.tags.isEmpty())
@@ -147,7 +144,7 @@ class EditFrameFragment : TemplateFragment() {
         }
 
         if (previousFrame != null && previousFrame!!.isLongExposure) {
-            checkLongExposure!!.isChecked = true
+            long_exposure.isChecked = true
         }
     }
 
@@ -409,7 +406,7 @@ class EditFrameFragment : TemplateFragment() {
             Toast.makeText(activity, R.string.err_parsing_failed, Toast.LENGTH_SHORT).show()
         }
 
-        selectedFrame!!.isLongExposure = checkLongExposure!!.isChecked
+        selectedFrame!!.isLongExposure = long_exposure.isChecked
         selectedFrame!!.tags = Arrays.asList(*TextUtils.split(editTags!!.text.toString(), " "))
 
         // store
