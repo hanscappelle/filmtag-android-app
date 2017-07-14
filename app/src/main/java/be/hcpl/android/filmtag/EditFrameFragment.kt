@@ -46,8 +46,6 @@ import kotlinx.android.synthetic.main.fragment_form_frame.*
  */
 class EditFrameFragment : TemplateFragment() {
 
-    @Bind(R.id.edit_notes)
-    internal var editNotes: EditText? = null
     @Bind(R.id.long_exposure)
     internal var checkLongExposure: CheckBox? = null
 
@@ -117,7 +115,7 @@ class EditFrameFragment : TemplateFragment() {
             if (selectedFrame!!.shutter != 0)
                 edit_shutter.setText(selectedFrame!!.shutter.toString())
             checkLongExposure!!.isChecked = selectedFrame!!.isLongExposure
-            editNotes!!.setText(selectedFrame!!.notes)
+            edit_notes.setText(selectedFrame!!.notes)
             // populate the tags here
             if (!selectedFrame!!.tags.isEmpty())
                 editTags!!.setText(TextUtils.join(" ", selectedFrame!!.tags))
@@ -397,7 +395,7 @@ class EditFrameFragment : TemplateFragment() {
 
     private fun updateItem() {
         // update values
-        selectedFrame!!.notes = editNotes!!.text.toString()
+        selectedFrame!!.notes = edit_notes.text.toString()
 
         try {
             selectedFrame!!.aperture = java.lang.Double.parseDouble(getFieldTextOrHint(edit_aperture))
