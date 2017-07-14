@@ -25,8 +25,6 @@ import kotlinx.android.synthetic.main.fragment_form_roll.*
  */
 class EditRollFragment : TemplateFragment() {
 
-    @Bind(R.id.edit_notes)
-    internal var editNotes: EditText? = null
     @Bind(R.id.edit_tags)
     internal var editTags: EditText? = null
 
@@ -68,7 +66,7 @@ class EditRollFragment : TemplateFragment() {
         // prefill data if possible
         if (roll != null) {
             edit_type.setText(roll!!.type)
-            editNotes!!.setText(roll!!.notes)
+            edit_notes.setText(roll!!.notes)
             if (roll!!.speed != 0)
                 edit_exposed.setText(roll!!.speed.toString())
             if (roll!!.frames != 0)
@@ -134,7 +132,7 @@ class EditRollFragment : TemplateFragment() {
             newRoll = true
         }
         roll!!.type = edit_type.text.toString()
-        roll!!.notes = editNotes!!.text.toString()
+        roll!!.notes = edit_notes.text.toString()
         roll!!.isDeveloped = developed!!.isChecked
         roll!!.tags = Arrays.asList(*TextUtils.split(editTags!!.text.toString(), " "))
         try {
