@@ -25,9 +25,6 @@ import kotlinx.android.synthetic.main.fragment_form_roll.*
  */
 class EditRollFragment : TemplateFragment() {
 
-    @Bind(R.id.edit_tags)
-    internal var editTags: EditText? = null
-
     @Bind(R.id.check_developed)
     internal var developed: CheckBox? = null
 
@@ -74,7 +71,7 @@ class EditRollFragment : TemplateFragment() {
             developed!!.isChecked = roll!!.isDeveloped
             // populate the tags here
             if (roll!!.tags != null && !roll!!.tags.isEmpty())
-                editTags!!.setText(TextUtils.join(" ", roll!!.tags))
+                edit_tags.setText(TextUtils.join(" ", roll!!.tags))
         } else {
             // have preferences for this
             val prefs = PreferenceManager.getDefaultSharedPreferences(context)
@@ -134,7 +131,7 @@ class EditRollFragment : TemplateFragment() {
         roll!!.type = edit_type.text.toString()
         roll!!.notes = edit_notes.text.toString()
         roll!!.isDeveloped = developed!!.isChecked
-        roll!!.tags = Arrays.asList(*TextUtils.split(editTags!!.text.toString(), " "))
+        roll!!.tags = Arrays.asList(*TextUtils.split(edit_tags.text.toString(), " "))
         try {
             roll!!.speed = Integer.parseInt(edit_exposed.text.toString())
         } catch (nfe: NumberFormatException) {
