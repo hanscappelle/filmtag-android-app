@@ -138,7 +138,7 @@ public class FilmRollListFragment extends TemplateFragment {
     }
 
     private void refreshData() {
-        List<Roll> rolls = StorageUtil.getAllRolls((MainActivity) getActivity());
+        List<Roll> rolls = StorageUtil.INSTANCE.getAllRolls((MainActivity) getActivity());
         // update adapter
         mAdapter.clear();
         mAdapter.addAll(rolls);
@@ -173,7 +173,7 @@ public class FilmRollListFragment extends TemplateFragment {
             importConfig();
             return true;
         } else if (id == R.id.action_about) {
-            ((MainActivity) getActivity()).switchContent(AboutFragment.newInstance());
+            ((MainActivity) getActivity()).switchContent(AboutFragment.Companion.newInstance());
             return true;
         } else if (id == R.id.action_search) {
             toggleSearchView();
@@ -239,7 +239,7 @@ public class FilmRollListFragment extends TemplateFragment {
         Intent sharingIntent = new Intent(Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
         sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "FilmTag data export");
-        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, StorageUtil.getExportDataFormattedAsText((MainActivity) getActivity()));
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, StorageUtil.INSTANCE.getExportDataFormattedAsText((MainActivity) getActivity()));
         startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.action_export)));
     }
 

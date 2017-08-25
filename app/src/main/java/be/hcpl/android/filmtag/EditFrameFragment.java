@@ -486,7 +486,7 @@ public class EditFrameFragment extends TemplateFragment {
         selectedFrame.setTags(Arrays.asList(TextUtils.split(editTags.getText().toString(), " ")));
 
         // store
-        StorageUtil.updateFrames((MainActivity) getActivity(), roll, frames);
+        StorageUtil.INSTANCE.updateFrames((MainActivity) getActivity(), roll, frames);
 
         // navigate back to overview
         backToOverview();

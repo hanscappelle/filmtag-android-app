@@ -92,7 +92,7 @@ public class FilmFrameListFragment extends TemplateFragment {
     private void updateFramesForFilm() {
 
         if (filmRoll != null) {
-            frames = StorageUtil.getFramesForFilm(((MainActivity) getActivity()), filmRoll);
+            frames = StorageUtil.INSTANCE.getFramesForFilm(((MainActivity) getActivity()), filmRoll);
             // if the film doesn't have frames yet add them based on the number specified
             if (frames.isEmpty()) {
                 for (int i = 0; i <= filmRoll.getFrames(); i++) {
@@ -203,7 +203,7 @@ public class FilmFrameListFragment extends TemplateFragment {
                     public void onClick(
                             DialogInterface dialogInterface,
                             int i) {
-                        StorageUtil.deleteRoll((MainActivity) getActivity(), filmRoll);
+                        StorageUtil.INSTANCE.deleteRoll((MainActivity) getActivity(), filmRoll);
                         // navigate back
                         dialogInterface.dismiss();
                         backToOverview();

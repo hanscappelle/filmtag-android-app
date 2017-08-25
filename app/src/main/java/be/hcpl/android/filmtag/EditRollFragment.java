@@ -137,7 +137,7 @@ public class EditRollFragment extends TemplateFragment {
     }
 
     private String[] getTypeSuggestions() {
-        List<Roll> rolls = StorageUtil.getAllRolls(((MainActivity) getActivity()));
+        List<Roll> rolls = StorageUtil.INSTANCE.getAllRolls(((MainActivity) getActivity()));
         if (rolls == null)
             return new String[]{};
         String[] existingTypes = new String[rolls.size()];
@@ -197,9 +197,9 @@ public class EditRollFragment extends TemplateFragment {
 
         // store new roll
         if (newRoll)
-            StorageUtil.addNewRoll((MainActivity) getActivity(), roll);
+            StorageUtil.INSTANCE.addNewRoll((MainActivity) getActivity(), roll);
         else
-            StorageUtil.updateRoll((MainActivity) getActivity(), roll);
+            StorageUtil.INSTANCE.updateRoll((MainActivity) getActivity(), roll);
 
 
         // navigate to overview
