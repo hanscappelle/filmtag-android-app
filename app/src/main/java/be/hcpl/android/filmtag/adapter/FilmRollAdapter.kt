@@ -91,14 +91,14 @@ class FilmRollAdapter(private val mContext: Context) : BaseAdapter(), Filterable
 
         return object : Filter() {
 
-            override fun publishResults(constraint: CharSequence, results: Filter.FilterResults) {
+            override fun publishResults(constraint: CharSequence?, results: Filter.FilterResults) {
 
                 // then perform filtering on data
                 items = results.values as ArrayList<Roll>
                 this@FilmRollAdapter.notifyDataSetChanged()
             }
 
-            override fun performFiltering(constraint: CharSequence): Filter.FilterResults {
+            override fun performFiltering(constraint: CharSequence?): Filter.FilterResults {
                 val filteredResults = getFilteredResults(constraint)
                 val results = Filter.FilterResults()
                 results.values = filteredResults

@@ -52,11 +52,11 @@ object StorageUtil {
         activity.prefs!!.edit().remove(KEY_FILM_ROLLS + roll.id).commit()
     }
 
-    fun getFramesForFilm(activity: MainActivity, filmRoll: Roll): List<Frame> {
+    fun getFramesForFilm(activity: MainActivity, filmRoll: Roll): MutableList<Frame> {
         // get the items
         val framesData = activity.prefs!!.getString(KEY_FILM_ROLLS + filmRoll.id, "[]")
         // convert using gson
-        return gson.fromJson<List<Frame>>(framesData, listOfFramesType)
+        return gson.fromJson<MutableList<Frame>>(framesData, listOfFramesType)
     }
 
     fun updateFrames(activity: MainActivity, filmRoll: Roll, frames: List<Frame>) {
