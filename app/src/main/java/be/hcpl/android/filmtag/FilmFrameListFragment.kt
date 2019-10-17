@@ -26,9 +26,9 @@ class FilmFrameListFragment : TemplateFragment() {
     // TODO double reference?
     private var frames: MutableList<Frame>? = null
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState!!.putSerializable(KEY_FILM_ROLL, filmRoll)
+        outState.putSerializable(KEY_FILM_ROLL, filmRoll)
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -77,9 +77,8 @@ class FilmFrameListFragment : TemplateFragment() {
 
     }
 
-    override fun onViewCreated(
-            view: View?,
-            savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState)
 
         // show roll details on top
@@ -108,7 +107,7 @@ class FilmFrameListFragment : TemplateFragment() {
         }
 
         // and populate list with frame data
-        mAdapter = FrameAdapter(activity)
+        mAdapter = FrameAdapter(requireContext())
         list_frames.adapter = mAdapter
 
         list_frames.onItemClickListener = AdapterView.OnItemClickListener { _, _, i, _ -> updateFrame(i) }
@@ -153,7 +152,7 @@ class FilmFrameListFragment : TemplateFragment() {
 
     private fun deleteCurrentFilmRoll() {
         // confirmation needed before delete here...
-        AlertDialog.Builder(activity)
+        AlertDialog.Builder(requireContext())
                 //.setTitle(R.string.label_confirm)
                 .setMessage(R.string.msg_delete_complete_film_roll)
                 .setPositiveButton(R.string.label_yes) { dialogInterface, _ ->

@@ -42,6 +42,11 @@ https://www.materialpalette.com/brown/grey
 * visualisation of locations on map
 * collapse top notes on film view on scroll up (list of frames)
 
+## v0.15.0
+
+* upgraded build tools (internal) to 28
+* completed Kotlin migration (Rene Saarsoo)
+
 ## v0.14.0
 
 * properly restore last fragment on resume (thanks to Rene Saarsoo or bitbucket user renku)

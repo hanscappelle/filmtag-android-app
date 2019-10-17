@@ -40,11 +40,11 @@ class FilmRollListFragment : TemplateFragment() {
         setHasOptionsMenu(true)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         // prepare the adapter for that list
-        mAdapter = FilmRollAdapter(activity)
+        mAdapter = FilmRollAdapter(requireContext())
         list_rolls.adapter = mAdapter
 
         list_rolls.onItemClickListener = AdapterView.OnItemClickListener { _, _, i, _ ->
@@ -169,7 +169,7 @@ class FilmRollListFragment : TemplateFragment() {
         activity.supportActionBar!!.setDisplayShowCustomEnabled(searchViewEnabled)
         activity.supportActionBar!!.setDisplayShowTitleEnabled(!searchViewEnabled)
         // when showing hide the other menu options + override back handling
-        getActivity().invalidateOptionsMenu()
+        requireActivity().invalidateOptionsMenu()
     }
 
     private fun createNewRoll() {

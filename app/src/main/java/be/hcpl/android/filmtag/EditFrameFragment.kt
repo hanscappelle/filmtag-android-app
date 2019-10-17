@@ -60,9 +60,9 @@ class EditFrameFragment : TemplateFragment() {
         restoreState(arguments)
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState!!.putSerializable(KEY_FRAMES, frames as ArrayList<*>?)
+        outState.putSerializable(KEY_FRAMES, frames as ArrayList<*>?)
         outState.putInt(KEY_FRAME_IDX, frames!!.indexOf(selectedFrame))
         outState.putSerializable(KEY_ROLL, roll)
     }
@@ -86,11 +86,11 @@ class EditFrameFragment : TemplateFragment() {
         inflater!!.inflate(R.menu.update_frame, menu)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         if (selectedFrame != null) {
-            (view!!.findViewById(R.id.edit_number) as TextView).text = selectedFrame!!.number.toString()
+            (view.findViewById(R.id.edit_number) as TextView).text = selectedFrame!!.number.toString()
             if (selectedFrame!!.aperture != 0.0)
                 edit_aperture.setText(selectedFrame!!.aperture.toString())
             if (selectedFrame!!.shutter != 0)
@@ -134,16 +134,16 @@ class EditFrameFragment : TemplateFragment() {
 
     private fun markImageAvailable() {
         image_preview_indicator.setImageDrawable(if (selectedFrame!!.pathToImage != null)
-            ContextCompat.getDrawable(activity, R.drawable.ic_action_image_photo_camera_primary)
+            ContextCompat.getDrawable(requireContext(), R.drawable.ic_action_image_photo_camera_primary)
         else
-            ContextCompat.getDrawable(activity, R.drawable.ic_action_image_photo_camera_silver))
+            ContextCompat.getDrawable(requireContext(), R.drawable.ic_action_image_photo_camera_silver))
     }
 
     private fun markLocationAvailable() {
         image_location_indicator.setImageDrawable(if (selectedFrame!!.location != null)
-            ContextCompat.getDrawable(activity, R.drawable.ic_action_device_gps_primary)
+            ContextCompat.getDrawable(requireContext(), R.drawable.ic_action_device_gps_primary)
         else
-            ContextCompat.getDrawable(activity, R.drawable.ic_action_device_gps_silver))
+            ContextCompat.getDrawable(requireContext(), R.drawable.ic_action_device_gps_silver))
         if (selectedFrame!!.location != null) {
             val onClickListener = View.OnClickListener { showMap(Uri.parse("geo:" + selectedFrame!!.location!!.latitude + "," + selectedFrame!!.location!!.longitude)) }
             image_location_indicator.setOnClickListener(onClickListener)
@@ -156,7 +156,7 @@ class EditFrameFragment : TemplateFragment() {
             return
         val intent = Intent(Intent.ACTION_VIEW)
         intent.data = geoLocation
-        if (intent.resolveActivity(activity.packageManager) != null) {
+        if (intent.resolveActivity(requireContext().packageManager) != null) {
             startActivity(intent)
         }
     }
@@ -167,7 +167,7 @@ class EditFrameFragment : TemplateFragment() {
         // and if path set try loading after permission check
         if (selectedFrame!!.pathToImage != null) {
             // for this storage permission also required
-            if (ContextCompat.checkSelfPermission(activity,
+            if (ContextCompat.checkSelfPermission(requireContext(),
                     Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 if (!storagePermissionRequestedForPreview) {
                     storagePermissionRequestedForPreview = true
@@ -216,7 +216,7 @@ class EditFrameFragment : TemplateFragment() {
 
     private fun dispatchTakePictureIntent() {
         // check permissions first
-        if (ContextCompat.checkSelfPermission(activity,
+        if (ContextCompat.checkSelfPermission(requireContext(),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 
             // No explanation needed, we can request the permission.
@@ -232,7 +232,7 @@ class EditFrameFragment : TemplateFragment() {
 
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         // Ensure that there's a camera activity to handle the intent
-        if (takePictureIntent.resolveActivity(activity.packageManager) != null) {
+        if (takePictureIntent.resolveActivity(requireContext().packageManager) != null) {
             // Create the File where the photo should go
             var photoFile: File? = null
             try {
@@ -277,7 +277,7 @@ class EditFrameFragment : TemplateFragment() {
     }
 
     private fun getLocation() {
-        if (ContextCompat.checkSelfPermission(activity,
+        if (ContextCompat.checkSelfPermission(requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             // No explanation needed, we can request the permission.
@@ -293,7 +293,7 @@ class EditFrameFragment : TemplateFragment() {
     }
 
     private fun registerLocationListener(provider: String) {
-        if (ContextCompat.checkSelfPermission(activity,
+        if (ContextCompat.checkSelfPermission(requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return
         }
@@ -301,8 +301,7 @@ class EditFrameFragment : TemplateFragment() {
         unregisterListener()
         // get current location to provide as defaults into
         // field
-        val locationManager = activity
-                .getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val locationManager = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
         // begin by getting the last known location
         val fetchedLocationDetails = locationManager.getLastKnownLocation(provider)
         if (fetchedLocationDetails != null) {
@@ -321,14 +320,13 @@ class EditFrameFragment : TemplateFragment() {
     }
 
     private fun unregisterListener() {
-        if (ContextCompat.checkSelfPermission(activity,
+        if (ContextCompat.checkSelfPermission(requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return
         }
         // get current location to provide as defaults into
         // field
-        val locationManager = activity
-                .getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val locationManager = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
         // remove previous listener first
         locationManager.removeUpdates(locationListener)
     }

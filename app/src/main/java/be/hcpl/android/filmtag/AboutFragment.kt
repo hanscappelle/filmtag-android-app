@@ -26,7 +26,7 @@ class AboutFragment : TemplateFragment() {
     override val layoutResourceId: Int
         get() = R.layout.fragment_about
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         var aboutText = readFile(resources.openRawResource(R.raw.about))
         // add version

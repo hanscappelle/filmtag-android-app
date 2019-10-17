@@ -18,8 +18,8 @@ abstract class TemplateFragment : Fragment() {
         return false
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater!!.inflate(layoutResourceId, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(layoutResourceId, container, false)
     }
 
     protected abstract val layoutResourceId: Int

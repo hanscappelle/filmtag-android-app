@@ -27,9 +27,9 @@ class EditRollFragment : TemplateFragment() {
     override val layoutResourceId: Int
         get() = R.layout.fragment_form_roll
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState!!.putSerializable(KEY_EDIT_ROLL, roll)
+        outState.putSerializable(KEY_EDIT_ROLL, roll)
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -51,7 +51,7 @@ class EditRollFragment : TemplateFragment() {
         inflater!!.inflate(R.menu.new_film, menu)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         // prefill data if possible
