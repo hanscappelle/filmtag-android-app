@@ -118,6 +118,7 @@ class MainActivity : AppCompatActivity() {
     /**
      * use for changing currently visible fragment
      * @param fragment
+     * @deprecated broken us navigation instead
      */
     fun switchContent(fragment: Fragment) {
         // FIXME no longer working, use nav instead

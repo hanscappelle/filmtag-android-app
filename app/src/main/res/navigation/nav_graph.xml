@@ -12,8 +12,9 @@
         tools:layout="@layout/fragment_about">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
+            android:id="@+id/back"
             app:destination="@id/FilmRollListFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/FilmRollListFragment"
@@ -27,6 +28,9 @@
         <action
             android:id="@+id/action_add_roll"
             app:destination="@id/EditRollFragment"/>
+        <action
+            android:id="@+id/action_detail"
+            app:destination="@id/FilmFrameListFragment" />
     </fragment>
 
     <fragment
@@ -34,5 +38,18 @@
         android:name="be.hcpl.android.filmtag.EditRollFragment"
         tools:layout="@layout/fragment_form_roll">
 
+
+
     </fragment>
+
+    <fragment
+        android:id="@+id/FilmFrameListFragment"
+        android:name="be.hcpl.android.filmtag.FilmFrameListFragment">
+
+        <action
+            android:id="@+id/action_back"
+            app:destination="@id/FilmRollListFragment" />
+
+    </fragment>
+
 </navigation>

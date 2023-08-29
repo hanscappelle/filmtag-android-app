@@ -11,6 +11,7 @@ import android.widget.AdapterView
 import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceFragmentCompat
@@ -127,7 +128,8 @@ class FilmRollListFragment : TemplateFragment() {
 
     private fun showRollDetails(roll: Roll) {
         // show frames on selection
-        (activity as MainActivity).switchContent(FilmFrameListFragment.newInstance(roll))
+        val bundle = bundleOf("roll" to roll)
+        findNavController().navigate(R.id.action_detail, bundle)
     }
 
     // create new roll option is in main activity

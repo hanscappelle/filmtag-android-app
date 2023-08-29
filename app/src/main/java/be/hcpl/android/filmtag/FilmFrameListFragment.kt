@@ -11,6 +11,7 @@ import android.widget.AdapterView
 import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.navigation.fragment.findNavController
 
 import be.hcpl.android.filmtag.adapter.FrameAdapter
 import be.hcpl.android.filmtag.model.Frame
@@ -59,7 +60,6 @@ class FilmFrameListFragment : TemplateFragment() {
     override fun onResume() {
         super.onResume()
         updateFramesForFilm()
-        //(activity as MainActivity).setHomeAsUp(true)
     }
 
     private fun updateFramesForFilm() {
@@ -142,11 +142,6 @@ class FilmFrameListFragment : TemplateFragment() {
                 editCurrentFilmRoll()
                 return true
             }
-            android.R.id.home -> {
-                // back to overview without change
-                backToOverview()
-                return true
-            }
         }
         return false
     }
@@ -156,7 +151,7 @@ class FilmFrameListFragment : TemplateFragment() {
     }
 
     private fun backToOverview() {
-        (activity as MainActivity).switchContent(FilmRollListFragment.newInstance())
+        findNavController().navigate(R.id.action_back)
     }
 
     private fun deleteCurrentFilmRoll() {
