@@ -56,4 +56,5 @@
     <string name="label_frame_tags">Tags</string>
     <string name="label_tags_for_film">landschap zonsondergang</string>
     <string name="long_exposure">lange belichting</string>
+    <string name="no_rolls_yet">Nog geen film rolletjes gevonden, maak er een paar aan met \'t plus icoon.</string>
 </resources>

@@ -435,12 +435,12 @@ class EditFrameFragment : TemplateFragment() {
     }
 
     private fun backToOverview() {
-        (activity as MainActivity).switchContent(FilmFrameListFragment.newInstance(roll!!))
+        //(activity as MainActivity).switchContent(FilmFrameListFragment.newInstance(roll!!))
     }
 
     override fun onResume() {
         super.onResume()
-        (activity as MainActivity).setHomeAsUp(true)
+        //(activity as MainActivity).setHomeAsUp(true)
         if (locationPermissionRequested) {
             getLocation()
             locationPermissionRequested = false

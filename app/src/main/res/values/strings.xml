@@ -56,6 +56,9 @@
     <string name="label_frame_tags">Tags</string>
     <string name="label_tags_for_film">landscape sunset</string>
     <string name="long_exposure">long exposure</string>
+    <string name="title_about">About</string>
+    <string name="title_film_rolls">FilmTag</string>
+    <string name="no_rolls_yet">You have no rolls yet, use the plus icon to create some entries.</string>
 
 
 </resources>
