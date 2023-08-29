@@ -23,11 +23,7 @@ class FilmRollAdapter(private val mContext: Context) : BaseAdapter(), Filterable
 
     private var unFilteredList = ArrayList<Roll>()
 
-    private val mInflater: LayoutInflater
-
-    init {
-        mInflater = LayoutInflater.from(mContext)
-    }
+    private val mInflater: LayoutInflater = LayoutInflater.from(mContext)
 
     override fun getCount(): Int {
         return items.size
@@ -52,25 +48,25 @@ class FilmRollAdapter(private val mContext: Context) : BaseAdapter(), Filterable
             rowView = mInflater.inflate(R.layout.list_item_roll, viewGroup, false)
 
             val holder = ViewHolder()
-            holder.textType = rowView!!.findViewById(R.id.text_type) as TextView
+            holder.textType = rowView.findViewById(R.id.text_type) as TextView
             holder.textSpeed = rowView.findViewById(R.id.text_speed) as TextView
             holder.textFrames = rowView.findViewById(R.id.text_frames) as TextView
             rowView.tag = holder
         }
-        val holder = rowView.tag as ViewHolder
+        val holder = rowView?.tag as ViewHolder
 
         // format data, still on single line for now
-        holder.textType!!.text = roll.type
-        holder.textSpeed!!.text = mContext.resources.getString(R.string.label_roll_speed) +
+        holder.textType?.text = roll.type?.ifEmpty { "..." }
+        holder.textSpeed?.text = mContext.resources.getString(R.string.label_roll_speed) +
                 " " + roll.speed
-        holder.textFrames!!.text = roll.frames.toString() + " " +
+        holder.textFrames?.text = roll.frames.toString() + " " +
                 mContext.resources.getString(R.string.label_roll_frames)
 
         // mark developed items with a lighter text color
         if (roll.isDeveloped)
-            holder.textType!!.setTextColor(mContext.resources.getColor(R.color.secondary_text))
+            holder.textType?.setTextColor(mContext.resources.getColor(R.color.secondary_text))
         else
-            holder.textType!!.setTextColor(mContext.resources.getColor(R.color.primary_text))
+            holder.textType?.setTextColor(mContext.resources.getColor(R.color.primary_text))
 
         return rowView
     }
@@ -127,8 +123,8 @@ class FilmRollAdapter(private val mContext: Context) : BaseAdapter(), Filterable
     }
 
     private inner class ViewHolder {
-        internal var textFrames: TextView? = null
-        internal var textSpeed: TextView? = null
-        internal var textType: TextView? = null
+        var textFrames: TextView? = null
+        var textSpeed: TextView? = null
+        var textType: TextView? = null
     }
 }
