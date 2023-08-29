@@ -5,6 +5,10 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/FilmRollListFragment">
 
+    <action
+        android:id="@+id/action_about"
+        app:destination="@id/AboutFragment" />
+
     <fragment
         android:id="@+id/AboutFragment"
         android:name="be.hcpl.android.filmtag.AboutFragment"
@@ -22,9 +26,6 @@
         android:label="@string/title_film_rolls"
         tools:layout="@layout/fragment_roll_overview">
 
-        <action
-            android:id="@+id/action_about"
-            app:destination="@id/AboutFragment" />
         <action
             android:id="@+id/action_add_roll"
             app:destination="@id/EditRollFragment"/>

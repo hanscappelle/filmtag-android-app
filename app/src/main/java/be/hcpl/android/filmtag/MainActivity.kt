@@ -9,17 +9,14 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import be.hcpl.android.filmtag.databinding.ActivityMainBinding
 
-import be.hcpl.android.filmtag.template.TemplateFragment
-import be.hcpl.android.filmtag.util.CommonUtil
 import be.hcpl.android.filmtag.util.StorageUtil
-import com.google.android.material.snackbar.Snackbar
 
 /**
  * main entry point of app
@@ -28,6 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    private lateinit var navController: NavController
 
     /**
      * use for preferences, app preferences, only kept here
@@ -45,13 +43,13 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
+        navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         // TODO restore fab if desired
         //binding.fab.setOnClickListener { _ ->
-            // show add new roll view here
+        // show add new roll view here
         //    navController.navigate(R.id.action_add_roll)
         //    binding.fab.hide()
         //}
@@ -83,9 +81,14 @@ class MainActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            // TODO handle nav here
-            R.id.action_settings -> true
-            R.id.action_about -> true
+            R.id.action_settings -> {
+                navController.navigate(R.id.action_settings)
+                true
+            }
+            R.id.action_about -> {
+                navController.navigate(R.id.action_about)
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -125,8 +128,6 @@ class MainActivity : AppCompatActivity() {
      */
     fun switchContent(fragment: Fragment) {
         // FIXME no longer working, use nav instead
-        // also hide keyboard here
-        //CommonUtil.hideSoftKeyboard(this)
     }
 
 }

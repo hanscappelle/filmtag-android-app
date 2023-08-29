@@ -151,13 +151,8 @@ class FilmRollListFragment : TemplateFragment() {
         } else if (id == R.id.action_import) {
             importConfig()
             return true
-        } else if (id == R.id.action_about) {
-            (activity as MainActivity).switchContent(AboutFragment.newInstance())
-            return true
         //} else if (id == R.id.action_search) {
         //    toggleSearchView()
-        } else if (id == R.id.action_settings) {
-            (activity as MainActivity).switchContent(PrefsFragment())
         }
         return super.onOptionsItemSelected(item)
     }
