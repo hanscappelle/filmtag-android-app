@@ -14,16 +14,18 @@ import android.os.Bundle
 import android.os.Environment
 import android.preference.PreferenceManager
 import android.provider.MediaStore
-import android.support.v4.content.ContextCompat
 import android.text.TextUtils
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 
 import java.io.File
 import java.io.IOException
@@ -36,7 +38,6 @@ import be.hcpl.android.filmtag.model.Frame
 import be.hcpl.android.filmtag.model.Roll
 import be.hcpl.android.filmtag.template.TemplateFragment
 import be.hcpl.android.filmtag.util.StorageUtil
-import kotlinx.android.synthetic.main.fragment_form_frame.*
 
 /**
  * Created by hcpl on 1/08/15.
@@ -50,6 +51,18 @@ class EditFrameFragment : TemplateFragment() {
     private var previousFrame: Frame? = null
 
     private var frames: List<Frame>? = null
+
+    // views
+    private lateinit var edit_aperture: EditText
+    private lateinit var edit_shutter: EditText
+    private lateinit var long_exposure: CheckBox
+    private lateinit var edit_notes: EditText
+    private lateinit var edit_tags: EditText
+    private lateinit var text_location: TextView
+    private lateinit var image_location_indicator: ImageView
+    private lateinit var image_preview: ImageView
+    private lateinit var image_preview_indicator: ImageView
+
 
     override val layoutResourceId: Int
         get() = R.layout.fragment_form_frame
@@ -82,12 +95,26 @@ class EditFrameFragment : TemplateFragment() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater!!.inflate(R.menu.update_frame, menu)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.update_frame, menu)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        edit_aperture = view.findViewById(R.id.edit_aperture)
+        edit_shutter = view.findViewById(R.id.edit_shutter)
+        long_exposure = view.findViewById(R.id.long_exposure)
+        edit_notes = view.findViewById(R.id.edit_notes)
+        edit_tags = view.findViewById(R.id.edit_tags)
+
+        image_location_indicator = view.findViewById(R.id.image_location_indicator)
+        image_preview = view.findViewById(R.id.image_preview)
+        image_preview_indicator = view.findViewById(R.id.image_preview_indicator)
+
+
+
+        text_location = view.findViewById(R.id.text_location)
 
         if (selectedFrame != null) {
             (view.findViewById(R.id.edit_number) as TextView).text = selectedFrame!!.number.toString()
@@ -191,7 +218,7 @@ class EditFrameFragment : TemplateFragment() {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item!!.itemId) {
             R.id.action_update -> {
                 updateItem()
@@ -400,10 +427,10 @@ class EditFrameFragment : TemplateFragment() {
 
     private fun getFieldTextOrHint(field: EditText): String {
         val text = field.text.toString()
-        if (TextUtils.isEmpty(text)) {
-            return field.hint.toString()
+        return if (TextUtils.isEmpty(text)) {
+            field.hint.toString()
         } else {
-            return text
+            text
         }
     }
 

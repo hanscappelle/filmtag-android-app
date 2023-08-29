@@ -42,6 +42,13 @@ https://www.materialpalette.com/brown/grey
 * visualisation of locations on map
 * collapse top notes on film view on scroll up (list of frames)
 
+## v0.16.0
+
+* update target SDK to 33
+* removed sign config from project
+* removed synthetic view imports
+* moved to latest compat views
+
 ## v0.15.0
 
 * upgraded build tools (internal) to 28

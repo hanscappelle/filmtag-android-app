@@ -4,15 +4,13 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 
 import be.hcpl.android.filmtag.template.TemplateFragment
 import be.hcpl.android.filmtag.util.CommonUtil
 import be.hcpl.android.filmtag.util.StorageUtil
-
-import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * main entry point of app
@@ -39,7 +37,8 @@ class MainActivity : AppCompatActivity() {
         // to be our ActionBar
         // thanks to kotlin android extensions we can import this from layout
         // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar)
+        // FIXME check if fix is needed here
+        //setSupportActionBar(toolbar)
 
         // load the prefs here
         prefs = PreferenceManager.getDefaultSharedPreferences(applicationContext)
@@ -87,7 +86,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val initialFragment: Fragment
-        get() = FilmRollListFragment.newInstance()
+        // FIXME restore get() = FilmRollListFragment.newInstance()
+        get() = AboutFragment.newInstance()
 
     /**
      * use for changing currently visible fragment
@@ -97,7 +97,11 @@ class MainActivity : AppCompatActivity() {
         // store current fragment
         content = fragment
         // switch content with history
-        supportFragmentManager.beginTransaction().replace(R.id.container, fragment).addToBackStack(fragment.javaClass.simpleName).commit()
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.container, fragment)
+            .addToBackStack(fragment.javaClass.simpleName)
+            .commit()
         // false by default
         setHomeAsUp(false)
         // also hide keyboard here

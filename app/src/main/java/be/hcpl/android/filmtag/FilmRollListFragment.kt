@@ -3,20 +3,19 @@ package be.hcpl.android.filmtag
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.preference.PreferenceFragmentCompat
-import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
+import android.widget.ListView
+import androidx.appcompat.widget.SearchView
+import androidx.preference.PreferenceFragmentCompat
 
 import be.hcpl.android.filmtag.adapter.FilmRollAdapter
 import be.hcpl.android.filmtag.model.Roll
 import be.hcpl.android.filmtag.template.TemplateFragment
 import be.hcpl.android.filmtag.util.StorageUtil
-import kotlinx.android.synthetic.main.fragment_roll_overview.*
-
 
 /**
  * an overview of rolls created earlier + option to add new roll of film
@@ -30,7 +29,8 @@ class FilmRollListFragment : TemplateFragment() {
 
     private var mAdapter: FilmRollAdapter? = null
 
-    private var searchView: SearchView? = null
+    private lateinit var searchView: SearchView
+    private lateinit var list_rolls: ListView
 
     override val layoutResourceId: Int
         get() = R.layout.fragment_roll_overview
@@ -42,6 +42,8 @@ class FilmRollListFragment : TemplateFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        list_rolls = view.findViewById(R.id.list_rolls)
 
         // prepare the adapter for that list
         mAdapter = FilmRollAdapter(requireContext())
@@ -55,41 +57,41 @@ class FilmRollListFragment : TemplateFragment() {
         val mainActivity = activity as MainActivity
 
         // enable the view manually
-        searchView = SearchView(mainActivity.supportActionBar!!.themedContext)
-        searchView!!.setIconifiedByDefault(false)
-        mainActivity.supportActionBar!!.customView = searchView
+        searchView = SearchView(requireContext())
+        searchView.setIconifiedByDefault(false)
+        mainActivity.supportActionBar?.customView = searchView
         // not enabled by default
-        mainActivity.supportActionBar!!.setDisplayShowCustomEnabled(searchViewEnabled)
+        mainActivity.supportActionBar?.setDisplayShowCustomEnabled(searchViewEnabled)
         // text listeners
-        searchView!!.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 // filter data
-                mAdapter!!.filter.filter(query)
+                mAdapter?.filter?.filter(query)
                 return true
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
                 if ("" == newText) {
                     // clear results
-                    mAdapter!!.filter.filter(null)
+                    mAdapter?.filter?.filter(null)
                     return true
                 }
                 return false
             }
         })
         // not in use
-        searchView!!.setOnCloseListener {
-            mAdapter!!.filter.filter(null)
+        searchView.setOnCloseListener {
+            mAdapter?.filter?.filter(null)
             true
         }
         // when editing and back used fiest focus goes away
-        searchView!!.setOnQueryTextFocusChangeListener { _, b ->
+        searchView.setOnQueryTextFocusChangeListener { _, b ->
             if (!b) {
-                val query = searchView!!.query
+                val query = searchView.query
                 if (query != null && query.length > 0) {
-                    mAdapter!!.filter.filter(query)
+                    mAdapter?.filter?.filter(query)
                 } else {
-                    mAdapter!!.filter.filter(null)
+                    mAdapter?.filter?.filter(null)
                     toggleSearchView()
                 }
             }
@@ -120,14 +122,14 @@ class FilmRollListFragment : TemplateFragment() {
 
     // create new roll option is in main activity
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         // update options based on search enabled or not
         if (!searchViewEnabled)
-            inflater!!.inflate(R.menu.rolls, menu)
+            inflater.inflate(R.menu.rolls, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        val id = item!!.itemId
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
         if (id == R.id.action_add) {
             createNewRoll()
             return true

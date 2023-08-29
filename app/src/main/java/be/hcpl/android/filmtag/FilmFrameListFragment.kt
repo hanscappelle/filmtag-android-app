@@ -1,21 +1,22 @@
 package be.hcpl.android.filmtag
 
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import android.text.TextUtils
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.ListView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 
 import be.hcpl.android.filmtag.adapter.FrameAdapter
 import be.hcpl.android.filmtag.model.Frame
 import be.hcpl.android.filmtag.model.Roll
 import be.hcpl.android.filmtag.template.TemplateFragment
 import be.hcpl.android.filmtag.util.StorageUtil
-import kotlinx.android.synthetic.main.fragment_roll_detail.*
 
 class FilmFrameListFragment : TemplateFragment() {
 
@@ -25,6 +26,11 @@ class FilmFrameListFragment : TemplateFragment() {
 
     // TODO double reference?
     private var frames: MutableList<Frame>? = null
+
+    private lateinit var text_roll: TextView
+    private lateinit var text_roll_details: TextView
+    private lateinit var wrapper_tags: ViewGroup
+    private lateinit var list_frames: ListView
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -81,6 +87,11 @@ class FilmFrameListFragment : TemplateFragment() {
 
         super.onViewCreated(view, savedInstanceState)
 
+        text_roll = view.findViewById(R.id.text_roll)
+        text_roll_details = view.findViewById(R.id.text_roll_details)
+        wrapper_tags = view.findViewById(R.id.wrapper_tags)
+        list_frames = view.findViewById(R.id.list_frames)
+
         // show roll details on top
         if (filmRoll != null) {
             text_roll.text = filmRoll!!.toString()
@@ -117,14 +128,12 @@ class FilmFrameListFragment : TemplateFragment() {
         (activity as MainActivity).switchContent(EditFrameFragment.newInstance(filmRoll, frames, index))
     }
 
-    override fun onCreateOptionsMenu(
-            menu: Menu?,
-            inflater: MenuInflater?) {
-        inflater!!.inflate(R.menu.frames, menu)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.frames, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item!!.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
             R.id.action_delete -> {
                 deleteCurrentFilmRoll()
                 return true

@@ -2,12 +2,9 @@ package be.hcpl.android.filmtag
 
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.text.Html
 import android.text.util.Linkify
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 
 import java.io.BufferedReader
@@ -32,7 +29,7 @@ class AboutFragment : TemplateFragment() {
         // add version
         aboutText = aboutText.replace("{version}", BuildConfig.VERSION_NAME)
         // set text
-        val textView = view!!.findViewById(R.id.text_about) as TextView
+        val textView = view.findViewById(R.id.text_about) as TextView
         textView.text = Html.fromHtml(aboutText)
         // and make clickable
         Linkify.addLinks(textView, Linkify.ALL)

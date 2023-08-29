@@ -8,6 +8,9 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.CheckBox
+import android.widget.EditText
 import android.widget.Toast
 
 import java.util.Arrays
@@ -15,7 +18,6 @@ import java.util.Arrays
 import be.hcpl.android.filmtag.model.Roll
 import be.hcpl.android.filmtag.template.TemplateFragment
 import be.hcpl.android.filmtag.util.StorageUtil
-import kotlinx.android.synthetic.main.fragment_form_roll.*
 
 /**
  * Created by hcpl on 1/08/15.
@@ -23,6 +25,13 @@ import kotlinx.android.synthetic.main.fragment_form_roll.*
 class EditRollFragment : TemplateFragment() {
 
     private var roll: Roll? = null
+
+    private lateinit var edit_type: AutoCompleteTextView
+    private lateinit var edit_notes: EditText
+    private lateinit var edit_exposed: EditText
+    private lateinit var edit_frames: EditText
+    private lateinit var check_developed: CheckBox
+    private lateinit var edit_tags: EditText
 
     override val layoutResourceId: Int
         get() = R.layout.fragment_form_roll
@@ -47,12 +56,19 @@ class EditRollFragment : TemplateFragment() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater!!.inflate(R.menu.new_film, menu)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.new_film, menu)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        edit_type = view.findViewById(R.id.edit_type)
+        edit_notes = view.findViewById(R.id.edit_notes)
+        edit_exposed = view.findViewById(R.id.edit_exposed)
+        edit_frames = view.findViewById(R.id.edit_frames)
+        check_developed = view.findViewById(R.id.check_developed)
+        edit_tags = view.findViewById(R.id.edit_tags)
 
         // prefill data if possible
         if (roll != null) {
@@ -74,7 +90,7 @@ class EditRollFragment : TemplateFragment() {
         }// populate with defaults here
 
         // autocomplete
-        val adapter = ArrayAdapter(activity,
+        val adapter = ArrayAdapter(requireContext(),
                 android.R.layout.simple_dropdown_item_1line, typeSuggestions)
         edit_type.setAdapter(adapter)
     }
@@ -89,7 +105,7 @@ class EditRollFragment : TemplateFragment() {
             return existingTypes as Array<String>
         }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item!!.itemId) {
             R.id.action_create -> {
                 createNewItem()
