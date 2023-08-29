@@ -59,7 +59,7 @@ class FilmFrameListFragment : TemplateFragment() {
     override fun onResume() {
         super.onResume()
         updateFramesForFilm()
-        (activity as MainActivity).setHomeAsUp(true)
+        //(activity as MainActivity).setHomeAsUp(true)
     }
 
     private fun updateFramesForFilm() {

@@ -23,7 +23,6 @@ import be.hcpl.android.filmtag.util.StorageUtil
 /**
  * an overview of rolls created earlier + option to add new roll of film
  *
- *
  * Created by hcpl on 30/07/15.
  */
 class FilmRollListFragment : TemplateFragment() {
@@ -41,7 +40,7 @@ class FilmRollListFragment : TemplateFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true) // TODO provide menu instead
+        setHasOptionsMenu(true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,24 +52,23 @@ class FilmRollListFragment : TemplateFragment() {
         // prepare the adapter for that list
         mAdapter = FilmRollAdapter(requireContext())
         listView.adapter = mAdapter
-
         listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, i, _ ->
             showRollDetails(mAdapter!!.getItem(i))
         }
 
-        // enable the view manually
+        // enable search view in toolbar
         setUpSearchView();
-
     }
 
     private fun setUpSearchView() {
+
+        // FIXME filtering is broken
         // parent activity
         val mainActivity = activity as MainActivity
 
         searchView = SearchView(requireContext())
         searchView.setIconifiedByDefault(false)
         mainActivity.supportActionBar?.customView = searchView
-        // not enabled by default
         mainActivity.supportActionBar?.setDisplayShowCustomEnabled(searchViewEnabled)
         // text listeners
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -94,11 +92,11 @@ class FilmRollListFragment : TemplateFragment() {
             mAdapter?.filter?.filter(null)
             true
         }
-        // when editing and back used fiest focus goes away
+        // when editing and back used first focus goes away
         searchView.setOnQueryTextFocusChangeListener { _, b ->
             if (!b) {
                 val query = searchView.query
-                if (query != null && query.length > 0) {
+                if (query != null && query.isNotEmpty()) {
                     mAdapter?.filter?.filter(query)
                 } else {
                     mAdapter?.filter?.filter(null)
@@ -154,8 +152,8 @@ class FilmRollListFragment : TemplateFragment() {
         } else if (id == R.id.action_about) {
             (activity as MainActivity).switchContent(AboutFragment.newInstance())
             return true
-       // } else if (id == R.id.action_search) {
-       //     toggleSearchView()
+        //} else if (id == R.id.action_search) {
+        //    toggleSearchView()
         } else if (id == R.id.action_settings) {
             (activity as MainActivity).switchContent(PrefsFragment())
         }

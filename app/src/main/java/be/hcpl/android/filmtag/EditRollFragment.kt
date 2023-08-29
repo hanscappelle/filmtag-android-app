@@ -165,10 +165,10 @@ class EditRollFragment : TemplateFragment() {
         backToOverview()
     }
 
-    override fun onResume() {
-        super.onResume()
-        (activity as MainActivity).setHomeAsUp(true)
-    }
+    //override fun onResume() {
+    //    super.onResume()
+    //    (activity as MainActivity).setHomeAsUp(true)
+    //}
 
     companion object {
 

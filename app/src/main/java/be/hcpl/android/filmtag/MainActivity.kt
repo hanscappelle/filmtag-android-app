@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
      */
     var prefs: SharedPreferences? = null
         private set
-
+    // FIXME settings needs to be fixed
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,7 +80,9 @@ class MainActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
+            // TODO handle nav here
             R.id.action_settings -> true
+            R.id.action_about -> true
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -113,54 +115,14 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private val initialFragment: Fragment
-        // FIXME restore get() = FilmRollListFragment.newInstance()
-        get() = AboutFragment.newInstance()
-
     /**
      * use for changing currently visible fragment
      * @param fragment
      */
     fun switchContent(fragment: Fragment) {
-        // store current fragment
-        //content = fragment
-        // switch content with history
-        //supportFragmentManager
-        //    .beginTransaction()
-        //    .replace(R.id.container, fragment)
-        //    .addToBackStack(fragment.javaClass.simpleName)
-        //    .commit()
-        // false by default
-        //setHomeAsUp(false)
+        // FIXME no longer working, use nav instead
         // also hide keyboard here
-        CommonUtil.hideSoftKeyboard(this)
-    }
-
-    override fun onBackPressed() {
-        //if (content != null && content is TemplateFragment) {
-        //    if ((content as TemplateFragment).onBackPressed())
-        //        return
-        //}
-        // hide keyboard here also
-        CommonUtil.hideSoftKeyboard(this)
-        // finish if content is the film Roll overview fragment
-        //if (supportFragmentManager.findFragmentById(R.id.container) is FilmRollListFragment) {
-        //    finish()
-        //} else {
-        //    super.onBackPressed()
-        //}
-    }
-
-    fun setHomeAsUp(enable: Boolean) {
-        //if (supportActionBar != null) {
-        //    supportActionBar!!.setDisplayHomeAsUpEnabled(enable)
-            //getSupportActionBar().setHomeButtonEnabled(true);
-        //}
-    }
-
-    companion object {
-
-        private val KEY_CURRENT_CONTENT = "current_content"
+        //CommonUtil.hideSoftKeyboard(this)
     }
 
 }
