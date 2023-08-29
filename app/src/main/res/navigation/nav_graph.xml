@@ -9,17 +9,24 @@
         android:id="@+id/action_about"
         app:destination="@id/AboutFragment" />
 
+    <action
+        android:id="@+id/action_settings"
+        app:destination="@id/Preferences" />
+
+    <action
+        android:id="@+id/action_home"
+        app:destination="@id/FilmRollListFragment" />
+
+    <fragment
+        android:id="@+id/Preferences"
+        android:name="be.hcpl.android.filmtag.Preferences"/>
+
     <fragment
         android:id="@+id/AboutFragment"
         android:name="be.hcpl.android.filmtag.AboutFragment"
         android:label="@string/title_about"
-        tools:layout="@layout/fragment_about">
+        tools:layout="@layout/fragment_about"/>
 
-        <action
-            android:id="@+id/back"
-            app:destination="@id/FilmRollListFragment" />
-
-    </fragment>
     <fragment
         android:id="@+id/FilmRollListFragment"
         android:name="be.hcpl.android.filmtag.FilmRollListFragment"
@@ -46,10 +53,6 @@
     <fragment
         android:id="@+id/FilmFrameListFragment"
         android:name="be.hcpl.android.filmtag.FilmFrameListFragment">
-
-        <action
-            android:id="@+id/action_back"
-            app:destination="@id/FilmRollListFragment" />
 
     </fragment>
 

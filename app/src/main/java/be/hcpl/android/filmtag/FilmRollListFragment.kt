@@ -157,13 +157,6 @@ class FilmRollListFragment : TemplateFragment() {
         return super.onOptionsItemSelected(item)
     }
 
-    class PrefsFragment : PreferenceFragmentCompat() {
-        override fun onCreatePreferences(bundle: Bundle?, s: String?) {
-            // Load the preferences from an XML resource
-            addPreferencesFromResource(R.xml.preferences)
-        }
-    }
-
     private var searchViewEnabled = false
 
     /**

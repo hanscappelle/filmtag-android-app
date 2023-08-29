@@ -151,7 +151,7 @@ class FilmFrameListFragment : TemplateFragment() {
     }
 
     private fun backToOverview() {
-        findNavController().navigate(R.id.action_back)
+        findNavController().navigate(R.id.action_home)
     }
 
     private fun deleteCurrentFilmRoll() {

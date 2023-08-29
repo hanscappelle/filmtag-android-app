@@ -14,6 +14,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.preference.PreferenceFragmentCompat
 import be.hcpl.android.filmtag.databinding.ActivityMainBinding
 
 import be.hcpl.android.filmtag.util.StorageUtil
@@ -33,7 +34,6 @@ class MainActivity : AppCompatActivity() {
      */
     var prefs: SharedPreferences? = null
         private set
-    // FIXME settings needs to be fixed
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
