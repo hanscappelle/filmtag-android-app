@@ -11,6 +11,7 @@ import android.widget.AdapterView
 import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 
 import be.hcpl.android.filmtag.adapter.FrameAdapter
@@ -18,6 +19,7 @@ import be.hcpl.android.filmtag.model.Frame
 import be.hcpl.android.filmtag.model.Roll
 import be.hcpl.android.filmtag.template.TemplateFragment
 import be.hcpl.android.filmtag.util.StorageUtil
+import java.util.ArrayList
 
 class FilmFrameListFragment : TemplateFragment() {
 
@@ -107,7 +109,7 @@ class FilmFrameListFragment : TemplateFragment() {
                 for (tag in filmRoll!!.tags) {
                     val tv = TextView(context)
                     tv.text = tag
-                    tv.setAllCaps(true)
+                    tv.isAllCaps = true
                     tv.setPadding(10, 0, 10, 0) // TODO proper units needed here?
                     tv.textSize = 14f // TODO proper units needed here?
                     wrapper_tags.addView(tv)
@@ -121,11 +123,19 @@ class FilmFrameListFragment : TemplateFragment() {
         mAdapter = FrameAdapter(requireContext())
         list_frames.adapter = mAdapter
 
-        list_frames.onItemClickListener = AdapterView.OnItemClickListener { _, _, i, _ -> updateFrame(i) }
+        list_frames.onItemClickListener = AdapterView.OnItemClickListener { _, _, i, _ ->
+            updateFrame(i)
+        }
     }
 
     private fun updateFrame(index: Int) {
-        (activity as MainActivity).switchContent(EditFrameFragment.newInstance(filmRoll, frames, index))
+        findNavController().navigate(
+            R.id.action_edit_frame, bundleOf(
+                EditFrameFragment.KEY_FRAMES to frames as ArrayList<*>,
+                EditFrameFragment.KEY_FRAME_IDX to index,
+                EditFrameFragment.KEY_ROLL to filmRoll
+            )
+        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -147,7 +157,7 @@ class FilmFrameListFragment : TemplateFragment() {
     }
 
     private fun editCurrentFilmRoll() {
-        (activity as MainActivity).switchContent(EditRollFragment.newInstance(filmRoll))
+        findNavController().navigate(R.id.action_edit_roll, bundleOf(KEY_FILM_ROLL to filmRoll))
     }
 
     private fun backToOverview() {
@@ -170,14 +180,7 @@ class FilmFrameListFragment : TemplateFragment() {
 
     companion object {
 
-        val KEY_FILM_ROLL = "roll"
+        const val KEY_FILM_ROLL = "roll"
 
-        fun newInstance(roll: Roll): FilmFrameListFragment {
-            val args = Bundle()
-            args.putSerializable(KEY_FILM_ROLL, roll)
-            val fragment = FilmFrameListFragment()
-            fragment.arguments = args
-            return fragment
-        }
     }
 }

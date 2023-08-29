@@ -26,6 +26,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
 
 import java.io.File
 import java.io.IOException
@@ -111,8 +112,6 @@ class EditFrameFragment : TemplateFragment() {
         image_location_indicator = view.findViewById(R.id.image_location_indicator)
         image_preview = view.findViewById(R.id.image_preview)
         image_preview_indicator = view.findViewById(R.id.image_preview_indicator)
-
-
 
         text_location = view.findViewById(R.id.text_location)
 
@@ -219,7 +218,7 @@ class EditFrameFragment : TemplateFragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item!!.itemId) {
+        when (item.itemId) {
             R.id.action_update -> {
                 updateItem()
                 return true
@@ -435,7 +434,7 @@ class EditFrameFragment : TemplateFragment() {
     }
 
     private fun backToOverview() {
-        //(activity as MainActivity).switchContent(FilmFrameListFragment.newInstance(roll!!))
+        findNavController().navigate(R.id.action_home)
     }
 
     override fun onResume() {
@@ -459,9 +458,10 @@ class EditFrameFragment : TemplateFragment() {
 
         // all image related code from http://developer.android.com/training/camera/photobasics.html
 
-        private val KEY_FRAME_IDX = "frame_index"
-        private val KEY_FRAMES = "frames"
-        private val KEY_ROLL = "roll"
+        const val KEY_FRAME_IDX = "frame_index"
+        const val KEY_FRAMES = "frames"
+        const val KEY_ROLL = "roll"
+
         private val MY_PERMISSIONS_REQUEST_LOCATION = 100
         private val MY_PERMISSIONS_REQUEST_STORAGE = 200
         private val REQUEST_IMAGE_CAPTURE = 1

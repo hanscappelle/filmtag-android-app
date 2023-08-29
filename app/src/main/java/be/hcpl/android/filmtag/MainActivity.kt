@@ -8,13 +8,11 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.preference.PreferenceFragmentCompat
 import be.hcpl.android.filmtag.databinding.ActivityMainBinding
 
 import be.hcpl.android.filmtag.util.StorageUtil
@@ -119,15 +117,6 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, R.string.err_import_failed, Toast.LENGTH_SHORT).show()
         }
 
-    }
-
-    /**
-     * use for changing currently visible fragment
-     * @param fragment
-     * @deprecated broken us navigation instead
-     */
-    fun switchContent(fragment: Fragment) {
-        // FIXME no longer working, use nav instead
     }
 
 }

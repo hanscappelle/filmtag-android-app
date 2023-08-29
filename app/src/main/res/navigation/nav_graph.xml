@@ -46,14 +46,25 @@
         android:name="be.hcpl.android.filmtag.EditRollFragment"
         tools:layout="@layout/fragment_form_roll">
 
-
+        <action
+            android:id="@+id/action_detail"
+            app:destination="@id/FilmFrameListFragment" />
 
     </fragment>
 
     <fragment
         android:id="@+id/FilmFrameListFragment"
         android:name="be.hcpl.android.filmtag.FilmFrameListFragment">
-
+        <action
+            android:id="@+id/action_edit_frame"
+            app:destination="@id/EditFrameFragment"/>
+        <action
+            android:id="@+id/action_edit_roll"
+            app:destination="@id/EditRollFragment"/>
     </fragment>
+
+    <fragment
+        android:id="@+id/EditFrameFragment"
+        android:name="be.hcpl.android.filmtag.EditFrameFragment"/>
 
 </navigation>

@@ -12,6 +12,9 @@ import android.widget.AutoCompleteTextView
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
+import be.hcpl.android.filmtag.FilmFrameListFragment.Companion.KEY_FILM_ROLL
 
 import java.util.Arrays
 
@@ -121,14 +124,15 @@ class EditRollFragment : TemplateFragment() {
 
     private fun backToOverview() {
         // popping first is one option, going back in stack is better
-        val activity = activity as MainActivity
-        activity.supportFragmentManager.popBackStackImmediate()
-        activity.supportFragmentManager.popBackStackImmediate()
-        if (roll == null)
-            activity.switchContent(FilmRollListFragment.newInstance())
-        else {
-            activity.switchContent(FilmFrameListFragment.newInstance(roll!!))
-        }
+        //val activity = activity as MainActivity
+        //activity.supportFragmentManager.popBackStackImmediate()
+        //activity.supportFragmentManager.popBackStackImmediate()
+        //if (roll == null)
+            findNavController().navigate(R.id.action_home)
+        //else {
+        // TODO this one works but messes up navigation
+        //    findNavController().navigate(R.id.action_detail, bundleOf(KEY_FILM_ROLL to roll))
+        //}
     }
 
     private fun createNewItem() {
@@ -165,35 +169,9 @@ class EditRollFragment : TemplateFragment() {
         backToOverview()
     }
 
-    //override fun onResume() {
-    //    super.onResume()
-    //    (activity as MainActivity).setHomeAsUp(true)
-    //}
-
     companion object {
 
-        private val KEY_EDIT_ROLL = "edit_roll"
-
-        /**
-         * use for creating new rolls
-         */
-        fun newInstance(): EditRollFragment {
-            val args = Bundle()
-            val fragment = EditRollFragment()
-            fragment.arguments = args
-            return fragment
-        }
-
-        /**
-         * use for editing existing rolls
-         */
-        fun newInstance(roll: Roll?): EditRollFragment {
-            val args = Bundle()
-            args.putSerializable(KEY_EDIT_ROLL, roll)
-            val fragment = EditRollFragment()
-            fragment.arguments = args
-            return fragment
-        }
+        const val KEY_EDIT_ROLL = "edit_roll"
     }
 
 }

@@ -14,7 +14,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
-import androidx.preference.PreferenceFragmentCompat
+import be.hcpl.android.filmtag.FilmFrameListFragment.Companion.KEY_FILM_ROLL
 
 import be.hcpl.android.filmtag.adapter.FilmRollAdapter
 import be.hcpl.android.filmtag.model.Roll
@@ -109,7 +109,6 @@ class FilmRollListFragment : TemplateFragment() {
 
     override fun onResume() {
         super.onResume()
-
         // retrieve list of frames here
         refreshData()
     }
@@ -125,10 +124,9 @@ class FilmRollListFragment : TemplateFragment() {
         listView.isVisible = rolls.isNotEmpty()
     }
 
-
     private fun showRollDetails(roll: Roll) {
         // show frames on selection
-        val bundle = bundleOf("roll" to roll)
+        val bundle = bundleOf(KEY_FILM_ROLL to roll)
         findNavController().navigate(R.id.action_detail, bundle)
     }
 
@@ -143,7 +141,7 @@ class FilmRollListFragment : TemplateFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         if (id == R.id.action_add) {
-            createNewRoll()
+            findNavController().navigate(R.id.action_add_roll)
             return true
         } else if (id == R.id.action_export) {
             shareConfig()
@@ -174,10 +172,6 @@ class FilmRollListFragment : TemplateFragment() {
         requireActivity().invalidateOptionsMenu()
     }
 
-    private fun createNewRoll() {
-        findNavController().navigate(R.id.action_add_roll)
-    }
-
     private fun importConfig() {
         val builder = AlertDialog.Builder(activity)
         builder.setMessage(R.string.info_import_export)
@@ -206,13 +200,4 @@ class FilmRollListFragment : TemplateFragment() {
         return false
     }
 
-    companion object {
-
-        fun newInstance(): FilmRollListFragment {
-            val args = Bundle()
-            val fragment = FilmRollListFragment()
-            fragment.arguments = args
-            return fragment
-        }
-    }
 }

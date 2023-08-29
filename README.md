@@ -42,6 +42,12 @@ https://www.materialpalette.com/brown/grey
 * visualisation of locations on map
 * collapse top notes on film view on scroll up (list of frames)
 
+## broken features
+
+* filter with search from toolbar
+* add pictures
+* go to detail directly after creating a new roll
+
 ## v0.16.0
 
 * update target SDK to 33
