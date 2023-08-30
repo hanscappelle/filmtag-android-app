@@ -27,6 +27,8 @@ complex editing options while shooting. Keep distraction to an absolute minimum.
 
 https://play.google.com/store/apps/details?id=be.hcpl.android.filmtag
 
+For devs, not that this app is signed with older keystore format and still released as an apk (no bundle).
+
 ## beta testing
 
 https://play.google.com/apps/testing/be.hcpl.android.filmtag
