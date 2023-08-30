@@ -26,7 +26,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
+import be.hcpl.android.filmtag.FilmFrameListFragment.Companion.KEY_FILM_ROLL
 
 import java.io.File
 import java.io.IOException
@@ -63,7 +65,6 @@ class EditFrameFragment : TemplateFragment() {
     private lateinit var image_location_indicator: ImageView
     private lateinit var image_preview: ImageView
     private lateinit var image_preview_indicator: ImageView
-
 
     override val layoutResourceId: Int
         get() = R.layout.fragment_form_frame
@@ -224,7 +225,7 @@ class EditFrameFragment : TemplateFragment() {
                 return true
             }
             android.R.id.home -> {
-                backToOverview()
+                backToDetail()
                 return true
             }
             R.id.action_camera -> {
@@ -421,7 +422,7 @@ class EditFrameFragment : TemplateFragment() {
         StorageUtil.updateFrames(activity as MainActivity, roll!!, frames!!)
 
         // navigate back to overview
-        backToOverview()
+        backToDetail()
     }
 
     private fun getFieldTextOrHint(field: EditText): String {
@@ -433,8 +434,8 @@ class EditFrameFragment : TemplateFragment() {
         }
     }
 
-    private fun backToOverview() {
-        findNavController().navigate(R.id.action_home)
+    private fun backToDetail() {
+        findNavController().navigate(R.id.action_detail, bundleOf(KEY_FILM_ROLL to roll))
     }
 
     override fun onResume() {

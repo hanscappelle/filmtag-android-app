@@ -19,13 +19,13 @@
 
     <fragment
         android:id="@+id/Preferences"
-        android:name="be.hcpl.android.filmtag.Preferences"/>
+        android:name="be.hcpl.android.filmtag.Preferences" />
 
     <fragment
         android:id="@+id/AboutFragment"
         android:name="be.hcpl.android.filmtag.AboutFragment"
         android:label="@string/title_about"
-        tools:layout="@layout/fragment_about"/>
+        tools:layout="@layout/fragment_about" />
 
     <fragment
         android:id="@+id/FilmRollListFragment"
@@ -35,7 +35,7 @@
 
         <action
             android:id="@+id/action_add_roll"
-            app:destination="@id/EditRollFragment"/>
+            app:destination="@id/EditRollFragment" />
         <action
             android:id="@+id/action_detail"
             app:destination="@id/FilmFrameListFragment" />
@@ -57,14 +57,19 @@
         android:name="be.hcpl.android.filmtag.FilmFrameListFragment">
         <action
             android:id="@+id/action_edit_frame"
-            app:destination="@id/EditFrameFragment"/>
+            app:destination="@id/EditFrameFragment" />
         <action
             android:id="@+id/action_edit_roll"
-            app:destination="@id/EditRollFragment"/>
+            app:destination="@id/EditRollFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/EditFrameFragment"
-        android:name="be.hcpl.android.filmtag.EditFrameFragment"/>
+        android:name="be.hcpl.android.filmtag.EditFrameFragment">
+
+        <action
+            android:id="@+id/action_detail"
+            app:destination="@id/FilmFrameListFragment" />
+    </fragment>
 
 </navigation>
