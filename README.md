@@ -40,12 +40,11 @@ https://www.materialpalette.com/brown/grey
 ## upcoming, issues and features
 
 * visualisation of locations on map
-* collapse top notes on film view on scroll up (list of frames)
 * delete from overview with swipe
 * autocomplete for names and tags based on existing
 * use recyclerView
 * filter with search from toolbar
-* add pictures no longer working
+* improve picture storage and preview
 
 ## v0.16.0
 
