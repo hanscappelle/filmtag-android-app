@@ -42,12 +42,12 @@ https://www.materialpalette.com/brown/grey
 * visualisation of locations on map
 * collapse top notes on film view on scroll up (list of frames)
 * delete from overview with swipe
+* autocomplete for names and tags based on existing
 
 ## broken features
 
 * filter with search from toolbar
 * add pictures no longer working
-* go to detail directly after creating a new roll
 
 ## v0.16.0
 
