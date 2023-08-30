@@ -440,7 +440,6 @@ class EditFrameFragment : TemplateFragment() {
 
     override fun onResume() {
         super.onResume()
-        //(activity as MainActivity).setHomeAsUp(true)
         if (locationPermissionRequested) {
             getLocation()
             locationPermissionRequested = false
