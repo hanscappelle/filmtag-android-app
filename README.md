@@ -56,6 +56,7 @@ https://www.materialpalette.com/brown/grey
 * removed synthetic view imports
 * moved to latest compat views
 * remove whitespace for preferences
+* removed older references from about view
 
 ## v0.15.0
 
