@@ -46,7 +46,7 @@ https://www.materialpalette.com/brown/grey
 ## broken features
 
 * filter with search from toolbar
-* add pictures
+* add pictures no longer working
 * go to detail directly after creating a new roll
 
 ## v0.16.0
@@ -55,6 +55,7 @@ https://www.materialpalette.com/brown/grey
 * removed sign config from project
 * removed synthetic view imports
 * moved to latest compat views
+* remove whitespace for preferences
 
 ## v0.15.0
 
