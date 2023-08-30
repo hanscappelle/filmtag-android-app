@@ -37,10 +37,11 @@ https://www.materialpalette.com/brown/grey
 
 # Version History
 
-## v1.0.0 - upcoming
+## upcoming
 
 * visualisation of locations on map
 * collapse top notes on film view on scroll up (list of frames)
+* delete from overview with swipe
 
 ## broken features
 

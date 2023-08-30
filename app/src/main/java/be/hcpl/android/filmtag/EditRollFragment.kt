@@ -41,13 +41,13 @@ class EditRollFragment : TemplateFragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putSerializable(KEY_EDIT_ROLL, roll)
+        outState.putSerializable(KEY_FILM_ROLL, roll)
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
         if (savedInstanceState != null)
-            roll = savedInstanceState.getSerializable(KEY_EDIT_ROLL) as Roll?
+            roll = savedInstanceState.getSerializable(KEY_FILM_ROLL) as Roll?
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +55,7 @@ class EditRollFragment : TemplateFragment() {
         setHasOptionsMenu(true)
         val args = arguments
         if (args != null) {
-            roll = args.getSerializable(KEY_EDIT_ROLL) as Roll?
+            roll = args.getSerializable(KEY_FILM_ROLL) as Roll?
         }
     }
 
@@ -167,11 +167,6 @@ class EditRollFragment : TemplateFragment() {
 
         // navigate to overview
         backToOverview()
-    }
-
-    companion object {
-
-        const val KEY_EDIT_ROLL = "edit_roll"
     }
 
 }
