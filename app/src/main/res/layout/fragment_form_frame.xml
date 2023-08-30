@@ -1,173 +1,161 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+    <TextView
+        android:id="@+id/header_frame"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:padding="5dp"
+        android:text="@string/label_frame_number"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/header_frame"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:fontFamily="sans-serif-light"
-            android:padding="5dp"
-            android:text="@string/label_frame_number"
-            android:textSize="20sp"/>
+    <TextView
+        android:id="@+id/edit_number"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:padding="5dp"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@id/header_frame"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="36" />
 
-        <TextView
-            android:id="@+id/edit_number"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/header_frame"
-            android:fontFamily="sans-serif"
-            android:padding="5dp"
-            android:textSize="20sp"
-            tools:text="36"
-            />
+    <TextView
+        android:id="@+id/label_shutter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:padding="5dp"
+        android:text="@string/label_frame_shutter"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/long_exposure"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header_frame" />
 
-        <TextView
-            android:id="@+id/label_shutter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/header_frame"
-            android:layout_toLeftOf="@+id/long_exposure"
-            android:fontFamily="sans-serif-light"
-            android:padding="5dp"
-            android:text="@string/label_frame_shutter"
-            android:textSize="20sp"/>
+    <CheckBox
+        android:id="@+id/long_exposure"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/long_exposure"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header_frame" />
 
-        <CheckBox
-            android:id="@+id/long_exposure"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/header_frame"
-            android:text="@string/long_exposure"/>
+    <EditText
+        android:id="@+id/edit_shutter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="200"
+        android:inputType="number"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/label_shutter" />
 
-        <EditText
-            android:id="@+id/edit_shutter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/label_shutter"
-            android:hint="200"
-            android:inputType="number"/>
+    <TextView
+        android:id="@+id/label_aperture"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:padding="5dp"
+        android:text="@string/label_film_aperture"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_shutter" />
 
-        <TextView
-            android:id="@+id/label_aperture"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/edit_shutter"
-            android:fontFamily="sans-serif-light"
-            android:padding="5dp"
-            android:text="@string/label_film_aperture"
-            android:textSize="20sp"/>
+    <EditText
+        android:id="@+id/edit_aperture"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="2.8"
+        android:inputType="numberDecimal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/label_aperture" />
 
-        <EditText
-            android:id="@+id/edit_aperture"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/label_aperture"
-            android:hint="2.8"
-            android:inputType="numberDecimal"/>
+    <TextView
+        android:id="@+id/label_tags"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:padding="5dp"
+        android:text="@string/label_frame_tags"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_aperture" />
 
-        <TextView
-            android:id="@+id/label_tags"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/edit_aperture"
-            android:fontFamily="sans-serif-light"
-            android:padding="5dp"
-            android:text="@string/label_frame_tags"
-            android:textSize="20sp"/>
+    <EditText
+        android:id="@+id/edit_tags"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/label_tags_for_film"
+        android:lines="1"
+        android:singleLine="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/label_tags" />
 
-        <EditText
-            android:id="@+id/edit_tags"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/label_tags"
-            android:hint="@string/label_tags_for_film"
-            android:lines="1"
-            android:singleLine="false"/>
+    <TextView
+        android:id="@+id/label_notes"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:padding="5dp"
+        android:text="@string/label_frame_notes"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_tags" />
 
-        <TextView
-            android:id="@+id/label_notes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/edit_tags"
-            android:fontFamily="sans-serif-light"
-            android:padding="5dp"
-            android:text="@string/label_frame_notes"
-            android:textSize="20sp"/>
+    <EditText
+        android:id="@+id/edit_notes"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+        android:hint="@string/label_notes_for_frame"
+        android:lines="6"
+        android:singleLine="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/label_notes" />
 
-        <EditText
-            android:id="@+id/edit_notes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/label_notes"
-            android:gravity="top"
-            android:hint="@string/label_notes_for_frame"
-            android:lines="6"
-            android:singleLine="false"
-            />
+    <TextView
+        android:id="@+id/text_location"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:padding="5dp"
+        android:text="@string/label_location"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_notes" />
 
-        <TextView
-            android:id="@+id/text_preview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/edit_notes"
-            android:fontFamily="sans-serif-light"
-            android:padding="5dp"
-            android:text="@string/label_preview"
-            android:textSize="20sp"
-            />
+    <ImageView
+        android:id="@+id/image_location_indicator"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_action_device_gps_silver"
+        app:layout_constraintStart_toEndOf="@+id/text_location"
+        app:layout_constraintTop_toBottomOf="@id/edit_notes" />
 
-        <ImageView
-            android:id="@+id/image_preview_indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/edit_notes"
-            android:layout_toRightOf="@+id/text_preview"
-            android:src="@drawable/ic_action_image_photo_camera_silver"
-            />
+    <ImageView
+        android:id="@+id/image_preview"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_location"
+        android:layout_below="@+id/text_location"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="16dp" />
 
-        <TextView
-            android:id="@+id/text_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/text_preview"
-            android:fontFamily="sans-serif-light"
-            android:padding="5dp"
-            android:text="@string/label_location"
-            android:textSize="20sp"
-            />
-
-        <ImageView
-            android:id="@+id/image_location_indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/text_preview"
-            android:layout_toRightOf="@+id/text_location"
-            android:src="@drawable/ic_action_device_gps_silver"
-            />
-
-        <ImageView
-            android:id="@+id/image_preview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/text_location"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="16dp"
-            />
-
-
-    </RelativeLayout>
-
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

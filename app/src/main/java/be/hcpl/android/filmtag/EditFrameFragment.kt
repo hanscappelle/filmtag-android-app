@@ -2,9 +2,11 @@ package be.hcpl.android.filmtag
 
 import android.Manifest
 import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.location.Location
 import android.location.LocationListener
@@ -15,7 +17,6 @@ import android.os.Environment
 import android.preference.PreferenceManager
 import android.provider.MediaStore
 import android.text.TextUtils
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -29,18 +30,17 @@ import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import be.hcpl.android.filmtag.FilmFrameListFragment.Companion.KEY_FILM_ROLL
-
-import java.io.File
-import java.io.IOException
-import java.text.SimpleDateFormat
-import java.util.ArrayList
-import java.util.Arrays
-import java.util.Date
-
 import be.hcpl.android.filmtag.model.Frame
 import be.hcpl.android.filmtag.model.Roll
 import be.hcpl.android.filmtag.template.TemplateFragment
 import be.hcpl.android.filmtag.util.StorageUtil
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.Arrays
+import java.util.Date
+
 
 /**
  * Created by hcpl on 1/08/15.
@@ -64,7 +64,6 @@ class EditFrameFragment : TemplateFragment() {
     private lateinit var text_location: TextView
     private lateinit var image_location_indicator: ImageView
     private lateinit var image_preview: ImageView
-    private lateinit var image_preview_indicator: ImageView
 
     override val layoutResourceId: Int
         get() = R.layout.fragment_form_frame
@@ -112,7 +111,6 @@ class EditFrameFragment : TemplateFragment() {
 
         image_location_indicator = view.findViewById(R.id.image_location_indicator)
         image_preview = view.findViewById(R.id.image_preview)
-        image_preview_indicator = view.findViewById(R.id.image_preview_indicator)
 
         text_location = view.findViewById(R.id.text_location)
 
@@ -125,15 +123,15 @@ class EditFrameFragment : TemplateFragment() {
             long_exposure.isChecked = selectedFrame!!.isLongExposure
             edit_notes.setText(selectedFrame!!.notes)
             // populate the tags here
-            if (!selectedFrame!!.tags.isEmpty())
+            if (selectedFrame!!.tags.isNotEmpty())
                 edit_tags.setText(TextUtils.join(" ", selectedFrame!!.tags))
-            loadImagePreview()
+            loadImagePreview() // load from frame storage
             showLocation()
         }
 
         updateHints()
 
-        // TODO implement autocomplete
+        // TODO implement autocomplete for inputs
     }
 
     // Uses previous frame values for aperture & shutter as hints if available
@@ -159,13 +157,6 @@ class EditFrameFragment : TemplateFragment() {
         }
     }
 
-    private fun markImageAvailable() {
-        image_preview_indicator.setImageDrawable(if (selectedFrame!!.pathToImage != null)
-            ContextCompat.getDrawable(requireContext(), R.drawable.ic_action_image_photo_camera_primary)
-        else
-            ContextCompat.getDrawable(requireContext(), R.drawable.ic_action_image_photo_camera_silver))
-    }
-
     private fun markLocationAvailable() {
         image_location_indicator.setImageDrawable(if (selectedFrame!!.location != null)
             ContextCompat.getDrawable(requireContext(), R.drawable.ic_action_device_gps_primary)
@@ -189,32 +180,18 @@ class EditFrameFragment : TemplateFragment() {
     }
 
     private fun loadImagePreview() {
-        // mark image available first so that if we don't have permission it's still marked
-        markImageAvailable()
         // and if path set try loading after permission check
-        if (selectedFrame!!.pathToImage != null) {
-            // for this storage permission also required
-            if (ContextCompat.checkSelfPermission(requireContext(),
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                if (!storagePermissionRequestedForPreview) {
-                    storagePermissionRequestedForPreview = true
-                    requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                            MY_PERMISSIONS_REQUEST_STORAGE)
-                }
-                return
-            }
+        if (selectedFrame?.pathToImage != null) {
             try {
                 val options = BitmapFactory.Options()
                 options.inSampleSize = 4
                 options.inJustDecodeBounds = false
-                val bm = BitmapFactory.decodeFile(selectedFrame!!.pathToImage, options)
+                val bm = BitmapFactory.decodeFile(selectedFrame?.pathToImage, options)
                 image_preview.setImageBitmap(bm)
             } catch (e: Exception) {
                 // ignore any exceptions here
-                Log.e(tag, "failed to load image from configured path", e)
-
+                handleImageError()
             }
-
         }
     }
 
@@ -240,48 +217,38 @@ class EditFrameFragment : TemplateFragment() {
         return false
     }
 
-
     private fun dispatchTakePictureIntent() {
-        // check permissions first
-        if (ContextCompat.checkSelfPermission(requireContext(),
-                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-
-            // No explanation needed, we can request the permission.
-            if (!storagePermissionRequested) {
-                storagePermissionRequested = true
-                requestPermissions(
-                        arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                        MY_PERMISSIONS_REQUEST_STORAGE)
-            }
-            return
-
-        }
-
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        // Ensure that there's a camera activity to handle the intent
-        if (takePictureIntent.resolveActivity(requireContext().packageManager) != null) {
-            // Create the File where the photo should go
-            var photoFile: File? = null
-            try {
-                photoFile = createImageFile()
-            } catch (ex: IOException) {
-                // Error occurred while creating the File
-                Log.e(tag, "failed to create temp image file", ex)
-                Toast.makeText(activity, R.string.error_creating_image, Toast.LENGTH_SHORT).show()
-            }
-
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-                        Uri.fromFile(photoFile))
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
-            }
+        try {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+        } catch (e: ActivityNotFoundException) {
+            // display error state to the user
+            handleImageError();
         }
+    }
+
+    private fun handleImageError() {
+        Toast.makeText(requireContext(), R.string.error_creating_image, Toast.LENGTH_LONG).show()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
-            loadImagePreview()
+            loadImagePreviewFromIntent(data)
+        }
+    }
+
+    private fun loadImagePreviewFromIntent(data: Intent?) {
+        val imageBitmap = data?.extras?.get("data") as Bitmap
+        image_preview.setImageBitmap(imageBitmap);
+        val file = createImageFile()
+        try {
+            FileOutputStream(file.absolutePath).use { out ->
+                imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
+            }
+            // save image path at this point
+            StorageUtil.updateFrames(activity as MainActivity, roll!!, frames!!)
+        } catch (e: IOException) {
+            handleImageError()
         }
     }
 
@@ -444,14 +411,6 @@ class EditFrameFragment : TemplateFragment() {
             getLocation()
             locationPermissionRequested = false
         }
-        if (storagePermissionRequested) {
-            dispatchTakePictureIntent()
-            storagePermissionRequested = false
-        }
-        if (storagePermissionRequestedForPreview) {
-            loadImagePreview()
-            storagePermissionRequestedForPreview = false
-        }
     }
 
     companion object {
@@ -464,11 +423,12 @@ class EditFrameFragment : TemplateFragment() {
 
         private val MY_PERMISSIONS_REQUEST_LOCATION = 100
         private val MY_PERMISSIONS_REQUEST_STORAGE = 200
-        private val REQUEST_IMAGE_CAPTURE = 1
+        private val REQUEST_IMAGE_CAPTURE = 300
 
         private var locationPermissionRequested = false
         private var storagePermissionRequested = false
         private var storagePermissionRequestedForPreview = false
+
 
         fun newInstance(roll: Roll?, frames: List<Frame>?, frame: Int): EditFrameFragment {
             val args = Bundle()
