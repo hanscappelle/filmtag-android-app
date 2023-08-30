@@ -152,6 +152,11 @@ class FilmFrameListFragment : TemplateFragment() {
                 editCurrentFilmRoll()
                 return true
             }
+            android.R.id.home -> {
+                // always navigate back here to prevent loop with edit and other views
+                backToOverview()
+                return true
+            }
         }
         return false
     }

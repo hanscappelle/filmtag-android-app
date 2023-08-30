@@ -109,30 +109,25 @@ class EditRollFragment : TemplateFragment() {
         }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item!!.itemId) {
+        when (item.itemId) {
             R.id.action_create -> {
                 createNewItem()
                 return true
             }
             android.R.id.home -> {
-                backToOverview()
+                toOverviewOrDetail()
                 return true
             }
         }
         return false
     }
 
-    private fun backToOverview() {
-        // popping first is one option, going back in stack is better
-        //val activity = activity as MainActivity
-        //activity.supportFragmentManager.popBackStackImmediate()
-        //activity.supportFragmentManager.popBackStackImmediate()
-        //if (roll == null)
+    private fun toOverviewOrDetail() {
+        if (roll == null) {
             findNavController().navigate(R.id.action_home)
-        //else {
-        // TODO this one works but messes up navigation
-        //    findNavController().navigate(R.id.action_detail, bundleOf(KEY_FILM_ROLL to roll))
-        //}
+        } else {
+            findNavController().navigate(R.id.action_detail, bundleOf(KEY_FILM_ROLL to roll))
+        }
     }
 
     private fun createNewItem() {
@@ -164,9 +159,8 @@ class EditRollFragment : TemplateFragment() {
         else
             StorageUtil.updateRoll(activity as MainActivity, roll!!)
 
-
         // navigate to overview
-        backToOverview()
+        toOverviewOrDetail()
     }
 
 }
