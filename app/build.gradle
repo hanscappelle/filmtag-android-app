@@ -11,8 +11,8 @@ android {
         applicationId "be.hcpl.android.filmtag"
         minSdk 21
         targetSdk 34
-        versionCode 17
-        versionName "0.17.0"
+        versionCode 18
+        versionName "0.18.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -24,14 +24,14 @@ android {
                 obfuscate false // see if we can get more info from release crash logs this way
                 optimizeCode true
             }
-            zipAlignEnabled true
+            //zipAlignEnabled true
             //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
             applicationIdSuffix '.debug'
             minifyEnabled false // don't want minify enabled so that we can still properly debug
             multiDexEnabled true // but for that to work I need to enable multidex... for real
-            zipAlignEnabled false // just slows down builds right?
+            //zipAlignEnabled false // just slows down builds right?
         }
     }
     compileOptions {

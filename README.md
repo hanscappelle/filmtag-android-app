@@ -47,6 +47,20 @@ https://www.materialpalette.com/brown/grey
 * use recyclerView
 * filter with search from toolbar
 * improve picture storage and preview
+* check dark mode support
+* resolve locations into address or place names instead of lat/long? 
+
+## v0.18.0
+
+* technical improvements
+* UX allow adding location also from selecting the location icon (not only from the menu)
+
+## v0.17.0
+
+Created on request of Google to support latest releases. Was rejected for stabiilty reasons, working
+on update 0.18.0 to resolve these. Tested on Google 6a, couldn't reproduce the problem. 
+
+* update target SDK to 34
 
 ## v0.16.0
 

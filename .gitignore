@@ -41,3 +41,4 @@ proguard/
 release.keystore
 release.properties
 *.keystore
+/app/release/output-metadata.json
