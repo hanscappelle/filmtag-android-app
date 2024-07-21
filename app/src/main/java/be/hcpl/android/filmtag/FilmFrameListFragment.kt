@@ -12,16 +12,16 @@ import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 
 import be.hcpl.android.filmtag.adapter.FrameAdapter
 import be.hcpl.android.filmtag.model.Frame
 import be.hcpl.android.filmtag.model.Roll
-import be.hcpl.android.filmtag.template.TemplateFragment
 import be.hcpl.android.filmtag.util.StorageUtil
 import java.util.ArrayList
 
-class FilmFrameListFragment : TemplateFragment() {
+class FilmFrameListFragment : Fragment(R.layout.fragment_roll_detail) {
 
     private var filmRoll: Roll? = null
 
@@ -46,9 +46,6 @@ class FilmFrameListFragment : TemplateFragment() {
             filmRoll = savedInstanceState.getSerializable(KEY_FILM_ROLL) as Roll
         }
     }
-
-    override val layoutResourceId: Int
-        get() = R.layout.fragment_roll_detail
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

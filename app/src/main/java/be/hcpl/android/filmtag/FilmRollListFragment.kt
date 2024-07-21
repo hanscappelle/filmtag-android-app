@@ -13,12 +13,12 @@ import android.widget.TextView
 import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import be.hcpl.android.filmtag.FilmFrameListFragment.Companion.KEY_FILM_ROLL
 
 import be.hcpl.android.filmtag.adapter.FilmRollAdapter
 import be.hcpl.android.filmtag.model.Roll
-import be.hcpl.android.filmtag.template.TemplateFragment
 import be.hcpl.android.filmtag.util.StorageUtil
 
 /**
@@ -26,7 +26,7 @@ import be.hcpl.android.filmtag.util.StorageUtil
  *
  * Created by hcpl on 30/07/15.
  */
-class FilmRollListFragment : TemplateFragment() {
+class FilmRollListFragment : Fragment(R.layout.fragment_roll_overview) {
 
     // TODO delete film from overview directly (swipe? long press, ...)
 
@@ -35,9 +35,6 @@ class FilmRollListFragment : TemplateFragment() {
     private lateinit var searchView: SearchView
     private lateinit var listView: ListView
     private lateinit var emptyInfo: TextView
-
-    override val layoutResourceId: Int
-        get() = R.layout.fragment_roll_overview
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -149,8 +146,8 @@ class FilmRollListFragment : TemplateFragment() {
         } else if (id == R.id.action_import) {
             importConfig()
             return true
-        //} else if (id == R.id.action_search) {
-        //    toggleSearchView()
+            //} else if (id == R.id.action_search) {
+            //    toggleSearchView()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -175,10 +172,10 @@ class FilmRollListFragment : TemplateFragment() {
     private fun importConfig() {
         val builder = AlertDialog.Builder(activity)
         builder.setMessage(R.string.info_import_export)
-                .setCancelable(true)
-                .setPositiveButton(R.string.ok) { dialog, _ ->
-                    dialog.dismiss()
-                }
+            .setCancelable(true)
+            .setPositiveButton(R.string.ok) { dialog, _ ->
+                dialog.dismiss()
+            }
         val alert = builder.create()
         alert.show()
     }
@@ -187,17 +184,26 @@ class FilmRollListFragment : TemplateFragment() {
         val sharingIntent = Intent(Intent.ACTION_SEND)
         sharingIntent.type = "text/plain"
         sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "FilmTag data export")
-        sharingIntent.putExtra(Intent.EXTRA_TEXT, StorageUtil.getExportDataFormattedAsText(activity as MainActivity))
-        startActivity(Intent.createChooser(sharingIntent, resources.getString(R.string.action_export)))
+        sharingIntent.putExtra(
+            Intent.EXTRA_TEXT,
+            StorageUtil.getExportDataFormattedAsText(activity as MainActivity)
+        )
+        startActivity(
+            Intent.createChooser(
+                sharingIntent,
+                resources.getString(R.string.action_export)
+            )
+        )
     }
 
-    override fun onBackPressed(): Boolean {
-        if (searchViewEnabled) {
-            mAdapter?.filter?.filter(null)
-            toggleSearchView()
-            return true
-        }
-        return false
-    }
+    // TODO recover search view at some point for filtering in list?
+    //override fun onBackPressed(): Boolean {
+    //    if (searchViewEnabled) {
+    //        mAdapter?.filter?.filter(null)
+    //        toggleSearchView()
+    //        return true
+    //    }
+    //    return false
+    //}
 
 }

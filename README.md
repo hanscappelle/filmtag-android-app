@@ -55,6 +55,7 @@ https://www.materialpalette.com/brown/grey
 * technical improvements
 * UX allow adding location also from selecting the location icon (not only from the menu) + auto save
 * fix showing location on map when set
+* fixed support for dark mode (using DayNight theme instead of Light)
 
 ## v0.17.0
 

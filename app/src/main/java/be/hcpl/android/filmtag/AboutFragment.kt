@@ -6,6 +6,7 @@ import android.text.Html
 import android.text.util.Linkify
 import android.view.View
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 
 import java.io.BufferedReader
 import java.io.Closeable
@@ -13,15 +14,10 @@ import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
 
-import be.hcpl.android.filmtag.template.TemplateFragment
-
 /**
  * Created by hcpl on 6/08/15.
  */
-class AboutFragment : TemplateFragment() {
-
-    override val layoutResourceId: Int
-        get() = R.layout.fragment_about
+class AboutFragment : Fragment(R.layout.fragment_about) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

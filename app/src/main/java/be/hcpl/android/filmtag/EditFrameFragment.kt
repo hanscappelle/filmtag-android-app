@@ -29,11 +29,11 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getDrawable
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import be.hcpl.android.filmtag.FilmFrameListFragment.Companion.KEY_FILM_ROLL
 import be.hcpl.android.filmtag.model.Frame
 import be.hcpl.android.filmtag.model.Roll
-import be.hcpl.android.filmtag.template.TemplateFragment
 import be.hcpl.android.filmtag.util.StorageUtil
 import java.io.File
 import java.io.FileOutputStream
@@ -46,7 +46,7 @@ import java.util.Date
 /**
  * Created by hcpl on 1/08/15.
  */
-class EditFrameFragment : TemplateFragment() {
+class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
 
     // model object of a film or roll with a number of frames exposed at a given value
     private var roll: Roll? = null
@@ -66,9 +66,6 @@ class EditFrameFragment : TemplateFragment() {
     private lateinit var textLocation: TextView
     private lateinit var iconLocation: ImageView
     private lateinit var imagePreview: ImageView
-
-    override val layoutResourceId: Int
-        get() = R.layout.fragment_form_frame
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

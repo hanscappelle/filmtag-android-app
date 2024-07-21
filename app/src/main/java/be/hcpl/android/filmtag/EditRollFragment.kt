@@ -13,19 +13,19 @@ import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import be.hcpl.android.filmtag.FilmFrameListFragment.Companion.KEY_FILM_ROLL
 
 import java.util.Arrays
 
 import be.hcpl.android.filmtag.model.Roll
-import be.hcpl.android.filmtag.template.TemplateFragment
 import be.hcpl.android.filmtag.util.StorageUtil
 
 /**
  * Created by hcpl on 1/08/15.
  */
-class EditRollFragment : TemplateFragment() {
+class EditRollFragment : Fragment(R.layout.fragment_form_roll) {
 
     private var roll: Roll? = null
 
@@ -35,9 +35,6 @@ class EditRollFragment : TemplateFragment() {
     private lateinit var edit_frames: EditText
     private lateinit var check_developed: CheckBox
     private lateinit var edit_tags: EditText
-
-    override val layoutResourceId: Int
-        get() = R.layout.fragment_form_roll
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
