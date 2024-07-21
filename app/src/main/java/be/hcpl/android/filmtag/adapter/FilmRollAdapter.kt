@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.CheckBox
 import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
@@ -42,9 +43,11 @@ class FilmRollAdapter(private val mContext: Context) : BaseAdapter(), Filterable
             rowView = mInflater.inflate(R.layout.list_item_roll, viewGroup, false)
 
             val holder = ViewHolder()
-            holder.textType = rowView.findViewById(R.id.text_type) as TextView
-            holder.textSpeed = rowView.findViewById(R.id.text_speed) as TextView
-            holder.textFrames = rowView.findViewById(R.id.text_frames) as TextView
+            holder.textFrames = rowView.findViewById(R.id.text_frames)
+            holder.textType = rowView.findViewById(R.id.text_type)
+            holder.textSpeed = rowView.findViewById(R.id.text_speed)
+            holder.textFrames = rowView.findViewById(R.id.text_frames)
+            holder.developed = rowView.findViewById(R.id.check_developed)
             rowView.tag = holder
         }
         val holder = rowView?.tag as ViewHolder
@@ -57,10 +60,7 @@ class FilmRollAdapter(private val mContext: Context) : BaseAdapter(), Filterable
                 mContext.resources.getString(R.string.label_roll_frames)
 
         // mark developed items with a lighter text color
-        //if (roll.isDeveloped)
-        //    holder.textType?.setTextColor(mContext.resources.getColor(R.color.secondary_text))
-        //else
-        //    holder.textType?.setTextColor(mContext.resources.getColor(R.color.primary_text))
+        holder.developed?.isChecked = roll.isDeveloped
 
         return rowView
     }
@@ -81,16 +81,16 @@ class FilmRollAdapter(private val mContext: Context) : BaseAdapter(), Filterable
 
         return object : Filter() {
 
-            override fun publishResults(constraint: CharSequence?, results: Filter.FilterResults) {
+            override fun publishResults(constraint: CharSequence?, results: FilterResults) {
 
                 // then perform filtering on data
                 items = results.values as ArrayList<Roll>
                 this@FilmRollAdapter.notifyDataSetChanged()
             }
 
-            override fun performFiltering(constraint: CharSequence?): Filter.FilterResults {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val filteredResults = getFilteredResults(constraint)
-                val results = Filter.FilterResults()
+                val results = FilterResults()
                 results.values = filteredResults
                 return results
             }
@@ -101,9 +101,9 @@ class FilmRollAdapter(private val mContext: Context) : BaseAdapter(), Filterable
                 if (constraint != null) {
                     for (roll in unFilteredList) {
                         // search on film types
-                        if (roll != null && roll.type != null && roll.type!!.contains(constraint.toString()))
+                        if (roll.type?.contains(constraint.toString()) == true)
                             results.add(roll)
-                        else if (roll != null && roll.tags != null && roll.tags.contains(constraint.toString()))
+                        else if (roll.tags.contains(constraint.toString()))
                             results.add(roll)// and on tags
                         // skip description, too much text to search on
                     }
@@ -117,6 +117,7 @@ class FilmRollAdapter(private val mContext: Context) : BaseAdapter(), Filterable
     }
 
     private inner class ViewHolder {
+        var developed: CheckBox? = null
         var textFrames: TextView? = null
         var textSpeed: TextView? = null
         var textType: TextView? = null

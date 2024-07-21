@@ -41,20 +41,22 @@ https://www.materialpalette.com/brown/grey
 
 ## upcoming, issues and features
 
-* visualisation of locations on map
-* delete from overview with swipe
+* in app visualisation of locations on map
+* delete from overview with swipe action (?)
 * autocomplete for names and tags based on existing
-* use recyclerView
+* use recyclerView (technical improvement only)
 * filter with search from toolbar
 * improve picture storage and preview
-* resolve locations into address or place names instead of lat/long? 
+* resolve locations into address or place names instead of lat/long?
+* easier way to mark film developed (not from edit film)
 
 ## v0.18.0
 
-* technical improvements
+* technical code improvements
 * UX allow adding location also from selecting the location icon (not only from the menu) + auto save
 * fix showing location on map when set
-* fixed support for dark mode (using DayNight theme instead of Light)
+* UX - fixed support for dark mode (using DayNight theme instead of Light)
+* UX - marked films developed with checkbox now
 
 ## v0.17.0
 
