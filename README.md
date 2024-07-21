@@ -166,21 +166,3 @@ reading exif info from jpeg files: http://developer.android.com/reference/androi
 
 Android design guidelines see: https://www.google.com/design/spec/layout/metrics-keylines.html#metrics-keylines-ratio-keylines
 
-# TODO
-
-## features
-
-* implement in list editing options
-
-## bugs
-
-* OK - fix back navigation on first fragment
-* OK - fix delete of frames when film is removed
-* OK - restore last fragment instead of overview
-
-## general
-
-* OK - add an about page
-* OK - update app icon - also added background
-* OK - complete and release v0.1.0 with minimal requirements
-* OK - opensource project (keeping release key hidden)
