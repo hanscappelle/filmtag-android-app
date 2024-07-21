@@ -27,6 +27,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getDrawable
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import be.hcpl.android.filmtag.FilmFrameListFragment.Companion.KEY_FILM_ROLL
@@ -56,14 +57,15 @@ class EditFrameFragment : TemplateFragment() {
     private var frames: List<Frame>? = null
 
     // views
-    private lateinit var edit_aperture: EditText
-    private lateinit var edit_shutter: EditText
-    private lateinit var long_exposure: CheckBox
-    private lateinit var edit_notes: EditText
-    private lateinit var edit_tags: EditText
-    private lateinit var text_location: TextView
-    private lateinit var image_location_indicator: ImageView
-    private lateinit var image_preview: ImageView
+    private lateinit var editAperture: EditText
+    private lateinit var editShutter: EditText
+    private lateinit var editExposure: CheckBox
+    private lateinit var editNotes: EditText
+    private lateinit var editTags: EditText
+    private lateinit var textNumber: TextView
+    private lateinit var textLocation: TextView
+    private lateinit var iconLocation: ImageView
+    private lateinit var imagePreview: ImageView
 
     override val layoutResourceId: Int
         get() = R.layout.fragment_form_frame
@@ -87,7 +89,7 @@ class EditFrameFragment : TemplateFragment() {
     }
 
     private fun restoreState(state: Bundle?) {
-        if (state != null) {
+        state?.let {
             frames = state.getSerializable(KEY_FRAMES) as List<Frame>
             val selectedFrameIndex = state.getInt(KEY_FRAME_IDX)
             selectedFrame = frames!![selectedFrameIndex]
@@ -103,28 +105,29 @@ class EditFrameFragment : TemplateFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        edit_aperture = view.findViewById(R.id.edit_aperture)
-        edit_shutter = view.findViewById(R.id.edit_shutter)
-        long_exposure = view.findViewById(R.id.long_exposure)
-        edit_notes = view.findViewById(R.id.edit_notes)
-        edit_tags = view.findViewById(R.id.edit_tags)
+        // find all views
+        editAperture = view.findViewById(R.id.edit_aperture)
+        editShutter = view.findViewById(R.id.edit_shutter)
+        editExposure = view.findViewById(R.id.long_exposure)
+        editNotes = view.findViewById(R.id.edit_notes)
+        editTags = view.findViewById(R.id.edit_tags)
+        iconLocation = view.findViewById(R.id.image_location_indicator)
+        imagePreview = view.findViewById(R.id.image_preview)
+        textLocation = view.findViewById(R.id.text_location)
+        textNumber = view.findViewById(R.id.edit_number)
 
-        image_location_indicator = view.findViewById(R.id.image_location_indicator)
-        image_preview = view.findViewById(R.id.image_preview)
-
-        text_location = view.findViewById(R.id.text_location)
-
-        if (selectedFrame != null) {
-            (view.findViewById(R.id.edit_number) as TextView).text = selectedFrame!!.number.toString()
-            if (selectedFrame!!.aperture != 0.0)
-                edit_aperture.setText(selectedFrame!!.aperture.toString())
-            if (selectedFrame!!.shutter != 0)
-                edit_shutter.setText(selectedFrame!!.shutter.toString())
-            long_exposure.isChecked = selectedFrame!!.isLongExposure
-            edit_notes.setText(selectedFrame!!.notes)
+        // populate with frame
+        selectedFrame?.let {
+            textNumber.text = "${it.number}"
+            if (it.aperture != 0.0)
+                editAperture.setText(it.aperture.toString())
+            if (it.shutter != 0)
+                editShutter.setText(it.shutter.toString())
+            editExposure.isChecked = it.isLongExposure
+            editNotes.setText(it.notes)
             // populate the tags here
-            if (selectedFrame!!.tags.isNotEmpty())
-                edit_tags.setText(TextUtils.join(" ", selectedFrame!!.tags))
+            if (it.tags.isNotEmpty())
+                editTags.setText(TextUtils.join(" ", it.tags))
             loadImagePreview() // load from frame storage
             showLocation()
         }
@@ -141,40 +144,43 @@ class EditFrameFragment : TemplateFragment() {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
 
         if (previousFrame != null && previousFrame!!.aperture != Frame.EMPTY_VALUE.toDouble()) {
-            edit_aperture.hint = previousFrame!!.aperture.toString()
+            editAperture.hint = previousFrame!!.aperture.toString()
         } else {
-            edit_aperture.hint = prefs.getString("key_default_apertures", 4.toString())
+            editAperture.hint = prefs.getString("key_default_apertures", 4.toString())
         }
 
         if (previousFrame != null && previousFrame!!.shutter != Frame.EMPTY_VALUE) {
-            edit_shutter.hint = previousFrame!!.shutter.toString()
+            editShutter.hint = previousFrame!!.shutter.toString()
         } else {
-            edit_shutter.hint = prefs.getString("key_default_shutter", 60.toString())
+            editShutter.hint = prefs.getString("key_default_shutter", 60.toString())
         }
 
         if (previousFrame != null && previousFrame!!.isLongExposure) {
-            long_exposure.isChecked = true
+            editExposure.isChecked = true
         }
     }
 
-    private fun markLocationAvailable() {
-        image_location_indicator.setImageDrawable(if (selectedFrame!!.location != null)
-            ContextCompat.getDrawable(requireContext(), R.drawable.ic_action_device_gps_primary)
-        else
-            ContextCompat.getDrawable(requireContext(), R.drawable.ic_action_device_gps_silver))
-        if (selectedFrame!!.location != null) {
-            val onClickListener = View.OnClickListener { showMap(Uri.parse("geo:" + selectedFrame!!.location!!.latitude + "," + selectedFrame!!.location!!.longitude)) }
-            image_location_indicator.setOnClickListener(onClickListener)
-            text_location.setOnClickListener(onClickListener)
+    private fun updateLocationViews() {
+        selectedFrame?.location?.let {
+            iconLocation.setImageDrawable(
+                getDrawable(requireContext(), R.drawable.ic_action_device_gps_primary)
+            )
+            textLocation.setOnClickListener {
+                showOnMap(Uri.parse("geo: ${selectedFrame?.location?.latitude},${selectedFrame?.location?.longitude}"))
+            }
+        } ?: {
+            // no known location set
+            iconLocation.setImageDrawable(
+                getDrawable(requireContext(), R.drawable.ic_action_device_gps_silver)
+            )
+            textLocation.setOnClickListener { getLocation() }
         }
     }
 
-    private fun showMap(geoLocation: Uri?) {
-        if (geoLocation == null)
-            return
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = geoLocation
-        if (intent.resolveActivity(requireContext().packageManager) != null) {
+    private fun showOnMap(geoLocation: Uri?) {
+        geoLocation?.let {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = geoLocation
             startActivity(intent)
         }
     }
@@ -187,7 +193,7 @@ class EditFrameFragment : TemplateFragment() {
                 options.inSampleSize = 4
                 options.inJustDecodeBounds = false
                 val bm = BitmapFactory.decodeFile(selectedFrame?.pathToImage, options)
-                image_preview.setImageBitmap(bm)
+                imagePreview.setImageBitmap(bm)
             } catch (e: Exception) {
                 // ignore any exceptions here
                 handleImageError()
@@ -201,14 +207,17 @@ class EditFrameFragment : TemplateFragment() {
                 updateItem()
                 return true
             }
+
             android.R.id.home -> {
                 backToDetail()
                 return true
             }
+
             R.id.action_camera -> {
                 dispatchTakePictureIntent()
                 return true
             }
+
             R.id.action_location -> {
                 getLocation()
                 return true
@@ -239,7 +248,7 @@ class EditFrameFragment : TemplateFragment() {
 
     private fun loadImagePreviewFromIntent(data: Intent?) {
         val imageBitmap = data?.extras?.get("data") as Bitmap
-        image_preview.setImageBitmap(imageBitmap);
+        imagePreview.setImageBitmap(imageBitmap);
         val file = createImageFile()
         try {
             FileOutputStream(file.absolutePath).use { out ->
@@ -258,11 +267,12 @@ class EditFrameFragment : TemplateFragment() {
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         val imageFileName = "JPEG_" + timeStamp + "_"
         val storageDir = Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES)
+            Environment.DIRECTORY_PICTURES
+        )
         val image = File.createTempFile(
-                imageFileName, /* prefix */
-                ".jpg", /* suffix */
-                storageDir      /* directory */
+            imageFileName, /* prefix */
+            ".jpg", /* suffix */
+            storageDir      /* directory */
         )
 
         // Save a file: path for use with ACTION_VIEW intents
@@ -271,15 +281,19 @@ class EditFrameFragment : TemplateFragment() {
     }
 
     private fun getLocation() {
-        if (ContextCompat.checkSelfPermission(requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
 
             // No explanation needed, we can request the permission.
             if (!locationPermissionRequested) {
                 locationPermissionRequested = true
                 requestPermissions(
-                        arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                        MY_PERMISSIONS_REQUEST_LOCATION)
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                    MY_PERMISSIONS_REQUEST_LOCATION
+                )
             }
             return
         }
@@ -287,21 +301,28 @@ class EditFrameFragment : TemplateFragment() {
     }
 
     private fun registerLocationListener(provider: String) {
-        if (ContextCompat.checkSelfPermission(requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
             return
         }
         // remove previous listener first
         unregisterListener()
         // get current location to provide as defaults into
         // field
-        val locationManager = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val locationManager =
+            requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
         // begin by getting the last known location
         val fetchedLocationDetails = locationManager.getLastKnownLocation(provider)
         if (fetchedLocationDetails != null) {
             // update current location
             if (selectedFrame != null) {
-                selectedFrame!!.location = be.hcpl.android.filmtag.model.Location(fetchedLocationDetails.latitude, fetchedLocationDetails.longitude)
+                selectedFrame!!.location = be.hcpl.android.filmtag.model.Location(
+                    fetchedLocationDetails.latitude,
+                    fetchedLocationDetails.longitude
+                )
                 showLocation()
             }
         }
@@ -310,17 +331,21 @@ class EditFrameFragment : TemplateFragment() {
         // Register the listener with the Location Manager to receive location
         // updates
         locationManager
-                .requestLocationUpdates(provider, 0, 0f, locationListener)
+            .requestLocationUpdates(provider, 0, 0f, locationListener)
     }
 
     private fun unregisterListener() {
-        if (ContextCompat.checkSelfPermission(requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
             return
         }
         // get current location to provide as defaults into
         // field
-        val locationManager = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val locationManager =
+            requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
         // remove previous listener first
         locationManager.removeUpdates(locationListener)
     }
@@ -338,14 +363,17 @@ class EditFrameFragment : TemplateFragment() {
             // Called when a new location is found by the selected location
             // provider.
             if (selectedFrame != null) {
-                selectedFrame!!.location = be.hcpl.android.filmtag.model.Location(location.latitude, location.longitude)
+                selectedFrame!!.location =
+                    be.hcpl.android.filmtag.model.Location(location.latitude, location.longitude)
                 // set on screen
                 showLocation()
             }
         }
 
-        override fun onStatusChanged(provider: String, status: Int,
-                                     extras: Bundle) {
+        override fun onStatusChanged(
+            provider: String, status: Int,
+            extras: Bundle
+        ) {
             // nothing so far
         }
 
@@ -359,37 +387,39 @@ class EditFrameFragment : TemplateFragment() {
     }
 
     private fun showLocation() {
-        if (selectedFrame != null && selectedFrame!!.location != null) {
-            val location = selectedFrame!!.location
-            text_location.text = getString(R.string.label_location) + " " + location!!.latitude + " " + location.longitude
+        selectedFrame?.location?.let { location ->
+            textLocation.text =
+                "${getString(R.string.label_location)} ${location.latitude} ${location.longitude}"
+            updateItem(false) // also update location in storage autom.
         }
-        markLocationAvailable()
+        updateLocationViews()
     }
 
-    private fun updateItem() {
+    private fun updateItem(navigateBack: Boolean = true) {
         // update values
-        selectedFrame!!.notes = edit_notes.text.toString()
+        selectedFrame!!.notes = editNotes.text.toString()
 
         try {
-            selectedFrame!!.aperture = java.lang.Double.parseDouble(getFieldTextOrHint(edit_aperture))
+            selectedFrame!!.aperture =
+                java.lang.Double.parseDouble(getFieldTextOrHint(editAperture))
         } catch (nfe: NumberFormatException) {
             Toast.makeText(activity, R.string.err_parsing_failed, Toast.LENGTH_SHORT).show()
         }
 
         try {
-            selectedFrame!!.shutter = Integer.parseInt(getFieldTextOrHint(edit_shutter))
+            selectedFrame!!.shutter = Integer.parseInt(getFieldTextOrHint(editShutter))
         } catch (nfe: NumberFormatException) {
             Toast.makeText(activity, R.string.err_parsing_failed, Toast.LENGTH_SHORT).show()
         }
 
-        selectedFrame!!.isLongExposure = long_exposure.isChecked
-        selectedFrame!!.tags = Arrays.asList(*TextUtils.split(edit_tags.text.toString(), " "))
+        selectedFrame!!.isLongExposure = editExposure.isChecked
+        selectedFrame!!.tags = Arrays.asList(*TextUtils.split(editTags.text.toString(), " "))
 
         // store
         StorageUtil.updateFrames(activity as MainActivity, roll!!, frames!!)
 
         // navigate back to overview
-        backToDetail()
+        if (navigateBack) backToDetail()
     }
 
     private fun getFieldTextOrHint(field: EditText): String {

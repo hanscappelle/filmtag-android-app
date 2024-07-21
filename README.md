@@ -53,7 +53,8 @@ https://www.materialpalette.com/brown/grey
 ## v0.18.0
 
 * technical improvements
-* UX allow adding location also from selecting the location icon (not only from the menu)
+* UX allow adding location also from selecting the location icon (not only from the menu) + auto save
+* fix showing location on map when set
 
 ## v0.17.0
 
