@@ -50,6 +50,12 @@ https://www.materialpalette.com/brown/grey
 * resolve locations into address or place names instead of lat/long?
 * easier way to mark film developed (not from edit film)
 
+## v0.19.0
+
+resolved obfuscation issue with release build 
+
+Caused by: java.lang.IllegalStateException: TypeToken must be created with a type argument: new TypeToken<...>() {}; When using code shrinkers (ProGuard, R8, ...) make sure that generic signatures are preserved.
+
 ## v0.18.0
 
 * technical code improvements

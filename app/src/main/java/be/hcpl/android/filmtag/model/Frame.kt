@@ -1,8 +1,10 @@
 package be.hcpl.android.filmtag.model
 
+import androidx.annotation.Keep
 import java.io.Serializable
 import java.util.ArrayList
 
+@Keep
 class Frame : Serializable {
 
     /**

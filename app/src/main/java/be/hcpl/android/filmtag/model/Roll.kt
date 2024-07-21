@@ -1,12 +1,14 @@
 package be.hcpl.android.filmtag.model
 
+import androidx.annotation.Keep
 import java.io.Serializable
 import java.util.ArrayList
 
 /**
  * Created by hcpl on 1/08/15.
  */
-class Roll() : Serializable {
+@Keep
+class Roll : Serializable {
 
     /**
      * by adding an ID we can delete items by ID and change them

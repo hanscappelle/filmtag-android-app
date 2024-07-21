@@ -3,7 +3,6 @@ package be.hcpl.android.filmtag.util
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-import java.lang.reflect.Type
 import java.util.HashMap
 
 import be.hcpl.android.filmtag.MainActivity
@@ -37,11 +36,11 @@ object StorageUtil {
 
     // for internal use only
     private fun updateRolls(activity: MainActivity, rolls: List<Roll>) {
-        activity.prefs!!.edit().putString(KEY_FILM_ROLLS, gson.toJson(rolls, listOfRollsType)).commit()
+        activity.prefs!!.edit().putString(KEY_FILM_ROLLS, gson.toJson(rolls, listOfRollsType)).apply()
     }
 
     fun deleteRoll(activity: MainActivity, roll: Roll) {
-        val rolls = StorageUtil.getAllRolls(activity)
+        val rolls = getAllRolls(activity)
         rolls.remove(roll)
         // also delete all frames for that roll at this point
         deleteFramesForRoll(activity, roll)
@@ -49,19 +48,19 @@ object StorageUtil {
     }
 
     private fun deleteFramesForRoll(activity: MainActivity, roll: Roll) {
-        activity.prefs!!.edit().remove(KEY_FILM_ROLLS + roll.id).commit()
+        activity.prefs!!.edit().remove(KEY_FILM_ROLLS + roll.id).apply()
     }
 
     fun getFramesForFilm(activity: MainActivity, filmRoll: Roll): MutableList<Frame> {
         // get the items
         val framesData = activity.prefs!!.getString(KEY_FILM_ROLLS + filmRoll.id, "[]")
         // convert using gson
-        return gson.fromJson<MutableList<Frame>>(framesData, listOfFramesType)
+        return gson.fromJson(framesData, listOfFramesType)
     }
 
     fun updateFrames(activity: MainActivity, filmRoll: Roll, frames: List<Frame>) {
         activity.prefs!!.edit().putString(KEY_FILM_ROLLS + filmRoll
-                .id, gson.toJson(frames, listOfFramesType)).commit()
+                .id, gson.toJson(frames, listOfFramesType)).apply()
     }
 
     fun addNewRoll(activity: MainActivity, roll: Roll) {
