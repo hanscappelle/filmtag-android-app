@@ -47,7 +47,6 @@ https://www.materialpalette.com/brown/grey
 * use recyclerView
 * filter with search from toolbar
 * improve picture storage and preview
-* check dark mode support
 * resolve locations into address or place names instead of lat/long? 
 
 ## v0.18.0

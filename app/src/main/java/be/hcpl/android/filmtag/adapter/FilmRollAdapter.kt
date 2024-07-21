@@ -25,17 +25,11 @@ class FilmRollAdapter(private val mContext: Context) : BaseAdapter(), Filterable
 
     private val mInflater: LayoutInflater = LayoutInflater.from(mContext)
 
-    override fun getCount(): Int {
-        return items.size
-    }
+    override fun getCount() = items.size
 
-    override fun getItem(i: Int): Roll {
-        return items[i]
-    }
+    override fun getItem(i: Int) = items[i]
 
-    override fun getItemId(i: Int): Long {
-        return i.toLong()
-    }
+    override fun getItemId(i: Int) = i.toLong()
 
     override fun getView(i: Int, convertView: View?, viewGroup: ViewGroup): View? {
 
@@ -63,10 +57,10 @@ class FilmRollAdapter(private val mContext: Context) : BaseAdapter(), Filterable
                 mContext.resources.getString(R.string.label_roll_frames)
 
         // mark developed items with a lighter text color
-        if (roll.isDeveloped)
-            holder.textType?.setTextColor(mContext.resources.getColor(R.color.secondary_text))
-        else
-            holder.textType?.setTextColor(mContext.resources.getColor(R.color.primary_text))
+        //if (roll.isDeveloped)
+        //    holder.textType?.setTextColor(mContext.resources.getColor(R.color.secondary_text))
+        //else
+        //    holder.textType?.setTextColor(mContext.resources.getColor(R.color.primary_text))
 
         return rowView
     }
