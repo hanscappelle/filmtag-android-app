@@ -1,4 +1,4 @@
-image: androidsdk/android-34
+image: androidsdk/android-31
 
 pipelines:
   branches:
