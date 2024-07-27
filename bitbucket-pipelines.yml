@@ -1,0 +1,13 @@
+image: androidsdk/android-30
+
+pipelines:
+  branches:
+    master:
+      - step:
+          name: Android Debug Application
+          caches:
+            - gradle
+          script:
+            - ./gradlew assembleDebug
+          artifacts:
+            - app/build/outputs/**
