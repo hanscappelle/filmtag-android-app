@@ -55,13 +55,18 @@ android {
     lintOptions {
         abortOnError false
     }
-
+    // added this for the android docker image I use, it ships with java 11
+    // HOWEVER, I need java 17 for the builds to work
+    //An exception occurred applying plugin request [id: 'com.android.application']
+    //> Failed to apply plugin 'com.android.internal.application'.
+    //   > Android Gradle plugin requires Java 17 to run. You are currently using Java 11.
+    //      Your current JDK is located in /usr/lib/jvm/java-11-openjdk-amd64
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '11'
+        jvmTarget = '17'
     }
     // needed for databinding.ActivityMainBinding etc, replaces kotlin-android-extensions plugin
     buildFeatures {

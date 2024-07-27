@@ -1,4 +1,5 @@
-image: androidsdk/android-30
+#image: androidsdk/android-30
+image: alvrme/android-28-jdk17
 
 pipelines:
   branches:
