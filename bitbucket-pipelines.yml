@@ -1,5 +1,5 @@
 #image: androidsdk/android-30
-image: alvrme/alpine-android
+image: alvrme/alpine-android:latest-jdk17
 
 pipelines:
   branches:
