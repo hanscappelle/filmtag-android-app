@@ -50,6 +50,10 @@ https://www.materialpalette.com/brown/grey
 * resolve locations into address or place names instead of lat/long?
 * easier way to mark film developed (not from edit film)
 
+## v0.20.0
+
+update target SDK for google play store requirements
+
 ## v0.19.0
 
 resolved obfuscation issue with release build 

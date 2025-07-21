@@ -10,9 +10,9 @@ android {
     defaultConfig {
         applicationId "be.hcpl.android.filmtag"
         minSdk 21
-        targetSdk 34
-        versionCode 19
-        versionName "0.19.0"
+        targetSdk 36
+        versionCode 20
+        versionName "0.20.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
