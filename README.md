@@ -4,6 +4,12 @@
 Basic Android app for keeping track of photography settings while shooting analog film. As used by
 analog photographers who can't rely on exif information when using analog roll film while shooting.
 
+# Release Build Instructions
+
+- use v1 release key
+- export to apk (not bundle yet)
+- create tag on git for each release
+
 # Goals
 
 Keep it dead simple and easy to use. The photographer shouldn't have to look into settings or any
@@ -49,6 +55,13 @@ https://www.materialpalette.com/brown/grey
 * improve picture storage and preview
 * resolve locations into address or place names instead of lat/long?
 * easier way to mark film developed (not from edit film)
+
+## 0.20.0
+
+technical release
+
+- update target SDK to 36
+- update build tools
 
 ## v0.19.0
 

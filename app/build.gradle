@@ -1,20 +1,16 @@
-plugins {
-    id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
-}
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 android {
-    namespace = "be.hcpl.android.filmtag"
-    compileSdk 34
+    namespace "be.hcpl.android.filmtag"
+    compileSdk 36
 
     defaultConfig {
         applicationId "be.hcpl.android.filmtag"
         minSdk 21
-        targetSdk 34
+        targetSdk 36
         versionCode 20
         versionName "0.20.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -24,7 +20,6 @@ android {
             //    obfuscate false // see if we can get more info from release crash logs this way
             //    optimizeCode true
             //}
-            //zipAlignEnabled true
 
             // Enables code shrinking, obfuscation, and optimization for only
             // your project's release build type. Make sure to use a build
@@ -35,26 +30,18 @@ android {
             // Android Gradle plugin.
             //isShrinkResources = true
 
-            proguardFiles(
-                    // Includes the default ProGuard rules files that are packaged with
-                    // the Android Gradle plugin. To learn more, go to the section about
-                    // R8 configuration files.
-                    getDefaultProguardFile('proguard-android-optimize.txt'),
-                    // custom config
-                    'proguard-rules.pro'
-            )
+            // Includes the default ProGuard rules files that are packaged with
+            // the Android Gradle plugin. To learn more, go to the section about
+            // R8 configuration files.
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
             applicationIdSuffix '.debug'
             minifyEnabled false // don't want minify enabled so that we can still properly debug
             multiDexEnabled true // but for that to work I need to enable multidex... for real
-            //zipAlignEnabled false // just slows down builds right?
         }
     }
 
-    lintOptions {
-        abortOnError false
-    }
     // added this for the android docker image I use, it ships with java 11
     // HOWEVER, I need java 17 for the builds to work
     //An exception occurred applying plugin request [id: 'com.android.application']
@@ -69,12 +56,17 @@ android {
         jvmTarget = '17'
     }
     // needed for databinding.ActivityMainBinding etc, replaces kotlin-android-extensions plugin
+    // no longer supported
     buildFeatures {
         viewBinding true
+        buildConfig true // only used for BuildConfig reference, moved here
     }
 }
 
 dependencies {
+
+    // already in main build.gradle config
+    //implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21"
 
     //implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
     //implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
