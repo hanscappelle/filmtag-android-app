@@ -9,6 +9,7 @@ analog photographers who can't rely on exif information when using analog roll f
 - use v1 release key
 - export to apk (not bundle yet)
 - create tag on git for each release
+- for now building with Java 17 for bitbucket pipeline
 
 # Goals
 
