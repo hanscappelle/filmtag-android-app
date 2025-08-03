@@ -7,7 +7,6 @@ analog photographers who can't rely on exif information when using analog roll f
 # Release Build Instructions
 
 - use v1 release key
-- export to apk (not bundle yet)
 - create tag on git for each release
 - for now building with Java 17 for bitbucket pipeline
 
@@ -56,6 +55,13 @@ https://www.materialpalette.com/brown/grey
 * improve picture storage and preview
 * resolve locations into address or place names instead of lat/long?
 * easier way to mark film developed (not from edit film)
+
+## 0.21.0
+
+technical release
+
+- update build tools in preparation for compose
+- changed from apk to app bundle release
 
 ## 0.20.0
 
