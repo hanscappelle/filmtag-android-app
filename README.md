@@ -35,7 +35,7 @@ For beta testing subscribe at https://play.google.com/apps/testing/be.hcpl.andro
 
 - use v1 release key
 - create tag on git for each release
-- for now building with Java 17 for bitbucket pipeline
+- building with Java 17 for bitbucket pipeline
 
 # Version History
 
@@ -44,7 +44,6 @@ For beta testing subscribe at https://play.google.com/apps/testing/be.hcpl.andro
 * in app visualisation of locations on map
 * delete from overview with swipe action (?)
 * autocomplete for names and tags based on existing
-* use recyclerView (technical improvement only)
 * filter with search from toolbar
 * improve picture storage and preview
 * resolve locations into address or place names instead of lat/long?
