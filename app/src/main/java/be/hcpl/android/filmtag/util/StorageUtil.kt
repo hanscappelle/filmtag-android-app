@@ -10,9 +10,6 @@ import be.hcpl.android.filmtag.model.DataExportFormat
 import be.hcpl.android.filmtag.model.Frame
 import be.hcpl.android.filmtag.model.Roll
 
-/**
- * Created by hcpl on 1/08/15.
- */
 object StorageUtil {
 
     private val listOfRollsType = object : TypeToken<List<Roll>>() {
