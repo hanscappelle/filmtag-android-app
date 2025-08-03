@@ -4,12 +4,6 @@
 Basic Android app for keeping track of photography settings while shooting analog film. As used by
 analog photographers who can't rely on exif information when using analog roll film while shooting.
 
-# Release Build Instructions
-
-- use v1 release key
-- create tag on git for each release
-- for now building with Java 17 for bitbucket pipeline
-
 # Goals
 
 Keep it dead simple and easy to use. The photographer shouldn't have to look into settings or any
@@ -29,19 +23,19 @@ complex editing options while shooting. Keep distraction to an absolute minimum.
 
 # Other Resources
 
-## play store link
+## Google Play Store link
 
 https://play.google.com/store/apps/details?id=be.hcpl.android.filmtag
 
 For devs, not that this app is signed with older keystore format and still released as an apk (no bundle).
 
-## beta testing
+For beta testing subscribe at https://play.google.com/apps/testing/be.hcpl.android.filmtag
 
-https://play.google.com/apps/testing/be.hcpl.android.filmtag
+## Release Build Instructions
 
-## colors generated with materialpalette
-
-https://www.materialpalette.com/brown/grey
+- use v1 release key
+- create tag on git for each release
+- for now building with Java 17 for bitbucket pipeline
 
 # Version History
 
@@ -195,3 +189,4 @@ reading exif info from jpeg files: http://developer.android.com/reference/androi
 
 Android design guidelines see: https://www.google.com/design/spec/layout/metrics-keylines.html#metrics-keylines-ratio-keylines
 
+Colors generated with material palette https://www.materialpalette.com/brown/grey
