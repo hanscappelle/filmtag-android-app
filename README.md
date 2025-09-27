@@ -45,9 +45,8 @@ Other apps that do similar things.
 * filter with search from toolbar
 * improve picture storage and preview
 * resolve locations into address or place names instead of lat/long?
-* easier way to mark film developed (not from edit film)
+* (feature) easier way to mark film developed (not from edit film)
 * (user request) better way of exporting data
-* (user request) double check that no input is required to add a frame (shutter and diafragm f.e.)
 * (user request) select from a list of camera's & lenses
 * (technical) convert to compose
 
