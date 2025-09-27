@@ -56,4 +56,5 @@
     <string name="pref_title_default_values">Vaikimisi väärtused</string>
     <string name="action_about">FilmTagi kohta</string>
     <string name="about">FilmTagi info siia</string>
+    <string name="select_date">Select Date</string>
 </resources>

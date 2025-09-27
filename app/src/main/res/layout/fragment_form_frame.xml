@@ -28,6 +28,16 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="36" />
 
+    <EditText
+        android:id="@+id/edit_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/label_date_taken"
+        android:inputType="date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/edit_number"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/label_shutter"
         android:layout_width="0dp"
@@ -44,8 +54,8 @@
         android:id="@+id/long_exposure"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/long_exposure"
         android:layout_marginEnd="8dp"
+        android:text="@string/long_exposure"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/header_frame" />
 
@@ -55,8 +65,8 @@
         android:layout_height="wrap_content"
         android:hint="200"
         android:inputType="number"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/label_shutter" />
 
     <TextView
@@ -67,8 +77,8 @@
         android:padding="5dp"
         android:text="@string/label_film_aperture"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edit_shutter" />
 
     <EditText
@@ -77,8 +87,8 @@
         android:layout_height="wrap_content"
         android:hint="2.8"
         android:inputType="numberDecimal"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/label_aperture" />
 
     <TextView
@@ -89,8 +99,8 @@
         android:padding="5dp"
         android:text="@string/label_frame_tags"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edit_aperture" />
 
     <EditText
@@ -100,8 +110,8 @@
         android:hint="@string/label_tags_for_film"
         android:lines="1"
         android:singleLine="false"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/label_tags" />
 
     <TextView
@@ -112,8 +122,8 @@
         android:padding="5dp"
         android:text="@string/label_frame_notes"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edit_tags" />
 
     <EditText
@@ -124,8 +134,8 @@
         android:hint="@string/label_notes_for_frame"
         android:lines="6"
         android:singleLine="false"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/label_notes" />
 
     <TextView
@@ -151,12 +161,12 @@
         android:id="@+id/image_preview"
         android:layout_width="0dp"
         android:layout_height="200dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_location"
         android:layout_below="@+id/text_location"
         android:layout_centerHorizontal="true"
-        android:layout_margin="16dp" />
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_location" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

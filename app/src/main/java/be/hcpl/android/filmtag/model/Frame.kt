@@ -14,6 +14,7 @@ data class Frame(
     var pathToImage: String? = null,
     var location: Location? = null,
     var tags: List<String> = ArrayList(),
+    var dateTaken: Long? = null,
 ) : Serializable {
 
     override fun toString(): String {

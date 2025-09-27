@@ -22,6 +22,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.CheckBox
+import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -35,12 +36,15 @@ import be.hcpl.android.filmtag.FilmFrameListFragment.Companion.KEY_FILM_ROLL
 import be.hcpl.android.filmtag.model.Frame
 import be.hcpl.android.filmtag.model.Roll
 import be.hcpl.android.filmtag.util.StorageUtil
+import com.google.android.material.datepicker.MaterialDatePicker
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Arrays
+import java.util.Calendar
 import java.util.Date
+import java.util.Locale
 
 
 /**
@@ -66,6 +70,16 @@ class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
     private lateinit var textLocation: TextView
     private lateinit var iconLocation: ImageView
     private lateinit var imagePreview: ImageView
+    private lateinit var dateView: EditText
+
+    // date picker
+    private lateinit var datePicker: MaterialDatePicker<Long>
+    val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
+    private fun initDatePickerWith(date: Long) = MaterialDatePicker.Builder.datePicker()
+        .setTitleText(getString(R.string.select_date))
+        .setSelection(date)
+        .build()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -112,8 +126,9 @@ class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
         imagePreview = view.findViewById(R.id.image_preview)
         textLocation = view.findViewById(R.id.text_location)
         textNumber = view.findViewById(R.id.edit_number)
+        dateView = view.findViewById(R.id.edit_date)
 
-        // populate with frame
+        // populate with frame details
         selectedFrame?.let {
             textNumber.text = "${it.number}"
             if (it.aperture != 0.0)
@@ -127,6 +142,17 @@ class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
                 editTags.setText(TextUtils.join(" ", it.tags))
             loadImagePreview() // load from frame storage
             showLocation()
+            // update date
+            val validDate = it.dateTaken?: Calendar.getInstance().timeInMillis
+            dateView.setText(dateFormatter.format(validDate))
+            datePicker = initDatePickerWith(validDate)
+            dateView.setOnClickListener{
+                datePicker.show(childFragmentManager, TAG_DATEPICKER)
+            }
+            datePicker.addOnPositiveButtonClickListener {
+                // Respond to positive button click.
+                dateView.setText(dateFormatter.format(datePicker.selection))
+            }
         }
 
         updateHints()
@@ -399,16 +425,21 @@ class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
         try {
             selectedFrame!!.aperture =
                 java.lang.Double.parseDouble(getFieldTextOrHint(editAperture))
-        } catch (nfe: NumberFormatException) {
+        } catch (_: NumberFormatException) {
             Toast.makeText(activity, R.string.err_parsing_failed, Toast.LENGTH_SHORT).show()
         }
 
         try {
             selectedFrame!!.shutter = Integer.parseInt(getFieldTextOrHint(editShutter))
-        } catch (nfe: NumberFormatException) {
+        } catch (_: NumberFormatException) {
             Toast.makeText(activity, R.string.err_parsing_failed, Toast.LENGTH_SHORT).show()
         }
-
+        try {
+            selectedFrame!!.dateTaken = dateView.text?.let { dateFormatter.parse(it.toString()).time }
+        } catch (_: NumberFormatException) {
+            //fail silently for date
+            // Toast.makeText(activity, R.string.err_parsing_failed, Toast.LENGTH_SHORT).show()
+        }
         selectedFrame!!.isLongExposure = editExposure.isChecked
         selectedFrame!!.tags = Arrays.asList(*TextUtils.split(editTags.text.toString(), " "))
 
@@ -447,6 +478,7 @@ class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
         const val KEY_FRAME_IDX = "frame_index"
         const val KEY_FRAMES = "frames"
         const val KEY_ROLL = "roll"
+        const val TAG_DATEPICKER = "datePicker"
 
         private val MY_PERMISSIONS_REQUEST_LOCATION = 100
         private val MY_PERMISSIONS_REQUEST_STORAGE = 200
@@ -455,7 +487,6 @@ class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
         private var locationPermissionRequested = false
         private var storagePermissionRequested = false
         private var storagePermissionRequestedForPreview = false
-
 
         fun newInstance(roll: Roll?, frames: List<Frame>?, frame: Int): EditFrameFragment {
             val args = Bundle()
