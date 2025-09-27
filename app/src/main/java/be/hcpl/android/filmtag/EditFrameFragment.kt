@@ -74,7 +74,6 @@ class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
 
     // date picker
     private lateinit var datePicker: MaterialDatePicker<Long>
-    val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
     private fun initDatePickerWith(date: Long) = MaterialDatePicker.Builder.datePicker()
         .setTitleText(getString(R.string.select_date))
@@ -487,6 +486,8 @@ class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
         private var locationPermissionRequested = false
         private var storagePermissionRequested = false
         private var storagePermissionRequestedForPreview = false
+
+        val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
         fun newInstance(roll: Roll?, frames: List<Frame>?, frame: Int): EditFrameFragment {
             val args = Bundle()

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import be.hcpl.android.filmtag.EditFrameFragment
 
 import java.util.ArrayList
 
@@ -50,6 +51,7 @@ class FrameAdapter(context: Context) : BaseAdapter() {
 
             val holder = ViewHolder()
             holder.textFrame = rowView!!.findViewById(R.id.text_frame) as TextView
+            holder.textDate = rowView!!.findViewById(R.id.text_date) as TextView
             holder.textApertureAndShutter = rowView.findViewById(R.id.text_aperture_and_shutter) as TextView
             holder.textNotes = rowView.findViewById(R.id.text_notes) as TextView
             rowView.tag = holder
@@ -58,6 +60,7 @@ class FrameAdapter(context: Context) : BaseAdapter() {
 
         // First line: frame number, aperture, shutter speed
         holder.textFrame!!.text = TextUtil.formatFrameNumber(frame.number)
+        holder.textDate!!.text = frame.dateTaken?.let { EditFrameFragment.dateFormatter.format(it) }
         holder.textApertureAndShutter!!.text = formatApertureAndShutter(
                 frame.aperture,
                 frame.shutter,
@@ -94,6 +97,7 @@ class FrameAdapter(context: Context) : BaseAdapter() {
 
         internal var textApertureAndShutter: TextView? = null
         internal var textFrame: TextView? = null
+        internal var textDate: TextView? = null
         internal var textNotes: TextView? = null
     }
 }
