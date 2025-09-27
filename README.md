@@ -47,6 +47,11 @@ Other apps that do similar things.
 * resolve locations into address or place names instead of lat/long?
 * easier way to mark film developed (not from edit film)
 
+### 1.0
+
+- simplify app versioning
+- user request: add date per frame prefilled with today
+
 ### 0.21.0
 
 technical release
