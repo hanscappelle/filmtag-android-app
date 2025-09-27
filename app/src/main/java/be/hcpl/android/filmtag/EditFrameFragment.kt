@@ -70,7 +70,7 @@ class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
     private lateinit var textLocation: TextView
     private lateinit var iconLocation: ImageView
     private lateinit var imagePreview: ImageView
-    private lateinit var dateView: EditText
+    private lateinit var dateView: TextView
 
     // date picker
     private lateinit var datePicker: MaterialDatePicker<Long>
@@ -151,7 +151,7 @@ class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
             }
             datePicker.addOnPositiveButtonClickListener {
                 // Respond to positive button click.
-                dateView.setText(dateFormatter.format(datePicker.selection))
+                dateView.text = dateFormatter.format(datePicker.selection)
             }
         }
 
