@@ -33,7 +33,8 @@ Other apps that do similar things.
 
 - use v1 release key
 - create tag on git for each release
-- building with Java 17 for bitbucket pipeline
+- (no longer needed since moving to github) building with Java 17 for bitbucket pipeline
+- app bundle
 
 ## Version History
 
