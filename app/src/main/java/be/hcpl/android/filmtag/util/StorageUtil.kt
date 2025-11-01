@@ -22,7 +22,7 @@ object StorageUtil {
 
     private val gson = Gson()
 
-    private val KEY_FILM_ROLLS = "rolls"
+    private const val KEY_FILM_ROLLS = "rolls"
 
     fun getAllRolls(activity: MainActivity): MutableList<Roll> {
         // get the items

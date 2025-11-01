@@ -43,6 +43,7 @@ import java.util.Arrays
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+import java.util.TimeZone
 
 
 /**
@@ -125,6 +126,10 @@ class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
         textNumber = view.findViewById(R.id.edit_number)
         dateView = view.findViewById(R.id.edit_date)
 
+        // use fixed UTC timeZone since that is what the material datePicker expects
+        val timeZone = TimeZone.getTimeZone("UTC")
+        dateFormatter.timeZone = timeZone
+
         // populate with frame details
         selectedFrame?.let {
             textNumber.text = "${it.number}"
@@ -139,10 +144,10 @@ class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
                 editTags.setText(TextUtils.join(" ", it.tags))
             loadImagePreview() // load from frame storage
             showLocation()
-            // update date
-            val validDate = it.dateTaken?: Calendar.getInstance().timeInMillis
+            // update date, date is stored and displayed in a fixed UTC timezone
+            val validDate = it.dateTaken?: Calendar.getInstance(timeZone).timeInMillis
             dateView.text = dateFormatter.format(validDate)
-            datePicker = initDatePickerWith(validDate)
+            datePicker = initDatePickerWith(validDate)//utcDate.timeInMillis)
             dateView.setOnClickListener{
                 datePicker.show(childFragmentManager, TAG_DATEPICKER)
             }
@@ -431,7 +436,9 @@ class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
             Toast.makeText(activity, R.string.err_parsing_failed, Toast.LENGTH_SHORT).show()
         }
         try {
-            selectedFrame!!.dateTaken = dateView.text?.let { dateFormatter.parse(it.toString()).time }
+            selectedFrame!!.dateTaken = dateView.text?.let {
+                dateFormatter.parse(it.toString()).time
+            }
         } catch (_: Exception) {
             //fail silently for date
             // Toast.makeText(activity, R.string.err_parsing_failed, Toast.LENGTH_SHORT).show()
@@ -486,14 +493,5 @@ class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
 
         val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
 
-        fun newInstance(roll: Roll?, frames: List<Frame>?, frame: Int): EditFrameFragment {
-            val args = Bundle()
-            args.putSerializable(KEY_FRAMES, frames as ArrayList<*>)
-            args.putInt(KEY_FRAME_IDX, frame)
-            args.putSerializable(KEY_ROLL, roll)
-            val fragment = EditFrameFragment()
-            fragment.arguments = args
-            return fragment
-        }
     }
 }

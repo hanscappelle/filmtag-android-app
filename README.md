@@ -56,6 +56,8 @@ Other apps that do similar things.
 
 ### 1.2
 
+* bugfix use a single timeZone for date storage
+
 ### 1.1
 
 * fix for random app crashes on opening frame for edit
