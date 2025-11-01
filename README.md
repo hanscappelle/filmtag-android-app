@@ -57,6 +57,7 @@ Other apps that do similar things.
 ### 1.1
 
 * fix for random app crashes on opening frame for edit
+* fix nullpointer crash on rotating device during edit frame
 
 ### 1.0
 

@@ -33,7 +33,7 @@ object StorageUtil {
 
     // for internal use only
     private fun updateRolls(activity: MainActivity, rolls: List<Roll>) {
-        activity.prefs!!.edit().putString(KEY_FILM_ROLLS, gson.toJson(rolls, listOfRollsType)).apply()
+        activity.prefs?.edit()?.putString(KEY_FILM_ROLLS, gson.toJson(rolls, listOfRollsType))?.apply()
     }
 
     fun deleteRoll(activity: MainActivity, roll: Roll) {
@@ -45,19 +45,19 @@ object StorageUtil {
     }
 
     private fun deleteFramesForRoll(activity: MainActivity, roll: Roll) {
-        activity.prefs!!.edit().remove(KEY_FILM_ROLLS + roll.id).apply()
+        activity.prefs?.edit()?.remove(KEY_FILM_ROLLS + roll.id)?.apply()
     }
 
     fun getFramesForFilm(activity: MainActivity, filmRoll: Roll): MutableList<Frame> {
         // get the items
-        val framesData = activity.prefs!!.getString(KEY_FILM_ROLLS + filmRoll.id, "[]")
+        val framesData = activity.prefs?.getString(KEY_FILM_ROLLS + filmRoll.id, "[]")
         // convert using gson
         return gson.fromJson(framesData, listOfFramesType)
     }
 
     fun updateFrames(activity: MainActivity, filmRoll: Roll, frames: List<Frame>) {
-        activity.prefs!!.edit().putString(KEY_FILM_ROLLS + filmRoll
-                .id, gson.toJson(frames, listOfFramesType)).apply()
+        activity.prefs?.edit()?.putString(KEY_FILM_ROLLS + filmRoll
+                .id, gson.toJson(frames, listOfFramesType))?.apply()
     }
 
     fun addNewRoll(activity: MainActivity, roll: Roll) {
@@ -88,10 +88,11 @@ object StorageUtil {
         // store all new rolls
         addRolls(mainActivity, rolls)
         // and for each roll store the new frames also (skip non existing rolls for datacleaning purpose)
-        for (roll in data.rolls!!) {
-            val framesForRoll = data.frames!![roll.id]
-            if (framesForRoll != null) {
-                updateFrames(mainActivity, roll, framesForRoll)
+        data.rolls?.let {
+            for (roll in data.rolls) {
+                data.frames?.get(roll.id)?.let { framesForRoll ->
+                    updateFrames(mainActivity, roll, framesForRoll)
+                }
             }
         }
     }
