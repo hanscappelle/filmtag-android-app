@@ -59,4 +59,10 @@
     <string name="no_rolls_yet">Nog geen film rolletjes gevonden, maak er een paar aan met \'t plus icoon.</string>
     <string name="label_date_taken">Datum</string>
     <string name="select_date">Selecteer Datum</string>
+    <string name="option_roll_cancel">Annuleren</string>
+    <string name="option_roll_delete">Verwijderen</string>
+    <string name="option_roll_lock">Slot</string>
+    <string name="msg_lock_complete_film_roll">Once a roll is developed you can lock/unlock it here from future edits.</string>
+    <string name="option_roll_unlock">Vrijgeven</string>
+    <string name="indicates_if_roll_is_developed_or_not">geeft aan of fimrol al is ontwikkeld of niet</string>
 </resources>

@@ -28,8 +28,6 @@ import be.hcpl.android.filmtag.util.StorageUtil
  */
 class FilmRollListFragment : Fragment(R.layout.fragment_roll_overview) {
 
-    // TODO delete film from overview directly (swipe? long press, ...)
-
     private var mAdapter: FilmRollAdapter? = null
 
     private lateinit var searchView: SearchView
@@ -51,13 +49,32 @@ class FilmRollListFragment : Fragment(R.layout.fragment_roll_overview) {
         mAdapter = FilmRollAdapter(requireContext())
         listView.adapter = mAdapter
         listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, i, _ ->
-            showRollDetails(mAdapter!!.getItem(i))
+            mAdapter?.getItem(i)?.let { roll -> showRollDetails(roll) }
+        }
+        listView.onItemLongClickListener = AdapterView.OnItemLongClickListener { _, _, i, _ ->
+            // optional lock or unlock for film here
+            val film = mAdapter?.getItem(i)
+            val optionText = if (film?.isDeveloped == true) R.string.option_roll_unlock else R.string.option_roll_lock
+            AlertDialog.Builder(requireContext())
+                .setMessage(R.string.msg_lock_complete_film_roll)
+                .setPositiveButton(optionText) { _, _ ->
+                    film?.let {roll ->
+                        roll.isDeveloped = !roll.isDeveloped
+                        StorageUtil.updateRoll(activity as MainActivity, roll)
+                        refreshData()
+                    }
+                }.setNegativeButton(R.string.option_roll_cancel) { _, _ ->
+
+                    //}.setNeutralButton(R.string.option_roll_Cancel) { _, _ ->
+                }.show()
+
+            true
         }
 
         // enable search view in toolbar
-        setUpSearchView();
+        //setUpSearchView();
     }
-
+/*
     private fun setUpSearchView() {
 
         // FIXME filtering is broken
@@ -98,12 +115,12 @@ class FilmRollListFragment : Fragment(R.layout.fragment_roll_overview) {
                     mAdapter?.filter?.filter(query)
                 } else {
                     mAdapter?.filter?.filter(null)
-                    toggleSearchView()
+                    //toggleSearchView()
                 }
             }
         }
     }
-
+*/
     override fun onResume() {
         super.onResume()
         // retrieve list of frames here
@@ -156,7 +173,7 @@ class FilmRollListFragment : Fragment(R.layout.fragment_roll_overview) {
 
     /**
      * helper for showing/hiding the searchview in the toolbar
-     */
+     *
     private fun toggleSearchView() {
         // parent activity
         val activity = activity as MainActivity
@@ -168,6 +185,7 @@ class FilmRollListFragment : Fragment(R.layout.fragment_roll_overview) {
         // when showing hide the other menu options + override back handling
         requireActivity().invalidateOptionsMenu()
     }
+     */
 
     private fun importConfig() {
         val builder = AlertDialog.Builder(activity)
