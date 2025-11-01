@@ -30,7 +30,7 @@ class FilmRollListFragment : Fragment(R.layout.fragment_roll_overview) {
 
     private var mAdapter: FilmRollAdapter? = null
 
-    private lateinit var searchView: SearchView
+    //private lateinit var searchView: SearchView
     private lateinit var listView: ListView
     private lateinit var emptyInfo: TextView
 
@@ -58,7 +58,7 @@ class FilmRollListFragment : Fragment(R.layout.fragment_roll_overview) {
             AlertDialog.Builder(requireContext())
                 .setMessage(R.string.msg_lock_complete_film_roll)
                 .setPositiveButton(optionText) { _, _ ->
-                    film?.let {roll ->
+                    film?.let { roll ->
                         roll.isDeveloped = !roll.isDeveloped
                         StorageUtil.updateRoll(activity as MainActivity, roll)
                         refreshData()
@@ -67,60 +67,60 @@ class FilmRollListFragment : Fragment(R.layout.fragment_roll_overview) {
 
                     //}.setNeutralButton(R.string.option_roll_Cancel) { _, _ ->
                 }.show()
-
             true
         }
 
         // enable search view in toolbar
         //setUpSearchView();
     }
-/*
-    private fun setUpSearchView() {
 
-        // FIXME filtering is broken
-        // parent activity
-        val mainActivity = activity as MainActivity
+    /*
+        private fun setUpSearchView() {
 
-        searchView = SearchView(requireContext())
-        searchView.setIconifiedByDefault(false)
-        mainActivity.supportActionBar?.customView = searchView
-        mainActivity.supportActionBar?.setDisplayShowCustomEnabled(searchViewEnabled)
-        // text listeners
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                // filter data
-                mAdapter?.filter?.filter(query)
-                return true
-            }
+            // FIXME filtering is broken
+            // parent activity
+            val mainActivity = activity as MainActivity
 
-            override fun onQueryTextChange(newText: String): Boolean {
-                if ("" == newText) {
-                    // clear results
-                    mAdapter?.filter?.filter(null)
+            searchView = SearchView(requireContext())
+            searchView.setIconifiedByDefault(false)
+            mainActivity.supportActionBar?.customView = searchView
+            mainActivity.supportActionBar?.setDisplayShowCustomEnabled(searchViewEnabled)
+            // text listeners
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String): Boolean {
+                    // filter data
+                    mAdapter?.filter?.filter(query)
                     return true
                 }
-                return false
+
+                override fun onQueryTextChange(newText: String): Boolean {
+                    if ("" == newText) {
+                        // clear results
+                        mAdapter?.filter?.filter(null)
+                        return true
+                    }
+                    return false
+                }
+            })
+            // not in use
+            searchView.setOnCloseListener {
+                mAdapter?.filter?.filter(null)
+                true
             }
-        })
-        // not in use
-        searchView.setOnCloseListener {
-            mAdapter?.filter?.filter(null)
-            true
-        }
-        // when editing and back used first focus goes away
-        searchView.setOnQueryTextFocusChangeListener { _, b ->
-            if (!b) {
-                val query = searchView.query
-                if (query != null && query.isNotEmpty()) {
-                    mAdapter?.filter?.filter(query)
-                } else {
-                    mAdapter?.filter?.filter(null)
-                    //toggleSearchView()
+            // when editing and back used first focus goes away
+            searchView.setOnQueryTextFocusChangeListener { _, b ->
+                if (!b) {
+                    val query = searchView.query
+                    if (query != null && query.isNotEmpty()) {
+                        mAdapter?.filter?.filter(query)
+                    } else {
+                        mAdapter?.filter?.filter(null)
+                        //toggleSearchView()
+                    }
                 }
             }
         }
-    }
-*/
+    */
     override fun onResume() {
         super.onResume()
         // retrieve list of frames here
@@ -148,30 +148,41 @@ class FilmRollListFragment : Fragment(R.layout.fragment_roll_overview) {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         // update options based on search enabled or not
-        if (!searchViewEnabled)
-            inflater.inflate(R.menu.rolls, menu)
+        //if (!searchViewEnabled)
+        inflater.inflate(R.menu.rolls, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
-        if (id == R.id.action_add) {
+        return if (id == R.id.action_add) {
             findNavController().navigate(R.id.action_add_roll)
-            return true
+            true
+        } else if (id == R.id.action_info) {
+            showInfo()
+            true
         } else if (id == R.id.action_export) {
             shareConfig()
-            return true
+            true
         } else if (id == R.id.action_import) {
             importConfig()
-            return true
+            true
             //} else if (id == R.id.action_search) {
             //    toggleSearchView()
+        } else {
+            super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
     }
 
-    private var searchViewEnabled = false
+    private fun showInfo() {
+        AlertDialog.Builder(requireContext())
+            .setMessage(R.string.action_help)
+            .setPositiveButton(R.string.ok) { _, _ -> }
+            .show()
+    }
 
-    /**
+    //private var searchViewEnabled = false
+
+    /*
      * helper for showing/hiding the searchview in the toolbar
      *
     private fun toggleSearchView() {

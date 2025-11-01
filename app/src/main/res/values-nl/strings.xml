@@ -21,7 +21,7 @@
     <string name="err_missing_data">Gegevens ontbreken</string>
     <string name="info_data_imported">Gegenvens aangemaakt</string>
     <string name="err_import_failed">Importeren van gegevens mislukt</string>
-    <string name="info_import_export">Met de "Share" or "Send" optie kunt u vanuit andere apps de configuratie terug importeren in deze tool</string>
+    <string name="info_import_export">Met de \"Share\" or \"Send\" optie kunt u vanuit andere apps de configuratie terug importeren in deze tool</string>
     <string name="ok">OK</string>
     <string name="action_export">Export</string>
     <string name="action_import">Import</string>
@@ -65,4 +65,5 @@
     <string name="msg_lock_complete_film_roll">Once a roll is developed you can lock/unlock it here from future edits.</string>
     <string name="option_roll_unlock">Vrijgeven</string>
     <string name="indicates_if_roll_is_developed_or_not">geeft aan of fimrol al is ontwikkeld of niet</string>
+    <string name="action_help">Dit is een overzicht van je filmrolletjes.\n\nJe kan nieuwe toevoegen met het plus icoon bovenaan.\n\nEen rolletje aanpassen kan door deze in de lijst te selecteren.\n\nLang indrukken geeft je de optie om een rolletje te vergrendelen voor bewerking.</string>
 </resources>

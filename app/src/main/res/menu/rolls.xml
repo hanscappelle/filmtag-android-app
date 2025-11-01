@@ -19,6 +19,12 @@
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/action_info"
+        android:title="@string/action_help"
+        android:icon="@android:drawable/ic_menu_help"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/action_export"
         android:title="@string/action_export"
         app:showAsAction="never" />

@@ -53,6 +53,7 @@ Other apps that do similar things.
 
 ### 1.2
 
+* some info added on first view
 * (user request) lock frame/film editing (once developed)
 * (feature) easier way to mark film developed (not from edit film)
 * bugfix use a single timeZone for date storage
