@@ -66,4 +66,5 @@
     <string name="option_roll_unlock">Vrijgeven</string>
     <string name="indicates_if_roll_is_developed_or_not">geeft aan of fimrol al is ontwikkeld of niet</string>
     <string name="action_help">Dit is een overzicht van je filmrolletjes.\n\nJe kan nieuwe toevoegen met het plus icoon bovenaan.\n\nEen rolletje aanpassen kan door deze in de lijst te selecteren.\n\nLang indrukken geeft je de optie om een rolletje te vergrendelen voor bewerking.</string>
+    <string name="action_lock_or_unlock">Vergrendelen</string>
 </resources>

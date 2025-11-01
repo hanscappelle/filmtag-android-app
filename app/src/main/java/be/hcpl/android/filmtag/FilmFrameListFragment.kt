@@ -62,12 +62,11 @@ class FilmFrameListFragment : Fragment(R.layout.fragment_roll_detail) {
     }
 
     private fun updateFramesForFilm() {
-
-        if (filmRoll != null) {
+        filmRoll?.let { roll ->
             frames = StorageUtil.getFramesForFilm(activity as MainActivity, filmRoll!!)
             // if the film doesn't have frames yet add them based on the number specified
-            if (frames!!.isEmpty()) {
-                for (i in 0..filmRoll!!.frames) {
+            if (frames?.isEmpty() == true) {
+                for (i in 0..roll.frames) {
                     val frame = Frame()
                     frame.number = i
                     frames!!.add(frame)
@@ -75,11 +74,12 @@ class FilmFrameListFragment : Fragment(R.layout.fragment_roll_detail) {
             }
 
             // update list data
-            mAdapter!!.clear()
-            mAdapter!!.addAll(frames!!)
-            mAdapter!!.notifyDataSetChanged()
+            mAdapter?.apply {
+                clear()
+                frames?.let { addAll(it) }
+                notifyDataSetChanged()
+            }
         }
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -137,25 +137,52 @@ class FilmFrameListFragment : Fragment(R.layout.fragment_roll_detail) {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.frames, menu)
+        this.menu = menu
+        // apply alpha on locked or not
+        updateLockedIndication()
+    }
+
+    private var menu: Menu? = null
+
+    private fun updateLockedIndication() {
+        menu?.findItem(R.id.action_lock)?.apply {
+            icon?.alpha = if (filmRoll?.isDeveloped == true) 255 else 51
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+        return when (item.itemId) {
+            R.id.action_lock -> {
+                toggleFilmLocked()
+                updateLockedIndication()
+                true
+            }
+
             R.id.action_delete -> {
                 deleteCurrentFilmRoll()
-                return true
+                true
             }
+
             R.id.action_edit -> {
                 editCurrentFilmRoll()
-                return true
+                true
             }
+
             android.R.id.home -> {
                 // always navigate back here to prevent loop with edit and other views
                 backToOverview()
-                return true
+                true
             }
+
+            else -> false
         }
-        return false
+    }
+
+    private fun toggleFilmLocked() {
+        filmRoll?.let { roll ->
+            roll.isDeveloped = !roll.isDeveloped
+            StorageUtil.updateRoll(activity as MainActivity, roll)
+        }
     }
 
     private fun editCurrentFilmRoll() {
@@ -169,14 +196,14 @@ class FilmFrameListFragment : Fragment(R.layout.fragment_roll_detail) {
     private fun deleteCurrentFilmRoll() {
         // confirmation needed before delete here...
         AlertDialog.Builder(requireContext())
-                //.setTitle(R.string.label_confirm)
-                .setMessage(R.string.msg_delete_complete_film_roll)
-                .setPositiveButton(R.string.label_yes) { dialogInterface, _ ->
-                    StorageUtil.deleteRoll(activity as MainActivity, filmRoll!!)
-                    // navigate back
-                    dialogInterface.dismiss()
-                    backToOverview()
-                }.setNegativeButton(R.string.label_no) { dialogInterface, _ -> dialogInterface.dismiss() }.show()
+            //.setTitle(R.string.label_confirm)
+            .setMessage(R.string.msg_delete_complete_film_roll)
+            .setPositiveButton(R.string.label_yes) { dialogInterface, _ ->
+                StorageUtil.deleteRoll(activity as MainActivity, filmRoll!!)
+                // navigate back
+                dialogInterface.dismiss()
+                backToOverview()
+            }.setNegativeButton(R.string.label_no) { dialogInterface, _ -> dialogInterface.dismiss() }.show()
 
     }
 
