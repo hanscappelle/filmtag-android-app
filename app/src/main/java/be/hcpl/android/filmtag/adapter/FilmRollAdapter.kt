@@ -1,6 +1,7 @@
 package be.hcpl.android.filmtag.adapter
 
 import android.content.Context
+import android.graphics.drawable.Icon
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.BaseAdapter
 import android.widget.CheckBox
 import android.widget.Filter
 import android.widget.Filterable
+import android.widget.ImageView
 import android.widget.TextView
 
 import java.util.ArrayList
@@ -34,7 +36,7 @@ class FilmRollAdapter(private val mContext: Context) : BaseAdapter(), Filterable
 
     override fun getView(i: Int, convertView: View?, viewGroup: ViewGroup): View? {
 
-        val roll = items[i] ?: return convertView
+        val roll = items[i]
 
         // no need to continue if we have no data
 
@@ -47,7 +49,7 @@ class FilmRollAdapter(private val mContext: Context) : BaseAdapter(), Filterable
             holder.textType = rowView.findViewById(R.id.text_type)
             holder.textSpeed = rowView.findViewById(R.id.text_speed)
             holder.textFrames = rowView.findViewById(R.id.text_frames)
-            holder.developed = rowView.findViewById(R.id.check_developed)
+            holder.locked = rowView.findViewById(R.id.locked)
             rowView.tag = holder
         }
         val holder = rowView?.tag as ViewHolder
@@ -60,7 +62,8 @@ class FilmRollAdapter(private val mContext: Context) : BaseAdapter(), Filterable
                 mContext.resources.getString(R.string.label_roll_frames)
 
         // mark developed items with a lighter text color
-        holder.developed?.isChecked = roll.isDeveloped
+        //holder.developed?.isChecked = roll.isDeveloped
+        holder.locked?.alpha = if(roll.isDeveloped) 1f else 0.2f
 
         return rowView
     }
@@ -117,7 +120,7 @@ class FilmRollAdapter(private val mContext: Context) : BaseAdapter(), Filterable
     }
 
     private inner class ViewHolder {
-        var developed: CheckBox? = null
+        var locked: ImageView? = null
         var textFrames: TextView? = null
         var textSpeed: TextView? = null
         var textType: TextView? = null
