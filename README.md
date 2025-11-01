@@ -58,6 +58,7 @@ Other apps that do similar things.
 
 * fix for random app crashes on opening frame for edit
 * fix nullpointer crash on rotating device during edit frame
+* use specific date locale to parse (attempt to fix date reset)
 
 ### 1.0
 

@@ -24,10 +24,12 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
         // add version
         aboutText = aboutText.replace("{version}", BuildConfig.VERSION_NAME)
         // set text
-        val textView = view.findViewById(R.id.text_about) as TextView
-        textView.text = Html.fromHtml(aboutText)
-        // and make clickable
-        Linkify.addLinks(textView, Linkify.ALL)
+        val textView = view.findViewById(R.id.text_about) as? TextView
+        textView?.apply {
+            text = Html.fromHtml(aboutText)
+            // and make clickable
+            Linkify.addLinks(textView, Linkify.ALL)
+        }
     }
 
     // TODO move to utils instead
@@ -66,13 +68,7 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
 
     companion object {
 
-        private val SYSTEM_LINE_SEPARATOR = System.getProperty("line.separator")
+        private val SYSTEM_LINE_SEPARATOR = System.lineSeparator()
 
-        fun newInstance(): AboutFragment {
-            val args = Bundle()
-            val fragment = AboutFragment()
-            fragment.arguments = args
-            return fragment
-        }
     }
 }

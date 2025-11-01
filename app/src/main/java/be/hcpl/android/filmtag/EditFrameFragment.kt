@@ -141,7 +141,7 @@ class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
             showLocation()
             // update date
             val validDate = it.dateTaken?: Calendar.getInstance().timeInMillis
-            dateView.setText(dateFormatter.format(validDate))
+            dateView.text = dateFormatter.format(validDate)
             datePicker = initDatePickerWith(validDate)
             dateView.setOnClickListener{
                 datePicker.show(childFragmentManager, TAG_DATEPICKER)
@@ -283,7 +283,7 @@ class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
 
     private fun createImageFile(): File {
         // Create an image file name
-        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.ENGLISH).format(Date())
         val imageFileName = "JPEG_" + timeStamp + "_"
         val storageDir = Environment.getExternalStoragePublicDirectory(
             Environment.DIRECTORY_PICTURES
@@ -484,7 +484,7 @@ class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
         private var storagePermissionRequested = false
         private var storagePermissionRequestedForPreview = false
 
-        val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
 
         fun newInstance(roll: Roll?, frames: List<Frame>?, frame: Int): EditFrameFragment {
             val args = Bundle()
