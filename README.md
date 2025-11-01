@@ -49,6 +49,13 @@ Other apps that do similar things.
 * (user request) better way of exporting data
 * (user request) select from a list of camera's & lenses
 * (technical) convert to compose
+* (user reported) date resets to current on opening frame for edit
+* (user request) add time to date for frame
+* (user request) lock frame editing once developed
+
+### 1.1
+
+* fix for random app crashes on opening frame for edit
 
 ### 1.0
 

@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 
 import java.io.BufferedReader
 import java.io.Closeable
-import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
 
@@ -46,7 +45,7 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
             }
 
             return buffer.toString()
-        } catch (e: IOException) {
+        } catch (_: Exception) {
         } finally {
             closeStream(input)
         }
@@ -58,7 +57,7 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
         if (stream != null) {
             try {
                 stream.close()
-            } catch (e: IOException) {
+            } catch (_: Exception) {
             }
 
         }

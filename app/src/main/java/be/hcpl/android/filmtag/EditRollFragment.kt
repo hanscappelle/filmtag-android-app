@@ -140,13 +140,13 @@ class EditRollFragment : Fragment(R.layout.fragment_form_roll) {
         roll!!.tags = Arrays.asList(*TextUtils.split(edit_tags.text.toString(), " "))
         try {
             roll!!.speed = Integer.parseInt(edit_exposed.text.toString())
-        } catch (nfe: NumberFormatException) {
+        } catch (_: Exception) {
             Toast.makeText(activity, R.string.err_parsing_failed, Toast.LENGTH_SHORT).show()
         }
 
         try {
             roll!!.frames = Integer.parseInt(edit_frames.text.toString())
-        } catch (nfe: NumberFormatException) {
+        } catch (_: Exception) {
             Toast.makeText(activity, R.string.err_parsing_failed, Toast.LENGTH_SHORT).show()
         }
 

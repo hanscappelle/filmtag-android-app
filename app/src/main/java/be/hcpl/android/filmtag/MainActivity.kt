@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity() {
             val data = StorageUtil.parseDataExportFormat(sharedText)
             StorageUtil.storeDataExportFormat(this, data)
             Toast.makeText(this, R.string.info_data_imported, Toast.LENGTH_SHORT).show()
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             Toast.makeText(this, R.string.err_import_failed, Toast.LENGTH_SHORT).show()
         }
 

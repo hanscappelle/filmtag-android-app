@@ -22,7 +22,6 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.CheckBox
-import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -39,7 +38,6 @@ import be.hcpl.android.filmtag.util.StorageUtil
 import com.google.android.material.datepicker.MaterialDatePicker
 import java.io.File
 import java.io.FileOutputStream
-import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Arrays
 import java.util.Calendar
@@ -216,7 +214,7 @@ class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
                 options.inJustDecodeBounds = false
                 val bm = BitmapFactory.decodeFile(selectedFrame?.pathToImage, options)
                 imagePreview.setImageBitmap(bm)
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 // ignore any exceptions here
                 handleImageError()
             }
@@ -252,7 +250,7 @@ class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         try {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
-        } catch (e: ActivityNotFoundException) {
+        } catch (_: ActivityNotFoundException) {
             // display error state to the user
             handleImageError();
         }
@@ -278,12 +276,11 @@ class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
             }
             // save image path at this point
             StorageUtil.updateFrames(activity as MainActivity, roll!!, frames!!)
-        } catch (e: IOException) {
+        } catch (_: Exception) {
             handleImageError()
         }
     }
 
-    @Throws(IOException::class)
     private fun createImageFile(): File {
         // Create an image file name
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
@@ -424,18 +421,18 @@ class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
         try {
             selectedFrame!!.aperture =
                 java.lang.Double.parseDouble(getFieldTextOrHint(editAperture))
-        } catch (_: NumberFormatException) {
+        } catch (_: Exception) {
             Toast.makeText(activity, R.string.err_parsing_failed, Toast.LENGTH_SHORT).show()
         }
 
         try {
             selectedFrame!!.shutter = Integer.parseInt(getFieldTextOrHint(editShutter))
-        } catch (_: NumberFormatException) {
+        } catch (_: Exception) {
             Toast.makeText(activity, R.string.err_parsing_failed, Toast.LENGTH_SHORT).show()
         }
         try {
             selectedFrame!!.dateTaken = dateView.text?.let { dateFormatter.parse(it.toString()).time }
-        } catch (_: NumberFormatException) {
+        } catch (_: Exception) {
             //fail silently for date
             // Toast.makeText(activity, R.string.err_parsing_failed, Toast.LENGTH_SHORT).show()
         }
