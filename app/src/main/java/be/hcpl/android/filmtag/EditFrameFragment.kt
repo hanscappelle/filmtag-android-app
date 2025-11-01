@@ -148,13 +148,13 @@ class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
             // always render only stored date, not current
             try {
                 dateView.text = dateFormatter.format(it.dateTaken)
-            } catch( _: Exception){
+            } catch (_: Exception) {
 
             }
             // update date, date is stored and displayed in a fixed UTC timezone
             val validDate = it.dateTaken ?: Calendar.getInstance(timeZone).timeInMillis
             datePicker = initDatePickerWith(validDate)//utcDate.timeInMillis)
-            dateView.setOnClickListener{
+            dateView.setOnClickListener {
                 datePicker.show(childFragmentManager, TAG_DATEPICKER)
             }
             datePicker.addOnPositiveButtonClickListener {
@@ -353,7 +353,7 @@ class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
                     fetchedLocationDetails.latitude,
                     fetchedLocationDetails.longitude
                 )
-                showLocation()
+                showLocation(true)
             }
         }
         // and start listening in order to update the location when more
@@ -396,13 +396,13 @@ class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
                 selectedFrame!!.location =
                     be.hcpl.android.filmtag.model.Location(location.latitude, location.longitude)
                 // set on screen
-                showLocation()
+                showLocation(true)
             }
         }
 
         override fun onStatusChanged(
             provider: String, status: Int,
-            extras: Bundle
+            extras: Bundle,
         ) {
             // nothing so far
         }
@@ -416,18 +416,18 @@ class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
         }
     }
 
-    private fun showLocation() {
+    private fun showLocation(updateItem: Boolean = false) {
         selectedFrame?.location?.let { location ->
             textLocation.text =
                 "${getString(R.string.label_location)} ${location.latitude} ${location.longitude}"
-            updateItem(false) // also update location in storage autom.
+            if (updateItem) updateItem(false) // also update location in storage autom.
         }
         updateLocationViews()
     }
 
     private fun updateItem(navigateBack: Boolean = true) {
         // don't allow updating locked rolls
-        if( roll?.isDeveloped == true){
+        if (roll?.isDeveloped == true) {
             warnRollLocked()
             return
         }
