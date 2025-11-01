@@ -54,6 +54,8 @@ Other apps that do similar things.
 * (user request) add time to date for frame
 * (user request) lock frame editing once developed
 
+### 1.2
+
 ### 1.1
 
 * fix for random app crashes on opening frame for edit
