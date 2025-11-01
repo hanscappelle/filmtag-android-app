@@ -10,7 +10,6 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ListView
 import android.widget.TextView
-import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -175,7 +174,7 @@ class FilmRollListFragment : Fragment(R.layout.fragment_roll_overview) {
 
     private fun showInfo() {
         AlertDialog.Builder(requireContext())
-            .setMessage(R.string.action_help)
+            .setMessage(R.string.msg_first_view_help)
             .setPositiveButton(R.string.ok) { _, _ -> }
             .show()
     }

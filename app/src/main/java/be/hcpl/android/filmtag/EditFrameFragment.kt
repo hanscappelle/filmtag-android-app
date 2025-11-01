@@ -2,6 +2,7 @@ package be.hcpl.android.filmtag
 
 import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
@@ -144,9 +145,14 @@ class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
                 editTags.setText(TextUtils.join(" ", it.tags))
             loadImagePreview() // load from frame storage
             showLocation()
+            // always render only stored date, not current
+            try {
+                dateView.text = dateFormatter.format(it.dateTaken)
+            } catch( _: Exception){
+
+            }
             // update date, date is stored and displayed in a fixed UTC timezone
-            val validDate = it.dateTaken?: Calendar.getInstance(timeZone).timeInMillis
-            dateView.text = dateFormatter.format(validDate)
+            val validDate = it.dateTaken ?: Calendar.getInstance(timeZone).timeInMillis
             datePicker = initDatePickerWith(validDate)//utcDate.timeInMillis)
             dateView.setOnClickListener{
                 datePicker.show(childFragmentManager, TAG_DATEPICKER)
@@ -420,6 +426,11 @@ class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
     }
 
     private fun updateItem(navigateBack: Boolean = true) {
+        // don't allow updating locked rolls
+        if( roll?.isDeveloped == true){
+            warnRollLocked()
+            return
+        }
         // update values
         selectedFrame!!.notes = editNotes.text.toString()
 
@@ -451,6 +462,13 @@ class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
 
         // navigate back to overview
         if (navigateBack) backToDetail()
+    }
+
+    private fun warnRollLocked() {
+        AlertDialog.Builder(requireContext())
+            .setMessage(R.string.msg_roll_is_locked)
+            .setPositiveButton(R.string.ok) { _, _ -> }
+            .show()
     }
 
     private fun getFieldTextOrHint(field: EditText): String {

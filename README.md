@@ -42,18 +42,18 @@ Other apps that do similar things.
 
 * (feature) in app visualisation of locations on map
 * (feature) autocomplete for names and tags based on existing
-* filter with search from toolbar
+* (restore) filter with search from toolbar
 * improve picture storage and preview
-* resolve locations into address or place names instead of lat/long?
+* (feature) resolve locations into address or place names instead of lat/long?
 * (user request) better way of exporting data
 * (user request) select from a list of camera's & lenses
 * (technical) convert to compose
-* (user reported) date resets to current on opening frame for edit
 * (user request) add time to date for frame
 
 ### 1.2
 
-* some info added on first view
+* bugfix (user reported) date resets to current on opening frame for edit
+* help option added to menu on first view
 * (user request) lock frame/film editing (once developed)
 * (feature) easier way to mark film developed (not from edit film)
 * bugfix use a single timeZone for date storage

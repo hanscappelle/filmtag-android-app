@@ -20,7 +20,7 @@
 
     <item
         android:id="@+id/action_info"
-        android:title="@string/action_help"
+        android:title="@string/msg_first_view_help"
         android:icon="@android:drawable/ic_menu_help"
         app:showAsAction="ifRoom" />
 

@@ -67,8 +67,9 @@
     <string name="msg_lock_complete_film_roll">Once a roll is developed you can lock/unlock it here from future edits.</string>
     <string name="option_roll_unlock">Unlock</string>
     <string name="indicates_if_roll_is_developed_or_not">indicates if roll is developed or not</string>
-    <string name="action_help">This is an overview of your film rolls.\n\nYou can add new ones with the plus icon in the top menu.\n\nEditing existing rolls is done by selecting one from the list.\n\nLong press on an item allows quick lock/unlock of rolls.</string>
+    <string name="msg_first_view_help">This is an overview of your film rolls.\n\nYou can add new ones with the plus icon in the top menu.\n\nEditing existing rolls is done by selecting one from the list.\n\nLong press on an item allows quick lock/unlock of rolls.</string>
     <string name="action_lock_or_unlock">(un)Lock</string>
+    <string name="msg_roll_is_locked">Roll is locked, unlock it first before you can store your changes.</string>
 
 
 </resources>
