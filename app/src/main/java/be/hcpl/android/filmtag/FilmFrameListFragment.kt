@@ -137,8 +137,8 @@ class FilmFrameListFragment : Fragment(R.layout.fragment_roll_detail) {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.frames, menu)
-        this.menu = menu
         // apply alpha on locked or not
+        this.menu = menu
         updateLockedIndication()
     }
 

@@ -110,6 +110,24 @@ class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.update_frame, menu)
+        // apply alpha on locked or not
+        this.menu = menu
+        updateLockedIndication()
+    }
+
+    private var menu: Menu? = null
+
+    private fun updateLockedIndication() {
+        menu?.findItem(R.id.action_lock)?.apply {
+            icon?.alpha = if (roll?.isDeveloped == true) 255 else 51
+        }
+    }
+
+    private fun toggleFilmLocked() {
+        roll?.let { roll ->
+            roll.isDeveloped = !roll.isDeveloped
+            StorageUtil.updateRoll(activity as MainActivity, roll)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -233,28 +251,35 @@ class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+        return when (item.itemId) {
+            R.id.action_lock -> {
+                toggleFilmLocked()
+                updateLockedIndication()
+                true
+            }
+
             R.id.action_update -> {
                 updateItem()
-                return true
+                true
             }
 
             android.R.id.home -> {
                 backToDetail()
-                return true
+                true
             }
 
             R.id.action_camera -> {
                 dispatchTakePictureIntent()
-                return true
+                true
             }
 
             R.id.action_location -> {
                 getLocation()
-                return true
+                true
             }
+
+            else -> false
         }
-        return false
     }
 
     private fun dispatchTakePictureIntent() {
@@ -502,12 +527,13 @@ class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
         const val TAG_DATEPICKER = "datePicker"
 
         private val MY_PERMISSIONS_REQUEST_LOCATION = 100
-        private val MY_PERMISSIONS_REQUEST_STORAGE = 200
+
+        //private val MY_PERMISSIONS_REQUEST_STORAGE = 200
         private val REQUEST_IMAGE_CAPTURE = 300
 
         private var locationPermissionRequested = false
-        private var storagePermissionRequested = false
-        private var storagePermissionRequestedForPreview = false
+        //private var storagePermissionRequested = false
+        //private var storagePermissionRequestedForPreview = false
 
         val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
 

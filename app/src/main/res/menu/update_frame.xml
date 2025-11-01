@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/action_lock"
+        android:title="@string/action_lock_or_unlock"
+        android:icon="@android:drawable/ic_lock_lock"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/action_camera"
         android:title="@string/action_camera"
         android:icon="@drawable/ic_action_image_photo_camera"
