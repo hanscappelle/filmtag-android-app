@@ -23,6 +23,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import be.hcpl.android.filmtag.model.Roll
+import be.hcpl.android.filmtag.ui.AppTheme
 
 @Composable
 fun RollView(
@@ -47,7 +48,7 @@ fun RollView(
                 contentDescription = stringResource(R.string.description_locked_unlocked),
                 modifier = Modifier
                     // mark developed items with a lighter text color
-                    .alpha(if(roll.isDeveloped) 1f else 0.2f)
+                    .alpha(if (roll.isDeveloped) 1f else 0.2f)
             )
             Text(
                 text = roll.type?.ifEmpty { "..." } ?: "...", // TODO create uiModel in between that holds this kind of placeholders
@@ -72,31 +73,35 @@ fun RollView(
 @Preview(showBackground = true)
 @Composable
 private fun Preview() {
-    RollView(
-        roll = Roll(
-            id = 1000L,
-            type = "Roll Type Info",
-            speed = 200,
-            frames = 36,
-            notes = "some roll specific notes",
-            isDeveloped = false,
-            tags = listOf("tag1", "tag2", "tag3"),
+    AppTheme {
+        RollView(
+            roll = Roll(
+                id = 1000L,
+                type = "Roll Type Info",
+                speed = 200,
+                frames = 36,
+                notes = "some roll specific notes",
+                isDeveloped = false,
+                tags = listOf("tag1", "tag2", "tag3"),
+            )
         )
-    )
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun PreviewEmpty() {
-    RollView(
-        roll = Roll(
-            id = 1000L,
-            type = null,
-            speed = 200,
-            frames = 36,
-            notes = "some roll specific notes",
-            isDeveloped = false,
-            tags = listOf("tag1", "tag2", "tag3"),
+    AppTheme {
+        RollView(
+            roll = Roll(
+                id = 1000L,
+                type = null,
+                speed = 200,
+                frames = 36,
+                notes = "some roll specific notes",
+                isDeveloped = false,
+                tags = listOf("tag1", "tag2", "tag3"),
+            )
         )
-    )
+    }
 }
