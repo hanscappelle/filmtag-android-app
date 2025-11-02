@@ -17,6 +17,7 @@ import be.hcpl.android.filmtag.FilmFrameListFragment.Companion.KEY_FILM_ROLL
 
 import be.hcpl.android.filmtag.adapter.FilmRollAdapter
 import be.hcpl.android.filmtag.model.Roll
+import be.hcpl.android.filmtag.ui.activity.MainActivity
 import be.hcpl.android.filmtag.util.StorageUtil
 
 /**
