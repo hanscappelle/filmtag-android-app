@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.appcompat.app.AlertDialog.Builder
+import androidx.appcompat.app.AlertDialog
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.padding
@@ -103,21 +103,22 @@ class MainActivity : ComponentActivity() {
         when (event) {
             is ShowToggleLock -> {
                 val optionText = if (event.isDeveloped == true) R.string.option_roll_unlock else R.string.option_roll_lock
-                Builder(this)
+                AlertDialog.Builder(this)
                     .setMessage(R.string.msg_lock_complete_film_roll)
                     .setPositiveButton(optionText) { _, _ ->
                         viewModel.toggleLock(event.rollId)
                     }.setNegativeButton(R.string.option_roll_cancel) { _, _ -> Unit }.show()
             }
 
+            is MainViewModel.Event.ShareConfig -> finishShareConfig(event.exportedFormat)
         }
     }
 
     private fun handleAction(actionId: ActionId) {
         when (actionId) {
             ActionId.Create -> TODO()
-            ActionId.Export -> TODO()
-            ActionId.Help -> TODO()
+            ActionId.Export -> shareConfig()
+            ActionId.Help -> showHelp()
             ActionId.Info -> startActivity(Intent(this, AboutActivity::class.java))
             ActionId.Close -> finish()
         }
@@ -135,55 +136,24 @@ class MainActivity : ComponentActivity() {
         viewModel.showToggleLock(rollId)
     }
 
-    /*
-    //TODO convert actions
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
-        return if (id == R.id.action_add) {
-           // findNavController().navigate(R.id.action_add_roll)
-            true
-        } else if (id == R.id.action_info) {
-            showInfo()
-            true
-        } else if (id == R.id.action_export) {
-            shareConfig()
-            true
-        } else if (id == R.id.action_import) {
-            importConfig()
-            true
-            //} else if (id == R.id.action_search) {
-            //    toggleSearchView()
-        } else {
-            super.onOptionsItemSelected(item)
-        }
-    }
-
-    private fun showInfo() {
-        AlertDialog.Builder(requireContext())
+    private fun showHelp() {
+        AlertDialog.Builder(this)
             .setMessage(R.string.msg_first_view_help)
             .setPositiveButton(R.string.ok) { _, _ -> }
             .show()
     }
 
-    private fun importConfig() {
-        val builder = AlertDialog.Builder(activity)
-        builder.setMessage(R.string.info_import_export)
-            .setCancelable(true)
-            .setPositiveButton(R.string.ok) { dialog, _ ->
-                dialog.dismiss()
-            }
-        val alert = builder.create()
-        alert.show()
+    private fun shareConfig() {
+        viewModel.prepareShareConfig()
     }
 
-    private fun shareConfig() {
+    private fun finishShareConfig(exportedFormat: String){
         val sharingIntent = Intent(Intent.ACTION_SEND)
         sharingIntent.type = "text/plain"
         sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "FilmTag data export")
         sharingIntent.putExtra(
             Intent.EXTRA_TEXT,
-            StorageUtil.getExportDataFormattedAsText(activity as MainActivity)
+            exportedFormat,
         )
         startActivity(
             Intent.createChooser(
@@ -192,9 +162,6 @@ class MainActivity : ComponentActivity() {
             )
         )
     }
-
-     */
-
 
     private fun handleIntentData() {
         // check for intent data here

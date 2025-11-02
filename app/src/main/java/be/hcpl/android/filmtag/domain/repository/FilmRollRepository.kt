@@ -1,5 +1,6 @@
 package be.hcpl.android.filmtag.domain.repository
 
+import be.hcpl.android.filmtag.model.DataExportFormat
 import be.hcpl.android.filmtag.model.Frame
 import be.hcpl.android.filmtag.model.Roll
 import be.hcpl.android.filmtag.ui.activity.MainActivity
@@ -43,6 +44,65 @@ class FilmRollRepository(
     fun getFramesForFilm(rollId: Long): List<Frame> {
         val framesData = sharedPreferencesProvider.sharedPreferences.getString(KEY_FILM_ROLLS + rollId, "[]")
         return gson.fromJson(framesData, listOfFramesType)
+    }
+
+    fun parseDataExportFormat(sharedText: String): DataExportFormat {
+        return gson.fromJson(sharedText, DataExportFormat::class.java)
+    }
+
+    fun storeDataExportFormat(data: DataExportFormat) {
+        // check if something to import here
+        val rolls = data.rolls ?: return
+        // store all new rolls
+        addRolls(rolls)
+        // and for each roll store the new frames also (skip non existing rolls for datacleaning purpose)
+        data.rolls?.let {
+            for (roll in data.rolls) {
+                data.frames?.get(roll.id)?.let { framesForRoll ->
+                    updateFrames(roll, framesForRoll)
+                }
+            }
+        }
+    }
+
+    fun updateFrames(filmRoll: Roll, frames: List<Frame>) {
+        sharedPreferencesProvider.sharedPreferences.edit()?.putString(
+            KEY_FILM_ROLLS + filmRoll
+                .id, gson.toJson(frames, listOfFramesType)
+        )?.apply()
+    }
+
+    private fun addRolls(roll: List<Roll>) {
+        val rolls = getAllRolls()
+        updateRolls(rolls + roll)
+    }
+
+    fun exportDataFormattedAsText(): String {
+        // get all current rolls
+        val rolls = getAllRolls()
+        val frames = HashMap<Long, List<Frame>>(36)
+        // and set frames for all rolls
+        for (roll in rolls) {
+            frames.put(roll.id, getFramesForFilm(roll.id))
+        }
+
+        // prepare data object
+        val data = DataExportFormat()
+        data.rolls = rolls
+        data.frames = frames
+        return gson.toJson(data)
+    }
+
+    fun deleteRoll(roll: Roll) {
+        val rolls = getAllRolls().toMutableList()
+        rolls.remove(roll)
+        // also delete all frames for that roll at this point
+        deleteFramesForRoll(roll)
+        updateRolls(rolls)
+    }
+
+    private fun deleteFramesForRoll(roll: Roll) {
+        sharedPreferencesProvider.sharedPreferences.edit()?.remove(KEY_FILM_ROLLS + roll.id)?.apply()
     }
 
 }

@@ -43,6 +43,12 @@ class MainViewModel(
         }
     }
 
+    fun prepareShareConfig() {
+        filmRollRepository.exportDataFormattedAsText().let {
+            events.postValue(Event.ShareConfig(exportedFormat = it))
+        }
+    }
+
     data class State(
         val rolls: List<Roll> = emptyList<Roll>(),
     )
@@ -53,6 +59,9 @@ class MainViewModel(
             val isDeveloped: Boolean,
         ) : Event()
 
+        data class ShareConfig(
+            val exportedFormat: String,
+        ) : Event()
     }
 }
 
