@@ -3,15 +3,19 @@ package be.hcpl.android.filmtag.ui.activity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import be.hcpl.android.filmtag.domain.repository.FilmRollRepository
+import be.hcpl.android.filmtag.domain.repository.SharedPreferencesProvider
 import be.hcpl.android.filmtag.model.Roll
+import be.hcpl.android.filmtag.ui.activity.FilmRollViewModel.Event
+import be.hcpl.android.filmtag.ui.view.EditRollViewState
 
 class EditRollViewModel(
     private val selectedRollId: Long,
-    //private val sharedPreferencesProvider: SharedPreferencesProvider,
+    private val sharedPreferencesProvider: SharedPreferencesProvider,
     private val filmRollRepository: FilmRollRepository,
 ) : ViewModel() {
 
     val state = MutableLiveData<State>()
+    val events = MutableLiveData<Event>()
 
     init {
         state.postValue(
@@ -28,16 +32,27 @@ class EditRollViewModel(
     }
 
     fun saveChanges() {
+        // TODO needs some input validation here
+        val roll = Roll(
+            id = selectedRollId,
+            type = state.value?.editFormState?.filmTypeState?.text.toString(),
+            speed = state.value?.editFormState?.isoState?.text.toString().toInt(),
+            frames = state.value?.editFormState?.framesState?.text.toString().toInt(),
+            notes = state.value?.editFormState?.notesState?.text.toString(),
+            isDeveloped = false,//TODO(),
+            tags = listOf(),//TODO(),
+        )
         if (selectedRollId == -1L) {
             // this is a new item
-            // TODO filmRollRepository.addNewRoll(roll)
+            filmRollRepository.addNewRoll(roll)
         } else {
             // update an existing item
-            // TODO handle changes from view
-            //filmRollRepository.updateRoll(roll)
+            filmRollRepository.updateRoll(roll)
         }
+        events.postValue(Event.Close)
 
     }
+
     /*
         private fun createNewItem() {
             var newRoll = false
@@ -76,5 +91,10 @@ class EditRollViewModel(
     data class State(
         val rollId: Long = -1,
         val roll: Roll = Roll(),
+        val editFormState: EditRollViewState = EditRollViewState(Roll()),
     )
+
+    sealed class Event{
+        data object Close : Event()
+    }
 }

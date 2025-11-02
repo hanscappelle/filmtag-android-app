@@ -68,6 +68,10 @@ class MainViewModel(
         }
     }
 
+    fun onResume() {
+        refreshData()
+    }
+
     data class State(
         val rolls: List<Roll> = emptyList<Roll>(),
     )

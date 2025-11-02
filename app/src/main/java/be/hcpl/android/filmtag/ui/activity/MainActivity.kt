@@ -40,6 +40,11 @@ class MainActivity : ComponentActivity() {
         handleIntentData()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.onResume()
+    }
+
     private fun handleState(state: MainViewModel.State) {
         setContent {
             AppScaffold(

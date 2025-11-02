@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import be.hcpl.android.filmtag.R
 import be.hcpl.android.filmtag.ui.Action
 import be.hcpl.android.filmtag.ui.ActionId
+import be.hcpl.android.filmtag.ui.activity.EditRollViewModel.Event
 import be.hcpl.android.filmtag.ui.activity.FilmRollActivity.Companion.KEY_FILM_ROLL
 import be.hcpl.android.filmtag.ui.view.EditRollView
 import be.hcpl.android.filmtag.ui.view.EditRollViewState
@@ -24,8 +25,8 @@ class EditRollActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         viewModel.state.observe(this, ::handleState)
+        viewModel.events.observe(this, ::handleEvent)
     }
 
     private fun handleState(state: EditRollViewModel.State) {
@@ -47,21 +48,23 @@ class EditRollActivity : ComponentActivity() {
             ) { innerPadding ->
                 EditRollView(
                     modifier = Modifier.padding(innerPadding),
-                    viewState = EditRollViewState(state.roll),
+                    viewState = state.editFormState,
                 )
             }
         }
     }
-
-
-
-
 
     private fun handleAction(actionId: ActionId) {
         when (actionId) {
             ActionId.Close -> finish()
             ActionId.Create -> viewModel.saveChanges()
             else -> TODO()
+        }
+    }
+
+    private fun handleEvent(event: Event){
+        when(event){
+            Event.Close -> finish()
         }
     }
 }
