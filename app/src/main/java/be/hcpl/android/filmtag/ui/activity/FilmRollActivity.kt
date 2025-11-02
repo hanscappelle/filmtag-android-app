@@ -6,7 +6,6 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.ui.Modifier
-import androidx.core.bundle.bundleOf
 import be.hcpl.android.filmtag.R
 import be.hcpl.android.filmtag.ui.Action
 import be.hcpl.android.filmtag.ui.ActionId
@@ -19,7 +18,7 @@ import kotlin.getValue
 class FilmRollActivity : ComponentActivity() {
 
     private val viewModel: FilmRollViewModel by viewModel(
-        parameters = { parametersOf(intent.getLongExtra(KEY_FILM_ROLL, -1)) }
+        parameters = { parametersOf(intent.getLongExtra(KEY_FILM_ROLL, -1L)) }
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -163,7 +162,5 @@ class FilmRollActivity : ComponentActivity() {
 
     companion object {
         const val KEY_FILM_ROLL = "KEY_FILM_ROLL"
-
-        fun bundleWith(rollId: Long) = bundleOf(KEY_FILM_ROLL to rollId)
     }
 }

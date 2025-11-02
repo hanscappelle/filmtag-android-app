@@ -53,6 +53,7 @@ class AboutViewModel(
                 stream.close()
             } catch (_: Exception) {
             }
+
         }
     }
 

@@ -109,7 +109,7 @@ class MainActivity : ComponentActivity() {
 
     private fun handleAction(actionId: ActionId) {
         when (actionId) {
-            ActionId.Create -> TODO()
+            ActionId.Create -> startActivity(Intent(this, EditRollActivity::class.java))
             ActionId.Export -> shareConfig()
             ActionId.Help -> showHelp()
             ActionId.Info -> startActivity(Intent(this, AboutActivity::class.java))
