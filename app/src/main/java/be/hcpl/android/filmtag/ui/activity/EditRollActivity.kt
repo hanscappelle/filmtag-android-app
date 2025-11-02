@@ -61,10 +61,7 @@ class EditRollActivity : ComponentActivity() {
         when (actionId) {
             ActionId.Close -> finish()
             ActionId.Create -> viewModel.saveChanges()
-            ActionId.Export -> TODO()
-            ActionId.Help -> TODO()
-            ActionId.Info -> TODO()
-            ActionId.Delete -> TODO()
+            else -> TODO()
         }
     }
 }

@@ -35,6 +35,11 @@ class FilmRollActivity : ComponentActivity() {
             AppScaffold(
                 actions = listOf(
                     Action(
+                        iconRes = if (state.roll?.isDeveloped == true) R.drawable.ic_lock_closed else R.drawable.ic_lock_open,
+                        textRes = R.string.action_edit,
+                        actionId = ActionId.Update,
+                    ),
+                    Action(
                         iconRes = R.drawable.ic_action_edit,
                         textRes = R.string.action_edit,
                         actionId = ActionId.Create,
@@ -85,9 +90,8 @@ class FilmRollActivity : ComponentActivity() {
             ActionId.Close -> finish()
             ActionId.Create -> viewModel.preparedEditRoll()
             ActionId.Delete -> confirmDeleteRoll()
-            ActionId.Export -> TODO()
-            ActionId.Help -> TODO()
-            ActionId.Info -> TODO()
+            ActionId.Update -> viewModel.toggleLocked()
+            else -> TODO()
         }
     }
 
@@ -111,23 +115,6 @@ class FilmRollActivity : ComponentActivity() {
           //      EditFrameFragment.KEY_ROLL to filmRoll
           //  )
        // )
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_lock -> {
-                toggleFilmLocked()
-                updateLockedIndication()
-                true
-            }
-         }
-    }
-
-    private fun toggleFilmLocked() {
-        filmRoll?.let { roll ->
-            roll.isDeveloped = !roll.isDeveloped
-            StorageUtil.updateRoll(activity as MainActivity, roll)
-        }
     }
 
      */

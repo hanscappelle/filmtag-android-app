@@ -80,4 +80,5 @@ sealed class ActionId {
     object Export : ActionId()
     object Close : ActionId()
     object Delete : ActionId()
+    object Update : ActionId()
 }

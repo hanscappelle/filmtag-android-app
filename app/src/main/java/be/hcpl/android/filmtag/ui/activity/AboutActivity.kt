@@ -57,11 +57,7 @@ class AboutActivity : ComponentActivity() {
     private fun handleAction(actionId: ActionId){
         when(actionId){
             ActionId.Close -> finish()
-            ActionId.Create -> TODO()
-            ActionId.Export -> TODO()
-            ActionId.Help -> TODO()
-            ActionId.Info -> TODO()
-            ActionId.Delete -> TODO()
+            else -> TODO()
         }
     }
 }

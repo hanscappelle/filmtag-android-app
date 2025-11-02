@@ -41,6 +41,14 @@ class FilmRollViewModel(
         }
     }
 
+    fun toggleLocked() {
+        currentRoll?.let { roll ->
+            roll.isDeveloped = !roll.isDeveloped
+            filmRollRepository.updateRoll(roll)
+        }
+
+    }
+
     data class State(
         val roll: Roll? = null,
         val frames: List<Frame> = emptyList(),
