@@ -1,5 +1,6 @@
 package be.hcpl.android.filmtag.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -33,6 +34,11 @@ class FilmRollActivity : ComponentActivity() {
             AppScaffold(
                 actions = listOf(
                     Action(
+                        iconRes = R.drawable.ic_action_edit,
+                        textRes = R.string.action_edit,
+                        actionId = ActionId.Create,
+                    ),
+                    Action(
                         iconRes = R.drawable.ic_action_close,
                         textRes = R.string.action_close,
                         actionId = ActionId.Close,
@@ -56,13 +62,20 @@ class FilmRollActivity : ComponentActivity() {
     }
 
     private fun handleEvent(event: FilmRollViewModel.Event) {
-
+        when (event) {
+            is FilmRollViewModel.Event.EditRoll -> {
+                val intent = Intent(this, EditRollActivity::class.java).apply {
+                    putExtra(KEY_FILM_ROLL, event.rollId)
+                }
+                startActivity(intent)
+            }
+        }
     }
 
-    private fun handleAction(actionId: ActionId){
-        when(actionId){
+    private fun handleAction(actionId: ActionId) {
+        when (actionId) {
             ActionId.Close -> finish()
-            ActionId.Create -> TODO()
+            ActionId.Create -> viewModel.preparedEditRoll()
             ActionId.Export -> TODO()
             ActionId.Help -> TODO()
             ActionId.Info -> TODO()
