@@ -31,12 +31,11 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getDrawable
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import be.hcpl.android.filmtag.FilmFrameListFragment.Companion.KEY_FILM_ROLL
 import be.hcpl.android.filmtag.model.Frame
 import be.hcpl.android.filmtag.model.Roll
 import be.hcpl.android.filmtag.util.StorageUtil
-import com.google.android.material.datepicker.MaterialDatePicker
+//import com.google.android.material.datepicker.MaterialDatePicker
 import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
@@ -73,12 +72,12 @@ class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
     private lateinit var dateView: TextView
 
     // date picker
-    private lateinit var datePicker: MaterialDatePicker<Long>
+    // TODO replace with composeprivate lateinit var datePicker: MaterialDatePicker<Long>
 
-    private fun initDatePickerWith(date: Long) = MaterialDatePicker.Builder.datePicker()
-        .setTitleText(getString(R.string.select_date))
-        .setSelection(date)
-        .build()
+    //private fun initDatePickerWith(date: Long) = MaterialDatePicker.Builder.datePicker()
+    //    .setTitleText(getString(R.string.select_date))
+    //    .setSelection(date)
+     //   .build()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -171,14 +170,14 @@ class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
             }
             // update date, date is stored and displayed in a fixed UTC timezone
             val validDate = it.dateTaken ?: Calendar.getInstance(timeZone).timeInMillis
-            datePicker = initDatePickerWith(validDate)//utcDate.timeInMillis)
+            /*datePicker = initDatePickerWith(validDate)//utcDate.timeInMillis)
             dateView.setOnClickListener {
                 datePicker.show(childFragmentManager, TAG_DATEPICKER)
             }
             datePicker.addOnPositiveButtonClickListener {
                 // Respond to positive button click.
                 dateView.text = dateFormatter.format(datePicker.selection)
-            }
+            }*/
         }
 
         updateHints()
@@ -506,7 +505,7 @@ class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
     }
 
     private fun backToDetail() {
-        findNavController().navigate(R.id.action_detail, bundleOf(KEY_FILM_ROLL to roll))
+        //findNavController().navigate(R.id.action_detail, bundleOf(KEY_FILM_ROLL to roll))
     }
 
     override fun onResume() {

@@ -12,8 +12,8 @@ android {
         applicationId "be.hcpl.android.filmtag"
         minSdk 21
         targetSdk 36
-        versionCode 24
-        versionName "1.2"
+        versionCode 25
+        versionName "2.0"
     }
 
     buildTypes {
@@ -48,7 +48,6 @@ android {
     // needed for databinding.ActivityMainBinding etc, replaces kotlin-android-extensions plugin
     // no longer supported
     buildFeatures {
-        viewBinding true
         buildConfig true // only used for BuildConfig reference, moved here
     }
 }
@@ -69,9 +68,6 @@ dependencies {
     // TODO convert to toml version config
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'androidx.preference:preference-ktx:1.2.1'
-
-    // TODO remove fragment navigation
-    implementation("androidx.navigation:navigation-fragment-ktx:2.7.1")
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.1")
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
 
 }

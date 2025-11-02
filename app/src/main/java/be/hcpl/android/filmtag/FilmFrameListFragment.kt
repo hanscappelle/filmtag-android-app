@@ -13,7 +13,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 
 import be.hcpl.android.filmtag.adapter.FrameAdapter
 import be.hcpl.android.filmtag.model.Frame
@@ -126,13 +125,13 @@ class FilmFrameListFragment : Fragment(R.layout.fragment_roll_detail) {
     }
 
     private fun updateFrame(index: Int) {
-        findNavController().navigate(
-            R.id.action_edit_frame, bundleOf(
-                EditFrameFragment.KEY_FRAMES to frames as ArrayList<*>,
-                EditFrameFragment.KEY_FRAME_IDX to index,
-                EditFrameFragment.KEY_ROLL to filmRoll
-            )
-        )
+        //findNavController().navigate(
+        //    R.id.action_edit_frame, bundleOf(
+        //        EditFrameFragment.KEY_FRAMES to frames as ArrayList<*>,
+         ////       EditFrameFragment.KEY_FRAME_IDX to index,
+          //      EditFrameFragment.KEY_ROLL to filmRoll
+          //  )
+       // )
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -186,11 +185,11 @@ class FilmFrameListFragment : Fragment(R.layout.fragment_roll_detail) {
     }
 
     private fun editCurrentFilmRoll() {
-        findNavController().navigate(R.id.action_edit_roll, bundleOf(KEY_FILM_ROLL to filmRoll))
+     //   findNavController().navigate(R.id.action_edit_roll, bundleOf(KEY_FILM_ROLL to filmRoll))
     }
 
     private fun backToOverview() {
-        findNavController().navigate(R.id.action_home)
+       // findNavController().navigate(R.id.action_home)
     }
 
     private fun deleteCurrentFilmRoll() {

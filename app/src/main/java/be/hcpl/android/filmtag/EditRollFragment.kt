@@ -14,7 +14,6 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import be.hcpl.android.filmtag.FilmFrameListFragment.Companion.KEY_FILM_ROLL
 
 import java.util.Arrays
@@ -121,9 +120,9 @@ class EditRollFragment : Fragment(R.layout.fragment_form_roll) {
 
     private fun toOverviewOrDetail() {
         if (roll == null) {
-            findNavController().navigate(R.id.action_home)
-        } else {
-            findNavController().navigate(R.id.action_detail, bundleOf(KEY_FILM_ROLL to roll))
+            //findNavController().navigate(R.id.action_home)
+        //} else {
+            //findNavController().navigate(R.id.action_detail, bundleOf(KEY_FILM_ROLL to roll))
         }
     }
 

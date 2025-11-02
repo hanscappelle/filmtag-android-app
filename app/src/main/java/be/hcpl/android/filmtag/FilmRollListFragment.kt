@@ -13,7 +13,6 @@ import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import be.hcpl.android.filmtag.FilmFrameListFragment.Companion.KEY_FILM_ROLL
 
 import be.hcpl.android.filmtag.adapter.FilmRollAdapter
@@ -140,7 +139,7 @@ class FilmRollListFragment : Fragment(R.layout.fragment_roll_overview) {
     private fun showRollDetails(roll: Roll) {
         // show frames on selection
         val bundle = bundleOf(KEY_FILM_ROLL to roll)
-        findNavController().navigate(R.id.action_detail, bundle)
+     //   findNavController().navigate(R.id.action_detail, bundle)
     }
 
     // create new roll option is in main activity
@@ -154,7 +153,7 @@ class FilmRollListFragment : Fragment(R.layout.fragment_roll_overview) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         return if (id == R.id.action_add) {
-            findNavController().navigate(R.id.action_add_roll)
+           // findNavController().navigate(R.id.action_add_roll)
             true
         } else if (id == R.id.action_info) {
             showInfo()

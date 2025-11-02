@@ -7,54 +7,66 @@ import android.preference.PreferenceManager
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import be.hcpl.android.filmtag.databinding.ActivityMainBinding
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.ui.Modifier
 
 import be.hcpl.android.filmtag.util.StorageUtil
 
 /**
  * main entry point of app
  */
-class MainActivity : AppCompatActivity() {
+@OptIn(ExperimentalMaterial3Api::class)
+class MainActivity : ComponentActivity() {
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var binding: ActivityMainBinding
-    private lateinit var navController: NavController
-
-    /**
-     * use for preferences, app preferences, only kept here
-     * @return
-     */
+    // TODO inject in a viewModel instead that has some preferences injected
     var prefs: SharedPreferences? = null
         private set
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContent {
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
-        setSupportActionBar(binding.toolbar)
+            Scaffold(
+                /*
+                // TODO check if top bar is needed or we stick to activity
+                topBar = {
+                    TopAppBar(
+                        colors = TopAppBarDefaults.topAppBarColors(
+                            containerColor = MaterialTheme.colorScheme.primaryContainer,
+                            titleContentColor = MaterialTheme.colorScheme.primary,
+                        ),
+                        title = {
+                            Text("Small Top App Bar")
+                        }
+                    )
+                },*/
+            ) { innerPadding ->
+                //ScrollContent(innerPadding)
+                Text("Hello World", Modifier.padding(innerPadding))
+            }
 
-        navController = findNavController(R.id.nav_host_fragment_content_main)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController, appBarConfiguration)
+
+        }
 
         // TODO restore fab if desired
-        //binding.fab.setOnClickListener { _ ->
-        // show add new roll view here
-        //    navController.navigate(R.id.action_add_roll)
-        //    binding.fab.hide()
-        //}
 
         // load the prefs here
         prefs = PreferenceManager.getDefaultSharedPreferences(applicationContext)
 
+        handleIntentData()
+    }
+
+    private fun handleIntentData() {
         // check for intent data here
         // Get intent, action and MIME type
         val intent = intent
@@ -80,21 +92,15 @@ class MainActivity : AppCompatActivity() {
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_settings -> {
-                navController.navigate(R.id.action_settings)
+                //navController.navigate(R.id.action_settings)
                 true
             }
             R.id.action_about -> {
-                navController.navigate(R.id.action_about)
+                //navController.navigate(R.id.action_about)
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        return navController.navigateUp(appBarConfiguration)
-                || super.onSupportNavigateUp()
     }
 
     private fun handleSharedConfig(intent: Intent) {
@@ -102,12 +108,13 @@ class MainActivity : AppCompatActivity() {
         if (sharedText == null) {
             Toast.makeText(this, R.string.err_missing_data, Toast.LENGTH_SHORT).show()
         }
+        // TODO move to viewModel
 
         // remove everything before the { character indicating proper formatted text, this was
         // required for use with Google Note for example where the title was in front
-        sharedText = sharedText!!.substring(sharedText.indexOf("{"))
+        sharedText = sharedText?.substring(sharedText.indexOf("{")).orEmpty()
 
-        // try to import the data here
+        // try to import data here
         try {
             // try parsing data
             val data = StorageUtil.parseDataExportFormat(sharedText)
