@@ -48,6 +48,97 @@ class FilmRollActivity : ComponentActivity() {
 
     }
 
+    /*
+
+    list_frames.onItemClickListener = AdapterView.OnItemClickListener { _, _, i, _ ->
+            updateFrame(i)
+        }
+    }
+
+    private fun updateFrame(index: Int) {
+        //findNavController().navigate(
+        //    R.id.action_edit_frame, bundleOf(
+        //        EditFrameFragment.KEY_FRAMES to frames as ArrayList<*>,
+         ////       EditFrameFragment.KEY_FRAME_IDX to index,
+          //      EditFrameFragment.KEY_ROLL to filmRoll
+          //  )
+       // )
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.frames, menu)
+        // apply alpha on locked or not
+        this.menu = menu
+        updateLockedIndication()
+    }
+
+    private var menu: Menu? = null
+
+    private fun updateLockedIndication() {
+        menu?.findItem(R.id.action_lock)?.apply {
+            icon?.alpha = if (filmRoll?.isDeveloped == true) 255 else 51
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_lock -> {
+                toggleFilmLocked()
+                updateLockedIndication()
+                true
+            }
+
+            R.id.action_delete -> {
+                deleteCurrentFilmRoll()
+                true
+            }
+
+            R.id.action_edit -> {
+                editCurrentFilmRoll()
+                true
+            }
+
+            android.R.id.home -> {
+                // always navigate back here to prevent loop with edit and other views
+                backToOverview()
+                true
+            }
+
+            else -> false
+        }
+    }
+
+    private fun toggleFilmLocked() {
+        filmRoll?.let { roll ->
+            roll.isDeveloped = !roll.isDeveloped
+            StorageUtil.updateRoll(activity as MainActivity, roll)
+        }
+    }
+
+    private fun editCurrentFilmRoll() {
+     //   findNavController().navigate(R.id.action_edit_roll, bundleOf(KEY_FILM_ROLL to filmRoll))
+    }
+
+    private fun backToOverview() {
+       // findNavController().navigate(R.id.action_home)
+    }
+
+    private fun deleteCurrentFilmRoll() {
+        // confirmation needed before delete here...
+        AlertDialog.Builder(requireContext())
+            //.setTitle(R.string.label_confirm)
+            .setMessage(R.string.msg_delete_complete_film_roll)
+            .setPositiveButton(R.string.label_yes) { dialogInterface, _ ->
+                StorageUtil.deleteRoll(activity as MainActivity, filmRoll!!)
+                // navigate back
+                dialogInterface.dismiss()
+                backToOverview()
+            }.setNegativeButton(R.string.label_no) { dialogInterface, _ -> dialogInterface.dismiss() }.show()
+
+    }
+
+     */
+
     companion object {
         const val KEY_FILM_ROLL = "KEY_FILM_ROLL"
 

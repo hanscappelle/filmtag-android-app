@@ -13,11 +13,11 @@ import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import be.hcpl.android.filmtag.FilmFrameListFragment.Companion.KEY_FILM_ROLL
 
 import java.util.Arrays
 
 import be.hcpl.android.filmtag.model.Roll
+import be.hcpl.android.filmtag.ui.activity.FilmRollActivity.Companion.KEY_FILM_ROLL
 import be.hcpl.android.filmtag.ui.activity.MainActivity
 import be.hcpl.android.filmtag.util.StorageUtil
 
