@@ -8,16 +8,18 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AlertDialog.Builder
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.ui.Modifier
+import androidx.core.os.bundleOf
 import be.hcpl.android.filmtag.R
 import be.hcpl.android.filmtag.ui.activity.MainViewModel.Event.ShowToggleLock
 import be.hcpl.android.filmtag.ui.AppScaffold
+import be.hcpl.android.filmtag.ui.activity.FilmRollActivity.Companion.KEY_FILM_ROLL
 import be.hcpl.android.filmtag.ui.view.RollView
 import be.hcpl.android.filmtag.util.StorageUtil
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -49,8 +51,7 @@ class MainActivity : ComponentActivity() {
 
     private fun handleState(state: MainViewModel.State) {
         setContent {
-            AppScaffold(
-            ) { innerPadding ->
+            AppScaffold { innerPadding ->
                 LazyColumn(
                     modifier = Modifier
                         .padding(innerPadding),
@@ -75,20 +76,21 @@ class MainActivity : ComponentActivity() {
         when (event) {
             is ShowToggleLock -> {
                 val optionText = if (event.isDeveloped == true) R.string.option_roll_unlock else R.string.option_roll_lock
-                AlertDialog.Builder(this)
+                Builder(this)
                     .setMessage(R.string.msg_lock_complete_film_roll)
                     .setPositiveButton(optionText) { _, _ ->
                         viewModel.toggleLock(event.rollId)
                     }.setNegativeButton(R.string.option_roll_cancel) { _, _ -> Unit }.show()
             }
+
         }
     }
 
     private fun showRollDetails(rollId: Long) {
-        // TODO new RollActivity() needed here
-        //val bundle = bundleOf(KEY_FILM_ROLL to roll)
-        //   findNavController().navigate(R.id.action_detail, bundle)
-        //startActivity()
+        val intent = Intent(this, FilmRollActivity::class.java).apply {
+            putExtra(KEY_FILM_ROLL, rollId)
+        }
+        startActivity(intent)
     }
 
     private fun showToggleLock(rollId: Long) {

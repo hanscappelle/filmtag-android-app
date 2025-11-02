@@ -24,6 +24,8 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".ui.activity.FilmRollActivity"/>
     </application>
 
     <!--<uses-feature android:name="android.hardware.camera"

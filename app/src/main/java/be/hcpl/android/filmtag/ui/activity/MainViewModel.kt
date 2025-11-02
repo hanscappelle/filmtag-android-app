@@ -43,7 +43,6 @@ class MainViewModel(
         }
     }
 
-
     data class State(
         val rolls: List<Roll> = emptyList<Roll>(),
     )

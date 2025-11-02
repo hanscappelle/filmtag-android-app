@@ -1,0 +1,35 @@
+package be.hcpl.android.filmtag.ui.activity
+
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import be.hcpl.android.filmtag.domain.repository.FilmRollRepository
+import be.hcpl.android.filmtag.model.Roll
+
+class FilmRollViewModel(
+    private val selectedRollId: Long,
+    private val filmRollRepository: FilmRollRepository,
+) : ViewModel() {
+
+    val state = MutableLiveData<State>()
+    val events = MutableLiveData<Event>()
+
+    init {
+        //if( selectedRollId == -1L){
+        //} else
+        filmRollRepository.getRollById(selectedRollId)?.let { roll ->
+            state.postValue(State(roll))
+        } ?: state.postValue(State()) // some empty state
+    }
+
+    data class State(
+        val roll: Roll? = null,
+    )
+
+    sealed class Event {
+        data class ShowToggleLock(
+            val rollId: Long,
+            val isDeveloped: Boolean,
+        ) : Event()
+
+    }
+}
