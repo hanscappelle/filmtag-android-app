@@ -30,7 +30,7 @@ class EditRollViewModel(
     fun saveChanges() {
         if (selectedRollId == -1L) {
             // this is a new item
-            //filmRollRepository.
+            // TODO filmRollRepository.addNewRoll(roll)
         } else {
             // update an existing item
             // TODO handle changes from view

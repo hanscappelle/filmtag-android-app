@@ -3,10 +3,9 @@ package be.hcpl.android.filmtag.domain.repository
 import be.hcpl.android.filmtag.model.DataExportFormat
 import be.hcpl.android.filmtag.model.Frame
 import be.hcpl.android.filmtag.model.Roll
-import be.hcpl.android.filmtag.util.StorageUtil.KEY_FILM_ROLLS
-import be.hcpl.android.filmtag.util.StorageUtil.listOfFramesType
-import be.hcpl.android.filmtag.util.StorageUtil.listOfRollsType
+import be.hcpl.android.filmtag.ui.activity.MainActivity
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class FilmRollRepository(
     private val gson: Gson,
@@ -24,8 +23,10 @@ class FilmRollRepository(
         return getAllRolls().find { it.id == rollId }
     }
 
-    fun updateRolls(rolls: List<Roll>) {
-        sharedPreferencesProvider.sharedPreferences.edit().putString(KEY_FILM_ROLLS, gson.toJson(rolls, listOfRollsType))?.apply()
+    fun addNewRoll(roll: Roll) {
+        val rolls = getAllRolls().toMutableList()
+        rolls.add(roll)
+        updateRolls(rolls)
     }
 
     fun updateRoll(roll: Roll) {
@@ -37,6 +38,10 @@ class FilmRollRepository(
                 it
             }
         })
+    }
+
+    private fun updateRolls(rolls: List<Roll>) {
+        sharedPreferencesProvider.sharedPreferences.edit().putString(KEY_FILM_ROLLS, gson.toJson(rolls, listOfRollsType))?.apply()
     }
 
     fun getFramesForFilm(rollId: Long): List<Frame> {
@@ -101,6 +106,12 @@ class FilmRollRepository(
 
     private fun deleteFramesForRoll(roll: Roll) {
         sharedPreferencesProvider.sharedPreferences.edit()?.remove(KEY_FILM_ROLLS + roll.id)?.apply()
+    }
+
+    companion object {
+        private val listOfRollsType = object : TypeToken<List<Roll>>() {}.type
+        private val listOfFramesType = object : TypeToken<List<Frame>>() {}.type
+        const val KEY_FILM_ROLLS = "rolls"
     }
 
 }

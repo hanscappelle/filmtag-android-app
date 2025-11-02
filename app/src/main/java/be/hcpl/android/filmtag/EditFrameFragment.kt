@@ -33,7 +33,6 @@ import androidx.fragment.app.Fragment
 import be.hcpl.android.filmtag.model.Frame
 import be.hcpl.android.filmtag.model.Roll
 import be.hcpl.android.filmtag.ui.activity.MainActivity
-import be.hcpl.android.filmtag.util.StorageUtil
 //import com.google.android.material.datepicker.MaterialDatePicker
 import java.io.File
 import java.io.FileOutputStream
@@ -107,7 +106,7 @@ class EditFrameFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.update_frame, menu)
+        //inflater.inflate(R.menu.update_frame, menu)
         // apply alpha on locked or not
         this.menu = menu
         updateLockedIndication()
@@ -116,17 +115,11 @@ class EditFrameFragment : Fragment() {
     private var menu: Menu? = null
 
     private fun updateLockedIndication() {
-        menu?.findItem(R.id.action_lock)?.apply {
-            icon?.alpha = if (roll?.isDeveloped == true) 255 else 51
-        }
+        //menu?.findItem(R.id.action_lock)?.apply {
+        //    icon?.alpha = if (roll?.isDeveloped == true) 255 else 51
+        //}
     }
 
-    private fun toggleFilmLocked() {
-        roll?.let { roll ->
-            roll.isDeveloped = !roll.isDeveloped
-            StorageUtil.updateRoll(activity as MainActivity, roll)
-        }
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -247,7 +240,7 @@ class EditFrameFragment : Fragment() {
             }
         }
     }
-
+/*
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_lock -> {
@@ -279,7 +272,7 @@ class EditFrameFragment : Fragment() {
             else -> false
         }
     }
-
+*/
     private fun dispatchTakePictureIntent() {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         try {
@@ -309,7 +302,7 @@ class EditFrameFragment : Fragment() {
                 imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
             }
             // save image path at this point
-            StorageUtil.updateFrames(activity as MainActivity, roll!!, frames!!)
+            //StorageUtil.updateFrames(activity as MainActivity, roll!!, frames!!)
         } catch (_: Exception) {
             handleImageError()
         }
@@ -481,7 +474,7 @@ class EditFrameFragment : Fragment() {
         selectedFrame!!.tags = Arrays.asList(*TextUtils.split(editTags.text.toString(), " "))
 
         // store
-        StorageUtil.updateFrames(activity as MainActivity, roll!!, frames!!)
+        //StorageUtil.updateFrames(activity as MainActivity, roll!!, frames!!)
 
         // navigate back to overview
         if (navigateBack) backToDetail()
