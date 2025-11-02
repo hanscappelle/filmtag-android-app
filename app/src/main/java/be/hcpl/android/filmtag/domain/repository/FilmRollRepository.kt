@@ -1,7 +1,11 @@
 package be.hcpl.android.filmtag.domain.repository
 
+import be.hcpl.android.filmtag.model.Frame
 import be.hcpl.android.filmtag.model.Roll
+import be.hcpl.android.filmtag.ui.activity.MainActivity
+import be.hcpl.android.filmtag.util.StorageUtil
 import be.hcpl.android.filmtag.util.StorageUtil.KEY_FILM_ROLLS
+import be.hcpl.android.filmtag.util.StorageUtil.listOfFramesType
 import be.hcpl.android.filmtag.util.StorageUtil.listOfRollsType
 import com.google.gson.Gson
 
@@ -34,6 +38,11 @@ class FilmRollRepository(
                 it
             }
         })
+    }
+
+    fun getFramesForFilm(rollId: Long): List<Frame> {
+        val framesData = sharedPreferencesProvider.sharedPreferences.getString(KEY_FILM_ROLLS + rollId, "[]")
+        return gson.fromJson(framesData, listOfFramesType)
     }
 
 }

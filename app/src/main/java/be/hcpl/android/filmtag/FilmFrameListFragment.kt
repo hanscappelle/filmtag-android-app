@@ -13,7 +13,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 
-import be.hcpl.android.filmtag.adapter.FrameAdapter
 import be.hcpl.android.filmtag.model.Frame
 import be.hcpl.android.filmtag.model.Roll
 import be.hcpl.android.filmtag.ui.activity.MainActivity
@@ -22,11 +21,6 @@ import be.hcpl.android.filmtag.util.StorageUtil
 class FilmFrameListFragment : Fragment(R.layout.fragment_roll_detail) {
 
     private var filmRoll: Roll? = null
-
-    private var mAdapter: FrameAdapter? = null
-
-    // TODO double reference?
-    private var frames: MutableList<Frame>? = null
 
     private lateinit var text_roll: TextView
     private lateinit var text_roll_details: TextView
@@ -51,32 +45,6 @@ class FilmFrameListFragment : Fragment(R.layout.fragment_roll_detail) {
         val args = arguments
         if (args != null) {
             filmRoll = args.getSerializable(KEY_FILM_ROLL) as Roll
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        updateFramesForFilm()
-    }
-
-    private fun updateFramesForFilm() {
-        filmRoll?.let { roll ->
-            frames = StorageUtil.getFramesForFilm(activity as MainActivity, filmRoll!!)
-            // if the film doesn't have frames yet add them based on the number specified
-            if (frames?.isEmpty() == true) {
-                for (i in 0..roll.frames) {
-                    val frame = Frame()
-                    frame.number = i
-                    frames!!.add(frame)
-                }
-            }
-
-            // update list data
-            mAdapter?.apply {
-                clear()
-                frames?.let { addAll(it) }
-                notifyDataSetChanged()
-            }
         }
     }
 
@@ -113,10 +81,6 @@ class FilmFrameListFragment : Fragment(R.layout.fragment_roll_detail) {
                 wrapper_tags.visibility = View.GONE
             }
         }
-
-        // and populate list with frame data
-        mAdapter = FrameAdapter(requireContext())
-        list_frames.adapter = mAdapter
 
         list_frames.onItemClickListener = AdapterView.OnItemClickListener { _, _, i, _ ->
             updateFrame(i)
