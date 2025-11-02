@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.core.content.ContentProviderCompat.requireContext
 import be.hcpl.android.filmtag.R
 import be.hcpl.android.filmtag.ui.activity.MainViewModel.Event.ShowToggleLock
+import be.hcpl.android.filmtag.ui.view.AppScaffold
 import be.hcpl.android.filmtag.ui.view.RollView
 import be.hcpl.android.filmtag.util.StorageUtil
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -51,20 +52,7 @@ class MainActivity : ComponentActivity() {
 
     private fun handleState(state: MainViewModel.State) {
         setContent {
-            Scaffold(
-                /*
-                // TODO check if top bar is needed or we stick to activity
-                topBar = {
-                    TopAppBar(
-                        colors = TopAppBarDefaults.topAppBarColors(
-                            containerColor = MaterialTheme.colorScheme.primaryContainer,
-                            titleContentColor = MaterialTheme.colorScheme.primary,
-                        ),
-                        title = {
-                            Text("Small Top App Bar")
-                        }
-                    )
-                },*/
+            AppScaffold(
             ) { innerPadding ->
                 LazyColumn(
                     modifier = Modifier
