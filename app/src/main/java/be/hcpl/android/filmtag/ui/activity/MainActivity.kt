@@ -8,12 +8,18 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.appcompat.app.AlertDialog
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import androidx.core.content.ContentProviderCompat.requireContext
 import be.hcpl.android.filmtag.R
+import be.hcpl.android.filmtag.ui.activity.MainViewModel.Event.ShowToggleLock
 import be.hcpl.android.filmtag.ui.view.RollView
 import be.hcpl.android.filmtag.util.StorageUtil
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -22,7 +28,7 @@ import kotlin.getValue
 /**
  * main entry point of app
  */
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 class MainActivity : ComponentActivity() {
 
     // TODO removed
@@ -36,7 +42,7 @@ class MainActivity : ComponentActivity() {
         //enableEdgeToEdge()
 
         viewModel.state.observe(this, ::handleState)
-        //viewModel.events.observe(this, ::handleEvent)
+        viewModel.events.observe(this, ::handleEvent)
 
         // TODO restore fab if desired
 
@@ -48,7 +54,6 @@ class MainActivity : ComponentActivity() {
             Scaffold(
                 /*
                 // TODO check if top bar is needed or we stick to activity
-                // android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
                 topBar = {
                     TopAppBar(
                         colors = TopAppBarDefaults.topAppBarColors(
@@ -61,24 +66,117 @@ class MainActivity : ComponentActivity() {
                     )
                 },*/
             ) { innerPadding ->
-
-                // TODO move to a separate screen Composable
                 LazyColumn(
-                    modifier = Modifier.padding(innerPadding)
+                    modifier = Modifier
+                        .padding(innerPadding),
                 ) {
                     state.rolls.forEachIndexed { index, roll ->
-                        item(key = index) {
-                            RollView(roll = roll)
+                        item(key = roll.id) {
+                            RollView(
+                                roll = roll,
+                                modifier = Modifier.combinedClickable(
+                                    onClick = { showRollDetails(roll.id) },
+                                    onLongClick = { showToggleLock(roll.id) },
+                                )
+                            )
                         }
                     }
-
                 }
-
             }
-
-
         }
     }
+
+    private fun handleEvent(event: MainViewModel.Event) {
+        when (event) {
+            is ShowToggleLock -> {
+                val optionText = if (event.isDeveloped == true) R.string.option_roll_unlock else R.string.option_roll_lock
+                AlertDialog.Builder(this)
+                    .setMessage(R.string.msg_lock_complete_film_roll)
+                    .setPositiveButton(optionText) { _, _ ->
+                        viewModel.toggleLock(event.rollId)
+                    }.setNegativeButton(R.string.option_roll_cancel) { _, _ -> Unit }.show()
+            }
+        }
+    }
+
+    private fun showRollDetails(rollId: Long) {
+        // TODO new RollActivity() needed here
+        //val bundle = bundleOf(KEY_FILM_ROLL to roll)
+        //   findNavController().navigate(R.id.action_detail, bundle)
+        //startActivity()
+    }
+
+    private fun showToggleLock(rollId: Long) {
+        // optional lock or unlock for film here
+        viewModel.showToggleLock(rollId)
+    }
+
+    /*
+    //TODO convert actions
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        // update options based on search enabled or not
+        //if (!searchViewEnabled)
+        inflater.inflate(R.menu.rolls, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        return if (id == R.id.action_add) {
+           // findNavController().navigate(R.id.action_add_roll)
+            true
+        } else if (id == R.id.action_info) {
+            showInfo()
+            true
+        } else if (id == R.id.action_export) {
+            shareConfig()
+            true
+        } else if (id == R.id.action_import) {
+            importConfig()
+            true
+            //} else if (id == R.id.action_search) {
+            //    toggleSearchView()
+        } else {
+            super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun showInfo() {
+        AlertDialog.Builder(requireContext())
+            .setMessage(R.string.msg_first_view_help)
+            .setPositiveButton(R.string.ok) { _, _ -> }
+            .show()
+    }
+
+    private fun importConfig() {
+        val builder = AlertDialog.Builder(activity)
+        builder.setMessage(R.string.info_import_export)
+            .setCancelable(true)
+            .setPositiveButton(R.string.ok) { dialog, _ ->
+                dialog.dismiss()
+            }
+        val alert = builder.create()
+        alert.show()
+    }
+
+    private fun shareConfig() {
+        val sharingIntent = Intent(Intent.ACTION_SEND)
+        sharingIntent.type = "text/plain"
+        sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "FilmTag data export")
+        sharingIntent.putExtra(
+            Intent.EXTRA_TEXT,
+            StorageUtil.getExportDataFormattedAsText(activity as MainActivity)
+        )
+        startActivity(
+            Intent.createChooser(
+                sharingIntent,
+                resources.getString(R.string.action_export)
+            )
+        )
+    }
+
+     */
+
 
     private fun handleIntentData() {
         // check for intent data here
@@ -124,7 +222,7 @@ class MainActivity : ComponentActivity() {
         if (sharedText == null) {
             Toast.makeText(this, R.string.err_missing_data, Toast.LENGTH_SHORT).show()
         }
-        // TODO move to viewModel
+        // TODO also move to viewModel
 
         // remove everything before the { character indicating proper formatted text, this was
         // required for use with Google Note for example where the title was in front

@@ -10,17 +10,50 @@ class MainViewModel(
 ) : ViewModel() {
 
     val state = MutableLiveData<State>()
+    val events = MutableLiveData<Event>()
 
     init {
-        state.postValue(State(
-            rolls = filmRollRepository.getAllRolls(),
-        ))
+        refreshData()
+    }
+
+    private fun refreshData() {
+        state.postValue(
+            State(
+                rolls = filmRollRepository.getAllRolls(),
+            )
+        )
+    }
+
+    fun showToggleLock(rollId: Long) {
+        filmRollRepository.getRollById(rollId)?.let { roll ->
+            events.postValue(
+                Event.ShowToggleLock(
+                    rollId = rollId,
+                    isDeveloped = roll.isDeveloped,
+                )
+            )
+        }
+    }
+
+    fun toggleLock(rollId: Long) {
+        filmRollRepository.getRollById(rollId)?.let { roll ->
+            roll.isDeveloped = !roll.isDeveloped
+            filmRollRepository.updateRoll(roll)
+            refreshData()
+        }
     }
 
 
-
     data class State(
-        val rolls: List<Roll> = emptyList<Roll>()
+        val rolls: List<Roll> = emptyList<Roll>(),
     )
+
+    sealed class Event {
+        data class ShowToggleLock(
+            val rollId: Long,
+            val isDeveloped: Boolean,
+        ) : Event()
+
+    }
 }
 

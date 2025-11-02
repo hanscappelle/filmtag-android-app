@@ -17,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
@@ -44,9 +45,12 @@ fun RollView(
             Icon(
                 imageVector = Icons.Filled.Lock,
                 contentDescription = stringResource(R.string.description_locked_unlocked),
+                modifier = Modifier
+                    // mark developed items with a lighter text color
+                    .alpha(if(roll.isDeveloped) 1f else 0.2f)
             )
             Text(
-                text = roll.type ?: "...", // TODO create uiModel in between that holds this kind of placeholders
+                text = roll.type?.ifEmpty { "..." } ?: "...", // TODO create uiModel in between that holds this kind of placeholders
                 style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier
                     .weight(1f),
@@ -55,7 +59,8 @@ fun RollView(
         Row(horizontalArrangement = spacedBy(8.dp)) {
             Text(
                 text = stringResource(R.string.label_roll_speed) + " " + roll.speed,
-                modifier = Modifier.weight(1f),
+                modifier = Modifier
+                    .weight(1f),
             )
             Text(
                 text = roll.frames.toString() + " " + stringResource(R.string.label_roll_frames),

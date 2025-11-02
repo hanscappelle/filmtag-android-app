@@ -17,4 +17,23 @@ class FilmRollRepository(
         return gson.fromJson(rollsData, listOfRollsType)
     }
 
+    fun getRollById(rollId: Long): Roll? {
+        return getAllRolls().find { it.id == rollId }
+    }
+
+    fun updateRolls(rolls: List<Roll>) {
+        sharedPreferencesProvider.sharedPreferences.edit().putString(KEY_FILM_ROLLS, gson.toJson(rolls, listOfRollsType))?.apply()
+    }
+
+    fun updateRoll(roll: Roll) {
+        val rolls = getAllRolls()
+        updateRolls(rolls.map {
+            if (it.id == roll.id) {
+                roll// modified roll goes here
+            } else {
+                it
+            }
+        })
+    }
+
 }
