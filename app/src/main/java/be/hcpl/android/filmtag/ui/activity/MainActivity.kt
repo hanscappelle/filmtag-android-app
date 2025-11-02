@@ -114,6 +114,7 @@ class MainActivity : ComponentActivity() {
             ActionId.Help -> showHelp()
             ActionId.Info -> startActivity(Intent(this, AboutActivity::class.java))
             ActionId.Close -> finish()
+            ActionId.Delete -> TODO()
         }
     }
 

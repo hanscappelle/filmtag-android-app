@@ -3,7 +3,6 @@ package be.hcpl.android.filmtag.ui.activity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import be.hcpl.android.filmtag.domain.repository.FilmRollRepository
-import be.hcpl.android.filmtag.domain.repository.SharedPreferencesProvider
 import be.hcpl.android.filmtag.model.Roll
 
 class EditRollViewModel(
@@ -31,8 +30,11 @@ class EditRollViewModel(
     fun saveChanges() {
         if (selectedRollId == -1L) {
             // this is a new item
+            //filmRollRepository.
         } else {
             // update an existing item
+            // TODO handle changes from view
+            //filmRollRepository.updateRoll(roll)
         }
 
     }

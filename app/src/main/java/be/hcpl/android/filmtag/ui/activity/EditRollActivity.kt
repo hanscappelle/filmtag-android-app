@@ -47,7 +47,6 @@ class EditRollActivity : ComponentActivity() {
             ) { innerPadding ->
                 EditRollView(
                     modifier = Modifier.padding(innerPadding),
-                    //roll = state.roll,
                     viewState = EditRollViewState(state.roll),
                 )
             }
@@ -65,6 +64,7 @@ class EditRollActivity : ComponentActivity() {
             ActionId.Export -> TODO()
             ActionId.Help -> TODO()
             ActionId.Info -> TODO()
+            ActionId.Delete -> TODO()
         }
     }
 }

@@ -3,8 +3,6 @@ package be.hcpl.android.filmtag.domain.repository
 import be.hcpl.android.filmtag.model.DataExportFormat
 import be.hcpl.android.filmtag.model.Frame
 import be.hcpl.android.filmtag.model.Roll
-import be.hcpl.android.filmtag.ui.activity.MainActivity
-import be.hcpl.android.filmtag.util.StorageUtil
 import be.hcpl.android.filmtag.util.StorageUtil.KEY_FILM_ROLLS
 import be.hcpl.android.filmtag.util.StorageUtil.listOfFramesType
 import be.hcpl.android.filmtag.util.StorageUtil.listOfRollsType

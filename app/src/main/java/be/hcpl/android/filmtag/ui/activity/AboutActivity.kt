@@ -2,14 +2,11 @@ package be.hcpl.android.filmtag.ui.activity
 
 
 import android.os.Bundle
-import android.text.Html
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
-import androidx.compose.material3.Text
-import be.hcpl.android.filmtag.ui.AppScaffold
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.fromHtml
@@ -17,6 +14,8 @@ import androidx.compose.ui.unit.dp
 import be.hcpl.android.filmtag.R
 import be.hcpl.android.filmtag.ui.Action
 import be.hcpl.android.filmtag.ui.ActionId
+import be.hcpl.android.filmtag.ui.AppScaffold
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AboutActivity : ComponentActivity() {
 
@@ -62,6 +61,7 @@ class AboutActivity : ComponentActivity() {
             ActionId.Export -> TODO()
             ActionId.Help -> TODO()
             ActionId.Info -> TODO()
+            ActionId.Delete -> TODO()
         }
     }
 }

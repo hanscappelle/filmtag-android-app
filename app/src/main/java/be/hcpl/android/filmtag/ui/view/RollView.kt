@@ -45,8 +45,8 @@ fun RollView(
                 contentDescription = stringResource(R.string.description_locked_unlocked),
                 modifier = Modifier
                     .size(24.dp)
-                    // mark developed items with a lighter text color
-                    .alpha(if (roll.isDeveloped) 1f else 0.2f)
+                    // mark developed items with a lighter color
+                    .alpha(if (roll.isDeveloped) 1f else 0.3f)
             )
             Text(
                 text = roll.type?.ifEmpty { "..." } ?: "...", // TODO create uiModel in between that holds this kind of placeholders

@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import be.hcpl.android.filmtag.domain.repository.FilmRollRepository
 import be.hcpl.android.filmtag.model.Frame
 import be.hcpl.android.filmtag.model.Roll
+import be.hcpl.android.filmtag.ui.activity.FilmRollViewModel.Event.Close
 import be.hcpl.android.filmtag.ui.activity.FilmRollViewModel.Event.EditRoll
 
 class FilmRollViewModel(
@@ -33,6 +34,13 @@ class FilmRollViewModel(
         events.postValue(EditRoll(currentRoll?.id))
     }
 
+    fun deleteRoll() {
+        currentRoll?.let { roll ->
+            filmRollRepository.deleteRoll(roll)
+            events.postValue(Close)
+        }
+    }
+
     data class State(
         val roll: Roll? = null,
         val frames: List<Frame> = emptyList(),
@@ -40,5 +48,6 @@ class FilmRollViewModel(
 
     sealed class Event {
         data class EditRoll(val rollId: Long?) : Event()
+        data object Close : Event()
     }
 }

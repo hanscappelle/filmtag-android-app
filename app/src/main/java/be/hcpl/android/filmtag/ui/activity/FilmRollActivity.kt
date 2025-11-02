@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.appcompat.app.AlertDialog
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.ui.Modifier
@@ -39,6 +40,11 @@ class FilmRollActivity : ComponentActivity() {
                         actionId = ActionId.Create,
                     ),
                     Action(
+                        iconRes = R.drawable.ic_action_delete_forever,
+                        textRes = R.string.action_delete,
+                        actionId = ActionId.Delete,
+                    ),
+                    Action(
                         iconRes = R.drawable.ic_action_close,
                         textRes = R.string.action_close,
                         actionId = ActionId.Close,
@@ -69,6 +75,8 @@ class FilmRollActivity : ComponentActivity() {
                 }
                 startActivity(intent)
             }
+
+            FilmRollViewModel.Event.Close -> finish()
         }
     }
 
@@ -76,18 +84,24 @@ class FilmRollActivity : ComponentActivity() {
         when (actionId) {
             ActionId.Close -> finish()
             ActionId.Create -> viewModel.preparedEditRoll()
+            ActionId.Delete -> confirmDeleteRoll()
             ActionId.Export -> TODO()
             ActionId.Help -> TODO()
             ActionId.Info -> TODO()
         }
     }
 
-    /*
+    private fun confirmDeleteRoll() {
+        // confirmation needed before delete here...
+        AlertDialog.Builder(this)
+            .setMessage(R.string.msg_delete_complete_film_roll)
+            .setPositiveButton(R.string.label_yes) { _, _ ->
+                viewModel.deleteRoll()
+            }.setNegativeButton(R.string.label_no) { _, _ -> }.show()
 
-    list_frames.onItemClickListener = AdapterView.OnItemClickListener { _, _, i, _ ->
-            updateFrame(i)
-        }
     }
+
+    /*
 
     private fun updateFrame(index: Int) {
         //findNavController().navigate(
@@ -99,21 +113,6 @@ class FilmRollActivity : ComponentActivity() {
        // )
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.frames, menu)
-        // apply alpha on locked or not
-        this.menu = menu
-        updateLockedIndication()
-    }
-
-    private var menu: Menu? = null
-
-    private fun updateLockedIndication() {
-        menu?.findItem(R.id.action_lock)?.apply {
-            icon?.alpha = if (filmRoll?.isDeveloped == true) 255 else 51
-        }
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_lock -> {
@@ -121,25 +120,7 @@ class FilmRollActivity : ComponentActivity() {
                 updateLockedIndication()
                 true
             }
-
-            R.id.action_delete -> {
-                deleteCurrentFilmRoll()
-                true
-            }
-
-            R.id.action_edit -> {
-                editCurrentFilmRoll()
-                true
-            }
-
-            android.R.id.home -> {
-                // always navigate back here to prevent loop with edit and other views
-                backToOverview()
-                true
-            }
-
-            else -> false
-        }
+         }
     }
 
     private fun toggleFilmLocked() {
@@ -147,28 +128,6 @@ class FilmRollActivity : ComponentActivity() {
             roll.isDeveloped = !roll.isDeveloped
             StorageUtil.updateRoll(activity as MainActivity, roll)
         }
-    }
-
-    private fun editCurrentFilmRoll() {
-     //   findNavController().navigate(R.id.action_edit_roll, bundleOf(KEY_FILM_ROLL to filmRoll))
-    }
-
-    private fun backToOverview() {
-       // findNavController().navigate(R.id.action_home)
-    }
-
-    private fun deleteCurrentFilmRoll() {
-        // confirmation needed before delete here...
-        AlertDialog.Builder(requireContext())
-            //.setTitle(R.string.label_confirm)
-            .setMessage(R.string.msg_delete_complete_film_roll)
-            .setPositiveButton(R.string.label_yes) { dialogInterface, _ ->
-                StorageUtil.deleteRoll(activity as MainActivity, filmRoll!!)
-                // navigate back
-                dialogInterface.dismiss()
-                backToOverview()
-            }.setNegativeButton(R.string.label_no) { dialogInterface, _ -> dialogInterface.dismiss() }.show()
-
     }
 
      */
