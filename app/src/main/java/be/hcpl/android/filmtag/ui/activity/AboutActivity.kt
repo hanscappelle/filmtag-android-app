@@ -2,6 +2,7 @@ package be.hcpl.android.filmtag.ui.activity
 
 
 import android.os.Bundle
+import android.text.Html
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
@@ -10,6 +11,8 @@ import be.hcpl.android.filmtag.ui.AppScaffold
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.fromHtml
 import be.hcpl.android.filmtag.R
 import be.hcpl.android.filmtag.ui.Action
 import be.hcpl.android.filmtag.ui.ActionId
@@ -40,14 +43,11 @@ class AboutActivity : ComponentActivity() {
                     modifier = Modifier.padding(innerPadding),
                 ) {
                     Text(
-                        text = state.aboutText,
+                        text = AnnotatedString.Companion.fromHtml(
+                            state.aboutText,
+                        ),
                     )
                 }
-                // TODO restore linkify here
-                //textView?.apply {
-                //    text = Html.fromHtml(aboutText)
-                //    // and make clickable
-                //    Linkify.addLinks(textView, Linkify.ALL)
             }
         }
     }
