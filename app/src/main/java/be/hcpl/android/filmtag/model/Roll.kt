@@ -20,16 +20,12 @@ data class Roll(
     }
 
     override fun toString(): String {
-        return StringBuilder(type).append(" @ ISO ").append(speed).append(" # ").append(frames.toString()).toString()
+        return StringBuilder(type.orEmpty()).append(" @ ISO ").append(speed).append(" # ").append(frames.toString()).toString()
     }
 
     override fun equals(o: Any?): Boolean {
-        if (this === o) return true
-        if (o !is Roll) return false
-
-        val roll = o as Roll?
-
-        return id == roll!!.id
+        return if (this === o) true
+        else (o as? Roll)?.id == id
 
     }
 

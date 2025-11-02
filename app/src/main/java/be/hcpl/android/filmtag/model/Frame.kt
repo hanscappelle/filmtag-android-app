@@ -18,17 +18,13 @@ data class Frame(
 ) : Serializable {
 
     override fun toString(): String {
-        return StringBuilder(number.toString()).append(" - (s) ").append(shutter.toString()).append(" - (a) f/").append(aperture.toString()).toString()
+        return StringBuilder(number.toString()).append(" - (s) ").append(shutter.toString()).append(" - (a) f/").append(aperture.toString())
+            .toString()
     }
 
     override fun equals(o: Any?): Boolean {
-        if (this === o) return true
-        if (o !is Frame) return false
-
-        val frame = o as Frame?
-
-        return number == frame!!.number
-
+        return if (this === o) true
+        else (o as? Frame)?.number == number
     }
 
     override fun hashCode(): Int {
