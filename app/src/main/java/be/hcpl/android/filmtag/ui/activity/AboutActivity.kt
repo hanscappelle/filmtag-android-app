@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.fromHtml
+import androidx.compose.ui.unit.dp
 import be.hcpl.android.filmtag.R
 import be.hcpl.android.filmtag.ui.Action
 import be.hcpl.android.filmtag.ui.ActionId
@@ -46,6 +47,7 @@ class AboutActivity : ComponentActivity() {
                         text = AnnotatedString.Companion.fromHtml(
                             state.aboutText,
                         ),
+                        modifier = Modifier.padding(16.dp),
                     )
                 }
             }

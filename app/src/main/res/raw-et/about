@@ -3,11 +3,13 @@
 <p>Lihtne Androidi äpp pildistamise ajal kaamera seadete jäädvustamiseks.
 Abiks analoog-fotograafidele, kelle filmirullile ei jäädvustu EXIF info.</p>
 
+<br/>
 <h3>Eesmärgid</h3>
 
 <p>Prioriteediks on kasutuslihtsus. Fotograaf ei peaks pildistamise ajal
 programmi seadetes tuhnima.</p>
 
+<br/>
 <h3>Põhiomadused</h3>
 
 <p>
@@ -17,6 +19,7 @@ programmi seadetes tuhnima.</p>
 * ava, säriaeg ja märkmed iga kaadri kohta<br/>
 </p>
 
+<br/>
 <h3>Arendus</h3>
 
 <p>Lähtekood bitbucketis: <a href="https://bitbucket.org/cappelleh/filmtag/">https://bitbucket.org/cappelleh/filmtag/</a></p>

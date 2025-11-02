@@ -3,11 +3,13 @@
 <p>Basic Android app for keeping track of photography settings while shooting analog film. As used by
 analog photographers who can't rely on EXIF information when using analog roll film while shooting.</p>
 
+<br/>
 <h3>Goals</h3>
 
 <p>Keep it dead simple and easy to use. The photographer shouldn't have to look into settings or any
 complex editing options while shooting. Keep distraction to an absolute minimum.</p>
 
+<br/>
 <h3>Key features</h3>
 
 <p>
@@ -17,6 +19,7 @@ complex editing options while shooting. Keep distraction to an absolute minimum.
 * from details change the aperture, shutter and notes for each frame<br/>
 </p>
 
+<br/>
 <h3>Project</h3>
 
 <p>This is an open source project so all source code is available on bitbucket @ <a href="https://bitbucket.org/cappelleh/filmtag/">https://bitbucket.org/cappelleh/filmtag/</a>. This means you can review and contribute as much as you want.</p>
