@@ -3,27 +3,16 @@ package be.hcpl.android.filmtag.ui.activity
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AlertDialog.Builder
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.core.os.bundleOf
 import be.hcpl.android.filmtag.R
 import be.hcpl.android.filmtag.ui.Action
 import be.hcpl.android.filmtag.ui.ActionId
@@ -130,6 +119,7 @@ class MainActivity : ComponentActivity() {
             ActionId.Export -> TODO()
             ActionId.Help -> TODO()
             ActionId.Info -> startActivity(Intent(this, AboutActivity::class.java))
+            ActionId.Close -> finish()
         }
     }
 

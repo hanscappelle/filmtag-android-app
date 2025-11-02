@@ -78,5 +78,5 @@ sealed class ActionId {
     object Help : ActionId()
     object Create : ActionId()
     object Export : ActionId()
-
+    object Close : ActionId()
 }

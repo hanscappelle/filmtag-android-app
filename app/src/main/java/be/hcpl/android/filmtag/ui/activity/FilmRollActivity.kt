@@ -7,6 +7,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.ui.Modifier
 import androidx.core.bundle.bundleOf
+import be.hcpl.android.filmtag.R
+import be.hcpl.android.filmtag.ui.Action
+import be.hcpl.android.filmtag.ui.ActionId
 import be.hcpl.android.filmtag.ui.AppScaffold
 import be.hcpl.android.filmtag.ui.view.FrameView
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -28,7 +31,16 @@ class FilmRollActivity : ComponentActivity() {
 
     private fun handleState(state: FilmRollViewModel.State) {
         setContent {
-            AppScaffold { innerPadding ->
+            AppScaffold(
+                actions = listOf(
+                    Action(
+                        iconRes = R.drawable.ic_action_close,
+                        textRes = R.string.action_close,
+                        actionId = ActionId.Close,
+                    ),
+                ),
+                handleAction = ::handleAction,
+            ) { innerPadding ->
                 LazyColumn(
                     modifier = Modifier
                         .padding(innerPadding),
@@ -46,6 +58,16 @@ class FilmRollActivity : ComponentActivity() {
 
     private fun handleEvent(event: FilmRollViewModel.Event) {
 
+    }
+
+    private fun handleAction(actionId: ActionId){
+        when(actionId){
+            ActionId.Close -> finish()
+            ActionId.Create -> TODO()
+            ActionId.Export -> TODO()
+            ActionId.Help -> TODO()
+            ActionId.Info -> TODO()
+        }
     }
 
     /*
