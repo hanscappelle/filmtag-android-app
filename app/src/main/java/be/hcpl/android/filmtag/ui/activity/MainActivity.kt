@@ -1,12 +1,12 @@
 package be.hcpl.android.filmtag.ui.activity
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AlertDialog.*
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.padding
@@ -16,11 +16,10 @@ import androidx.compose.ui.Modifier
 import be.hcpl.android.filmtag.R
 import be.hcpl.android.filmtag.ui.Action
 import be.hcpl.android.filmtag.ui.ActionId
-import be.hcpl.android.filmtag.ui.activity.MainViewModel.Event.ShowToggleLock
 import be.hcpl.android.filmtag.ui.AppScaffold
 import be.hcpl.android.filmtag.ui.activity.FilmRollActivity.Companion.KEY_FILM_ROLL
+import be.hcpl.android.filmtag.ui.activity.MainViewModel.Event.ShowToggleLock
 import be.hcpl.android.filmtag.ui.view.RollView
-import be.hcpl.android.filmtag.util.StorageUtil
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.getValue
 
@@ -30,20 +29,13 @@ import kotlin.getValue
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 class MainActivity : ComponentActivity() {
 
-    // TODO removed
-    val prefs: SharedPreferences? = null
-
     private val viewModel: MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // TODO check if needed
-        //enableEdgeToEdge()
 
         viewModel.state.observe(this, ::handleState)
         viewModel.events.observe(this, ::handleEvent)
-
-        // TODO restore fab if desired
 
         handleIntentData()
     }
@@ -103,7 +95,7 @@ class MainActivity : ComponentActivity() {
         when (event) {
             is ShowToggleLock -> {
                 val optionText = if (event.isDeveloped == true) R.string.option_roll_unlock else R.string.option_roll_lock
-                AlertDialog.Builder(this)
+                Builder(this)
                     .setMessage(R.string.msg_lock_complete_film_roll)
                     .setPositiveButton(optionText) { _, _ ->
                         viewModel.toggleLock(event.rollId)
@@ -111,6 +103,7 @@ class MainActivity : ComponentActivity() {
             }
 
             is MainViewModel.Event.ShareConfig -> finishShareConfig(event.exportedFormat)
+            is MainViewModel.Event.ImportResult -> Toast.makeText(this, event.textRes, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -147,7 +140,7 @@ class MainActivity : ComponentActivity() {
         viewModel.prepareShareConfig()
     }
 
-    private fun finishShareConfig(exportedFormat: String){
+    private fun finishShareConfig(exportedFormat: String) {
         val sharingIntent = Intent(Intent.ACTION_SEND)
         sharingIntent.type = "text/plain"
         sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "FilmTag data export")
@@ -182,22 +175,7 @@ class MainActivity : ComponentActivity() {
         if (sharedText == null) {
             Toast.makeText(this, R.string.err_missing_data, Toast.LENGTH_SHORT).show()
         }
-        // TODO also move to viewModel
-
-        // remove everything before the { character indicating proper formatted text, this was
-        // required for use with Google Note for example where the title was in front
-        sharedText = sharedText?.substring(sharedText.indexOf("{")).orEmpty()
-
-        // try to import data here
-        try {
-            // try parsing data
-            val data = StorageUtil.parseDataExportFormat(sharedText)
-            StorageUtil.storeDataExportFormat(this, data)
-            Toast.makeText(this, R.string.info_data_imported, Toast.LENGTH_SHORT).show()
-        } catch (_: Exception) {
-            Toast.makeText(this, R.string.err_import_failed, Toast.LENGTH_SHORT).show()
-        }
-
+        viewModel.handleSharedConfig(sharedText)
     }
 
 }

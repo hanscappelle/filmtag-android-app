@@ -23,25 +23,21 @@ object StorageUtil {
 
     const val KEY_FILM_ROLLS = "rolls"
 
-
-    // TODO convert to repo and inject
-    private val gson = Gson()
-
     fun getAllRolls(activity: MainActivity): MutableList<Roll> {
         // get the items
-        val rollsData = activity.prefs?.getString(KEY_FILM_ROLLS, "[]")
+        //val rollsData = activity.prefs?.getString(KEY_FILM_ROLLS, "[]")
         // convert using gson
-        return gson.fromJson(rollsData, listOfRollsType)
+        return emptyList<Roll>().toMutableList()//gson.fromJson(rollsData, listOfRollsType)
     }
 
     // for internal use only
     private fun updateRolls(activity: MainActivity, rolls: List<Roll>) {
-        activity.prefs?.edit()?.putString(KEY_FILM_ROLLS, gson.toJson(rolls, listOfRollsType))?.apply()
+        //activity.prefs?.edit()?.putString(KEY_FILM_ROLLS, gson.toJson(rolls, listOfRollsType))?.apply()
     }
 
     fun updateFrames(activity: MainActivity, filmRoll: Roll, frames: List<Frame>) {
-        activity.prefs?.edit()?.putString(KEY_FILM_ROLLS + filmRoll
-                .id, gson.toJson(frames, listOfFramesType))?.apply()
+        //activity.prefs?.edit()?.putString(KEY_FILM_ROLLS + filmRoll
+        //        .id, gson.toJson(frames, listOfFramesType))?.apply()
     }
 
     fun addNewRoll(activity: MainActivity, roll: Roll) {
@@ -54,31 +50,6 @@ object StorageUtil {
         val rolls = getAllRolls(activity)
         rolls[rolls.indexOf(roll)] = roll
         updateRolls(activity, rolls)
-    }
-
-    private fun addRolls(activity: MainActivity, roll: List<Roll>) {
-        val rolls = getAllRolls(activity)
-        rolls.addAll(roll)
-        updateRolls(activity, rolls)
-    }
-
-    fun parseDataExportFormat(sharedText: String): DataExportFormat {
-        return gson.fromJson(sharedText, DataExportFormat::class.java)
-    }
-
-    fun storeDataExportFormat(mainActivity: MainActivity, data: DataExportFormat) {
-        // check if something to import here
-        val rolls = data.rolls ?: return
-        // store all new rolls
-        addRolls(mainActivity, rolls)
-        // and for each roll store the new frames also (skip non existing rolls for datacleaning purpose)
-        data.rolls?.let {
-            for (roll in data.rolls) {
-                data.frames?.get(roll.id)?.let { framesForRoll ->
-                    updateFrames(mainActivity, roll, framesForRoll)
-                }
-            }
-        }
     }
 
 }
