@@ -3,20 +3,21 @@ package be.hcpl.android.filmtag.ui.activity
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import be.hcpl.android.filmtag.R
-
+import be.hcpl.android.filmtag.ui.view.RollView
 import be.hcpl.android.filmtag.util.StorageUtil
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlin.getValue
 
 /**
  * main entry point of app
@@ -24,15 +25,26 @@ import be.hcpl.android.filmtag.util.StorageUtil
 @OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
 
-    // TODO inject in a viewModel instead that has some preferences injected
-    var prefs: SharedPreferences? = null
-        private set
+    // TODO removed
+    val prefs: SharedPreferences? = null
+
+    private val viewModel: MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // TODO check if needed
+        //enableEdgeToEdge()
+
+        viewModel.state.observe(this, ::handleState)
+        //viewModel.events.observe(this, ::handleEvent)
+
+        // TODO restore fab if desired
+
+        handleIntentData()
+    }
+
+    private fun handleState(state: MainViewModel.State) {
         setContent {
-
-
             Scaffold(
                 /*
                 // TODO check if top bar is needed or we stick to activity
@@ -49,19 +61,23 @@ class MainActivity : ComponentActivity() {
                     )
                 },*/
             ) { innerPadding ->
-                //ScrollContent(innerPadding)
-                Text("Hello World", Modifier.padding(innerPadding))
+
+                // TODO move to a separate screen Composable
+                LazyColumn(
+                    modifier = Modifier.padding(innerPadding)
+                ) {
+                    state.rolls.forEachIndexed { index, roll ->
+                        item(key = index) {
+                            RollView(roll = roll)
+                        }
+                    }
+
+                }
+
             }
 
 
         }
-
-        // TODO restore fab if desired
-
-        // load the prefs here
-        prefs = PreferenceManager.getDefaultSharedPreferences(applicationContext)
-
-        handleIntentData()
     }
 
     private fun handleIntentData() {
@@ -93,10 +109,12 @@ class MainActivity : ComponentActivity() {
                 //navController.navigate(R.id.action_settings)
                 true
             }
+
             R.id.action_about -> {
                 //navController.navigate(R.id.action_about)
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

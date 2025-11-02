@@ -70,6 +70,7 @@
     <string name="msg_first_view_help">This is an overview of your film rolls.\n\nYou can add new ones with the plus icon in the top menu.\n\nEditing existing rolls is done by selecting one from the list.\n\nLong press on an item allows quick lock/unlock of rolls.</string>
     <string name="action_lock_or_unlock">(un)Lock</string>
     <string name="msg_roll_is_locked">Roll is locked, unlock it first before you can store your changes.</string>
+    <string name="description_locked_unlocked">Locked or unlocked indication</string>
 
 
 </resources>

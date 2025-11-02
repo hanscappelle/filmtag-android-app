@@ -1,5 +1,7 @@
 package be.hcpl.android.filmtag
 
+import be.hcpl.android.filmtag.domain.repository.FilmRollRepository
+import be.hcpl.android.filmtag.domain.repository.SharedPreferencesProvider
 import be.hcpl.android.filmtag.ui.activity.MainViewModel
 import com.google.gson.Gson
 import org.koin.core.module.dsl.bind
@@ -12,8 +14,8 @@ val appModule = module {
 
     viewModelOf(::MainViewModel)
 
-    //factoryOf(::WeatherTransformerImpl) { bind<WeatherTransformer>() }
-    //factoryOf(::WeatherRepositoryImpl) { bind<WeatherRepository>() }
+    factoryOf(::FilmRollRepository)
 
+    singleOf(::SharedPreferencesProvider)
     singleOf(::Gson)
 }

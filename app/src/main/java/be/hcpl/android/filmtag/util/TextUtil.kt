@@ -4,6 +4,8 @@ import java.text.DecimalFormat
 
 object TextUtil {
 
+    // TODO convert to some sort of transformer and inject
+
     private val frameFormat = DecimalFormat("00")
     private val apertureFormat = DecimalFormat("0.#")
 

@@ -5,24 +5,27 @@ import com.google.gson.reflect.TypeToken
 
 import java.util.HashMap
 
-import be.hcpl.android.filmtag.MainActivity
+import be.hcpl.android.filmtag.ui.activity.MainActivity
 import be.hcpl.android.filmtag.model.DataExportFormat
 import be.hcpl.android.filmtag.model.Frame
 import be.hcpl.android.filmtag.model.Roll
 
 object StorageUtil {
 
-    private val listOfRollsType = object : TypeToken<List<Roll>>() {
+    val listOfRollsType = object : TypeToken<List<Roll>>() {
 
     }.type
 
-    private val listOfFramesType = object : TypeToken<List<Frame>>() {
+    val listOfFramesType = object : TypeToken<List<Frame>>() {
 
     }.type
 
+
+    const val KEY_FILM_ROLLS = "rolls"
+
+
+    // TODO convert to repo and inject
     private val gson = Gson()
-
-    private const val KEY_FILM_ROLLS = "rolls"
 
     fun getAllRolls(activity: MainActivity): MutableList<Roll> {
         // get the items
