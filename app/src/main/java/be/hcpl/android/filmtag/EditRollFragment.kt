@@ -24,7 +24,7 @@ import be.hcpl.android.filmtag.util.StorageUtil
 /**
  * Created by hcpl on 1/08/15.
  */
-class EditRollFragment : Fragment(R.layout.fragment_form_roll) {
+class EditRollFragment : Fragment() {
 
     private var roll: Roll? = null
 
@@ -61,14 +61,14 @@ class EditRollFragment : Fragment(R.layout.fragment_form_roll) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+/*
         edit_type = view.findViewById(R.id.edit_type)
         edit_notes = view.findViewById(R.id.edit_notes)
         edit_exposed = view.findViewById(R.id.edit_exposed)
         edit_frames = view.findViewById(R.id.edit_frames)
         check_developed = view.findViewById(R.id.check_developed)
         edit_tags = view.findViewById(R.id.edit_tags)
-
+*/
         // prefill data if possible
         if (roll != null) {
             edit_type.setText(roll!!.type)

@@ -15,13 +15,13 @@ class FilmRollViewModel(
     val events = MutableLiveData<Event>()
 
     init {
-        //if( selectedRollId == -1L){
-        //} else
         filmRollRepository.getRollById(selectedRollId)?.let { roll ->
-            state.postValue(State(
-                roll = roll,
-                frames = filmRollRepository.getFramesForFilm(selectedRollId)
-            ))
+            state.postValue(
+                State(
+                    roll = roll,
+                    frames = filmRollRepository.getFramesForFilm(selectedRollId)
+                )
+            )
         } ?: state.postValue(State()) // some empty state
     }
 
@@ -31,10 +31,5 @@ class FilmRollViewModel(
     )
 
     sealed class Event {
-        data class ShowToggleLock(
-            val rollId: Long,
-            val isDeveloped: Boolean,
-        ) : Event()
-
     }
 }

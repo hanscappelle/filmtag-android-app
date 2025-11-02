@@ -10,13 +10,23 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AlertDialog.Builder
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.core.os.bundleOf
 import be.hcpl.android.filmtag.R
+import be.hcpl.android.filmtag.ui.Action
+import be.hcpl.android.filmtag.ui.ActionId
 import be.hcpl.android.filmtag.ui.activity.MainViewModel.Event.ShowToggleLock
 import be.hcpl.android.filmtag.ui.AppScaffold
 import be.hcpl.android.filmtag.ui.activity.FilmRollActivity.Companion.KEY_FILM_ROLL
@@ -51,7 +61,35 @@ class MainActivity : ComponentActivity() {
 
     private fun handleState(state: MainViewModel.State) {
         setContent {
-            AppScaffold { innerPadding ->
+            AppScaffold(
+                actions = listOf(
+                    // TODO restore settings...
+                    // android:title="@string/action_settings"
+                    // FIXME restore filtering in content here
+                    //android:id="@+id/action_search"
+                    Action(
+                        iconRes = R.drawable.ic_action_add,
+                        textRes = R.string.action_add,
+                        actionId = ActionId.Create,
+                    ),
+                    Action(
+                        iconRes = R.drawable.ic_action_download,
+                        textRes = R.string.action_export,
+                        actionId = ActionId.Export,
+                    ),
+                    Action(
+                        iconRes = R.drawable.ic_action_help,
+                        textRes = R.string.msg_first_view_help,
+                        actionId = ActionId.Help,
+                    ),
+                    Action(
+                        iconRes = R.drawable.ic_action_info,
+                        textRes = R.string.action_about,
+                        actionId = ActionId.Info,
+                    ),
+                ),
+                handleAction = { actionId -> handleAction(actionId) }
+            ) { innerPadding ->
                 LazyColumn(
                     modifier = Modifier
                         .padding(innerPadding),
@@ -86,6 +124,15 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    private fun handleAction(actionId: ActionId) {
+        when (actionId) {
+            ActionId.Create -> TODO()
+            ActionId.Export -> TODO()
+            ActionId.Help -> TODO()
+            ActionId.Info -> startActivity(Intent(this, AboutActivity::class.java))
+        }
+    }
+
     private fun showRollDetails(rollId: Long) {
         val intent = Intent(this, FilmRollActivity::class.java).apply {
             putExtra(KEY_FILM_ROLL, rollId)
@@ -100,12 +147,6 @@ class MainActivity : ComponentActivity() {
 
     /*
     //TODO convert actions
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        // update options based on search enabled or not
-        //if (!searchViewEnabled)
-        inflater.inflate(R.menu.rolls, menu)
-    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
@@ -176,31 +217,6 @@ class MainActivity : ComponentActivity() {
             if ("text/plain" == type) {
                 handleSharedConfig(intent) // Handle text being sent
             }
-        }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> {
-                //navController.navigate(R.id.action_settings)
-                true
-            }
-
-            R.id.action_about -> {
-                //navController.navigate(R.id.action_about)
-                true
-            }
-
-            else -> super.onOptionsItemSelected(item)
         }
     }
 

@@ -48,7 +48,7 @@ import java.util.TimeZone
 /**
  * Created by hcpl on 1/08/15.
  */
-class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
+class EditFrameFragment : Fragment() {
 
     // model object of a film or roll with a number of frames exposed at a given value
     private var roll: Roll? = null
@@ -130,7 +130,7 @@ class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+/*
         // find all views
         editAperture = view.findViewById(R.id.edit_aperture)
         editShutter = view.findViewById(R.id.edit_shutter)
@@ -142,7 +142,7 @@ class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
         textLocation = view.findViewById(R.id.text_location)
         textNumber = view.findViewById(R.id.edit_number)
         dateView = view.findViewById(R.id.edit_date)
-
+*/
         // use fixed UTC timeZone since that is what the material datePicker expects
         val timeZone = TimeZone.getTimeZone("UTC")
         dateFormatter.timeZone = timeZone
@@ -209,17 +209,17 @@ class EditFrameFragment : Fragment(R.layout.fragment_form_frame) {
 
     private fun updateLocationViews() {
         selectedFrame?.location?.let {
-            iconLocation.setImageDrawable(
-                getDrawable(requireContext(), R.drawable.ic_action_device_gps_primary)
-            )
+            //iconLocation.setImageDrawable(
+                //getDrawable(requireContext(), R.drawable.ic_action_device_gps_primary)
+            //)
             textLocation.setOnClickListener {
                 showOnMap(Uri.parse("geo: ${selectedFrame?.location?.latitude},${selectedFrame?.location?.longitude}"))
             }
         } ?: {
             // no known location set
-            iconLocation.setImageDrawable(
-                getDrawable(requireContext(), R.drawable.ic_action_device_gps_silver)
-            )
+            //iconLocation.setImageDrawable(
+                //getDrawable(requireContext(), R.drawable.ic_action_device_gps_silver)
+            //)
             textLocation.setOnClickListener { getLocation() }
         }
     }

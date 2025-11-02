@@ -11,13 +11,11 @@
     <item
         android:id="@+id/action_edit"
         android:title="@string/action_edit"
-        android:icon="@drawable/ic_action_content_create"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_delete"
         android:title="@string/action_delete"
-        android:icon="@drawable/ic_action_content_clear"
         app:showAsAction="ifRoom" />
 
 </menu>

@@ -40,4 +40,6 @@ object TextUtil {
     }
 
     fun formatDate(date: Long) = dateFormatter.format(date)
+
+    val SYSTEM_LINE_SEPARATOR = System.lineSeparator()
 }

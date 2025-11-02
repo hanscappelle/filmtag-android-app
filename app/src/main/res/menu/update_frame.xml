@@ -11,19 +11,16 @@
     <item
         android:id="@+id/action_camera"
         android:title="@string/action_camera"
-        android:icon="@drawable/ic_action_image_photo_camera"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_location"
         android:title="@string/action_location"
-        android:icon="@drawable/ic_action_device_gps"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_update"
         android:title="@string/action_update"
-        android:icon="@drawable/ic_action_navigation_check"
         app:showAsAction="always" />
 
 </menu>

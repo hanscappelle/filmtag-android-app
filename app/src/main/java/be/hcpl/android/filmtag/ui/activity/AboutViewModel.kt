@@ -1,38 +1,30 @@
-package be.hcpl.android.filmtag
+package be.hcpl.android.filmtag.ui.activity
 
-
-import android.os.Bundle
-import android.text.Html
-import android.text.util.Linkify
-import android.view.View
-import android.widget.TextView
-import androidx.fragment.app.Fragment
-
+import android.app.Application
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import be.hcpl.android.filmtag.BuildConfig
+import be.hcpl.android.filmtag.R
+import be.hcpl.android.filmtag.util.TextUtil.SYSTEM_LINE_SEPARATOR
 import java.io.BufferedReader
 import java.io.Closeable
 import java.io.InputStream
 import java.io.InputStreamReader
 
-/**
- * Created by hcpl on 6/08/15.
- */
-class AboutFragment : Fragment(R.layout.fragment_about) {
+class AboutViewModel(
+    context: Application,
+) : ViewModel() {
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        var aboutText = readFile(resources.openRawResource(R.raw.about))
+    val state = MutableLiveData<State>()
+
+    init {
+        var aboutText = readFile(context.resources.openRawResource(R.raw.about))
         // add version
         aboutText = aboutText.replace("{version}", BuildConfig.VERSION_NAME)
-        // set text
-        val textView = view.findViewById(R.id.text_about) as? TextView
-        textView?.apply {
-            text = Html.fromHtml(aboutText)
-            // and make clickable
-            Linkify.addLinks(textView, Linkify.ALL)
-        }
+        // publish
+        state.postValue(State(aboutText = aboutText))
     }
 
-    // TODO move to utils instead
     private fun readFile(stream: InputStream): String {
         var input: BufferedReader? = null
 
@@ -63,12 +55,9 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
             }
 
         }
-
     }
 
-    companion object {
-
-        private val SYSTEM_LINE_SEPARATOR = System.lineSeparator()
-
-    }
+    data class State(
+        val aboutText: String,
+    )
 }

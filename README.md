@@ -210,3 +210,5 @@ reading exif info from jpeg files: http://developer.android.com/reference/androi
 Android design guidelines see: https://www.google.com/design/spec/layout/metrics-keylines.html#metrics-keylines-ratio-keylines
 
 Colors generated with material palette https://www.materialpalette.com/brown/grey
+
+Icons from https://fonts.google.com/icons?selected=Material+Symbols+Outlined:help:FILL@0;wght@400;GRAD@0;opsz@24&icon.query=help&icon.size=24&icon.color=%23e3e3e3
