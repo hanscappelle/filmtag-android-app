@@ -1,16 +1,12 @@
 package be.hcpl.android.filmtag.ui.view
 
-import android.R.attr.spacing
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Column
-import be.hcpl.android.filmtag.R
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Lock
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -18,10 +14,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import be.hcpl.android.filmtag.R
 import be.hcpl.android.filmtag.model.Roll
 import be.hcpl.android.filmtag.ui.AppTheme
 
@@ -44,9 +41,10 @@ fun RollView(
             modifier = Modifier,
         ) {
             Icon(
-                imageVector = Icons.Filled.Lock,
+                painter = painterResource(if (roll.isDeveloped) R.drawable.ic_lock_closed else R.drawable.ic_lock_open),
                 contentDescription = stringResource(R.string.description_locked_unlocked),
                 modifier = Modifier
+                    .size(24.dp)
                     // mark developed items with a lighter text color
                     .alpha(if (roll.isDeveloped) 1f else 0.2f)
             )
@@ -81,7 +79,7 @@ private fun Preview() {
                 speed = 200,
                 frames = 36,
                 notes = "some roll specific notes",
-                isDeveloped = false,
+                isDeveloped = true,
                 tags = listOf("tag1", "tag2", "tag3"),
             )
         )
