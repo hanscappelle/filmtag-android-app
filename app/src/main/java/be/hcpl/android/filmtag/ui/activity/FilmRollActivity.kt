@@ -13,6 +13,7 @@ import be.hcpl.android.filmtag.ui.Action
 import be.hcpl.android.filmtag.ui.ActionId
 import be.hcpl.android.filmtag.ui.AppScaffold
 import be.hcpl.android.filmtag.ui.view.FrameView
+import be.hcpl.android.filmtag.ui.view.ListFramesView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import kotlin.getValue
@@ -57,17 +58,12 @@ class FilmRollActivity : ComponentActivity() {
                 ),
                 handleAction = ::handleAction,
             ) { innerPadding ->
-                LazyColumn(
+                ListFramesView(
+                    roll = state.roll,
+                    frames = state.frames,
                     modifier = Modifier
                         .padding(innerPadding),
-                ) {
-                    state.frames.forEachIndexed { index, frame ->
-                        item(key = index) {
-                            FrameView(frame)
-                        }
-                    }
-                }
-
+                )
             }
         }
     }
