@@ -28,6 +28,7 @@
         <activity android:name=".ui.activity.FilmRollActivity"/>
         <activity android:name=".ui.activity.AboutActivity"/>
         <activity android:name=".ui.activity.EditRollActivity"/>
+        <activity android:name=".ui.activity.EditFrameActivity"/>
     </application>
 
     <!--<uses-feature android:name="android.hardware.camera"

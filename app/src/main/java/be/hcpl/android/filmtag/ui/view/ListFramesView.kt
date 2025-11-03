@@ -1,6 +1,7 @@
 package be.hcpl.android.filmtag.ui.view
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -17,6 +18,7 @@ import be.hcpl.android.filmtag.model.Roll
 fun ListFramesView(
     roll: Roll,
     frames: List<Frame>,
+    onSelect: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -36,7 +38,12 @@ fun ListFramesView(
         LazyColumn {
             frames.forEachIndexed { index, frame ->
                 item(key = index) {
-                    FrameView(frame)
+                    FrameView(
+                        frame = frame,
+                        modifier = Modifier.clickable {
+                            onSelect(frame.number)
+                        }
+                    )
                 }
             }
         }

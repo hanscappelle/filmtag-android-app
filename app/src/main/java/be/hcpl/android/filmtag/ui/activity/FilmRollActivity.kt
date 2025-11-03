@@ -12,6 +12,7 @@ import be.hcpl.android.filmtag.R
 import be.hcpl.android.filmtag.ui.Action
 import be.hcpl.android.filmtag.ui.ActionId
 import be.hcpl.android.filmtag.ui.AppScaffold
+import be.hcpl.android.filmtag.ui.activity.EditFrameActivity.Companion.KEY_FRAME_ID
 import be.hcpl.android.filmtag.ui.view.FrameView
 import be.hcpl.android.filmtag.ui.view.ListFramesView
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -41,7 +42,7 @@ class FilmRollActivity : ComponentActivity() {
             AppScaffold(
                 actions = listOf(
                     Action(
-                        iconRes = if (state.roll?.isDeveloped == true) R.drawable.ic_lock_closed else R.drawable.ic_lock_open,
+                        iconRes = if (state.roll.isDeveloped) R.drawable.ic_lock_closed else R.drawable.ic_lock_open,
                         textRes = R.string.action_edit,
                         actionId = ActionId.Update,
                     ),
@@ -68,10 +69,19 @@ class FilmRollActivity : ComponentActivity() {
                     frames = state.frames,
                     modifier = Modifier
                         .padding(innerPadding),
+                    onSelect = ::onFrameSelected,
                 )
             }
         }
     }
+
+    private fun onFrameSelected(frameId: Int){
+        val intent = Intent(this, EditFrameActivity::class.java).apply{
+            putExtra(KEY_FRAME_ID, frameId)
+        }
+        startActivity(intent)
+    }
+
 
     private fun handleEvent(event: FilmRollViewModel.Event) {
         when (event) {
@@ -105,20 +115,6 @@ class FilmRollActivity : ComponentActivity() {
             }.setNegativeButton(R.string.label_no) { _, _ -> }.show()
 
     }
-
-    /*
-
-    private fun updateFrame(index: Int) {
-        //findNavController().navigate(
-        //    R.id.action_edit_frame, bundleOf(
-        //        EditFrameFragment.KEY_FRAMES to frames as ArrayList<*>,
-         ////       EditFrameFragment.KEY_FRAME_IDX to index,
-          //      EditFrameFragment.KEY_ROLL to filmRoll
-          //  )
-       // )
-    }
-
-     */
 
     companion object {
         const val KEY_FILM_ROLL = "KEY_FILM_ROLL"

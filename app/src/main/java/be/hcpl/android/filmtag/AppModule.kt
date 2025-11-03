@@ -5,6 +5,7 @@ import be.hcpl.android.filmtag.domain.repository.SharedPreferencesProvider
 import be.hcpl.android.filmtag.ui.activity.AboutViewModel
 import be.hcpl.android.filmtag.ui.activity.EditRollViewModel
 import be.hcpl.android.filmtag.ui.activity.FilmRollViewModel
+import be.hcpl.android.filmtag.ui.activity.EditFrameViewModel
 import be.hcpl.android.filmtag.ui.activity.MainViewModel
 import com.google.gson.Gson
 import org.koin.core.module.dsl.factoryOf
@@ -18,6 +19,7 @@ val appModule = module {
     viewModelOf(::FilmRollViewModel)
     viewModelOf(::AboutViewModel)
     viewModelOf(::EditRollViewModel)
+    viewModelOf(::EditFrameViewModel)
 
     factoryOf(::FilmRollRepository)
 
