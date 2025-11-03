@@ -39,8 +39,8 @@ class EditRollViewModel(
             speed = state.value?.editFormState?.isoState?.text.toString().toInt(),
             frames = state.value?.editFormState?.framesState?.text.toString().toInt(),
             notes = state.value?.editFormState?.notesState?.text.toString(),
-            isDeveloped = false,//TODO(),
-            tags = listOf(),//TODO(),
+            isDeveloped = state.value?.editFormState?.checkedState?.value == true,
+            tags = listOf(),//TODO handle tags here (need to parse?),
         )
         if (selectedRollId == -1L) {
             // this is a new item

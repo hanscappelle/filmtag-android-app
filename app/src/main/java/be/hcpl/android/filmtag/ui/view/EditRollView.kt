@@ -15,6 +15,7 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -33,6 +34,7 @@ data class EditRollViewState(
     val framesState = TextFieldState(initialText = "${roll.frames}")
     val tagsState = TextFieldState(initialText = TextUtils.join(", ", roll.tags))
     val notesState = TextFieldState(initialText = roll.notes.orEmpty())
+    val checkedState = mutableStateOf(roll.isDeveloped)
 }
 
 @Composable
@@ -50,7 +52,6 @@ fun EditRollView(
             label = { Text(text = stringResource(R.string.label_film_type)) },
             //placeholder = { Text(text = "John Doe") },
             modifier = Modifier.fillMaxWidth(),
-            //singleLine = true,
         )
 
         Row(
@@ -84,16 +85,16 @@ fun EditRollView(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Checkbox(
-                checked = viewState.roll.isDeveloped,
+                checked = viewState.checkedState.value,
                 onCheckedChange = {
-                    // TODO handle state changes here
+                    viewState.checkedState.value = !(viewState.checkedState.value)
                 },
                 modifier = Modifier,
             )
             Text(
                 text = stringResource(R.string.label_film_developed),
                 modifier = Modifier.clickable{
-                    // TODO handle state change here
+                    viewState.checkedState.value = !(viewState.checkedState.value)
                 }
             )
         }
