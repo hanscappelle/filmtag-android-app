@@ -47,8 +47,12 @@ Other apps that do similar things.
 * (feature) resolve locations into address or place names instead of lat/long?
 * (user request) better way of exporting data
 * (user request) select from a list of camera's & lenses
-* (technical) convert to compose
 * (user request) add time to date for frame
+* (bug) tags no longer working
+
+### 2.0
+
+* (technical) convert to compose
 
 ### 1.2
 
