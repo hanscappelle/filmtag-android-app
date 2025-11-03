@@ -41,9 +41,11 @@ class EditFrameActivity : ComponentActivity() {
         setContent {
             AppScaffold(
                 actions = listOf(
-
-                    // TODO more actions needed here
-
+                    Action(
+                        iconRes = R.drawable.ic_action_check,
+                        textRes = R.string.action_create,
+                        actionId = ActionId.Create,
+                    ),
                     Action(
                         iconRes = R.drawable.ic_action_close,
                         textRes = R.string.action_close,
@@ -65,13 +67,14 @@ class EditFrameActivity : ComponentActivity() {
     private fun handleAction(actionId: ActionId) {
         when (actionId) {
             ActionId.Close -> finish()
+            ActionId.Create -> viewModel.saveFrame()
             else -> TODO()
         }
     }
 
     private fun handleEvent(event: EditFrameViewModel.Event) {
         when (event) {
-            Event.Close -> finish()
+            EditFrameViewModel.Event.Close -> finish()
         }
     }
 

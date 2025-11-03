@@ -36,6 +36,22 @@ class EditFrameViewModel(
         )
     }
 
+    fun saveFrame() {
+        // TODO needs some input validation here
+        val frame = Frame(
+            number = selectedFrameId,
+            shutter = state.value?.editFrameState?.speedState?.text.toString().toInt(),
+            aperture = state.value?.editFrameState?.apertureState?.text.toString().toDouble(),
+            notes = state.value?.editFrameState?.notesState?.text.toString(),
+            isLongExposure = state.value?.editFrameState?.checkedState?.value == true,
+            tags = listOf(),//TODO handle tags here (need to parse?),
+            // TODO location: Location? = null,
+            // TODO dateTaken: Long? = null,
+        )
+        // update an existing item
+        filmRollRepository.updateFrame(selectedRollId, frame)
+        events.postValue(Event.Close)
+    }
 
     data class State(
         val roll: Roll,
@@ -44,6 +60,6 @@ class EditFrameViewModel(
     )
 
     sealed class Event {
-
+        data object Close: Event()
     }
 }

@@ -67,7 +67,7 @@ class FilmRollRepository(
         }
     }
 
-    fun updateFrames(filmRoll: Roll, frames: List<Frame>) {
+    private fun updateFrames(filmRoll: Roll, frames: List<Frame>) {
         sharedPreferencesProvider.sharedPreferences.edit()?.putString(
             KEY_FILM_ROLLS + filmRoll
                 .id, gson.toJson(frames, listOfFramesType)
@@ -105,6 +105,20 @@ class FilmRollRepository(
 
     private fun deleteFramesForRoll(roll: Roll) {
         sharedPreferencesProvider.sharedPreferences.edit()?.remove(KEY_FILM_ROLLS + roll.id)?.apply()
+    }
+
+    fun updateFrame(rollId: Long, frame: Frame) {
+        val frames = getFramesForFilm(rollId)
+        getRollById(rollId)?.let { roll ->
+            updateFrames(roll, frames.map {
+                if (it.number == frame.number) {
+                    frame
+                } else {
+                    it
+                }
+            })
+        }
+
     }
 
     companion object {

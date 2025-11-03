@@ -50,7 +50,6 @@ class EditRollViewModel(
             filmRollRepository.updateRoll(roll)
         }
         events.postValue(Event.Close)
-
     }
 
     data class State(

@@ -33,9 +33,9 @@ data class EditFrameViewState(
 ) {
     val speedState = TextFieldState(initialText = "${frame.shutter}")
     val apertureState = TextFieldState(initialText = "${frame.aperture}")
-    val tagsState = TextFieldState(initialText = TextUtils.join(", ", roll.tags))
-    val notesState = TextFieldState(initialText = roll.notes.orEmpty())
-    val checkedState = mutableStateOf(roll.isDeveloped)
+    val tagsState = TextFieldState(initialText = TextUtils.join(", ", frame.tags))
+    val notesState = TextFieldState(initialText = frame.notes.orEmpty())
+    val checkedState = mutableStateOf(frame.isLongExposure)
     // TODO restore location here also
     // TODO restore date selection
     // TODO add time selection
