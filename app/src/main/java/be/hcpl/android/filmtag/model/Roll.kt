@@ -6,7 +6,7 @@ import java.util.ArrayList
 
 @Keep
 data class Roll(
-    var id: Long = 0,
+    var id: Long = -1,
     var type: String? = null,
     var speed: Int = 200,
     var frames: Int = 36,
@@ -16,7 +16,7 @@ data class Roll(
 ) : Serializable {
 
     init {
-        id = System.currentTimeMillis() // generates unique ID for all objects created
+        id = if (id > 0) id else System.currentTimeMillis() // generates unique ID for all objects created
     }
 
     override fun toString(): String {

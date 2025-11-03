@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import be.hcpl.android.filmtag.domain.repository.FilmRollRepository
 import be.hcpl.android.filmtag.domain.repository.SharedPreferencesProvider
 import be.hcpl.android.filmtag.model.Roll
-import be.hcpl.android.filmtag.ui.activity.FilmRollViewModel.Event
 import be.hcpl.android.filmtag.ui.view.EditRollViewState
 
 class EditRollViewModel(
@@ -18,18 +17,19 @@ class EditRollViewModel(
     val events = MutableLiveData<Event>()
 
     init {
+        val selectedRoll = filmRollRepository.getRollById(selectedRollId) ?: Roll()
         state.postValue(
             State(
                 rollId = selectedRollId,
-                roll = filmRollRepository.getRollById(selectedRollId) ?: Roll(),
+                roll =  selectedRoll,
+                editFormState = EditRollViewState(selectedRoll),
             )
         )
-
+    }
         // have preferences for this
         //val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         //edit_exposed.setText(prefs.getString("key_default_iso", 200.toString()))
         //edit_frames.setText(prefs.getString("key_default_frames", 36.toString()))
-    }
 
     fun saveChanges() {
         // TODO needs some input validation here
