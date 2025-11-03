@@ -19,6 +19,10 @@ class FilmRollViewModel(
     var currentRoll: Roll? = null
 
     init {
+        refreshData()
+    }
+
+    private fun refreshData() {
         filmRollRepository.getRollById(selectedRollId)?.let { roll ->
             currentRoll = roll
             state.postValue(
@@ -45,6 +49,7 @@ class FilmRollViewModel(
         currentRoll?.let { roll ->
             roll.isDeveloped = !roll.isDeveloped
             filmRollRepository.updateRoll(roll)
+            refreshData()
         }
 
     }
