@@ -12,15 +12,14 @@ import be.hcpl.android.filmtag.R
 import be.hcpl.android.filmtag.ui.Action
 import be.hcpl.android.filmtag.ui.ActionId
 import be.hcpl.android.filmtag.ui.activity.EditRollViewModel.Event
-import be.hcpl.android.filmtag.ui.activity.FilmRollActivity.Companion.KEY_FILM_ROLL
+import be.hcpl.android.filmtag.ui.activity.FilmRollActivity.Companion.KEY_FILM_ROLL_ID
 import be.hcpl.android.filmtag.ui.view.EditRollView
-import be.hcpl.android.filmtag.ui.view.EditRollViewState
 import org.koin.core.parameter.parametersOf
 
 class EditRollActivity : ComponentActivity() {
 
     private val viewModel: EditRollViewModel by viewModel(
-        parameters = { parametersOf(intent.getLongExtra(KEY_FILM_ROLL, -1L)) }
+        parameters = { parametersOf(intent.getLongExtra(KEY_FILM_ROLL_ID, -1L)) }
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {

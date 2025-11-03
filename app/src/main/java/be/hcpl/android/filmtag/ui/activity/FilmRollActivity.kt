@@ -6,14 +6,12 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AlertDialog
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.ui.Modifier
 import be.hcpl.android.filmtag.R
 import be.hcpl.android.filmtag.ui.Action
 import be.hcpl.android.filmtag.ui.ActionId
 import be.hcpl.android.filmtag.ui.AppScaffold
 import be.hcpl.android.filmtag.ui.activity.EditFrameActivity.Companion.KEY_FRAME_ID
-import be.hcpl.android.filmtag.ui.view.FrameView
 import be.hcpl.android.filmtag.ui.view.ListFramesView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -22,7 +20,7 @@ import kotlin.getValue
 class FilmRollActivity : ComponentActivity() {
 
     private val viewModel: FilmRollViewModel by viewModel(
-        parameters = { parametersOf(intent.getLongExtra(KEY_FILM_ROLL, -1L)) }
+        parameters = { parametersOf(intent.getLongExtra(KEY_FILM_ROLL_ID, -1L)) }
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,14 +67,15 @@ class FilmRollActivity : ComponentActivity() {
                     frames = state.frames,
                     modifier = Modifier
                         .padding(innerPadding),
-                    onSelect = ::onFrameSelected,
+                    onSelect = { index -> viewModel.prepareEditFrame(index) },
                 )
             }
         }
     }
 
-    private fun onFrameSelected(frameId: Int){
-        val intent = Intent(this, EditFrameActivity::class.java).apply{
+    private fun onFrameSelected(rollId: Long, frameId: Int) {
+        val intent = Intent(this, EditFrameActivity::class.java).apply {
+            putExtra(KEY_FILM_ROLL_ID, rollId)
             putExtra(KEY_FRAME_ID, frameId)
         }
         startActivity(intent)
@@ -87,12 +86,13 @@ class FilmRollActivity : ComponentActivity() {
         when (event) {
             is FilmRollViewModel.Event.EditRoll -> {
                 val intent = Intent(this, EditRollActivity::class.java).apply {
-                    putExtra(KEY_FILM_ROLL, event.rollId)
+                    putExtra(KEY_FILM_ROLL_ID, event.rollId)
                 }
                 startActivity(intent)
             }
 
             FilmRollViewModel.Event.Close -> finish()
+            is FilmRollViewModel.Event.EditFrame -> onFrameSelected(event.rollId, event.frameId)
         }
     }
 
@@ -117,6 +117,6 @@ class FilmRollActivity : ComponentActivity() {
     }
 
     companion object {
-        const val KEY_FILM_ROLL = "KEY_FILM_ROLL"
+        const val KEY_FILM_ROLL_ID = "KEY_FILM_ROLL_ID"
     }
 }

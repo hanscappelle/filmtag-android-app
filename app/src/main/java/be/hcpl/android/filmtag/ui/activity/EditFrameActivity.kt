@@ -5,22 +5,28 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import be.hcpl.android.filmtag.R
 import be.hcpl.android.filmtag.ui.Action
 import be.hcpl.android.filmtag.ui.ActionId
 import be.hcpl.android.filmtag.ui.AppScaffold
 import be.hcpl.android.filmtag.ui.activity.EditRollViewModel.Event
-import be.hcpl.android.filmtag.ui.activity.FilmRollActivity.Companion.KEY_FILM_ROLL
+import be.hcpl.android.filmtag.ui.activity.FilmRollActivity.Companion.KEY_FILM_ROLL_ID
+import be.hcpl.android.filmtag.ui.view.RollDetailView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
 class EditFrameActivity : ComponentActivity() {
 
     private val viewModel: EditFrameViewModel by viewModel(
-        parameters = { parametersOf(intent.getIntExtra(KEY_FRAME_ID, -1)) }
+        parameters = {
+            parametersOf(
+                intent.getLongExtra(KEY_FILM_ROLL_ID, -1L),
+                intent.getIntExtra(KEY_FRAME_ID, -1),
+            )
+        }
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,9 +50,9 @@ class EditFrameActivity : ComponentActivity() {
                 ),
                 handleAction = ::handleAction,
             ) { innerPadding ->
-                // TODO render edit frame form with state
-                Box(modifier = Modifier.padding(innerPadding)) {
-                    Text("selected frame number is ${state.frameId}")
+                Column(modifier = Modifier.padding(innerPadding)) {
+                    RollDetailView(state.roll)
+                    // TODO render edit frame form with state
                 }
             }
         }

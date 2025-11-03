@@ -7,6 +7,7 @@ import be.hcpl.android.filmtag.model.Frame
 import be.hcpl.android.filmtag.model.Roll
 
 class EditFrameViewModel(
+    private val selectedRollId: Long,
     private val selectedFrameId: Int,
     private val filmRollRepository: FilmRollRepository,
 ) : ViewModel() {
@@ -20,11 +21,17 @@ class EditFrameViewModel(
 
     private fun refreshData() {
         // TODO implement this
-        state.postValue(State(frameId = selectedFrameId))
+        state.postValue(
+            State(
+                roll = filmRollRepository.getRollById(selectedRollId) ?: Roll(),
+                frameId = selectedFrameId
+            )
+        )
     }
 
 
     data class State(
+        val roll: Roll,
         val frameId: Int,
     )
 

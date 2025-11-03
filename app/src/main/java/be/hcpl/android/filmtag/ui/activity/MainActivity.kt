@@ -17,7 +17,7 @@ import be.hcpl.android.filmtag.R
 import be.hcpl.android.filmtag.ui.Action
 import be.hcpl.android.filmtag.ui.ActionId
 import be.hcpl.android.filmtag.ui.AppScaffold
-import be.hcpl.android.filmtag.ui.activity.FilmRollActivity.Companion.KEY_FILM_ROLL
+import be.hcpl.android.filmtag.ui.activity.FilmRollActivity.Companion.KEY_FILM_ROLL_ID
 import be.hcpl.android.filmtag.ui.activity.MainViewModel.Event.ShowToggleLock
 import be.hcpl.android.filmtag.ui.view.RollView
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -125,7 +125,7 @@ class MainActivity : ComponentActivity() {
 
     private fun showRollDetails(rollId: Long) {
         val intent = Intent(this, FilmRollActivity::class.java).apply {
-            putExtra(KEY_FILM_ROLL, rollId)
+            putExtra(KEY_FILM_ROLL_ID, rollId)
         }
         startActivity(intent)
     }

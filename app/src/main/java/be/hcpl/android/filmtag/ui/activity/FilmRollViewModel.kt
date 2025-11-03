@@ -28,7 +28,7 @@ class FilmRollViewModel(
             val preparedFrames = filmRollRepository.getFramesForFilm(selectedRollId).toMutableList().also {
                 if (it.isEmpty()) {
                     repeat(roll.frames) { counter ->
-                        it.add(Frame(number = counter+1))
+                        it.add(Frame(number = counter + 1))
                     }
                 }
             }
@@ -42,7 +42,9 @@ class FilmRollViewModel(
     }
 
     fun preparedEditRoll() {
-        events.postValue(EditRoll(currentRoll?.id))
+        currentRoll?.let { roll ->
+            events.postValue(EditRoll(roll.id))
+        }
     }
 
     fun deleteRoll() {
@@ -65,13 +67,20 @@ class FilmRollViewModel(
         refreshData()
     }
 
+    fun prepareEditFrame(frameIndex: Int) {
+        currentRoll?.let { roll ->
+            events.postValue(Event.EditFrame(roll.id, frameIndex))
+        }
+    }
+
     data class State(
         val roll: Roll,
         val frames: List<Frame> = emptyList(),
     )
 
     sealed class Event {
-        data class EditRoll(val rollId: Long?) : Event()
+        data class EditRoll(val rollId: Long) : Event()
+        data class EditFrame(val rollId: Long, val frameId: Int) : Event()
         data object Close : Event()
     }
 }
