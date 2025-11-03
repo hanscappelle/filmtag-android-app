@@ -31,6 +31,11 @@ class FilmRollActivity : ComponentActivity() {
         viewModel.events.observe(this, ::handleEvent)
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.onResume()
+    }
+
     private fun handleState(state: FilmRollViewModel.State) {
         setContent {
             AppScaffold(

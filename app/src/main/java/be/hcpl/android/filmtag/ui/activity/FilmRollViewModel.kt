@@ -61,6 +61,10 @@ class FilmRollViewModel(
 
     }
 
+    fun onResume() {
+        refreshData()
+    }
+
     data class State(
         val roll: Roll,
         val frames: List<Frame> = emptyList(),
