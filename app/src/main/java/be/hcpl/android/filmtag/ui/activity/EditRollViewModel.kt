@@ -53,41 +53,6 @@ class EditRollViewModel(
 
     }
 
-    /*
-        private fun createNewItem() {
-            var newRoll = false
-            // insert the new item
-            if (roll == null) {
-                roll = Roll()
-                newRoll = true
-            }
-            roll!!.type = edit_type.text.toString()
-            roll!!.notes = edit_notes.text.toString()
-            roll!!.isDeveloped = check_developed.isChecked
-            roll!!.tags = Arrays.asList(*TextUtils.split(edit_tags.text.toString(), " "))
-            try {
-                roll!!.speed = Integer.parseInt(edit_exposed.text.toString())
-            } catch (_: Exception) {
-                Toast.makeText(activity, R.string.err_parsing_failed, Toast.LENGTH_SHORT).show()
-            }
-
-            try {
-                roll!!.frames = Integer.parseInt(edit_frames.text.toString())
-            } catch (_: Exception) {
-                Toast.makeText(activity, R.string.err_parsing_failed, Toast.LENGTH_SHORT).show()
-            }
-
-            // store new roll
-            if (newRoll)
-                StorageUtil.addNewRoll(activity as MainActivity, roll!!)
-            else
-                StorageUtil.updateRoll(activity as MainActivity, roll!!)
-
-            // navigate to overview
-            //toOverviewOrDetail()
-        }
-    */
-
     data class State(
         val rollId: Long = -1,
         val roll: Roll = Roll(),

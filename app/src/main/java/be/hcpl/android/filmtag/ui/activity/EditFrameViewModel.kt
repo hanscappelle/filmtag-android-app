@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import be.hcpl.android.filmtag.domain.repository.FilmRollRepository
 import be.hcpl.android.filmtag.model.Frame
 import be.hcpl.android.filmtag.model.Roll
+import be.hcpl.android.filmtag.ui.view.EditFrameViewState
 
 class EditFrameViewModel(
     private val selectedRollId: Long,
@@ -20,11 +21,17 @@ class EditFrameViewModel(
     }
 
     private fun refreshData() {
-        // TODO implement this
+        val roll = filmRollRepository.getRollById(selectedRollId) ?: Roll()
+        // TODO needs safeguard here?
+        val frame = filmRollRepository.getFramesForFilm(selectedRollId)[selectedFrameId]
         state.postValue(
             State(
-                roll = filmRollRepository.getRollById(selectedRollId) ?: Roll(),
-                frameId = selectedFrameId
+                roll = roll,
+                frame = frame,
+                editFrameState = EditFrameViewState(
+                    roll,
+                    frame,
+                )
             )
         )
     }
@@ -32,7 +39,8 @@ class EditFrameViewModel(
 
     data class State(
         val roll: Roll,
-        val frameId: Int,
+        val frame: Frame,
+        val editFrameState: EditFrameViewState,
     )
 
     sealed class Event {

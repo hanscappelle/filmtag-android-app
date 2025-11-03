@@ -14,6 +14,8 @@ import be.hcpl.android.filmtag.ui.ActionId
 import be.hcpl.android.filmtag.ui.AppScaffold
 import be.hcpl.android.filmtag.ui.activity.EditRollViewModel.Event
 import be.hcpl.android.filmtag.ui.activity.FilmRollActivity.Companion.KEY_FILM_ROLL_ID
+import be.hcpl.android.filmtag.ui.view.EditFrameView
+import be.hcpl.android.filmtag.ui.view.EditFrameViewState
 import be.hcpl.android.filmtag.ui.view.RollDetailView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -52,7 +54,9 @@ class EditFrameActivity : ComponentActivity() {
             ) { innerPadding ->
                 Column(modifier = Modifier.padding(innerPadding)) {
                     RollDetailView(state.roll)
-                    // TODO render edit frame form with state
+                    EditFrameView(
+                        viewState = state.editFrameState,
+                    )
                 }
             }
         }
