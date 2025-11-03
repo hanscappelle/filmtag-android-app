@@ -61,7 +61,7 @@ fun ActionView(
         painter = painterResource(action.iconRes),
         contentDescription = stringResource(action.textRes),
         modifier = Modifier
-            .size(48.dp)
+            .size(42.dp)
             .padding(8.dp)
             .clickable(onClick = onClick)
     )

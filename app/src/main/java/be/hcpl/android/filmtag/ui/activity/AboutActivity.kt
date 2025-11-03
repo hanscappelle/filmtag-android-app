@@ -4,8 +4,12 @@ package be.hcpl.android.filmtag.ui.activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.gestures.rememberScrollableState
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
@@ -40,7 +44,10 @@ class AboutActivity : ComponentActivity() {
                 handleAction = ::handleAction,
             ) { innerPadding ->
                 Box(
-                    modifier = Modifier.padding(innerPadding),
+                    modifier = Modifier
+                        .padding(innerPadding)
+                        .verticalScroll(rememberScrollState())
+                    ,
                 ) {
                     Text(
                         text = AnnotatedString.Companion.fromHtml(

@@ -46,7 +46,7 @@ fun RollView(
                 modifier = Modifier
                     .size(24.dp)
                     // mark developed items with a lighter color
-                    .alpha(if (roll.isDeveloped) 1f else 0.3f)
+                    .alpha(if (roll.isDeveloped) 1f else 0.5f)
             )
             Text(
                 text = roll.type?.ifEmpty { "..." } ?: "...", // TODO create uiModel in between that holds this kind of placeholders
