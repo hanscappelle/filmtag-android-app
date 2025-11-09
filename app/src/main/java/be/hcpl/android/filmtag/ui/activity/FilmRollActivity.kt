@@ -113,7 +113,6 @@ class FilmRollActivity : ComponentActivity() {
             .setPositiveButton(R.string.label_yes) { _, _ ->
                 viewModel.deleteRoll()
             }.setNegativeButton(R.string.label_no) { _, _ -> }.show()
-
     }
 
     companion object {

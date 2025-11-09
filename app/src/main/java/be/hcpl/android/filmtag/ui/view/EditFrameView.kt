@@ -28,6 +28,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import be.hcpl.android.filmtag.model.Frame
+import be.hcpl.android.filmtag.model.Location
 import be.hcpl.android.filmtag.model.Roll
 import be.hcpl.android.filmtag.ui.AppScaffold
 import be.hcpl.android.filmtag.ui.AppTheme
@@ -43,8 +44,7 @@ data class EditFrameViewState(
     val tagsState = TextFieldState(initialText = TextUtils.join(TextUtil.TAG_SEPARATOR, frame.tags))
     val notesState = TextFieldState(initialText = frame.notes.orEmpty())
     val checkedState = mutableStateOf(frame.isLongExposure)
-    // TODO restore location selection here
-    // TODO add time selection
+    // TODO add time selection (requested feature)
 }
 
 @Composable
@@ -52,6 +52,8 @@ fun EditFrameView(
     viewState: EditFrameViewState,
     modifier: Modifier = Modifier,
     onSelectDate: () -> Unit,
+    onShowLocation: (Location?) -> Unit,
+    onUpdateLocation: () -> Unit,
 ) {
     Column(
         verticalArrangement = spacedBy(16.dp),
@@ -59,7 +61,6 @@ fun EditFrameView(
     ) {
 
         Row() {
-
             Text(
                 text = "${stringResource(R.string.label_frame_number)} ${viewState.frame.number}",
                 style = MaterialTheme.typography.titleLarge,
@@ -132,9 +133,22 @@ fun EditFrameView(
         Row() {
             Text(
                 text = stringResource(R.string.label_location),
+                modifier = Modifier.clickable{
+                    onShowLocation(viewState.frame.location)
+                }
             )
-            // TODO restore location here
-            //Text(stringResource(R.string.action_location))
+            Text(
+                text = "${viewState.frame.location}",
+                modifier = Modifier.clickable{
+                    onShowLocation(viewState.frame.location)
+                }
+            )
+            Text(
+                text = stringResource(R.string.action_location),
+                modifier = Modifier.clickable{
+                    onUpdateLocation()
+                }
+            )
         }
 
     }
@@ -151,6 +165,8 @@ private fun Preview() {
             ),
             Modifier.padding(padding),
             onSelectDate = {},
+            onUpdateLocation = {},
+            onShowLocation = {},
         )
     }
 

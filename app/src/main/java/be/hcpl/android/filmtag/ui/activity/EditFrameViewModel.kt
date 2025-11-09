@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import be.hcpl.android.filmtag.domain.FilmRollRepository
 import be.hcpl.android.filmtag.model.Frame
+import be.hcpl.android.filmtag.model.Location
 import be.hcpl.android.filmtag.model.Roll
 import be.hcpl.android.filmtag.ui.view.EditFrameViewState
 import be.hcpl.android.filmtag.util.TextUtil
@@ -82,6 +83,10 @@ class EditFrameViewModel(
             filmRollRepository.updateRoll(roll)
             updateUiState()
         }
+    }
+
+    fun updateLocation(location: Location) {
+        TODO("Not yet implemented")
     }
 
     data class State(
