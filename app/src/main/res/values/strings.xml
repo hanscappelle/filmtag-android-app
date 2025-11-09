@@ -34,7 +34,7 @@
     <string name="label_preview">Preview</string>
     <string name="error_creating_image">Failed to create image</string>
     <string name="label_location">Location</string>
-    <string name="action_location">Location</string>
+    <string name="action_location">Update</string>
     <string name="err_location_disabled">Location provider not available</string>
     <string name="label_roll_speed">Exposed at ISO</string>
     <string name="label_roll_frames">frames</string>

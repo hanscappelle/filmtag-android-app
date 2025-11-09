@@ -55,7 +55,7 @@ class EditFrameViewModel(
             // inform user this film roll is locked
             events.postValue(Event.Message(R.string.msg_roll_is_locked))
         } else {
-            // TODO needs some input validation here
+            // TODO needs input validation here
             val frame = Frame(
                 number = selectedFrameId,
                 shutter = state.value?.editState?.speedState?.text.toString().toInt(),
@@ -64,7 +64,7 @@ class EditFrameViewModel(
                 isLongExposure = state.value?.editState?.checkedState?.value == true,
                 dateTaken = currentFrame?.dateTaken,
                 tags = state.value?.editState?.tagsState?.text?.split(TextUtil.TAG_SEPARATOR)?:emptyList(),
-                // TODO location: Location? = null,
+                location = currentFrame?.location,
             )
             // update an existing item
             filmRollRepository.updateFrame(selectedRollId, frame)
@@ -86,7 +86,8 @@ class EditFrameViewModel(
     }
 
     fun updateLocation(location: Location) {
-        TODO("Not yet implemented")
+        currentFrame = currentFrame?.copy(location = location)
+        updateUiState()
     }
 
     data class State(

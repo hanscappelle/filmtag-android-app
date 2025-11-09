@@ -34,7 +34,7 @@
     <string name="label_preview">Voorbeeld</string>
     <string name="error_creating_image">Aanmaken fotobestand mislukt</string>
     <string name="label_location">Locatie</string>
-    <string name="action_location">Locatie</string>
+    <string name="action_location">Aanpassen</string>
     <string name="err_location_disabled">Locatie niet beschikbaar</string>
     <string name="label_roll_speed">Belicht op ISO</string>
     <string name="label_roll_frames">beelden</string>
