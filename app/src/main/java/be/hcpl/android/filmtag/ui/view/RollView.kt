@@ -16,17 +16,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import be.hcpl.android.filmtag.R
 import be.hcpl.android.filmtag.model.Roll
-import be.hcpl.android.filmtag.ui.AppTheme
 
 @Composable
 fun RollView(
     roll: Roll,
     modifier: Modifier = Modifier,
 ) {
+
+    // TODO create uiModel in between that holds this kind of placeholders
     Column(
         verticalArrangement = spacedBy(4.dp),
         modifier = modifier
@@ -34,7 +34,6 @@ fun RollView(
             .heightIn(min = 48.dp)
             .fillMaxWidth(),
     ) {
-
         Row(
             horizontalArrangement = spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically,
@@ -49,7 +48,7 @@ fun RollView(
                     .alpha(if (roll.isDeveloped) 1f else 0.5f)
             )
             Text(
-                text = roll.type?.ifEmpty { "..." } ?: "...", // TODO create uiModel in between that holds this kind of placeholders
+                text = roll.type?.ifEmpty { "..." } ?: "...",
                 style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier
                     .weight(1f),
@@ -65,41 +64,5 @@ fun RollView(
                 text = roll.frames.toString() + " " + stringResource(R.string.label_roll_frames),
             )
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun Preview() {
-    AppTheme {
-        RollView(
-            roll = Roll(
-                id = 1000L,
-                type = "Roll Type Info",
-                speed = 200,
-                frames = 36,
-                notes = "some roll specific notes",
-                isDeveloped = true,
-                tags = listOf("tag1", "tag2", "tag3"),
-            )
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun PreviewEmpty() {
-    AppTheme {
-        RollView(
-            roll = Roll(
-                id = 1000L,
-                type = null,
-                speed = 200,
-                frames = 36,
-                notes = "some roll specific notes",
-                isDeveloped = false,
-                tags = listOf("tag1", "tag2", "tag3"),
-            )
-        )
     }
 }

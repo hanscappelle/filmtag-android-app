@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import be.hcpl.android.filmtag.domain.FilmRollRepository
 import be.hcpl.android.filmtag.domain.SharedPreferencesProvider
 import be.hcpl.android.filmtag.model.Roll
+import be.hcpl.android.filmtag.ui.tranformer.InputTransformer
 import be.hcpl.android.filmtag.ui.view.EditRollViewState
 import be.hcpl.android.filmtag.ui.tranformer.TextTransformer
 
@@ -14,6 +15,7 @@ class EditRollViewModel(
     private val sharedPreferencesProvider: SharedPreferencesProvider,
     private val filmRollRepository: FilmRollRepository,
     private val textTransformer: TextTransformer,
+    private val inputTransformer: InputTransformer,
 ) : ViewModel() {
 
     val state = MutableLiveData<State>()
@@ -38,12 +40,11 @@ class EditRollViewModel(
     //edit_frames.setText(prefs.getString("key_default_frames", 36.toString()))
 
     fun saveChanges() {
-        // TODO needs some input validation here
         val roll = Roll(
             id = selectedRollId,
             type = state.value?.editState?.filmTypeState?.text.toString(),
-            speed = state.value?.editState?.isoState?.text.toString().toInt(),
-            frames = state.value?.editState?.framesState?.text.toString().toInt(),
+            speed = inputTransformer.sanitizeInt(state.value?.editState?.isoState?.text.toString()),
+            frames = inputTransformer.sanitizeInt(state.value?.editState?.framesState?.text.toString()),
             notes = state.value?.editState?.notesState?.text.toString(),
             isDeveloped = state.value?.editState?.checkedState?.value == true,
             tags = state.value?.editState?.tagsState?.text?.split(textTransformer.TAG_SEPARATOR) ?: emptyList(),

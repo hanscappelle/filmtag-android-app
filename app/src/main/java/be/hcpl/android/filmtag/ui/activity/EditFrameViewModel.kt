@@ -10,6 +10,7 @@ import be.hcpl.android.filmtag.model.Frame
 import be.hcpl.android.filmtag.model.Location
 import be.hcpl.android.filmtag.model.Roll
 import be.hcpl.android.filmtag.ui.activity.EditFrameViewModel.Event.ShowOnMap
+import be.hcpl.android.filmtag.ui.tranformer.InputTransformer
 import be.hcpl.android.filmtag.ui.view.EditFrameViewState
 import be.hcpl.android.filmtag.ui.tranformer.TextTransformer
 
@@ -18,6 +19,7 @@ class EditFrameViewModel(
     private val selectedFrameId: Int,
     private val filmRollRepository: FilmRollRepository,
     private val textTransformer: TextTransformer,
+    private val inputTransformer: InputTransformer,
 ) : ViewModel() {
 
     val state = MutableLiveData<State>()
@@ -63,8 +65,8 @@ class EditFrameViewModel(
             // TODO needs input validation here
             val frame = Frame(
                 number = selectedFrameId,
-                shutter = state.value?.editState?.speedState?.text.toString().toInt(),
-                aperture = state.value?.editState?.apertureState?.text.toString().toDouble(),
+                shutter = inputTransformer.sanitizeInt(state.value?.editState?.speedState?.text.toString()),
+                aperture = inputTransformer.sanitizeDouble(state.value?.editState?.apertureState?.text.toString()),
                 notes = state.value?.editState?.notesState?.text.toString(),
                 isLongExposure = state.value?.editState?.checkedState?.value == true,
                 dateTaken = currentFrame?.dateTaken,

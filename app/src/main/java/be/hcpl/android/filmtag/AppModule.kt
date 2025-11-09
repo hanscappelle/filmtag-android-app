@@ -8,6 +8,7 @@ import be.hcpl.android.filmtag.ui.activity.FilmRollViewModel
 import be.hcpl.android.filmtag.ui.activity.EditFrameViewModel
 import be.hcpl.android.filmtag.ui.activity.MainViewModel
 import be.hcpl.android.filmtag.ui.tranformer.FrameUiModelTransformer
+import be.hcpl.android.filmtag.ui.tranformer.InputTransformer
 import be.hcpl.android.filmtag.ui.tranformer.TextTransformer
 import com.google.gson.Gson
 import org.koin.core.module.dsl.factoryOf
@@ -30,4 +31,5 @@ val appModule = module {
 
     factoryOf(::FrameUiModelTransformer)
     factoryOf(::TextTransformer)
+    factoryOf(::InputTransformer)
 }

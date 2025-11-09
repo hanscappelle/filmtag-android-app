@@ -1,6 +1,7 @@
 package be.hcpl.android.filmtag.ui.view
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,7 +11,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import be.hcpl.android.filmtag.model.Roll
 
@@ -20,7 +21,6 @@ fun RollDetailView(
     modifier: Modifier = Modifier,
 ) {
     Column(modifier) {
-
         Text(
             text = "${roll.type ?: "..."} @ ${roll.speed} # ${roll.frames}",
             color = MaterialTheme.colorScheme.inverseOnSurface,
@@ -32,34 +32,14 @@ fun RollDetailView(
         )
         Row(
             horizontalArrangement = spacedBy(8.dp),
-            modifier = Modifier.padding(8.dp),
+            modifier = Modifier
+                .border(1.dp, color = Color.White)
+                .fillMaxWidth()
+                .padding(8.dp),
         ) {
             roll.tags.forEach { tag ->
                 Text(text = tag)
             }
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun Preview() {
-    RollDetailView(
-        Roll(
-            type = "film type",
-            speed = 200,
-            frames = 24,
-            notes = "notes",
-            isDeveloped = true,
-            tags = listOf("tag1", "tag2", "tag3")
-        ),
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun PreviewDefaults() {
-    RollDetailView(
-        Roll(),
-    )
 }
