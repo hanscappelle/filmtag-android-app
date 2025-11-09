@@ -94,11 +94,7 @@ class EditFrameActivity : ComponentActivity() {
                             showDatePicker.value = true
                         },
                         onShowLocation = { location ->
-                            // TODO move this to viewModel
-                            location?.let {
-                                val geoLocation = Uri.parse("geo: ${location.latitude},${location.longitude}")
-                                showOnMap(geoLocation)
-                            }
+                            viewModel.prepareShowLocation(location)
                         },
                         onUpdateLocation = {
                             confirmUpdateLocation()
@@ -122,6 +118,7 @@ class EditFrameActivity : ComponentActivity() {
         when (event) {
             Event.Close -> finish()
             is Event.Message -> Toast.makeText(this, event.resourceId, Toast.LENGTH_SHORT).show()
+            is Event.ShowOnMap -> showOnMap(event.uri)
         }
     }
 

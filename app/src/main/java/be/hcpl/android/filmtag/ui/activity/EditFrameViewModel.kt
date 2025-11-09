@@ -1,5 +1,6 @@
 package be.hcpl.android.filmtag.ui.activity
 
+import android.net.Uri
 import be.hcpl.android.filmtag.R
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,6 +8,7 @@ import be.hcpl.android.filmtag.domain.FilmRollRepository
 import be.hcpl.android.filmtag.model.Frame
 import be.hcpl.android.filmtag.model.Location
 import be.hcpl.android.filmtag.model.Roll
+import be.hcpl.android.filmtag.ui.activity.EditFrameViewModel.Event.ShowOnMap
 import be.hcpl.android.filmtag.ui.view.EditFrameViewState
 import be.hcpl.android.filmtag.util.TextUtil
 
@@ -51,7 +53,7 @@ class EditFrameViewModel(
     }
 
     fun saveFrame(close: Boolean = true) {
-        if( currentRoll?.isDeveloped == true ){
+        if (currentRoll?.isDeveloped == true) {
             // inform user this film roll is locked
             events.postValue(Event.Message(R.string.msg_roll_is_locked))
         } else {
@@ -63,7 +65,7 @@ class EditFrameViewModel(
                 notes = state.value?.editState?.notesState?.text.toString(),
                 isLongExposure = state.value?.editState?.checkedState?.value == true,
                 dateTaken = currentFrame?.dateTaken,
-                tags = state.value?.editState?.tagsState?.text?.split(TextUtil.TAG_SEPARATOR)?:emptyList(),
+                tags = state.value?.editState?.tagsState?.text?.split(TextUtil.TAG_SEPARATOR) ?: emptyList(),
                 location = currentFrame?.location,
             )
             // update an existing item
@@ -90,6 +92,13 @@ class EditFrameViewModel(
         updateUiState()
     }
 
+    fun prepareShowLocation(location: Location?) {
+        location?.let {
+            val geoLocation = Uri.parse("geo: ${location.latitude},${location.longitude}")
+            events.postValue(ShowOnMap(geoLocation))
+        }
+    }
+
     data class State(
         val roll: Roll,
         val frame: Frame,
@@ -98,6 +107,7 @@ class EditFrameViewModel(
 
     sealed class Event {
         data object Close : Event()
-        data class Message(val resourceId: Int): Event()
+        data class Message(val resourceId: Int) : Event()
+        data class ShowOnMap(val uri: Uri) : Event()
     }
 }
