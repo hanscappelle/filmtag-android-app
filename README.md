@@ -43,17 +43,15 @@ Other apps that do similar things.
 * (feature) in app visualisation of locations on map
 * (feature) autocomplete for names and tags based on existing
 * (restore) filter with search from toolbar
-* improve picture storage and preview
-* (feature) resolve locations into address or place names instead of lat/long?
 * (user request) better way of exporting data
 * (user request) select from a list of camera's & lenses
 * (user request) add time to date for frame
-* (bug) tags no longer working
 
 ### 2.0
 
 * (technical) convert to compose
 * dropped picture storage per frame
+* (fixed) tags no longer working
 
 ### 1.2
 
