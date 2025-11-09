@@ -43,6 +43,11 @@ class EditFrameActivity : ComponentActivity() {
             AppScaffold(
                 actions = listOf(
                     Action(
+                        iconRes = if (state.roll.isDeveloped) R.drawable.ic_lock_closed else R.drawable.ic_lock_open,
+                        textRes = R.string.action_edit,
+                        actionId = ActionId.Update,
+                    ),
+                    Action(
                         iconRes = R.drawable.ic_action_check,
                         textRes = R.string.action_create,
                         actionId = ActionId.Create,
@@ -88,6 +93,7 @@ class EditFrameActivity : ComponentActivity() {
         when (actionId) {
             ActionId.Close -> finish()
             ActionId.Create -> viewModel.saveFrame()
+            ActionId.Update -> viewModel.toggleLocked()
             else -> TODO()
         }
     }

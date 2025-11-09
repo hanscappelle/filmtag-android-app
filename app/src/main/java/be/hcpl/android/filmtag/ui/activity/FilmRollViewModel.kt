@@ -60,7 +60,6 @@ class FilmRollViewModel(
             filmRollRepository.updateRoll(roll)
             refreshData()
         }
-
     }
 
     fun onResume() {

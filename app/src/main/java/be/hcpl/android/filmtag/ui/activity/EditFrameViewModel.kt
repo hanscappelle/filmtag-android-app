@@ -75,6 +75,14 @@ class EditFrameViewModel(
         updateUiState()
     }
 
+    fun toggleLocked() {
+        currentRoll?.let { roll ->
+            roll.isDeveloped = !roll.isDeveloped
+            filmRollRepository.updateRoll(roll)
+            updateUiState()
+        }
+    }
+
     data class State(
         val roll: Roll,
         val frame: Frame,
