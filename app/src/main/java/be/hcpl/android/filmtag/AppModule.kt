@@ -7,6 +7,8 @@ import be.hcpl.android.filmtag.ui.activity.EditRollViewModel
 import be.hcpl.android.filmtag.ui.activity.FilmRollViewModel
 import be.hcpl.android.filmtag.ui.activity.EditFrameViewModel
 import be.hcpl.android.filmtag.ui.activity.MainViewModel
+import be.hcpl.android.filmtag.ui.tranformer.FrameUiModelTransformer
+import be.hcpl.android.filmtag.ui.tranformer.TextTransformer
 import com.google.gson.Gson
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
@@ -25,4 +27,7 @@ val appModule = module {
 
     singleOf(::SharedPreferencesProvider)
     singleOf(::Gson)
+
+    factoryOf(::FrameUiModelTransformer)
+    factoryOf(::TextTransformer)
 }

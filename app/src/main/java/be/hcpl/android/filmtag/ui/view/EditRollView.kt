@@ -1,9 +1,7 @@
 package be.hcpl.android.filmtag.ui.view
 
-import android.text.TextUtils
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
-import be.hcpl.android.filmtag.R
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,20 +18,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import be.hcpl.android.filmtag.R
 import be.hcpl.android.filmtag.model.Roll
-import be.hcpl.android.filmtag.ui.AppScaffold
-import be.hcpl.android.filmtag.util.TextUtil
 
 
 data class EditRollViewState(
     val roll: Roll, // this roll is only used for the initial state values
+    val currentTags: String, // formatted tags
 ) {
     val filmTypeState = TextFieldState(initialText = roll.type.orEmpty())
     val isoState = TextFieldState(initialText = "${roll.speed}")
     val framesState = TextFieldState(initialText = "${roll.frames}")
-    val tagsState = TextFieldState(initialText = TextUtils.join(TextUtil.TAG_SEPARATOR, roll.tags))
+    val tagsState = TextFieldState(initialText = currentTags)
     val notesState = TextFieldState(initialText = roll.notes.orEmpty())
     val checkedState = mutableStateOf(roll.isDeveloped)
 }
@@ -110,16 +107,4 @@ fun EditRollView(
         )
 
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun Preview() {
-    AppScaffold { padding ->
-        EditRollView(
-            EditRollViewState(Roll()),
-            Modifier.padding(padding),
-        )
-    }
-
 }

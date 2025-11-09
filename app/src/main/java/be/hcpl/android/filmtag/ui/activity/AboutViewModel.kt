@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import be.hcpl.android.filmtag.BuildConfig
 import be.hcpl.android.filmtag.R
-import be.hcpl.android.filmtag.util.TextUtil.SYSTEM_LINE_SEPARATOR
+import be.hcpl.android.filmtag.ui.tranformer.TextTransformer
 import java.io.BufferedReader
 import java.io.Closeable
 import java.io.InputStream
@@ -13,6 +13,7 @@ import java.io.InputStreamReader
 
 class AboutViewModel(
     context: Application,
+    private val textTransformer: TextTransformer,
 ) : ViewModel() {
 
     val state = MutableLiveData<State>()
@@ -34,7 +35,7 @@ class AboutViewModel(
 
             var e: String? = input.readLine()
             while (e != null) {
-                buffer.append(e).append(SYSTEM_LINE_SEPARATOR)
+                buffer.append(e).append(textTransformer.SYSTEM_LINE_SEPARATOR)
                 e = input.readLine()
             }
 

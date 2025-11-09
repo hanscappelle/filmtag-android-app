@@ -1,6 +1,7 @@
 package be.hcpl.android.filmtag.ui.activity
 
 import android.net.Uri
+import android.text.TextUtils
 import be.hcpl.android.filmtag.R
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,12 +11,13 @@ import be.hcpl.android.filmtag.model.Location
 import be.hcpl.android.filmtag.model.Roll
 import be.hcpl.android.filmtag.ui.activity.EditFrameViewModel.Event.ShowOnMap
 import be.hcpl.android.filmtag.ui.view.EditFrameViewState
-import be.hcpl.android.filmtag.util.TextUtil
+import be.hcpl.android.filmtag.ui.tranformer.TextTransformer
 
 class EditFrameViewModel(
     private val selectedRollId: Long,
     private val selectedFrameId: Int,
     private val filmRollRepository: FilmRollRepository,
+    private val textTransformer: TextTransformer,
 ) : ViewModel() {
 
     val state = MutableLiveData<State>()
@@ -42,8 +44,10 @@ class EditFrameViewModel(
                         roll = roll,
                         frame = frame,
                         editState = EditFrameViewState(
-                            roll,
-                            frame,
+                            roll = roll,
+                            frame = frame,
+                            currentTags = TextUtils.join(textTransformer.TAG_SEPARATOR, frame.tags),
+                            formattedDate = frame.dateTaken?.let { textTransformer.formatDate(it) }
                         )
                     )
                 )
@@ -64,7 +68,7 @@ class EditFrameViewModel(
                 notes = state.value?.editState?.notesState?.text.toString(),
                 isLongExposure = state.value?.editState?.checkedState?.value == true,
                 dateTaken = currentFrame?.dateTaken,
-                tags = state.value?.editState?.tagsState?.text?.split(TextUtil.TAG_SEPARATOR) ?: emptyList(),
+                tags = state.value?.editState?.tagsState?.text?.split(textTransformer.TAG_SEPARATOR) ?: emptyList(),
                 location = currentFrame?.location,
             )
             // update an existing item

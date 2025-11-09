@@ -7,10 +7,13 @@ import be.hcpl.android.filmtag.model.Frame
 import be.hcpl.android.filmtag.model.Roll
 import be.hcpl.android.filmtag.ui.activity.FilmRollViewModel.Event.Close
 import be.hcpl.android.filmtag.ui.activity.FilmRollViewModel.Event.EditRoll
+import be.hcpl.android.filmtag.ui.tranformer.FrameUiModelTransformer
+import be.hcpl.android.filmtag.ui.view.FrameUiModel
 
 class FilmRollViewModel(
     private val selectedRollId: Long,
     private val filmRollRepository: FilmRollRepository,
+    private val frameUiModelTransformer: FrameUiModelTransformer,
 ) : ViewModel() {
 
     val state = MutableLiveData<State>()
@@ -25,18 +28,13 @@ class FilmRollViewModel(
     private fun refreshData() {
         filmRollRepository.getRollById(selectedRollId)?.let { roll ->
             currentRoll = roll
-            val preparedFrames = filmRollRepository.getFramesForFilm(selectedRollId)
-                //.toMutableList().also {
-                //if (it.isEmpty()) {
-                //    repeat(roll.frames) { counter ->
-                //        it.add(Frame(number = counter + 1))
-                //    }
-                //}
-            //}
+            val preparedFrames = filmRollRepository.getFramesForFilm(selectedRollId).map{
+                frameUiModelTransformer.transform(it)
+            }
             state.postValue(
                 State(
                     roll = roll,
-                    frames = preparedFrames.toList(),
+                    frames = preparedFrames,
                 )
             )
         } ?: state.postValue(State(Roll())) // some empty state
@@ -75,7 +73,7 @@ class FilmRollViewModel(
 
     data class State(
         val roll: Roll,
-        val frames: List<Frame> = emptyList(),
+        val frames: List<FrameUiModel> = emptyList(),
     )
 
     sealed class Event {
