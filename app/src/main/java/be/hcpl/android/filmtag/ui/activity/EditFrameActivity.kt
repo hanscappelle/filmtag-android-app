@@ -2,6 +2,7 @@ package be.hcpl.android.filmtag.ui.activity
 
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
@@ -94,6 +95,7 @@ class EditFrameActivity : ComponentActivity() {
     private fun handleEvent(event: EditFrameViewModel.Event) {
         when (event) {
             EditFrameViewModel.Event.Close -> finish()
+            is EditFrameViewModel.Event.Message -> Toast.makeText(this, event.resourceId, Toast.LENGTH_SHORT).show()
         }
     }
 

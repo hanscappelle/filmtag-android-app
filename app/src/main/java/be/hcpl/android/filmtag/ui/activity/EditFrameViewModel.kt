@@ -1,12 +1,12 @@
 package be.hcpl.android.filmtag.ui.activity
 
+import be.hcpl.android.filmtag.R
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import be.hcpl.android.filmtag.domain.FilmRollRepository
 import be.hcpl.android.filmtag.model.Frame
 import be.hcpl.android.filmtag.model.Roll
 import be.hcpl.android.filmtag.ui.view.EditFrameViewState
-import java.sql.Date
 
 class EditFrameViewModel(
     private val selectedRollId: Long,
@@ -16,8 +16,6 @@ class EditFrameViewModel(
 
     val state = MutableLiveData<State>()
     val events = MutableLiveData<Event>()
-
-    // TODO lock edit when roll is marked closed
 
     var currentRoll: Roll? = null
     var currentFrame: Frame? = null
@@ -34,35 +32,42 @@ class EditFrameViewModel(
     }
 
     private fun updateUiState() {
-        if (currentRoll != null && currentFrame != null) {
-            state.postValue(
-                State(
-                    roll = currentRoll!!,
-                    frame = currentFrame!!,
-                    editFrameState = EditFrameViewState(
-                        currentRoll!!,
-                        currentFrame!!,
+        currentRoll?.let { roll ->
+            currentFrame?.let { frame ->
+                state.postValue(
+                    State(
+                        roll = roll,
+                        frame = frame,
+                        editFrameState = EditFrameViewState(
+                            roll,
+                            frame,
+                        )
                     )
                 )
-            )
+            }
         }
     }
 
     fun saveFrame(close: Boolean = true) {
-        // TODO needs some input validation here
-        val frame = Frame(
-            number = selectedFrameId,
-            shutter = state.value?.editFrameState?.speedState?.text.toString().toInt(),
-            aperture = state.value?.editFrameState?.apertureState?.text.toString().toDouble(),
-            notes = state.value?.editFrameState?.notesState?.text.toString(),
-            isLongExposure = state.value?.editFrameState?.checkedState?.value == true,
-            dateTaken = currentFrame?.dateTaken,
-            tags = listOf(),//TODO handle tags here (need to parse?),
-            // TODO location: Location? = null,
-        )
-        // update an existing item
-        filmRollRepository.updateFrame(selectedRollId, frame)
-        if (close) events.postValue(Event.Close)
+        if( currentRoll?.isDeveloped == true ){
+            // inform user this film roll is locked
+            events.postValue(Event.Message(R.string.msg_roll_is_locked))
+        } else {
+            // TODO needs some input validation here
+            val frame = Frame(
+                number = selectedFrameId,
+                shutter = state.value?.editFrameState?.speedState?.text.toString().toInt(),
+                aperture = state.value?.editFrameState?.apertureState?.text.toString().toDouble(),
+                notes = state.value?.editFrameState?.notesState?.text.toString(),
+                isLongExposure = state.value?.editFrameState?.checkedState?.value == true,
+                dateTaken = currentFrame?.dateTaken,
+                tags = listOf(),//TODO handle tags here (need to parse?),
+                // TODO location: Location? = null,
+            )
+            // update an existing item
+            filmRollRepository.updateFrame(selectedRollId, frame)
+            if (close) events.postValue(Event.Close)
+        }
     }
 
     fun updateSelectedDate(date: Long?) {
@@ -78,5 +83,6 @@ class EditFrameViewModel(
 
     sealed class Event {
         data object Close : Event()
+        data class Message(val resourceId: Int): Event()
     }
 }
