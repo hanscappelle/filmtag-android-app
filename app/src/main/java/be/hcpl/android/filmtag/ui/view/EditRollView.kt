@@ -1,6 +1,7 @@
 package be.hcpl.android.filmtag.ui.view
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -105,9 +106,11 @@ fun EditRollView(
             state = viewState.notesState,
             label = { Text(text = stringResource(R.string.label_frame_notes)) },
             lineLimits = TextFieldLineLimits.MultiLine(
-                minHeightInLines = 8,
+                minHeightInLines = 4,
+                maxHeightInLines = 4,
             ),
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth(),
         )
 
     }

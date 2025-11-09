@@ -97,25 +97,6 @@ fun EditFrameView(
             )
         }
 
-        Row(
-            horizontalArrangement = spacedBy(8.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Checkbox(
-                checked = viewState.checkedState.value,
-                onCheckedChange = {
-                    viewState.checkedState.value = !(viewState.checkedState.value)
-                },
-                modifier = Modifier,
-            )
-            Text(
-                text = stringResource(R.string.long_exposure),
-                modifier = Modifier.clickable {
-                    viewState.checkedState.value = !(viewState.checkedState.value)
-                }
-            )
-        }
-
         TextField(
             state = viewState.tagsState,
             label = { Text(text = stringResource(R.string.label_frame_tags)) },
@@ -126,7 +107,8 @@ fun EditFrameView(
             state = viewState.notesState,
             label = { Text(text = stringResource(R.string.label_frame_notes)) },
             lineLimits = TextFieldLineLimits.MultiLine(
-                minHeightInLines = 6,
+                minHeightInLines = 4,
+                maxHeightInLines = 4,
             ),
             modifier = Modifier.fillMaxWidth(),
         )
@@ -167,6 +149,25 @@ fun EditFrameView(
                     .weight(0.3f)
                     .clickable {
                     onUpdateLocation()
+                }
+            )
+        }
+
+        Row(
+            horizontalArrangement = spacedBy(8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Checkbox(
+                checked = viewState.checkedState.value,
+                onCheckedChange = {
+                    viewState.checkedState.value = !(viewState.checkedState.value)
+                },
+                modifier = Modifier,
+            )
+            Text(
+                text = stringResource(R.string.long_exposure),
+                modifier = Modifier.clickable {
+                    viewState.checkedState.value = !(viewState.checkedState.value)
                 }
             )
         }
