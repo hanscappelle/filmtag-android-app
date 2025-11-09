@@ -2,8 +2,8 @@ package be.hcpl.android.filmtag.ui.activity
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import be.hcpl.android.filmtag.domain.repository.FilmRollRepository
-import be.hcpl.android.filmtag.domain.repository.SharedPreferencesProvider
+import be.hcpl.android.filmtag.domain.FilmRollRepository
+import be.hcpl.android.filmtag.domain.SharedPreferencesProvider
 import be.hcpl.android.filmtag.model.Roll
 import be.hcpl.android.filmtag.ui.view.EditRollViewState
 

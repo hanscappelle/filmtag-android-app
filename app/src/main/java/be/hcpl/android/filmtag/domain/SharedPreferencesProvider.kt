@@ -1,4 +1,4 @@
-package be.hcpl.android.filmtag.domain.repository
+package be.hcpl.android.filmtag.domain
 
 import android.content.Context
 import android.content.SharedPreferences

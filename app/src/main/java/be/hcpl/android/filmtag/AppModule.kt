@@ -1,7 +1,7 @@
 package be.hcpl.android.filmtag
 
-import be.hcpl.android.filmtag.domain.repository.FilmRollRepository
-import be.hcpl.android.filmtag.domain.repository.SharedPreferencesProvider
+import be.hcpl.android.filmtag.domain.FilmRollRepository
+import be.hcpl.android.filmtag.domain.SharedPreferencesProvider
 import be.hcpl.android.filmtag.ui.activity.AboutViewModel
 import be.hcpl.android.filmtag.ui.activity.EditRollViewModel
 import be.hcpl.android.filmtag.ui.activity.FilmRollViewModel

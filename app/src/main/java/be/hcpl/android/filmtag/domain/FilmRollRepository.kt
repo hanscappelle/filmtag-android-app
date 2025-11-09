@@ -1,4 +1,4 @@
-package be.hcpl.android.filmtag.domain.repository
+package be.hcpl.android.filmtag.domain
 
 import be.hcpl.android.filmtag.model.DataExportFormat
 import be.hcpl.android.filmtag.model.Frame
