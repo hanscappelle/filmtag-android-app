@@ -30,8 +30,7 @@ class EditFrameViewModel(
 
     private fun refreshData() {
         currentRoll = filmRollRepository.getRollById(selectedRollId) ?: Roll()
-        // TODO needs safeguard here for index?
-        currentFrame = filmRollRepository.getFramesForFilm(selectedRollId)[selectedFrameId]
+        currentFrame = filmRollRepository.getFramesForFilm(selectedRollId).getOrNull(selectedFrameId)
         updateUiState()
     }
 

@@ -44,8 +44,20 @@ class FilmRollRepository(
     }
 
     fun getFramesForFilm(rollId: Long): List<Frame> {
+        val roll = getRollById(rollId)
         val framesData = sharedPreferencesProvider.sharedPreferences.getString(KEY_FILM_ROLLS + rollId, "[]")
-        return gson.fromJson(framesData, listOfFramesType)
+        return gson.fromJson<List<Frame>>(framesData, listOfFramesType).toMutableList().also { frames ->
+            // safeguard by adding the number of missing frames here
+            val originalSize = frames.size
+            val neededSize = roll?.frames ?: 0
+            (neededSize - originalSize).takeIf { it > 0 }?.let { count ->
+                repeat(count) {
+                    frames.add(Frame(number = originalSize + it))
+                }
+                // do we need to safe these here?
+                roll?.let { updateFrames(it, frames) }
+            }
+        }
     }
 
     fun parseDataExportFormat(sharedText: String): DataExportFormat {

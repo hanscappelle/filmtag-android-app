@@ -104,7 +104,7 @@ fun EditRollView(
             state = viewState.notesState,
             label = { Text(text = stringResource(R.string.label_frame_notes)) },
             lineLimits = TextFieldLineLimits.MultiLine(
-                minHeightInLines = 6,
+                minHeightInLines = 8,
             ),
             modifier = Modifier.fillMaxWidth(),
         )
