@@ -45,17 +45,22 @@ class EditFrameViewModel(
                     State(
                         roll = roll,
                         frame = frame,
-                        editState = EditFrameViewState(
-                            roll = roll,
-                            frame = frame,
-                            currentTags = TextUtils.join(textTransformer.TAG_SEPARATOR, frame.tags),
-                            formattedDate = frame.dateTaken?.let { textTransformer.formatDate(it) }
-                        )
+                        editState = editStateFor(roll, frame),
                     )
                 )
             }
         }
     }
+
+    private fun editStateFor(
+        roll: Roll,
+        frame: Frame,
+    ): EditFrameViewState = EditFrameViewState(
+        roll = roll,
+        frame = frame,
+        currentTags = TextUtils.join(textTransformer.TAG_SEPARATOR, frame.tags),
+        formattedDate = frame.dateTaken?.let { textTransformer.formatDate(it) },
+    )
 
     fun saveFrame(close: Boolean = true) {
         if (currentRoll?.isDeveloped == true) {
@@ -87,7 +92,9 @@ class EditFrameViewModel(
         currentRoll?.let { roll ->
             roll.isDeveloped = !roll.isDeveloped
             filmRollRepository.updateRoll(roll)
-            updateUiState()
+            // don't update everything just yet, only update roll here so form input is kept
+            //updateUiState()
+            state.postValue(state.value?.copy(roll = roll))
         }
     }
 
