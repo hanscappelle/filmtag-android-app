@@ -6,12 +6,15 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import be.hcpl.android.filmtag.R
 import be.hcpl.android.filmtag.ui.Action
 import be.hcpl.android.filmtag.ui.ActionId
 import be.hcpl.android.filmtag.ui.AppScaffold
 import be.hcpl.android.filmtag.ui.activity.FilmRollActivity.Companion.KEY_FILM_ROLL_ID
+import be.hcpl.android.filmtag.ui.view.DatePickerModal
 import be.hcpl.android.filmtag.ui.view.EditFrameView
 import be.hcpl.android.filmtag.ui.view.RollDetailView
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -51,10 +54,29 @@ class EditFrameActivity : ComponentActivity() {
                 ),
                 handleAction = ::handleAction,
             ) { innerPadding ->
+
+                // modal date picker
+                val showDatePicker = remember { mutableStateOf(false) }
+                if (showDatePicker.value) {
+                    DatePickerModal(
+                        onDateSelected = { selectedDate ->
+                            viewModel.updateSelectedDate(selectedDate)
+                            showDatePicker.value = false
+                        },
+                        onDismiss = {
+                            showDatePicker.value = false
+                        },
+                    )
+                }
+
+                // edit form fields populated from state
                 Column(modifier = Modifier.padding(innerPadding)) {
                     RollDetailView(state.roll)
                     EditFrameView(
                         viewState = state.editFrameState,
+                        onSelectDate = {
+                            showDatePicker.value = true
+                        }
                     )
                 }
             }

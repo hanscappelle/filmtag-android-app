@@ -12,8 +12,13 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.DatePicker
+import androidx.compose.material3.DatePickerDialog
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
+import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
@@ -25,6 +30,8 @@ import androidx.compose.ui.unit.dp
 import be.hcpl.android.filmtag.model.Frame
 import be.hcpl.android.filmtag.model.Roll
 import be.hcpl.android.filmtag.ui.AppScaffold
+import be.hcpl.android.filmtag.ui.AppTheme
+import be.hcpl.android.filmtag.util.TextUtil
 
 
 data class EditFrameViewState(
@@ -36,8 +43,7 @@ data class EditFrameViewState(
     val tagsState = TextFieldState(initialText = TextUtils.join(", ", frame.tags))
     val notesState = TextFieldState(initialText = frame.notes.orEmpty())
     val checkedState = mutableStateOf(frame.isLongExposure)
-    // TODO restore location here also
-    // TODO restore date selection
+    // TODO restore location selection here
     // TODO add time selection
 }
 
@@ -45,6 +51,7 @@ data class EditFrameViewState(
 fun EditFrameView(
     viewState: EditFrameViewState,
     modifier: Modifier = Modifier,
+    onSelectDate: () -> Unit,
 ) {
     Column(
         verticalArrangement = spacedBy(16.dp),
@@ -55,10 +62,17 @@ fun EditFrameView(
 
             Text(
                 text = "${stringResource(R.string.label_frame_number)} ${viewState.frame.number}",
-                modifier = Modifier.weight(1f)
+                style = MaterialTheme.typography.titleLarge,
+                modifier = Modifier.weight(1f),
             )
-            // TODO restore date selection
-            Text(stringResource(R.string.select_date))
+            Text(
+                text = if (viewState.frame.dateTaken != null) {
+                    TextUtil.formatDate(viewState.frame.dateTaken ?: System.currentTimeMillis())
+                } else stringResource(R.string.select_date),
+                modifier = Modifier.clickable {
+                    onSelectDate()
+                }
+            )
         }
 
         Row(
@@ -119,7 +133,7 @@ fun EditFrameView(
             Text(
                 text = stringResource(R.string.label_location),
             )
-            // TODO restore date selection
+            // TODO restore location here
             //Text(stringResource(R.string.action_location))
         }
 
@@ -136,6 +150,7 @@ private fun Preview() {
                 frame = Frame(),
             ),
             Modifier.padding(padding),
+            onSelectDate = {},
         )
     }
 
