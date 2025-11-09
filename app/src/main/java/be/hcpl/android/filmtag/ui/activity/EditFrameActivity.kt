@@ -110,7 +110,7 @@ class EditFrameActivity : ComponentActivity() {
             ActionId.Close -> finish()
             ActionId.Create -> viewModel.saveFrame()
             ActionId.Update -> viewModel.toggleLocked()
-            else -> TODO()
+            else -> Unit
         }
     }
 

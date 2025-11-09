@@ -62,7 +62,6 @@ class EditFrameViewModel(
             // inform user this film roll is locked
             events.postValue(Event.Message(R.string.msg_roll_is_locked))
         } else {
-            // TODO needs input validation here
             val frame = Frame(
                 number = selectedFrameId,
                 shutter = inputTransformer.sanitizeInt(state.value?.editState?.speedState?.text.toString()),

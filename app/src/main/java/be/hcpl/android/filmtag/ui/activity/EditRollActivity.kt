@@ -57,7 +57,7 @@ class EditRollActivity : ComponentActivity() {
         when (actionId) {
             ActionId.Close -> finish()
             ActionId.Create -> viewModel.saveChanges()
-            else -> TODO()
+            else -> Unit
         }
     }
 

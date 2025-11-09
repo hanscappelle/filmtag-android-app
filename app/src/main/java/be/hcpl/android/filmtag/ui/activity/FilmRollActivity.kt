@@ -102,7 +102,7 @@ class FilmRollActivity : ComponentActivity() {
             ActionId.Create -> viewModel.preparedEditRoll()
             ActionId.Delete -> confirmDeleteRoll()
             ActionId.Update -> viewModel.toggleLocked()
-            else -> TODO()
+            else -> Unit
         }
     }
 

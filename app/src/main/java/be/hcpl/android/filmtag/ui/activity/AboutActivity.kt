@@ -62,7 +62,7 @@ class AboutActivity : ComponentActivity() {
     private fun handleAction(actionId: ActionId){
         when(actionId){
             ActionId.Close -> finish()
-            else -> TODO()
+            else -> Unit
         }
     }
 }
