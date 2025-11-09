@@ -104,7 +104,7 @@ class MainActivity : ComponentActivity() {
                     .setMessage(R.string.msg_lock_complete_film_roll)
                     .setPositiveButton(optionText) { _, _ ->
                         viewModel.toggleLock(event.rollId)
-                    }.setNegativeButton(R.string.option_roll_cancel) { _, _ -> Unit }.show()
+                    }.setNegativeButton(R.string.option_cancel) { _, _ -> Unit }.show()
             }
 
             is MainViewModel.Event.ShareConfig -> finishShareConfig(event.exportedFormat)
@@ -138,7 +138,7 @@ class MainActivity : ComponentActivity() {
     private fun showHelp() {
         AlertDialog.Builder(this)
             .setMessage(R.string.msg_first_view_help)
-            .setPositiveButton(R.string.ok) { _, _ -> }
+            .setPositiveButton(R.string.label_ok) { _, _ -> }
             .show()
     }
 

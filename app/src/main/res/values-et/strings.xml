@@ -19,7 +19,6 @@
     <string name="err_parsing_failed">Parsimine ebaõnnestud</string>
     <string name="error_creating_image">Pildi loomine ebaõnnestus</string>
     <string name="info_data_imported">Andmed importditud</string>
-    <string name="info_import_export">Kasuta \"Jaga\" või \"Saada\" valikut teistes äppides, et importida andmeid tagasi sellesse äppi</string>
     <string name="label_aperture">Ava</string>
     <string name="label_film_aperture">Ava</string>
     <string name="label_film_developed">Film ilmutatud</string>
@@ -44,7 +43,7 @@
     <string name="label_yes">Jah</string>
     <string name="long_exposure">Pikk säriaeg</string>
     <string name="msg_delete_complete_film_roll">Kas kustutada kogu filmirull? Koos kõigi kaadritega?</string>
-    <string name="ok">OK</string>
+    <string name="label_ok">OK</string>
     <string name="pref_summary_default_aperture">Vaikimisi avasuurus kaadrite sisestamisel</string>
     <string name="pref_summary_default_frames">Vaikimisi kaadrite arv uue filmi lisamisel</string>
     <string name="pref_summary_default_iso">Vaikimisi tundlikkus uue filrmi lisamisel</string>
