@@ -1,6 +1,5 @@
 package be.hcpl.android.filmtag.ui.activity
 
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import be.hcpl.android.filmtag.R

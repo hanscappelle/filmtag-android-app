@@ -4,7 +4,6 @@ package be.hcpl.android.filmtag.ui.activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.Modifier
@@ -12,10 +11,8 @@ import be.hcpl.android.filmtag.R
 import be.hcpl.android.filmtag.ui.Action
 import be.hcpl.android.filmtag.ui.ActionId
 import be.hcpl.android.filmtag.ui.AppScaffold
-import be.hcpl.android.filmtag.ui.activity.EditRollViewModel.Event
 import be.hcpl.android.filmtag.ui.activity.FilmRollActivity.Companion.KEY_FILM_ROLL_ID
 import be.hcpl.android.filmtag.ui.view.EditFrameView
-import be.hcpl.android.filmtag.ui.view.EditFrameViewState
 import be.hcpl.android.filmtag.ui.view.RollDetailView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
