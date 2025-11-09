@@ -7,6 +7,7 @@ import be.hcpl.android.filmtag.domain.FilmRollRepository
 import be.hcpl.android.filmtag.model.Frame
 import be.hcpl.android.filmtag.model.Roll
 import be.hcpl.android.filmtag.ui.view.EditFrameViewState
+import be.hcpl.android.filmtag.util.TextUtil
 
 class EditFrameViewModel(
     private val selectedRollId: Long,
@@ -38,7 +39,7 @@ class EditFrameViewModel(
                     State(
                         roll = roll,
                         frame = frame,
-                        editFrameState = EditFrameViewState(
+                        editState = EditFrameViewState(
                             roll,
                             frame,
                         )
@@ -56,12 +57,12 @@ class EditFrameViewModel(
             // TODO needs some input validation here
             val frame = Frame(
                 number = selectedFrameId,
-                shutter = state.value?.editFrameState?.speedState?.text.toString().toInt(),
-                aperture = state.value?.editFrameState?.apertureState?.text.toString().toDouble(),
-                notes = state.value?.editFrameState?.notesState?.text.toString(),
-                isLongExposure = state.value?.editFrameState?.checkedState?.value == true,
+                shutter = state.value?.editState?.speedState?.text.toString().toInt(),
+                aperture = state.value?.editState?.apertureState?.text.toString().toDouble(),
+                notes = state.value?.editState?.notesState?.text.toString(),
+                isLongExposure = state.value?.editState?.checkedState?.value == true,
                 dateTaken = currentFrame?.dateTaken,
-                tags = listOf(),//TODO handle tags here (need to parse?),
+                tags = state.value?.editState?.tagsState?.text?.split(TextUtil.TAG_SEPARATOR)?:emptyList(),
                 // TODO location: Location? = null,
             )
             // update an existing item
@@ -86,7 +87,7 @@ class EditFrameViewModel(
     data class State(
         val roll: Roll,
         val frame: Frame,
-        val editFrameState: EditFrameViewState,
+        val editState: EditFrameViewState,
     )
 
     sealed class Event {

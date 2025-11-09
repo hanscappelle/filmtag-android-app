@@ -6,6 +6,7 @@ import be.hcpl.android.filmtag.domain.FilmRollRepository
 import be.hcpl.android.filmtag.domain.SharedPreferencesProvider
 import be.hcpl.android.filmtag.model.Roll
 import be.hcpl.android.filmtag.ui.view.EditRollViewState
+import be.hcpl.android.filmtag.util.TextUtil
 
 class EditRollViewModel(
     private val selectedRollId: Long,
@@ -22,11 +23,11 @@ class EditRollViewModel(
             State(
                 rollId = selectedRollId,
                 roll =  selectedRoll,
-                editFormState = EditRollViewState(selectedRoll),
+                editState = EditRollViewState(selectedRoll),
             )
         )
     }
-        // have preferences for this
+        // TODO restore preferences for this
         //val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         //edit_exposed.setText(prefs.getString("key_default_iso", 200.toString()))
         //edit_frames.setText(prefs.getString("key_default_frames", 36.toString()))
@@ -35,12 +36,12 @@ class EditRollViewModel(
         // TODO needs some input validation here
         val roll = Roll(
             id = selectedRollId,
-            type = state.value?.editFormState?.filmTypeState?.text.toString(),
-            speed = state.value?.editFormState?.isoState?.text.toString().toInt(),
-            frames = state.value?.editFormState?.framesState?.text.toString().toInt(),
-            notes = state.value?.editFormState?.notesState?.text.toString(),
-            isDeveloped = state.value?.editFormState?.checkedState?.value == true,
-            tags = listOf(),//TODO handle tags here (need to parse?),
+            type = state.value?.editState?.filmTypeState?.text.toString(),
+            speed = state.value?.editState?.isoState?.text.toString().toInt(),
+            frames = state.value?.editState?.framesState?.text.toString().toInt(),
+            notes = state.value?.editState?.notesState?.text.toString(),
+            isDeveloped = state.value?.editState?.checkedState?.value == true,
+            tags = state.value?.editState?.tagsState?.text?.split(TextUtil.TAG_SEPARATOR)?:emptyList(),
         )
         if (selectedRollId == -1L) {
             // this is a new item
@@ -55,7 +56,7 @@ class EditRollViewModel(
     data class State(
         val rollId: Long = -1,
         val roll: Roll = Roll(),
-        val editFormState: EditRollViewState = EditRollViewState(Roll()),
+        val editState: EditRollViewState = EditRollViewState(Roll()),
     )
 
     sealed class Event{

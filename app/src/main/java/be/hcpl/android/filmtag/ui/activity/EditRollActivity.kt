@@ -47,7 +47,7 @@ class EditRollActivity : ComponentActivity() {
             ) { innerPadding ->
                 EditRollView(
                     modifier = Modifier.padding(innerPadding),
-                    viewState = state.editFormState,
+                    viewState = state.editState,
                 )
             }
         }

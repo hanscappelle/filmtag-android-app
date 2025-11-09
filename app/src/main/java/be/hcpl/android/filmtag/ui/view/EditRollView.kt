@@ -24,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import be.hcpl.android.filmtag.model.Roll
 import be.hcpl.android.filmtag.ui.AppScaffold
+import be.hcpl.android.filmtag.util.TextUtil
 
 
 data class EditRollViewState(
@@ -32,7 +33,7 @@ data class EditRollViewState(
     val filmTypeState = TextFieldState(initialText = roll.type.orEmpty())
     val isoState = TextFieldState(initialText = "${roll.speed}")
     val framesState = TextFieldState(initialText = "${roll.frames}")
-    val tagsState = TextFieldState(initialText = TextUtils.join(", ", roll.tags))
+    val tagsState = TextFieldState(initialText = TextUtils.join(TextUtil.TAG_SEPARATOR, roll.tags))
     val notesState = TextFieldState(initialText = roll.notes.orEmpty())
     val checkedState = mutableStateOf(roll.isDeveloped)
 }

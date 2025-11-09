@@ -79,7 +79,7 @@ class EditFrameActivity : ComponentActivity() {
                 Column(modifier = Modifier.padding(innerPadding)) {
                     RollDetailView(state.roll)
                     EditFrameView(
-                        viewState = state.editFrameState,
+                        viewState = state.editState,
                         onSelectDate = {
                             showDatePicker.value = true
                         }

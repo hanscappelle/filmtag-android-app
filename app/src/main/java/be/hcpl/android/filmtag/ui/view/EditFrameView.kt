@@ -40,7 +40,7 @@ data class EditFrameViewState(
 ) {
     val speedState = TextFieldState(initialText = "${frame.shutter}")
     val apertureState = TextFieldState(initialText = "${frame.aperture}")
-    val tagsState = TextFieldState(initialText = TextUtils.join(", ", frame.tags))
+    val tagsState = TextFieldState(initialText = TextUtils.join(TextUtil.TAG_SEPARATOR, frame.tags))
     val notesState = TextFieldState(initialText = frame.notes.orEmpty())
     val checkedState = mutableStateOf(frame.isLongExposure)
     // TODO restore location selection here
