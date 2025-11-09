@@ -50,7 +50,7 @@ Other apps that do similar things.
 ### 2.0
 
 * (technical) convert to compose
-* dropped picture storage per frame
+* dropped picture storage feature
 * (fixed) tags no longer working
 
 ### 1.2
