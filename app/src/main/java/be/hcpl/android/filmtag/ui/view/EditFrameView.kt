@@ -7,9 +7,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.text.input.TextFieldState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -54,7 +56,9 @@ fun EditFrameView(
 ) {
     Column(
         verticalArrangement = spacedBy(16.dp),
-        modifier = modifier.padding(16.dp),
+        modifier = modifier
+            .verticalScroll(rememberScrollState())
+            .padding(16.dp),
     ) {
 
         Row() {
@@ -147,8 +151,11 @@ fun EditFrameView(
                 )
             } else {
                 Text(
-                    text = "${viewState.frame.location?.latitude},${viewState.frame.location?.longitude}",
-                    modifier = Modifier.clickable {
+                    text = "${viewState.frame.location?.latitude?:0.0*100}, ${viewState.frame.location?.longitude}",
+                    maxLines = 2,
+                    modifier = Modifier
+                        .weight(0.6f)
+                        .clickable {
                         onShowLocation(viewState.frame.location)
                     }
                 )
@@ -156,7 +163,9 @@ fun EditFrameView(
             Text(
                 text = "(${stringResource(R.string.action_location)})",
                 textDecoration = TextDecoration.Underline,
-                modifier = Modifier.clickable {
+                modifier = Modifier
+                    .weight(0.3f)
+                    .clickable {
                     onUpdateLocation()
                 }
             )
