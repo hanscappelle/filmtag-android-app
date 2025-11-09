@@ -151,7 +151,7 @@ fun EditFrameView(
                 )
             } else {
                 Text(
-                    text = "${viewState.frame.location?.latitude?:0.0*100}, ${viewState.frame.location?.longitude}",
+                    text = "${viewState.frame.location?.latitude}, ${viewState.frame.location?.longitude}",
                     maxLines = 2,
                     modifier = Modifier
                         .weight(0.6f)
