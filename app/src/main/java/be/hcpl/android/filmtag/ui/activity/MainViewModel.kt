@@ -5,10 +5,13 @@ import androidx.lifecycle.ViewModel
 import be.hcpl.android.filmtag.R
 import be.hcpl.android.filmtag.domain.FilmRollRepository
 import be.hcpl.android.filmtag.model.Roll
+import be.hcpl.android.filmtag.ui.activity.FilmRollViewModel.Event.ExportText
 import be.hcpl.android.filmtag.ui.activity.MainViewModel.Event.ImportResult
+import be.hcpl.android.filmtag.ui.transformer.TextTransformer
 
 class MainViewModel(
     private val filmRollRepository: FilmRollRepository,
+    private val textTransformer: TextTransformer,
 ) : ViewModel() {
 
     val state = MutableLiveData<State>()
@@ -46,9 +49,20 @@ class MainViewModel(
     }
 
     fun prepareShareConfig() {
-        filmRollRepository.exportDataFormattedAsText().let {
+        filmRollRepository.exportDataFormattedAsJson().let {
             events.postValue(Event.ShareConfig(exportedFormat = it))
         }
+    }
+
+    fun prepareShareText() {
+        val readableFormat = filmRollRepository.getAllRolls().map { roll ->
+            val formattedRoll = textTransformer.formatRoll(roll)
+            val formattedFrames = filmRollRepository.getFramesForFilm(roll.id).map { frame ->
+                textTransformer.formatFrame(frame)
+            }
+            "$formattedRoll\n\n" + formattedFrames.joinToString("\n")
+        }
+        events.postValue(Event.ShareConfig(exportedFormat = readableFormat.joinToString("\n\n\n")))
     }
 
     fun handleSharedConfig(sharedText: String?) {

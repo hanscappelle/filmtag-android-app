@@ -70,4 +70,7 @@
     <string name="action_close">Sluiten</string>
     <string name="msg_confirm_update_location">Aanpassen naar huidige locatie?</string>
     <string name="pref_title_limit_notes_length">Beperk lengte notities overzicht (leeg is geen limiet)</string>
+    <string name="msg_confirm_share_text_or_config">Wil je deze data delen als leesbare tekst of als reservekopie in een technisch formaat?</string>
+    <string name="option_export_technical">Reservekopie</string>
+    <string name="option_export_readable">Leesbaar</string>
 </resources>

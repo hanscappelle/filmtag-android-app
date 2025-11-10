@@ -91,7 +91,7 @@ class FilmRollRepository(
         updateRolls(rolls + roll)
     }
 
-    fun exportDataFormattedAsText(): String {
+    fun exportDataFormattedAsJson(): String {
         // get all current rolls
         val rolls = getAllRolls()
         val frames = HashMap<Long, List<Frame>>(36)

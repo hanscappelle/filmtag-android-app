@@ -116,7 +116,7 @@ class MainActivity : ComponentActivity() {
     private fun handleAction(actionId: ActionId) {
         when (actionId) {
             ActionId.Create -> startActivity(Intent(this, EditRollActivity::class.java))
-            ActionId.Export -> shareConfig()
+            ActionId.Export -> confirmShareType()
             ActionId.Help -> showHelp()
             ActionId.Info -> startActivity(Intent(this, AboutActivity::class.java))
             ActionId.Close -> finish()
@@ -144,8 +144,20 @@ class MainActivity : ComponentActivity() {
             .show()
     }
 
+    private fun confirmShareType() {
+        AlertDialog.Builder(this)
+            .setMessage(R.string.msg_confirm_share_text_or_config)
+            .setPositiveButton(R.string.option_export_readable) { _, _ -> shareReadable() }
+            .setNegativeButton(R.string.option_export_technical) { _, _ -> shareConfig() }
+            .show()
+    }
+
     private fun shareConfig() {
         viewModel.prepareShareConfig()
+    }
+
+    private fun shareReadable() {
+        viewModel.prepareShareText()
     }
 
     private fun finishShare(exportedFormat: String) {
