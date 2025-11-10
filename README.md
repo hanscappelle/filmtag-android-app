@@ -45,6 +45,10 @@ Other apps that do similar things.
 * (user request) select from a list of cameras & lenses
 * (user request) add time to date for frame
 
+### 2.2
+
+* crash fix caused by old preferences in different format
+
 ### 2.1
 
 * (user request) better way of exporting data, in readable format
