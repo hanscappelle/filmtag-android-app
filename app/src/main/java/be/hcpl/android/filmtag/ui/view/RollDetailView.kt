@@ -22,7 +22,7 @@ fun RollDetailView(
 ) {
     Column(modifier) {
         Text(
-            text = "${roll.type ?: "..."} @ ${roll.speed} # ${roll.frames}",
+            text = "${roll.type?.ifEmpty { "..." } ?: "..."} @ ${roll.speed} # ${roll.frames}",
             color = MaterialTheme.colorScheme.inverseOnSurface,
             style = MaterialTheme.typography.titleLarge,
             modifier = modifier
