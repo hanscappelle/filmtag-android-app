@@ -20,10 +20,10 @@ class SettingsViewModel(
             state.postValue(
                 State(
                     editState = EditSettingsViewState(
-                        defaultIso = "$iso",
-                        defaultFrameCount = "$frameCount",
-                        defaultShutter = "$shutter",
-                        defaultAperture = "$aperture",
+                        defaultIso = iso,
+                        defaultFrameCount = frameCount,
+                        defaultShutter = shutter,
+                        defaultAperture = aperture,
                         defaultLimit = limitNotesPreview.takeIf { it > 0 }?.toString(),
                     )
                 )
@@ -35,10 +35,10 @@ class SettingsViewModel(
         // create settings from input state here
         state.value?.editState?.let { editState ->
             val settings = Settings(
-                iso = inputTransformer.sanitizeInt(editState.isoState.text),
-                frameCount = inputTransformer.sanitizeInt(editState.frameState.text),
-                shutter = inputTransformer.sanitizeInt(editState.shutterState.text),
-                aperture = inputTransformer.sanitizeFloat(editState.apertureState.text).toFloat(),
+                iso = inputTransformer.sanitizeInt(editState.isoState.text).toString(),
+                frameCount = inputTransformer.sanitizeInt(editState.frameState.text).toString(),
+                shutter = inputTransformer.sanitizeInt(editState.shutterState.text).toString(),
+                aperture = inputTransformer.sanitizeFloat(editState.apertureState.text).toString(),
                 limitNotesPreview = inputTransformer.sanitizeInt(editState.limitState.text),
             )
             settingsRepository.saveSettings(settings)
