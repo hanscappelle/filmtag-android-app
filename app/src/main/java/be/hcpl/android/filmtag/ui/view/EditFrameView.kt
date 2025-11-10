@@ -4,6 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -117,9 +118,12 @@ fun EditFrameView(
         )
 
         Row(
-            horizontalArrangement = spacedBy(8.dp),
+            horizontalArrangement = spacedBy(4.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
+            Spacer(
+                modifier.size(0.dp)
+            )
             Icon(
                 painter = painterResource(R.drawable.ic_add_location),
                 contentDescription = stringResource(R.string.label_location),
