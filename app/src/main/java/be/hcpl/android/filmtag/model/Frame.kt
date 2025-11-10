@@ -6,10 +6,10 @@ import java.util.ArrayList
 
 @Keep
 data class Frame(
-    var isLongExposure: Boolean = false,
-    var notes: String? = null,
     var number: Int = 0,
+    var notes: String? = null,
     var shutter: Int? = null,
+    var isLongExposure: Boolean = false,
     var aperture: Float? = null,
     var pathToImage: String? = null,
     var location: Location? = null,

@@ -108,7 +108,7 @@ class MainActivity : ComponentActivity() {
                     }.setNegativeButton(R.string.option_cancel) { _, _ -> Unit }.show()
             }
 
-            is MainViewModel.Event.ShareConfig -> finishShareConfig(event.exportedFormat)
+            is MainViewModel.Event.ShareConfig -> finishShare(event.exportedFormat)
             is MainViewModel.Event.ImportResult -> Toast.makeText(this, event.textRes, Toast.LENGTH_SHORT).show()
         }
     }
@@ -148,7 +148,7 @@ class MainActivity : ComponentActivity() {
         viewModel.prepareShareConfig()
     }
 
-    private fun finishShareConfig(exportedFormat: String) {
+    private fun finishShare(exportedFormat: String) {
         val sharingIntent = Intent(Intent.ACTION_SEND)
         sharingIntent.type = "text/plain"
         sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "FilmTag data export")

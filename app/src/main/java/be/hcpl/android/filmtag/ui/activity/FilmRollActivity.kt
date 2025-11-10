@@ -55,6 +55,11 @@ class FilmRollActivity : ComponentActivity() {
                         actionId = ActionId.Delete,
                     ),
                     Action(
+                        iconRes = R.drawable.ic_action_download,
+                        textRes = R.string.action_export,
+                        actionId = ActionId.Export,
+                    ),
+                    Action(
                         iconRes = R.drawable.ic_action_close,
                         textRes = R.string.action_close,
                         actionId = ActionId.Close,
@@ -81,7 +86,6 @@ class FilmRollActivity : ComponentActivity() {
         startActivity(intent)
     }
 
-
     private fun handleEvent(event: FilmRollViewModel.Event) {
         when (event) {
             is FilmRollViewModel.Event.EditRoll -> {
@@ -93,7 +97,24 @@ class FilmRollActivity : ComponentActivity() {
 
             FilmRollViewModel.Event.Close -> finish()
             is FilmRollViewModel.Event.EditFrame -> onFrameSelected(event.rollId, event.frameId)
+            is FilmRollViewModel.Event.ExportText -> finishShare(event.text)
         }
+    }
+
+    private fun finishShare(exportedFormat: String) {
+        val sharingIntent = Intent(Intent.ACTION_SEND)
+        sharingIntent.type = "text/plain"
+        sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "FilmTag data export")
+        sharingIntent.putExtra(
+            Intent.EXTRA_TEXT,
+            exportedFormat,
+        )
+        startActivity(
+            Intent.createChooser(
+                sharingIntent,
+                resources.getString(R.string.action_export)
+            )
+        )
     }
 
     private fun handleAction(actionId: ActionId) {
@@ -102,6 +123,7 @@ class FilmRollActivity : ComponentActivity() {
             ActionId.Create -> viewModel.preparedEditRoll()
             ActionId.Delete -> confirmDeleteRoll()
             ActionId.Update -> viewModel.toggleLocked()
+            ActionId.Export -> viewModel.prepareExport()
             else -> Unit
         }
     }
