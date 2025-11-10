@@ -1,18 +1,16 @@
 package be.hcpl.android.filmtag.ui.activity
 
-import android.text.TextUtils
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import be.hcpl.android.filmtag.domain.FilmRollRepository
-import be.hcpl.android.filmtag.domain.SharedPreferencesProvider
+import be.hcpl.android.filmtag.domain.SettingsRepository
 import be.hcpl.android.filmtag.model.Roll
 import be.hcpl.android.filmtag.ui.tranformer.InputTransformer
-import be.hcpl.android.filmtag.ui.view.EditRollViewState
 import be.hcpl.android.filmtag.ui.tranformer.TextTransformer
+import be.hcpl.android.filmtag.ui.view.EditRollViewState
 
 class EditRollViewModel(
     private val selectedRollId: Long,
-    private val sharedPreferencesProvider: SharedPreferencesProvider,
     private val filmRollRepository: FilmRollRepository,
     textTransformer: TextTransformer,
     private val inputTransformer: InputTransformer,
@@ -29,15 +27,13 @@ class EditRollViewModel(
                 roll = selectedRoll,
                 editState = EditRollViewState(
                     roll = selectedRoll,
-                    currentTags = textTransformer.formatTags(selectedRoll.tags),
+                    initialFrameCount = textTransformer.formatFrameCount(selectedRoll.frames),
+                    initialIso = textTransformer.formatIso(selectedRoll.speed),
+                    formattedTags = textTransformer.formatTags(selectedRoll.tags),
                 ),
             )
         )
     }
-    // TODO restore preferences for this
-    //val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-    //edit_exposed.setText(prefs.getString("key_default_iso", 200.toString()))
-    //edit_frames.setText(prefs.getString("key_default_frames", 36.toString()))
 
     fun saveChanges() {
         val roll = Roll(
@@ -64,7 +60,6 @@ class EditRollViewModel(
         val roll: Roll = Roll(),
         val editState: EditRollViewState = EditRollViewState(
             roll = Roll(),
-            currentTags = "",
         ),
     )
 

@@ -1,7 +1,6 @@
 package be.hcpl.android.filmtag.ui.view
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -28,12 +27,14 @@ import be.hcpl.android.filmtag.model.Roll
 
 data class EditRollViewState(
     val roll: Roll, // this roll is only used for the initial state values
-    val currentTags: String, // formatted tags
+    val initialFrameCount: String? = null,
+    val initialIso: String? = null,
+    val formattedTags: String? = null, // formatted tags
 ) {
     val filmTypeState = TextFieldState(initialText = roll.type.orEmpty())
-    val isoState = TextFieldState(initialText = "${roll.speed}")
-    val framesState = TextFieldState(initialText = "${roll.frames}")
-    val tagsState = TextFieldState(initialText = currentTags)
+    val isoState = TextFieldState(initialText = initialIso.orEmpty())
+    val framesState = TextFieldState(initialText = initialFrameCount.orEmpty())
+    val tagsState = TextFieldState(initialText = formattedTags.orEmpty())
     val notesState = TextFieldState(initialText = roll.notes.orEmpty())
     val checkedState = mutableStateOf(roll.isDeveloped)
 }

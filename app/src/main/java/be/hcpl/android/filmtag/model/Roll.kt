@@ -8,8 +8,8 @@ import java.util.ArrayList
 data class Roll(
     var id: Long = -1,
     var type: String? = null,
-    var speed: Int = 200,
-    var frames: Int = 36,
+    var speed: Int? = null, // see SettingsRepository for defaults
+    var frames: Int? = null, // see SettingsRepository for defaults
     var notes: String? = null,
     var isDeveloped: Boolean = false,
     var tags: List<String> = ArrayList(),
