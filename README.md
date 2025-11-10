@@ -52,6 +52,7 @@ Other apps that do similar things.
 * (technical) convert to compose
 * dropped picture storage feature
 * (fixed) tags no longer working
+* bump min API level to 23
 
 ### 1.2
 
