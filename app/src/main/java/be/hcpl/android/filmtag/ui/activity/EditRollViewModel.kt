@@ -4,8 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import be.hcpl.android.filmtag.domain.FilmRollRepository
 import be.hcpl.android.filmtag.model.Roll
-import be.hcpl.android.filmtag.ui.tranformer.InputTransformer
-import be.hcpl.android.filmtag.ui.tranformer.TextTransformer
+import be.hcpl.android.filmtag.ui.transformer.InputTransformer
+import be.hcpl.android.filmtag.ui.transformer.TextTransformer
 import be.hcpl.android.filmtag.ui.view.EditRollViewState
 
 class EditRollViewModel(

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import be.hcpl.android.filmtag.BuildConfig
 import be.hcpl.android.filmtag.R
-import be.hcpl.android.filmtag.ui.tranformer.TextTransformer
+import be.hcpl.android.filmtag.ui.transformer.TextTransformer
 import java.io.BufferedReader
 import java.io.Closeable
 import java.io.InputStream

@@ -9,8 +9,8 @@ import be.hcpl.android.filmtag.model.Frame
 import be.hcpl.android.filmtag.model.Location
 import be.hcpl.android.filmtag.model.Roll
 import be.hcpl.android.filmtag.ui.activity.EditFrameViewModel.Event.ShowOnMap
-import be.hcpl.android.filmtag.ui.tranformer.InputTransformer
-import be.hcpl.android.filmtag.ui.tranformer.TextTransformer
+import be.hcpl.android.filmtag.ui.transformer.InputTransformer
+import be.hcpl.android.filmtag.ui.transformer.TextTransformer
 import be.hcpl.android.filmtag.ui.view.EditFrameViewState
 
 class EditFrameViewModel(

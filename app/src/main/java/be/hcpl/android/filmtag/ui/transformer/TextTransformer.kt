@@ -1,7 +1,6 @@
-package be.hcpl.android.filmtag.ui.tranformer
+package be.hcpl.android.filmtag.ui.transformer
 
 import android.text.TextUtils
-import be.hcpl.android.filmtag.domain.SettingsRepository
 import be.hcpl.android.filmtag.model.Location
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat

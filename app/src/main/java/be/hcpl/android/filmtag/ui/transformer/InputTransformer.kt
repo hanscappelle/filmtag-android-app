@@ -1,7 +1,7 @@
-package be.hcpl.android.filmtag.ui.tranformer
+package be.hcpl.android.filmtag.ui.transformer
 
 import be.hcpl.android.filmtag.domain.SettingsRepository
-import be.hcpl.android.filmtag.ui.tranformer.TextTransformer.Companion.TAG_SEPARATOR
+import be.hcpl.android.filmtag.ui.transformer.TextTransformer.Companion.TAG_SEPARATOR
 
 class InputTransformer(
     private val settingsRepository: SettingsRepository,

@@ -3,11 +3,10 @@ package be.hcpl.android.filmtag.ui.activity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import be.hcpl.android.filmtag.domain.FilmRollRepository
-import be.hcpl.android.filmtag.model.Frame
 import be.hcpl.android.filmtag.model.Roll
 import be.hcpl.android.filmtag.ui.activity.FilmRollViewModel.Event.Close
 import be.hcpl.android.filmtag.ui.activity.FilmRollViewModel.Event.EditRoll
-import be.hcpl.android.filmtag.ui.tranformer.FrameUiModelTransformer
+import be.hcpl.android.filmtag.ui.transformer.FrameUiModelTransformer
 import be.hcpl.android.filmtag.ui.view.FrameUiModel
 
 class FilmRollViewModel(

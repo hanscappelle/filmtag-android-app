@@ -9,9 +9,9 @@ import be.hcpl.android.filmtag.ui.activity.FilmRollViewModel
 import be.hcpl.android.filmtag.ui.activity.EditFrameViewModel
 import be.hcpl.android.filmtag.ui.activity.MainViewModel
 import be.hcpl.android.filmtag.ui.activity.SettingsViewModel
-import be.hcpl.android.filmtag.ui.tranformer.FrameUiModelTransformer
-import be.hcpl.android.filmtag.ui.tranformer.InputTransformer
-import be.hcpl.android.filmtag.ui.tranformer.TextTransformer
+import be.hcpl.android.filmtag.ui.transformer.FrameUiModelTransformer
+import be.hcpl.android.filmtag.ui.transformer.InputTransformer
+import be.hcpl.android.filmtag.ui.transformer.TextTransformer
 import com.google.gson.Gson
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf

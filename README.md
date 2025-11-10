@@ -42,9 +42,12 @@ Other apps that do similar things.
 
 * (feature) autocomplete for names and tags based on existing
 * (restore) filter with search from toolbar
-* (user request) better way of exporting data
 * (user request) select from a list of cameras & lenses
 * (user request) add time to date for frame
+
+### 2.1
+
+* (user request) better way of exporting data, in readable format
 
 ### 2.0
 

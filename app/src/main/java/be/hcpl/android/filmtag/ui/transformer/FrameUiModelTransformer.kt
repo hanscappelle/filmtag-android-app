@@ -1,4 +1,4 @@
-package be.hcpl.android.filmtag.ui.tranformer
+package be.hcpl.android.filmtag.ui.transformer
 
 import be.hcpl.android.filmtag.domain.SettingsRepository
 import be.hcpl.android.filmtag.model.Frame

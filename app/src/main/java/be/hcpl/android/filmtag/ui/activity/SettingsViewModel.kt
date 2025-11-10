@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import be.hcpl.android.filmtag.domain.SettingsRepository
 import be.hcpl.android.filmtag.model.Settings
-import be.hcpl.android.filmtag.ui.tranformer.InputTransformer
+import be.hcpl.android.filmtag.ui.transformer.InputTransformer
 import be.hcpl.android.filmtag.ui.view.EditSettingsViewState
 
 class SettingsViewModel(
