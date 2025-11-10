@@ -40,11 +40,10 @@ Other apps that do similar things.
 
 ### upcoming, issues and features
 
-* (feature) in app visualisation of locations on map
 * (feature) autocomplete for names and tags based on existing
 * (restore) filter with search from toolbar
 * (user request) better way of exporting data
-* (user request) select from a list of camera's & lenses
+* (user request) select from a list of cameras & lenses
 * (user request) add time to date for frame
 
 ### 2.0
@@ -53,6 +52,7 @@ Other apps that do similar things.
 * dropped picture storage feature
 * (fixed) tags no longer working
 * bump min API level to 23
+* allow for limiting length of notes preview on frame overview (from settings)
 
 ### 1.2
 

@@ -23,13 +23,13 @@ data class EditSettingsViewState(
     val defaultFrameCount: String,
     val defaultShutter: String,
     val defaultAperture: String,
+    val defaultLimit: String? = null,
 ) {
     val isoState = TextFieldState(initialText = defaultIso)
     val frameState = TextFieldState(initialText = defaultFrameCount)
     val shutterState = TextFieldState(initialText = defaultShutter)
     val apertureState = TextFieldState(initialText = defaultAperture)
-
-    // TODO also create a limitation on the text shown in frame overview?
+    val limitState = TextFieldState(initialText = defaultLimit.orEmpty())
 }
 
 @Composable
@@ -68,6 +68,13 @@ fun EditSettingsView(
         TextField(
             state = viewState.apertureState,
             label = { Text(text = stringResource(R.string.pref_title_default_aperture)) },
+            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+            modifier = Modifier.fillMaxWidth(),
+        )
+
+        TextField(
+            state = viewState.limitState,
+            label = { Text(text = stringResource(R.string.pref_title_limit_notes_length)) },
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
             modifier = Modifier.fillMaxWidth(),
         )

@@ -11,11 +11,13 @@ class SettingsRepository(
     private val keyFrameCount = "key_default_frames"
     private val keyShutter = "key_default_shutter"
     private val keyAperture = "key_default_aperture"
+    private val keyLimitNotesPreview = "key_limit_notes_preview"
 
     private val defaultIso = 200
     private val defaultFrameCount = 24
     private val defaultShutter = 200
     private val defaultAperture = 2.8f
+    private val defaultPreviewLength = 0
 
     private val prefs: SharedPreferences = preferencesProvider.sharedPreferences
 
@@ -24,6 +26,7 @@ class SettingsRepository(
         iso = prefs.getInt(keyIso, defaultIso),
         shutter = prefs.getInt(keyShutter, defaultShutter),
         aperture = prefs.getFloat(keyAperture, defaultAperture),
+        limitNotesPreview = prefs.getInt(keyLimitNotesPreview, defaultPreviewLength),
     )
 
     fun saveSettings(settings: Settings) {
@@ -32,6 +35,7 @@ class SettingsRepository(
             .putInt(keyIso, settings.iso)
             .putInt(keyShutter, settings.shutter)
             .putFloat(keyAperture, settings.aperture)
+            .putInt(keyLimitNotesPreview, settings.limitNotesPreview)
             .apply()
     }
 }

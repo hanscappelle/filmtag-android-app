@@ -5,4 +5,5 @@ data class Settings(
     val iso: Int,
     val shutter: Int,
     val aperture: Float,
+    val limitNotesPreview: Int,
 )

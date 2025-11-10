@@ -24,6 +24,7 @@ class SettingsViewModel(
                         defaultFrameCount = "$frameCount",
                         defaultShutter = "$shutter",
                         defaultAperture = "$aperture",
+                        defaultLimit = limitNotesPreview.takeIf { it > 0 }?.toString(),
                     )
                 )
             )
@@ -38,6 +39,7 @@ class SettingsViewModel(
                 frameCount = inputTransformer.sanitizeInt(editState.frameState.text),
                 shutter = inputTransformer.sanitizeInt(editState.shutterState.text),
                 aperture = inputTransformer.sanitizeFloat(editState.apertureState.text).toFloat(),
+                limitNotesPreview = inputTransformer.sanitizeInt(editState.limitState.text),
             )
             settingsRepository.saveSettings(settings)
             events.postValue(Event.Close)
