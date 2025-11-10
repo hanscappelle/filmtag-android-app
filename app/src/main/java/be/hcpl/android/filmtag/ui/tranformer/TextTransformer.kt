@@ -1,10 +1,12 @@
 package be.hcpl.android.filmtag.ui.tranformer
 
+import android.text.TextUtils
 import be.hcpl.android.filmtag.model.Frame
 import be.hcpl.android.filmtag.model.Location
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.Locale
+import kotlin.text.split
 
 class TextTransformer {
 
@@ -13,7 +15,11 @@ class TextTransformer {
     private val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
 
     val SYSTEM_LINE_SEPARATOR = System.lineSeparator()
-    val TAG_SEPARATOR = ", "
+
+    companion object {
+        const val TAG_SEPARATOR = ","
+        const val TAG_SEPARATOR_SECONDARY = " "
+    }
 
     fun formatFrameNumber(frameNumber: Int): String {
         return "#" + frameFormat.format(frameNumber.toLong())
@@ -44,5 +50,7 @@ class TextTransformer {
     fun formatDate(date: Long) = dateFormatter.format(date)
 
     fun formatLocation(location: Location?) = location?.let { "${location.latitude}, ${location.longitude}" }
+
+    fun formatTags(tags: List<String>) = TextUtils.join("${TAG_SEPARATOR}${TAG_SEPARATOR_SECONDARY}", tags)
 
 }

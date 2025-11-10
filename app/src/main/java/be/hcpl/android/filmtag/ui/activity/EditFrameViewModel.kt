@@ -60,7 +60,7 @@ class EditFrameViewModel(
     ): EditFrameViewState = EditFrameViewState(
         roll = roll,
         frame = frame,
-        currentTags = TextUtils.join(textTransformer.TAG_SEPARATOR, frame.tags),
+        currentTags = textTransformer.formatTags(frame.tags),
     )
 
     fun saveFrame(close: Boolean = true) {
@@ -70,12 +70,12 @@ class EditFrameViewModel(
         } else {
             val frame = Frame(
                 number = selectedFrameId,
-                shutter = inputTransformer.sanitizeInt(state.value?.editState?.speedState?.text.toString()),
-                aperture = inputTransformer.sanitizeDouble(state.value?.editState?.apertureState?.text.toString()),
+                shutter = inputTransformer.sanitizeInt(state.value?.editState?.speedState?.text),
+                aperture = inputTransformer.sanitizeDouble(state.value?.editState?.apertureState?.text),
                 notes = state.value?.editState?.notesState?.text.toString(),
                 isLongExposure = state.value?.editState?.checkedState?.value == true,
                 dateTaken = currentFrame?.dateTaken,
-                tags = state.value?.editState?.tagsState?.text?.split(textTransformer.TAG_SEPARATOR) ?: emptyList(),
+                tags = inputTransformer.sanitizeList(state.value?.editState?.tagsState?.text),
                 location = currentFrame?.location,
             )
             // update an existing item

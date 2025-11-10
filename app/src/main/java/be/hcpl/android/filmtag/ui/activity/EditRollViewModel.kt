@@ -29,7 +29,7 @@ class EditRollViewModel(
                 roll = selectedRoll,
                 editState = EditRollViewState(
                     roll = selectedRoll,
-                    currentTags = TextUtils.join(textTransformer.TAG_SEPARATOR, selectedRoll.tags),
+                    currentTags = textTransformer.formatTags(selectedRoll.tags),
                 ),
             )
         )
@@ -43,11 +43,11 @@ class EditRollViewModel(
         val roll = Roll(
             id = selectedRollId,
             type = state.value?.editState?.filmTypeState?.text.toString(),
-            speed = inputTransformer.sanitizeInt(state.value?.editState?.isoState?.text.toString()),
-            frames = inputTransformer.sanitizeInt(state.value?.editState?.framesState?.text.toString()),
+            speed = inputTransformer.sanitizeInt(state.value?.editState?.isoState?.text),
+            frames = inputTransformer.sanitizeInt(state.value?.editState?.framesState?.text),
             notes = state.value?.editState?.notesState?.text.toString(),
             isDeveloped = state.value?.editState?.checkedState?.value == true,
-            tags = state.value?.editState?.tagsState?.text?.split(textTransformer.TAG_SEPARATOR) ?: emptyList(),
+            tags = inputTransformer.sanitizeList(state.value?.editState?.tagsState?.text),
         )
         if (selectedRollId == -1L) {
             // this is a new item
