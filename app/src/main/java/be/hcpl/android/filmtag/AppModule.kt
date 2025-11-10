@@ -1,6 +1,7 @@
 package be.hcpl.android.filmtag
 
 import be.hcpl.android.filmtag.domain.FilmRollRepository
+import be.hcpl.android.filmtag.domain.SettingsRepository
 import be.hcpl.android.filmtag.domain.SharedPreferencesProvider
 import be.hcpl.android.filmtag.ui.activity.AboutViewModel
 import be.hcpl.android.filmtag.ui.activity.EditRollViewModel
@@ -27,6 +28,7 @@ val appModule = module {
     viewModelOf(::SettingsViewModel)
 
     factoryOf(::FilmRollRepository)
+    factoryOf(::SettingsRepository)
 
     singleOf(::SharedPreferencesProvider)
     singleOf(::Gson)

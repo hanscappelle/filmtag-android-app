@@ -2,22 +2,17 @@ package be.hcpl.android.filmtag.ui.activity
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import be.hcpl.android.filmtag.domain.SharedPreferencesProvider
+import be.hcpl.android.filmtag.domain.SettingsRepository
 import be.hcpl.android.filmtag.ui.view.EditSettingsViewState
 
 class SettingsViewModel(
-    private val sharedPreferencesProvider: SharedPreferencesProvider,
+    private val settings: SettingsRepository,
 ): ViewModel() {
-    fun saveSettings() {
-
-
-    }
 
     val state = MutableLiveData<State>()
     val events = MutableLiveData<Event>()
 
     init{
-        val prefs = sharedPreferencesProvider.sharedPreferences
         state.postValue(
             State(
                 editState = EditSettingsViewState(
@@ -29,6 +24,11 @@ class SettingsViewModel(
             )
 
         )
+    }
+
+    fun saveSettings() {
+        // TODO settings.saveSettings()
+
     }
 
     data class State(
