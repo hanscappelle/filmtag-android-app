@@ -8,12 +8,16 @@ class InputTransformer {
     private val digitsDouble = ("[^\\d.]").toRegex()
 
     fun sanitizeInt(text: CharSequence?): Int {
-        return text?.replace(digitsInt, "")?.toInt() ?: 0
+        return try {
+            text?.replace(digitsInt, "")?.toInt() ?: 0
+        } catch (_: Exception) {
+            0
+        }
     }
 
     fun sanitizeDouble(text: CharSequence?): Double {
         return try {
-            // TODO also check for too many '.' in the text
+            // TODO also check for too many '.' in text
             text?.toString()?.replace(",", ".")?.replace(digitsDouble, "")?.toDouble() ?: 0.0
         } catch (_: Exception) {
             0.0
