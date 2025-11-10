@@ -174,13 +174,24 @@ class EditFrameActivity : ComponentActivity() {
             if (!locationPermissionRequested) {
                 locationPermissionRequested = true
                 requestPermissions(
-                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                    arrayOf(
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        // TODO should we also add coarse location here?
+                        //  Manifest.permission.ACCESS_COARSE_LOCATION
+                    ),
                     MY_PERMISSIONS_REQUEST_LOCATION
                 )
             }
             return
         }
         registerLocationListener()
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String?>, grantResults: IntArray, deviceId: Int) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults, deviceId)
+        if( requestCode == MY_PERMISSIONS_REQUEST_LOCATION){
+            registerLocationListener() // start listening right away
+        }
     }
 
     private fun registerLocationListener() {
