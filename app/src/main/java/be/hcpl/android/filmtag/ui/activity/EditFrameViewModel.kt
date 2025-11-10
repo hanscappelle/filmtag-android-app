@@ -1,18 +1,17 @@
 package be.hcpl.android.filmtag.ui.activity
 
 import android.net.Uri
-import android.text.TextUtils
-import be.hcpl.android.filmtag.R
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import be.hcpl.android.filmtag.R
 import be.hcpl.android.filmtag.domain.FilmRollRepository
 import be.hcpl.android.filmtag.model.Frame
 import be.hcpl.android.filmtag.model.Location
 import be.hcpl.android.filmtag.model.Roll
 import be.hcpl.android.filmtag.ui.activity.EditFrameViewModel.Event.ShowOnMap
 import be.hcpl.android.filmtag.ui.tranformer.InputTransformer
-import be.hcpl.android.filmtag.ui.view.EditFrameViewState
 import be.hcpl.android.filmtag.ui.tranformer.TextTransformer
+import be.hcpl.android.filmtag.ui.view.EditFrameViewState
 
 class EditFrameViewModel(
     private val selectedRollId: Long,
@@ -60,7 +59,9 @@ class EditFrameViewModel(
     ): EditFrameViewState = EditFrameViewState(
         roll = roll,
         frame = frame,
-        currentTags = textTransformer.formatTags(frame.tags),
+        formattedShutter = inputTransformer.formatShutter(frame.shutter),
+        formattedAperture = inputTransformer.formatAperture(frame.aperture),
+        formattedTags = textTransformer.formatTags(frame.tags),
     )
 
     fun saveFrame(close: Boolean = true) {
@@ -71,7 +72,7 @@ class EditFrameViewModel(
             val frame = Frame(
                 number = selectedFrameId,
                 shutter = inputTransformer.sanitizeInt(state.value?.editState?.speedState?.text),
-                aperture = inputTransformer.sanitizeDouble(state.value?.editState?.apertureState?.text),
+                aperture = inputTransformer.sanitizeFloat(state.value?.editState?.apertureState?.text),
                 notes = state.value?.editState?.notesState?.text.toString(),
                 isLongExposure = state.value?.editState?.checkedState?.value == true,
                 dateTaken = currentFrame?.dateTaken,

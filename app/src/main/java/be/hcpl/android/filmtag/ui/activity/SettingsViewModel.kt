@@ -37,7 +37,7 @@ class SettingsViewModel(
                 iso = inputTransformer.sanitizeInt(editState.isoState.text),
                 frameCount = inputTransformer.sanitizeInt(editState.frameState.text),
                 shutter = inputTransformer.sanitizeInt(editState.shutterState.text),
-                aperture = inputTransformer.sanitizeDouble(editState.apertureState.text).toFloat(),
+                aperture = inputTransformer.sanitizeFloat(editState.apertureState.text).toFloat(),
             )
             settingsRepository.saveSettings(settings)
             events.postValue(Event.Close)

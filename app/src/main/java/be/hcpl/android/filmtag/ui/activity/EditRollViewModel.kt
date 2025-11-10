@@ -3,7 +3,6 @@ package be.hcpl.android.filmtag.ui.activity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import be.hcpl.android.filmtag.domain.FilmRollRepository
-import be.hcpl.android.filmtag.domain.SettingsRepository
 import be.hcpl.android.filmtag.model.Roll
 import be.hcpl.android.filmtag.ui.tranformer.InputTransformer
 import be.hcpl.android.filmtag.ui.tranformer.TextTransformer
@@ -27,8 +26,8 @@ class EditRollViewModel(
                 roll = selectedRoll,
                 editState = EditRollViewState(
                     roll = selectedRoll,
-                    initialFrameCount = textTransformer.formatFrameCount(selectedRoll.frames),
-                    initialIso = textTransformer.formatIso(selectedRoll.speed),
+                    initialFrameCount = inputTransformer.formatFrameCount(selectedRoll.frames),
+                    initialIso = inputTransformer.formatIso(selectedRoll.speed),
                     formattedTags = textTransformer.formatTags(selectedRoll.tags),
                 ),
             )

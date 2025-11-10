@@ -9,8 +9,8 @@ data class Frame(
     var isLongExposure: Boolean = false,
     var notes: String? = null,
     var number: Int = 0,
-    var shutter: Int = EMPTY_VALUE,
-    var aperture: Double = EMPTY_VALUE.toDouble(),
+    var shutter: Int? = null,
+    var aperture: Float? = null,
     var pathToImage: String? = null,
     var location: Location? = null,
     var tags: List<String> = ArrayList(),
@@ -31,11 +31,4 @@ data class Frame(
         return number
     }
 
-    companion object {
-
-        /**
-         * The value that signifies unspecified aperture or shutter value
-         */
-        const val EMPTY_VALUE = 0
-    }
 }

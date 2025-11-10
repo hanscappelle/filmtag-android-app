@@ -18,6 +18,8 @@ class AboutViewModel(
 
     val state = MutableLiveData<State>()
 
+    val SYSTEM_LINE_SEPARATOR = System.lineSeparator()
+
     init {
         var aboutText = readFile(context.resources.openRawResource(R.raw.about))
         // add version
@@ -35,7 +37,7 @@ class AboutViewModel(
 
             var e: String? = input.readLine()
             while (e != null) {
-                buffer.append(e).append(textTransformer.SYSTEM_LINE_SEPARATOR)
+                buffer.append(e).append(SYSTEM_LINE_SEPARATOR)
                 e = input.readLine()
             }
 

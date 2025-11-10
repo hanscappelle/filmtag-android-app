@@ -35,11 +35,13 @@ import be.hcpl.android.filmtag.model.Roll
 data class EditFrameViewState(
     val roll: Roll, // this roll is only used for the initial state values
     val frame: Frame,
-    val currentTags: String, // formatted tags
+    val formattedShutter: String? = null,
+    val formattedAperture: String? = null,
+    val formattedTags: String? = null,
 ) {
-    val speedState = TextFieldState(initialText = "${frame.shutter}")
-    val apertureState = TextFieldState(initialText = "${frame.aperture}")
-    val tagsState = TextFieldState(initialText = currentTags)
+    val speedState = TextFieldState(initialText = formattedShutter.orEmpty())
+    val apertureState = TextFieldState(initialText = formattedAperture.orEmpty())
+    val tagsState = TextFieldState(initialText = formattedTags.orEmpty())
     val notesState = TextFieldState(initialText = frame.notes.orEmpty())
     val checkedState = mutableStateOf(frame.isLongExposure)
     // TODO add time selection (requested feature)
