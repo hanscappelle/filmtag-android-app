@@ -88,18 +88,22 @@ class EditFrameActivity : ComponentActivity() {
                 // edit form fields populated from state
                 Column(modifier = Modifier.padding(innerPadding)) {
                     RollDetailView(state.roll)
-                    EditFrameView(
-                        viewState = state.editState,
-                        onSelectDate = {
-                            showDatePicker.value = true
-                        },
-                        onShowLocation = { location ->
-                            viewModel.prepareShowLocation(location)
-                        },
-                        onUpdateLocation = {
-                            confirmUpdateLocation()
-                        }
-                    )
+                    state.editState?.let {
+                        EditFrameView(
+                            viewState = state.editState,
+                            formattedDate = state.formattedDate,
+                            formattedLocation = state.formattedLocation,
+                            onSelectDate = {
+                                showDatePicker.value = true
+                            },
+                            onShowLocation = { location ->
+                                viewModel.prepareShowLocation(location)
+                            },
+                            onUpdateLocation = {
+                                confirmUpdateLocation()
+                            }
+                        )
+                    }
                 }
             }
         }
@@ -190,14 +194,14 @@ class EditFrameActivity : ComponentActivity() {
         val provider = LocationManager.GPS_PROVIDER
         // remove previous listener first
         unregisterListener()
-        // get current location to provide as defaults into
-        // field
+        // get current location to provide as defaults into field
         val locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
         // begin by getting the last known location
         val fetchedLocationDetails = locationManager.getLastKnownLocation(provider)
         if (fetchedLocationDetails != null) {
             // update current location
-            viewModel.updateLocation(be.hcpl.android.filmtag.model.Location(
+            viewModel.updateLocation(
+                be.hcpl.android.filmtag.model.Location(
                     fetchedLocationDetails.latitude,
                     fetchedLocationDetails.longitude
                 )

@@ -33,7 +33,7 @@ fun RollDetailView(
         Row(
             horizontalArrangement = spacedBy(8.dp),
             modifier = Modifier
-                .border(1.dp, color = Color.White)
+                .border(1.dp, color = MaterialTheme.colorScheme.inverseSurface)
                 .fillMaxWidth()
                 .padding(8.dp),
         ) {

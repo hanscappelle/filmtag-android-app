@@ -46,6 +46,8 @@ class EditFrameViewModel(
                         roll = roll,
                         frame = frame,
                         editState = editStateFor(roll, frame),
+                        formattedDate = frame.dateTaken?.let { textTransformer.formatDate(it) },
+                        formattedLocation = textTransformer.formatLocation(frame.location),
                     )
                 )
             }
@@ -59,7 +61,6 @@ class EditFrameViewModel(
         roll = roll,
         frame = frame,
         currentTags = TextUtils.join(textTransformer.TAG_SEPARATOR, frame.tags),
-        formattedDate = frame.dateTaken?.let { textTransformer.formatDate(it) },
     )
 
     fun saveFrame(close: Boolean = true) {
@@ -85,7 +86,16 @@ class EditFrameViewModel(
 
     fun updateSelectedDate(date: Long?) {
         currentFrame = currentFrame?.copy(dateTaken = date)
-        updateUiState()
+        // only change selected date, not full UI update
+        //updateUiState()
+        currentFrame?.let { frame ->
+            state.postValue(
+                state.value?.copy(
+                    frame = frame,
+                    formattedDate = date?.let { textTransformer.formatDate(it) },
+                )
+            )
+        }
     }
 
     fun toggleLocked() {
@@ -100,7 +110,16 @@ class EditFrameViewModel(
 
     fun updateLocation(location: Location) {
         currentFrame = currentFrame?.copy(location = location)
-        updateUiState()
+        // don't update all or input is lost, only update location
+        //updateUiState()
+        currentFrame?.let { frame ->
+            state.postValue(
+                state.value?.copy(
+                    frame = frame,
+                    formattedLocation = textTransformer.formatLocation(frame.location),
+                )
+            )
+        }
     }
 
     fun prepareShowLocation(location: Location?) {
@@ -113,7 +132,9 @@ class EditFrameViewModel(
     data class State(
         val roll: Roll,
         val frame: Frame,
-        val editState: EditFrameViewState,
+        val formattedDate: String?,
+        val formattedLocation: String?,
+        val editState: EditFrameViewState?,
     )
 
     sealed class Event {

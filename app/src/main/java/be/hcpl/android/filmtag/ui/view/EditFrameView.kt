@@ -36,7 +36,6 @@ data class EditFrameViewState(
     val roll: Roll, // this roll is only used for the initial state values
     val frame: Frame,
     val currentTags: String, // formatted tags
-    val formattedDate: String?, // formatted date
 ) {
     val speedState = TextFieldState(initialText = "${frame.shutter}")
     val apertureState = TextFieldState(initialText = "${frame.aperture}")
@@ -48,7 +47,9 @@ data class EditFrameViewState(
 
 @Composable
 fun EditFrameView(
-    viewState: EditFrameViewState,
+    viewState: EditFrameViewState, // all form inputs
+    formattedDate: String?, // formatted date
+    formattedLocation: String?, // formatted location
     modifier: Modifier = Modifier,
     onSelectDate: () -> Unit,
     onShowLocation: (Location?) -> Unit,
@@ -68,8 +69,8 @@ fun EditFrameView(
                 modifier = Modifier.weight(1f),
             )
             Text(
-                text = if (viewState.formattedDate != null) {
-                    viewState.formattedDate
+                text = if (formattedDate != null) {
+                    formattedDate
                 } else stringResource(R.string.select_date),
                 modifier = Modifier.clickable {
                     onSelectDate()
@@ -123,33 +124,31 @@ fun EditFrameView(
                 modifier = Modifier
                     .size(42.dp)
                     .padding(8.dp)
-                    .clickable{
+                    .clickable {
                         onUpdateLocation()
                     }
             )
-            if (viewState.frame.location == null) {
+            formattedLocation?.let { formattedLocation ->
                 Text(
-                    text = stringResource(R.string.label_location),
-                )
-            } else {
-                Text(
-                    text = "${viewState.frame.location?.latitude}, ${viewState.frame.location?.longitude}",
+                    text = formattedLocation,
                     maxLines = 2,
                     modifier = Modifier
                         .weight(0.6f)
                         .clickable {
-                        onShowLocation(viewState.frame.location)
-                    }
+                            onShowLocation(viewState.frame.location)
+                        }
                 )
-            }
+            }?: Text(
+                text = stringResource(R.string.label_location),
+            )
             Text(
                 text = "(${stringResource(R.string.action_location)})",
                 textDecoration = TextDecoration.Underline,
                 modifier = Modifier
                     .weight(0.3f)
                     .clickable {
-                    onUpdateLocation()
-                }
+                        onUpdateLocation()
+                    }
             )
         }
 

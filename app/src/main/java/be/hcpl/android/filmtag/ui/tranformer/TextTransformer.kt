@@ -1,6 +1,7 @@
 package be.hcpl.android.filmtag.ui.tranformer
 
 import be.hcpl.android.filmtag.model.Frame
+import be.hcpl.android.filmtag.model.Location
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -41,5 +42,7 @@ class TextTransformer {
     }
 
     fun formatDate(date: Long) = dateFormatter.format(date)
+
+    fun formatLocation(location: Location?) = location?.let { "${location.latitude}, ${location.longitude}" }
 
 }
