@@ -65,14 +65,14 @@ class MainActivity : ComponentActivity() {
                         actionId = ActionId.Help,
                     ),
                     Action(
-                        iconRes = R.drawable.ic_action_info,
-                        textRes = R.string.action_about,
-                        actionId = ActionId.Info,
-                    ),
-                    Action(
                         iconRes = R.drawable.ic_action_settings,
                         textRes = R.string.action_settings,
                         actionId = ActionId.Settings,
+                    ),
+                    Action(
+                        iconRes = R.drawable.ic_action_info,
+                        textRes = R.string.action_about,
+                        actionId = ActionId.Info,
                     ),
                 ),
                 handleAction = { actionId -> handleAction(actionId) }
