@@ -7,6 +7,7 @@ import be.hcpl.android.filmtag.ui.activity.EditRollViewModel
 import be.hcpl.android.filmtag.ui.activity.FilmRollViewModel
 import be.hcpl.android.filmtag.ui.activity.EditFrameViewModel
 import be.hcpl.android.filmtag.ui.activity.MainViewModel
+import be.hcpl.android.filmtag.ui.activity.SettingsViewModel
 import be.hcpl.android.filmtag.ui.tranformer.FrameUiModelTransformer
 import be.hcpl.android.filmtag.ui.tranformer.InputTransformer
 import be.hcpl.android.filmtag.ui.tranformer.TextTransformer
@@ -23,6 +24,7 @@ val appModule = module {
     viewModelOf(::AboutViewModel)
     viewModelOf(::EditRollViewModel)
     viewModelOf(::EditFrameViewModel)
+    viewModelOf(::SettingsViewModel)
 
     factoryOf(::FilmRollRepository)
 

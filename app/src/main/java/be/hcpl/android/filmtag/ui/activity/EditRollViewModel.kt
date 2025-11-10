@@ -14,7 +14,7 @@ class EditRollViewModel(
     private val selectedRollId: Long,
     private val sharedPreferencesProvider: SharedPreferencesProvider,
     private val filmRollRepository: FilmRollRepository,
-    private val textTransformer: TextTransformer,
+    textTransformer: TextTransformer,
     private val inputTransformer: InputTransformer,
 ) : ViewModel() {
 

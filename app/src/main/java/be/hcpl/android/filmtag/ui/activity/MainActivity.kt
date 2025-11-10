@@ -49,10 +49,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             AppScaffold(
                 actions = listOf(
-                    // TODO restore settings...
-                    // android:title="@string/action_settings"
-                    // FIXME restore filtering in content here
-                    //android:id="@+id/action_search"
                     Action(
                         iconRes = R.drawable.ic_action_add,
                         textRes = R.string.action_add,
@@ -72,6 +68,11 @@ class MainActivity : ComponentActivity() {
                         iconRes = R.drawable.ic_action_info,
                         textRes = R.string.action_about,
                         actionId = ActionId.Info,
+                    ),
+                    Action(
+                        iconRes = R.drawable.ic_action_settings,
+                        textRes = R.string.action_settings,
+                        actionId = ActionId.Settings,
                     ),
                 ),
                 handleAction = { actionId -> handleAction(actionId) }
@@ -119,6 +120,7 @@ class MainActivity : ComponentActivity() {
             ActionId.Help -> showHelp()
             ActionId.Info -> startActivity(Intent(this, AboutActivity::class.java))
             ActionId.Close -> finish()
+            ActionId.Settings -> startActivity(Intent(this, SettingsActivity::class.java))
             else -> Unit
         }
     }

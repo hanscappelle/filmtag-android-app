@@ -81,4 +81,5 @@ sealed class ActionId {
     object Close : ActionId()
     object Delete : ActionId()
     object Update : ActionId()
+    object Settings : ActionId()
 }
