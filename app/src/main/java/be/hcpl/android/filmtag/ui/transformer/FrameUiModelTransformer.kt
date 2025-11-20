@@ -22,6 +22,7 @@ class FrameUiModelTransformer(
                 frame.isLongExposure
             ),
             frameNotes = previewLimit?.let { "${formattedNotes.substring(0, previewLimit)}..." } ?: formattedNotes,
+            flashExposure = frame.isFlashExposure,
         )
     }
 }

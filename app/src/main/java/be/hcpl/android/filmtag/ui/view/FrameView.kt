@@ -18,6 +18,7 @@ data class FrameUiModel(
     val dateTaken: String,
     val apertureAndShutter: String,
     val frameNotes: String,
+    val flashExposure: Boolean,
 )
 
 @Composable
@@ -47,6 +48,11 @@ fun FrameView(
             Text(
                 text = uiModel.apertureAndShutter,
             )
+            if(uiModel.flashExposure){
+                // flash exposure indication
+                Text(text = "(F)")
+            }
+
         }
         // Second line: notes
         Row() {
