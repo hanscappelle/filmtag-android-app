@@ -48,6 +48,7 @@ Other apps that do similar things.
 ### 2.3
 
 * user request; add boolean for flash used or not
+* add sentence capitalization to notes input field
 
 ### 2.2
 

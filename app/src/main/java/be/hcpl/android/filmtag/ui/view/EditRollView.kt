@@ -19,6 +19,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import be.hcpl.android.filmtag.R
@@ -109,6 +110,9 @@ fun EditRollView(
             lineLimits = TextFieldLineLimits.MultiLine(
                 minHeightInLines = 4,
                 maxHeightInLines = 4,
+            ),
+            keyboardOptions = KeyboardOptions.Default.copy(
+                capitalization = KeyboardCapitalization.Sentences,
             ),
             modifier = Modifier
                 .fillMaxWidth(),
