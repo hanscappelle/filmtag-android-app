@@ -74,10 +74,11 @@ class EditFrameViewModel(
                 shutter = inputTransformer.sanitizeInt(state.value?.editState?.speedState?.text),
                 aperture = inputTransformer.sanitizeFloat(state.value?.editState?.apertureState?.text),
                 notes = state.value?.editState?.notesState?.text.toString(),
-                isLongExposure = state.value?.editState?.checkedState?.value == true,
+                isLongExposure = state.value?.editState?.checkLongExposure?.value == true,
                 dateTaken = currentFrame?.dateTaken,
                 tags = inputTransformer.sanitizeList(state.value?.editState?.tagsState?.text),
                 location = currentFrame?.location,
+                isFlashExposure = state.value?.editState?.checkFlashExposure?.value == true,
             )
             // update an existing item
             filmRollRepository.updateFrame(selectedRollId, frame)

@@ -44,7 +44,8 @@ data class EditFrameViewState(
     val apertureState = TextFieldState(initialText = formattedAperture.orEmpty())
     val tagsState = TextFieldState(initialText = formattedTags.orEmpty())
     val notesState = TextFieldState(initialText = frame.notes.orEmpty())
-    val checkedState = mutableStateOf(frame.isLongExposure)
+    val checkLongExposure = mutableStateOf(frame.isLongExposure)
+    val checkFlashExposure = mutableStateOf(frame.isFlashExposure)
     // TODO add time selection (requested feature)
 }
 
@@ -163,16 +164,35 @@ fun EditFrameView(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Checkbox(
-                checked = viewState.checkedState.value,
+                checked = viewState.checkLongExposure.value,
                 onCheckedChange = {
-                    viewState.checkedState.value = !(viewState.checkedState.value)
+                    viewState.checkLongExposure.value = !(viewState.checkLongExposure.value)
                 },
                 modifier = Modifier,
             )
             Text(
                 text = stringResource(R.string.long_exposure),
                 modifier = Modifier.clickable {
-                    viewState.checkedState.value = !(viewState.checkedState.value)
+                    viewState.checkLongExposure.value = !(viewState.checkLongExposure.value)
+                }
+            )
+        }
+
+        Row(
+            horizontalArrangement = spacedBy(8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Checkbox(
+                checked = viewState.checkFlashExposure.value,
+                onCheckedChange = {
+                    viewState.checkFlashExposure.value = !(viewState.checkFlashExposure.value)
+                },
+                modifier = Modifier,
+            )
+            Text(
+                text = stringResource(R.string.flash_exposure),
+                modifier = Modifier.clickable {
+                    viewState.checkFlashExposure.value = !(viewState.checkFlashExposure.value)
                 }
             )
         }

@@ -73,5 +73,6 @@
     <string name="msg_confirm_share_text_or_config">Do you want to share all film rolls in a readable format or for backup in a technical format?</string>
     <string name="option_export_technical">Technical</string>
     <string name="option_export_readable">Readable</string>
+    <string name="flash_exposure">Flash exposure</string>
 
 </resources>
