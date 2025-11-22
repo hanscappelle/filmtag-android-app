@@ -5,15 +5,16 @@ import be.hcpl.android.filmtag.model.Frame
 import be.hcpl.android.filmtag.model.Location
 import be.hcpl.android.filmtag.model.Roll
 import java.text.DecimalFormat
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Locale
-import kotlin.math.roundToInt
 
 class TextTransformer {
 
     private val frameFormat = DecimalFormat("00")
     private val apertureFormat = DecimalFormat("0.#")
     private val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+    private val timeFormat = DecimalFormat("0000")
 
     companion object {
         const val TAG_SEPARATOR = ","
@@ -82,11 +83,9 @@ class TextTransformer {
 
     fun formatTime(hour: Int, minutes: Int) = "$hour:$minutes"
 
-    fun formatTime(hourAndMinutes: Int): String {
-        // it's really just a ':' in between :-)
-        val hour = (hourAndMinutes.toFloat() / 100).roundToInt()
-        val minutes = hourAndMinutes - hour * 100
-        return formatTime(hour, minutes)
+    fun formatTime(hourAndMinutes: Int): String{
+        val text = timeFormat.format(hourAndMinutes)
+        return "${text.substring(0,2)}:${text.substring(2,4)}"
     }
 
 }
