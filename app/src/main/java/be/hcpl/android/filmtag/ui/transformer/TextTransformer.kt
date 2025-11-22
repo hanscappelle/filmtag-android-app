@@ -50,6 +50,14 @@ class TextTransformer {
 
     fun formatDate(date: Long) = dateFormatter.format(date)
 
+    fun formatDateAndTime(date: Long?, time: Int?) =
+        when {
+            date != null && time != null -> "${formatDate(date)} ${formatTime(time)}"
+            date != null && time == null -> formatDate(date)
+            date == null && time != null -> formatTime(time)
+            else -> "-"
+        }
+
     fun formatLocation(location: Location?) = location?.let { "${location.latitude}, ${location.longitude}" }
 
     fun formatTags(tags: List<String>) = TextUtils.join("${TAG_SEPARATOR}${TAG_SEPARATOR_SECONDARY}", tags)
@@ -75,6 +83,7 @@ class TextTransformer {
     fun formatTime(hour: Int, minutes: Int) = "$hour:$minutes"
 
     fun formatTime(hourAndMinutes: Int): String {
+        // it's really just a ':' in between :-)
         val hour = (hourAndMinutes.toFloat() / 100).roundToInt()
         val minutes = hourAndMinutes - hour * 100
         return formatTime(hour, minutes)

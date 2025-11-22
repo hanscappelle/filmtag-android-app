@@ -15,7 +15,7 @@ class FrameUiModelTransformer(
         return FrameUiModel(
             number = frame.number,
             frameNumber = textTransformer.formatFrameNumber(frame.number),
-            dateTaken = frame.dateTaken?.let { textTransformer.formatDate(it) } ?: "-",
+            dateTaken = textTransformer.formatDateAndTime(frame.dateTaken, frame.timeTaken),
             apertureAndShutter = textTransformer.formatApertureAndShutter(
                 frame.aperture,
                 frame.shutter,
