@@ -57,7 +57,7 @@
     <string name="no_rolls_yet">Nog geen film rolletjes gevonden, maak er een paar aan met \'t plus icoon.</string>
     <string name="label_date_taken">Datum</string>
     <string name="select_date">Selecteer Datum</string>
-    <string name="option_cancel">Annuleren</string>
+    <string name="label_cancel">Annuleren</string>
     <string name="option_roll_delete">Verwijderen</string>
     <string name="option_roll_lock">Slot</string>
     <string name="msg_lock_complete_film_roll">Eens een filmrolletje ontwikkeld is kun je deze hier vergrendelen om verdere aanpassingen te voorkomen.</string>
@@ -74,4 +74,7 @@
     <string name="option_export_technical">Reservekopie</string>
     <string name="option_export_readable">Leesbaar</string>
     <string name="flash_exposure">Flits gebruikt</string>
+    <string name="label_date">Datum: %1$s</string>
+    <string name="label_time">Tijd: %1$s</string>
+    <string name="select_time">Kies tijd</string>
 </resources>

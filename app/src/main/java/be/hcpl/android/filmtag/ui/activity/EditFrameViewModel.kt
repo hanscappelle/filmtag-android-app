@@ -46,6 +46,7 @@ class EditFrameViewModel(
                         frame = frame,
                         editState = editStateFor(roll, frame),
                         formattedDate = frame.dateTaken?.let { textTransformer.formatDate(it) },
+                        formattedTime = frame.timeTaken?.let { textTransformer.formatTime(it) },
                         formattedLocation = textTransformer.formatLocation(frame.location),
                     )
                 )
@@ -76,6 +77,7 @@ class EditFrameViewModel(
                 notes = state.value?.editState?.notesState?.text.toString(),
                 isLongExposure = state.value?.editState?.checkLongExposure?.value == true,
                 dateTaken = currentFrame?.dateTaken,
+                timeTaken = currentFrame?.timeTaken,
                 tags = inputTransformer.sanitizeList(state.value?.editState?.tagsState?.text),
                 location = currentFrame?.location,
                 isFlashExposure = state.value?.editState?.checkFlashExposure?.value == true,
@@ -95,6 +97,18 @@ class EditFrameViewModel(
                 state.value?.copy(
                     frame = frame,
                     formattedDate = date?.let { textTransformer.formatDate(it) },
+                )
+            )
+        }
+    }
+
+    fun updateSelectedTime(hour: Int, minutes: Int){
+        currentFrame = currentFrame?.copy(timeTaken = hour*100+minutes)
+        currentFrame?.let { frame ->
+            state.postValue(
+                state.value?.copy(
+                    frame = frame,
+                    formattedTime = textTransformer.formatTime(hour, minutes),
                 )
             )
         }
@@ -135,6 +149,7 @@ class EditFrameViewModel(
         val roll: Roll,
         val frame: Frame,
         val formattedDate: String?,
+        val formattedTime: String?,
         val formattedLocation: String?,
         val editState: EditFrameViewState?,
     )

@@ -57,7 +57,7 @@
     <string name="no_rolls_yet">You have no rolls yet, use the plus icon to create some entries.</string>
     <string name="label_date_taken">Date</string>
     <string name="select_date">Select Date</string>
-    <string name="option_cancel">Cancel</string>
+    <string name="label_cancel">Cancel</string>
     <string name="option_roll_delete">Delete</string>
     <string name="option_roll_lock">Lock</string>
     <string name="option_roll_unlock">Unlock</string>
@@ -74,5 +74,8 @@
     <string name="option_export_technical">Technical</string>
     <string name="option_export_readable">Readable</string>
     <string name="flash_exposure">Flash exposure</string>
+    <string name="label_date">Date: %1$s</string>
+    <string name="label_time">Time: %1$s</string>
+    <string name="select_time">Select time</string>
 
 </resources>

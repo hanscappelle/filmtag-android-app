@@ -15,6 +15,7 @@ data class Frame(
     var location: Location? = null,
     var tags: List<String> = ArrayList(),
     var dateTaken: Long? = null,
+    var timeTaken: Int? = null,
     var isFlashExposure: Boolean = false,
 ) : Serializable {
 

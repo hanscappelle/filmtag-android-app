@@ -1,4 +1,4 @@
-package be.hcpl.android.filmtag.ui.view
+package be.hcpl.android.filmtag.ui.dialog
 
 import be.hcpl.android.filmtag.R
 import androidx.compose.material3.DatePicker
@@ -28,7 +28,7 @@ fun DatePickerModal(
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text(stringResource(R.string.option_cancel))
+                Text(stringResource(R.string.label_cancel))
             }
         }
     ) {

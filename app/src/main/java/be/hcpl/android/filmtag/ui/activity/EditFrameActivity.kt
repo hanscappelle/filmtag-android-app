@@ -25,11 +25,13 @@ import be.hcpl.android.filmtag.ui.ActionId
 import be.hcpl.android.filmtag.ui.AppScaffold
 import be.hcpl.android.filmtag.ui.activity.EditFrameViewModel.Event
 import be.hcpl.android.filmtag.ui.activity.FilmRollActivity.Companion.KEY_FILM_ROLL_ID
-import be.hcpl.android.filmtag.ui.view.DatePickerModal
+import be.hcpl.android.filmtag.ui.dialog.DatePickerModal
+import be.hcpl.android.filmtag.ui.dialog.TimePickerModal
 import be.hcpl.android.filmtag.ui.view.EditFrameView
 import be.hcpl.android.filmtag.ui.view.RollDetailView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
+import java.time.ZonedDateTime
 
 class EditFrameActivity : ComponentActivity() {
 
@@ -85,6 +87,20 @@ class EditFrameActivity : ComponentActivity() {
                     )
                 }
 
+                // modal time picker
+                val showTimePicker = remember { mutableStateOf(false) }
+                if( showTimePicker.value){
+                    TimePickerModal(
+                        onConfirm = { hour, minute ->
+                            viewModel.updateSelectedTime(hour, minute)
+                            showTimePicker.value = false
+                        },
+                        onDismiss = {
+                            showTimePicker.value = false
+                        },
+                    )
+                }
+
                 // edit form fields populated from state
                 Column(modifier = Modifier.padding(innerPadding)) {
                     RollDetailView(state.roll)
@@ -101,6 +117,10 @@ class EditFrameActivity : ComponentActivity() {
                             },
                             onUpdateLocation = {
                                 confirmUpdateLocation()
+                            },
+                            formattedTime = state.formattedTime,
+                            onSelectTime = {
+                                showTimePicker.value = true
                             }
                         )
                     }

@@ -34,7 +34,7 @@ Other apps that do similar things.
 - use v1 release key
 - create tag on git for each release
 - (no longer needed since moving to github) building with Java 17 for bitbucket pipeline
-- app bundle
+- use app bundle
 
 ## Version History
 
@@ -43,7 +43,10 @@ Other apps that do similar things.
 * (feature) autocomplete for names and tags based on existing
 * (restore) filter with search from toolbar
 * (user request) select from a list of cameras & lenses
-* (user request) add time to date for frame
+
+### 2.4
+
+* (user request) add time to frames input with time picker dialog
 
 ### 2.3
 

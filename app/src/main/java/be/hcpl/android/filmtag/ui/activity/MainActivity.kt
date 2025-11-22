@@ -105,7 +105,7 @@ class MainActivity : ComponentActivity() {
                     .setMessage(R.string.msg_lock_complete_film_roll)
                     .setPositiveButton(optionText) { _, _ ->
                         viewModel.toggleLock(event.rollId)
-                    }.setNegativeButton(R.string.option_cancel) { _, _ -> Unit }.show()
+                    }.setNegativeButton(R.string.label_cancel) { _, _ -> Unit }.show()
             }
 
             is MainViewModel.Event.ShareConfig -> finishShare(event.exportedFormat)

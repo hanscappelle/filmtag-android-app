@@ -7,6 +7,7 @@ import be.hcpl.android.filmtag.model.Roll
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.Locale
+import kotlin.math.roundToInt
 
 class TextTransformer {
 
@@ -70,5 +71,13 @@ class TextTransformer {
             "\nnotes: ${frame.notes?.ifEmpty { "-" } ?: "-"}" +
             "\ndate: ${frame.dateTaken?.let { formatDate(it) } ?: "-"}" +
             "\nlocation: ${formatLocation(frame.location) ?: "-"}"
+
+    fun formatTime(hour: Int, minutes: Int) = "$hour:$minutes"
+
+    fun formatTime(hourAndMinutes: Int): String {
+        val hour = (hourAndMinutes.toFloat() / 100).roundToInt()
+        val minutes = hourAndMinutes - hour * 100
+        return formatTime(hour, minutes)
+    }
 
 }

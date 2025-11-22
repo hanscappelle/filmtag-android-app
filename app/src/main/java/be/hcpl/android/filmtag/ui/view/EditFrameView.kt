@@ -6,8 +6,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.input.TextFieldLineLimits
@@ -21,11 +24,13 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import be.hcpl.android.filmtag.R
@@ -54,9 +59,11 @@ data class EditFrameViewState(
 fun EditFrameView(
     viewState: EditFrameViewState, // all form inputs
     formattedDate: String?, // formatted date
+    formattedTime: String?,
     formattedLocation: String?, // formatted location
     modifier: Modifier = Modifier,
     onSelectDate: () -> Unit,
+    onSelectTime: () -> Unit,
     onShowLocation: (Location?) -> Unit,
     onUpdateLocation: () -> Unit,
 ) {
@@ -73,14 +80,29 @@ fun EditFrameView(
                 style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier.weight(1f),
             )
-            Text(
-                text = if (formattedDate != null) {
-                    formattedDate
-                } else stringResource(R.string.select_date),
-                modifier = Modifier.clickable {
-                    onSelectDate()
-                }
-            )
+            Column {
+                // date selection
+                Text(
+                    text = if (formattedDate != null) {
+                        stringResource(R.string.label_date, formattedDate)
+                    } else stringResource(R.string.select_date),
+                    modifier = Modifier
+                        .heightIn(min = 40.dp)
+                        .wrapContentHeight(align = Alignment.CenterVertically)
+                        .clickable { onSelectDate() }
+                )
+                // time selection
+                Text(
+                    text = if (formattedTime != null) {
+                        stringResource(R.string.label_time, formattedTime)
+                    } else stringResource(R.string.select_time),
+                    modifier = Modifier
+                        .heightIn(min = 40.dp)
+                        .wrapContentHeight(align = Alignment.CenterVertically)
+                        .clickable { onSelectTime() }
+                )
+            }
+
         }
 
         Row(
