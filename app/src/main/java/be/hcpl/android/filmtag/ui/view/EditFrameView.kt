@@ -74,7 +74,9 @@ fun EditFrameView(
             .padding(16.dp),
     ) {
 
-        Row() {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
             Text(
                 text = "${stringResource(R.string.label_frame_number)} ${viewState.frame.number}",
                 style = MaterialTheme.typography.titleLarge,
